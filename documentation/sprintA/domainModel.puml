@@ -1,0 +1,8 @@
+@startuml
+
+hide methods
+skinparam TitleFontName Arial Black
+skinparam FrameBackgroundColor LigthGrey
+
+
+@enduml
