@@ -24,7 +24,7 @@ export class BuildingMap extends Mapper<Building> {
             new UniqueEntityID(building.domainId)
         );
 
-        buildingOrError.isFailure ? console.log(buildingOrError.getValue()): '';
+        buildingOrError.isFailure ? console.log(buildingOrError.error): '';
         return buildingOrError.isSuccess ? buildingOrError.getValue(): null;
     }
 

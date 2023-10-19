@@ -12,7 +12,6 @@ const BuildingSchema = new mongoose.Schema(
             type: String, 
             unique: true,
             required: [true, 'Please enter Building Code'],
-
         },
 
         description: { 
