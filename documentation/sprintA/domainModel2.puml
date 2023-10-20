@@ -62,7 +62,7 @@ class RoomId << (v,orange) ValueObject >> << unique >>
 Robot <|-u- MobileRobot
 Robot <|-u- Drone
 Robot "1"-l->"1" Code
-Robot ""-d->"" AvailableTask
+Robot "*"-d->"1" AvailableTask
 Robot "*"-d->"1" OperationStatus
 Robot "*"-d->"1" Nickname
 Robot "*"-d->"1" SerialNumber
@@ -72,8 +72,8 @@ Task "*"-->"1" TaskType
 Task "*"-->"1" TaskDescription
 Task -> Building
 
-Route ""-->"1.." Path
-Path ""-r-->"1.." Robot : "Made by"
+Route "*"-->"1.." Path
+Path "1"-r-->"1.." Robot : "Made by"
 Path "*"->"1" Point
 Path "*"->"1" Point
 
