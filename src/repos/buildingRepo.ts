@@ -42,7 +42,7 @@ export default class BuildingRepo implements IBuildingRepo {
 
                 return BuildingMap.toDomain(buildingCreated);
             }else{
-                buildingDocument.name = building.name;
+                buildingDocument.description = building.description.value;
                 await buildingDocument.save();
 
                 return building;
@@ -56,7 +56,8 @@ export default class BuildingRepo implements IBuildingRepo {
     public async findByDomainId (buildingId: BuildingId | string): Promise<Building> {
         const query = { domainId: buildingId};
         const buildingRecord = await this.buildingSchema.findOne( query as FilterQuery<IBuildingPersistence & Document> );
-    
+
+        console.log(BuildingMap.toDomain(buildingRecord));
         if( buildingRecord != null) {
           return BuildingMap.toDomain(buildingRecord);
         }
@@ -65,9 +66,9 @@ export default class BuildingRepo implements IBuildingRepo {
     }
 
     public async findByCode (code: BuildingCode | string): Promise<Building> {
-        const query = { code: code.toString() };
-        const buildingRecord = await this.buildingSchema.findOne( query );
-    
+        const query = { code: code };
+        const buildingRecord = await this.buildingSchema.findOne( query as FilterQuery<IBuildingPersistence & Document> );
+
         if( buildingRecord != null) {
           return BuildingMap.toDomain(buildingRecord);
         }

@@ -35,12 +35,7 @@ export default class BuildingService implements IBuildingService {
             return Result.fail<IBuildingDTO>('Building already exists with code:' + buildingDTO.code);
           }
 
-          const buildingOrError = await Building.create({
-            code: buildingCodeOrError.getValue(),
-            description: descriptionOrError.getValue(),
-            name: buildingDTO.name,
-          });
-
+          const buildingOrError = await Building.create(buildingDTO);
 
           if (buildingOrError.isFailure) {
             return Result.fail<IBuildingDTO>(buildingOrError.errorValue());
@@ -55,5 +50,31 @@ export default class BuildingService implements IBuildingService {
           } catch (e) {
             throw e;
         }
+    }
+
+    public async updateBuildingDescription(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
+      try {
+
+        const building = await this.buildingRepo.findByDomainId(buildingDTO.id);
+        
+        const descriptionOrError = Description.create(buildingDTO.description);
+          
+        if (building === null) {
+          return Result.fail<IBuildingDTO>('Building not found with code:' + buildingDTO.code);
+        }else{
+          if (descriptionOrError.isFailure) {
+            return Result.fail<IBuildingDTO>('Error updating building -> Invalid Description!');
+          }else{
+            building.description = descriptionOrError.getValue();
+           
+            await this.buildingRepo.save(building);
+            const buildingDTOResult = BuildingMap.toDTO( building ) as IBuildingDTO;
+            return Result.ok<IBuildingDTO>( buildingDTOResult );
+          }
+        }
+
+      } catch (e) {
+        throw e;
+      }
     }
 }

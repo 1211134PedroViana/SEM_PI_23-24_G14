@@ -4,4 +4,5 @@ import IBuildingDTO from "../../dto/IBuildingDTO";
 export default interface IBuildingService {
 
     createBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>>;
+    updateBuildingDescription(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>>;
 }

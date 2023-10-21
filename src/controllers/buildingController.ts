@@ -28,4 +28,20 @@ export default class BuildingController implements IBuildingController {
             return next(e);
         }
     }
+
+    public async updateBuildingDescription(req: Request, res: Response, next: NextFunction) {
+        try {
+            const buildingOrError = await this.buildingServiceInstance.updateBuildingDescription(req.body as IBuildingDTO) as Result<IBuildingDTO>;
+
+            if(buildingOrError.isFailure) {
+                return res.status(402).send(buildingOrError.errorValue());
+            }
+
+            const buildingDTO = buildingOrError.getValue();
+            return res.json( buildingDTO ).status(201);
+
+        } catch (e) {
+            return next(e);
+        }
+    }
 }
