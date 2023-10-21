@@ -1,6 +1,5 @@
 import { ValueObject } from "../core/domain/ValueObject";
 import { Result } from "../core/logic/Result";
-import { Guard } from "../core/logic/Guard";
 
 interface DescriptionProps {
     value: string;
@@ -25,7 +24,7 @@ export class Description extends ValueObject<DescriptionProps> {
       if(description === undefined) {
         return Result.ok<Description>(new Description({ value: description }));
       }
-      
+
       if(!this.isValidDescription(description)) {
         return Result.fail<Description>('Description exceeds the maximum characters(255)');
       } else{

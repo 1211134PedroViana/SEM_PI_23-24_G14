@@ -28,6 +28,31 @@ export class BuildingMap extends Mapper<Building> {
         return buildingOrError.isSuccess ? buildingOrError.getValue(): null;
     }
 
+    public static toDomainBulk(buildingList: any[]): Building[] {
+        var buildingListDomain = [];        
+        var index = 0;
+        
+        for (let i = 0; i < buildingList.length; i++) {
+            const buildingOrError = Building.create({
+                id: buildingList[i].id.toString(),
+                code: buildingList[i].code,
+                description: buildingList[i].description,
+                name: buildingList[i].name
+            }, new UniqueEntityID(buildingList[i].domainId))
+
+            if (buildingOrError.isSuccess){
+                buildingListDomain[index] = buildingOrError.getValue();
+                index++;
+            }
+            
+        }
+
+        if (buildingListDomain == undefined)
+            return null;
+        else
+            return buildingListDomain;
+    }
+
     public static toPersistence(building: Building): any {
         return {
             domainId: building.id.toString(),

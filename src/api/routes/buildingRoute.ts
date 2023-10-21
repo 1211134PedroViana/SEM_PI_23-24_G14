@@ -14,7 +14,7 @@ export default( app: Router) => {
     console.log(config.controllers.building.name);
     const ctrl = Container.get(config.controllers.building.name) as IBuildingController;
 
-    route.post('',
+    route.post('/create',
       celebrate({
         body: Joi.object({
             code: Joi.string().required(),
@@ -33,5 +33,8 @@ export default( app: Router) => {
         })
       }),
       (req, res, next) => ctrl.updateBuilding(req, res, next) );
+
+      route.get('/list',
+      (req, res, next) => ctrl.listBuildings(req, res, next) );
       
 }
