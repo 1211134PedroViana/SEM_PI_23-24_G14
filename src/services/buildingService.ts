@@ -17,6 +17,7 @@ export default class BuildingService implements IBuildingService {
 
     public async createBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
         try {          
+         
           const buildingCodeOrError = BuildingCode.create(buildingDTO.code);
           const descriptionOrError = Description.create(buildingDTO.description);
           
@@ -24,7 +25,8 @@ export default class BuildingService implements IBuildingService {
             return Result.fail<IBuildingDTO>('Invalid Building Code!');
           }
 
-          if (descriptionOrError.isFailure) {
+          if (descriptionOrError.isFailure && buildingDTO.description != undefined) {
+            console.log('nice');
             return Result.fail<IBuildingDTO>('Invalid Description!');
           }
 
@@ -52,7 +54,7 @@ export default class BuildingService implements IBuildingService {
         }
     }
 
-    public async updateBuildingDescription(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
+    public async updateBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
       try {
 
         const building = await this.buildingRepo.findByDomainId(buildingDTO.id);
@@ -66,7 +68,8 @@ export default class BuildingService implements IBuildingService {
             return Result.fail<IBuildingDTO>('Error updating building -> Invalid Description!');
           }else{
             building.description = descriptionOrError.getValue();
-           
+            building.name = buildingDTO.name;
+
             await this.buildingRepo.save(building);
             const buildingDTOResult = BuildingMap.toDTO( building ) as IBuildingDTO;
             return Result.ok<IBuildingDTO>( buildingDTOResult );

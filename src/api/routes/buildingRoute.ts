@@ -24,13 +24,14 @@ export default( app: Router) => {
       }),
       (req, res, next) => ctrl.createBuilding(req, res, next) );
 
-    route.put('/editDescription',
+    route.put('/update',
       celebrate({
         body: Joi.object({
             id: Joi.string().required(),
-            description: Joi.string()
+            description: Joi.string(),
+            name: Joi.string()
         })
       }),
-      (req, res, next) => ctrl.updateBuildingDescription(req, res, next) );
+      (req, res, next) => ctrl.updateBuilding(req, res, next) );
       
 }

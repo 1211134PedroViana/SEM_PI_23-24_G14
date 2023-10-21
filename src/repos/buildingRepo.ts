@@ -43,6 +43,7 @@ export default class BuildingRepo implements IBuildingRepo {
                 return BuildingMap.toDomain(buildingCreated);
             }else{
                 buildingDocument.description = building.description.value;
+                buildingDocument.name = building.name;
                 await buildingDocument.save();
 
                 return building;
@@ -57,7 +58,6 @@ export default class BuildingRepo implements IBuildingRepo {
         const query = { domainId: buildingId};
         const buildingRecord = await this.buildingSchema.findOne( query as FilterQuery<IBuildingPersistence & Document> );
 
-        console.log(BuildingMap.toDomain(buildingRecord));
         if( buildingRecord != null) {
           return BuildingMap.toDomain(buildingRecord);
         }

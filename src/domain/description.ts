@@ -21,10 +21,12 @@ export class Description extends ValueObject<DescriptionProps> {
     }
   
     public static create (description: string): Result<Description> {
-      const guardResult = Guard.againstNullOrUndefined(description, 'description');
-      if (!guardResult.succeeded) {
-        return Result.fail<Description>('Description cant be null');
-      } else if(!this.isValidDescription(description)) {
+      
+      if(description === undefined) {
+        return Result.ok<Description>(new Description({ value: description }));
+      }
+      
+      if(!this.isValidDescription(description)) {
         return Result.fail<Description>('Description exceeds the maximum characters(255)');
       } else{
         return Result.ok<Description>(new Description({ value: description }));
