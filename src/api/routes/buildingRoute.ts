@@ -11,9 +11,9 @@ const route = Router();
 export default( app: Router) => {
     app.use('/buildings', route);
 
-    console.log(config.controllers.building.name);
     const ctrl = Container.get(config.controllers.building.name) as IBuildingController;
 
+    //API POST request - create a new Building
     route.post('/create',
       celebrate({
         body: Joi.object({
@@ -24,6 +24,7 @@ export default( app: Router) => {
       }),
       (req, res, next) => ctrl.createBuilding(req, res, next) );
 
+    //API PUT request - update data of a Building
     route.put('/update',
       celebrate({
         body: Joi.object({
@@ -34,7 +35,8 @@ export default( app: Router) => {
       }),
       (req, res, next) => ctrl.updateBuilding(req, res, next) );
 
-      route.get('/list',
+    //API GET request - llist all Buildings
+    route.get('/list',
       (req, res, next) => ctrl.listBuildings(req, res, next) );
       
 }

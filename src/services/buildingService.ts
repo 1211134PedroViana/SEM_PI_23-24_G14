@@ -21,15 +21,16 @@ export default class BuildingService implements IBuildingService {
           const buildingCodeOrError = BuildingCode.create(buildingDTO.code);
           const descriptionOrError = Description.create(buildingDTO.description);
           
+          // verifies the code and description creation
           if (buildingCodeOrError.isFailure) {
             return Result.fail<IBuildingDTO>('Invalid Building Code!');
           }
 
           if (descriptionOrError.isFailure && buildingDTO.description != undefined) {
-            console.log('nice');
             return Result.fail<IBuildingDTO>('Invalid Description!');
           }
 
+          // checks if theres already a Building with the code provided
           const buildingDocument = await this.buildingRepo.findByCode(buildingDTO.code);
           const found = !!buildingDocument;
   
@@ -45,6 +46,7 @@ export default class BuildingService implements IBuildingService {
       
           const buildingResult = buildingOrError.getValue();
       
+          // saves the new created building and returns the building DTO 
           await this.buildingRepo.save(buildingResult);
       
           const buildingDTOResult = BuildingMap.toDTO( buildingResult ) as IBuildingDTO;
