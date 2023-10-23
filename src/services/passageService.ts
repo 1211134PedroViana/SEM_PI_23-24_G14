@@ -28,11 +28,11 @@ export default class PassageService implements IPassageService {
           });
           
           if (fromFloor === null) {
-            return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.fromFloor + '" not found');
+            return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.fromFloorId + '" not found');
           }
 
           if (toFloor === null) {
-            return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.toFloor + '" not found');
+            return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.toFloorId + '" not found');
           }
 
           if (locationOrError.isFailure) {
