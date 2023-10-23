@@ -5,4 +5,5 @@ import { FloorId } from "../../domain/floorId";
 export default interface IFloorRepo extends Repo<Floor> {
     save(floor: Floor): Promise<Floor>;
     findByDomainId(floorId: FloorId | string): Promise<Floor>;
+    findByObjectId (floorId: FloorId | string): Promise<Floor>;
 }
