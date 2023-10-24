@@ -46,14 +46,10 @@ export class Building extends AggregateRoot<BuildingProps> {
         super(props, id);
     }
 
-    public static create(buildingDTO: IBuildingDTO, id?: UniqueEntityID): Result<Building> {
-
-        const code = BuildingCode.create(buildingDTO.code).getValue();
-        const description = Description.create(buildingDTO.description).getValue();
-        const name = buildingDTO.name;
+    public static create(props: BuildingProps, id?: UniqueEntityID): Result<Building> {
 
       const guardedProps = [
-        { argument: buildingDTO.code, argumentName: 'code' },
+        { argument: props.code, argumentName: 'code' },
       ];
 
       const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);
@@ -61,7 +57,7 @@ export class Building extends AggregateRoot<BuildingProps> {
       if (!guardResult.succeeded) {
         return Result.fail<Building>('Must provide a building code');
       } else {
-        const building = new Building({ code: code, name: name, description: description }, id);
+        const building = new Building({ ...props }, id);
         return Result.ok<Building>( building );
       }
     }
