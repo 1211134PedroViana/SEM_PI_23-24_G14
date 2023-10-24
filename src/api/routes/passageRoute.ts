@@ -28,4 +28,9 @@ export default( app: Router) => {
       }),
       (req, res, next) => ctrl.createPassage(req, res, next) );
 
+      //API GET request - list all Passages
+    route.get('/list',
+    (req, res, next) => ctrl.listPassages(req, res, next) );
+    
+
 }

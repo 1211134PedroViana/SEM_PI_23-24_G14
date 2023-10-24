@@ -10,6 +10,7 @@ import { PassageId } from "./passageId";
 import { Floor } from "./floor";
 
 interface PassageProps {
+    
     fromFloor: Floor;
     toFloor: Floor;
     location: Location;

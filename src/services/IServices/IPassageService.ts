@@ -4,4 +4,6 @@ import IPassageDTO from "../../dto/IPassageDTO";
 export default interface IPassageService {
 
     createPassage(passageDTO: IPassageDTO): Promise<Result<IPassageDTO>>;
+    getAllPassages(): Promise<Result<IPassageDTO[]>>;
+
 }

@@ -31,6 +31,31 @@ export class PassageMap extends Mapper<Passage> {
         return passageOrError.isSuccess ? passageOrError.getValue(): null;
     }
 
+    public static toDomainBulk(passageList: any[]): Passage[] {
+        var passageListDomain = [];        
+        var index = 0;
+        
+        for (let i = 0; i < passageList.length; i++) {
+            const passageOrError = Passage.create({
+                fromFloor: passageList[i].fromFloor,
+                toFloor: passageList[i].toFloor,
+                location: passageList[i].location,
+            }, new UniqueEntityID(passageList[i].domainId))
+
+            if (passageOrError.isSuccess){
+                passageListDomain[index] = passageOrError.getValue();
+                index++;
+            }
+            
+        }
+
+        if (passageListDomain == undefined)
+            return null;
+        else
+            return passageListDomain;
+    }
+
+
     public static toPersistence(passage: Passage): any {
         return {
             domainId: passage.id.toString(),
