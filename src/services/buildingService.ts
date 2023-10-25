@@ -29,8 +29,14 @@ export default class BuildingService implements IBuildingService {
           if (descriptionOrError.isFailure && buildingDTO.description != undefined) {
             return Result.fail<IBuildingDTO>('Invalid Description!');
           }
-          
-        
+
+          // checks if theres already a Building with the code provided
+          const buildingDocument = await this.buildingRepo.findByCode(buildingDTO.code);
+          const found = !!buildingDocument;
+  
+          if (found) {
+            return Result.fail<IBuildingDTO>('Building already exists with code:' + buildingDTO.code);
+          }
 
           const buildingOrError = await Building.create({
             code: buildingCodeOrError.getValue(),

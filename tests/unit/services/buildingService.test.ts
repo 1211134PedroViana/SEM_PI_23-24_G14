@@ -31,24 +31,11 @@ describe("Building service", () => {
         })
 
         it("Should create Building with success", async () => {
-
-            const code = BuildingCode.create("GGHF5");
-            const description = Description.create("Departamento de Testes 1.0");
-
-            const building = Building.create({
-                code: code.getValue(),
-                description: description.getValue(),
-                name: "some building"
-            }, new UniqueEntityID());
-
             const buildingDTO = {
                 code: "BBGER",
                 description: "Departamento de Testes",
                 name: "test"
             } as IBuildingDTO;
-
-            stub2.resolves(building.getValue());
-            stub1.resolves(building.getValue());
 
             try {
                 const done = await service.createBuilding(buildingDTO);

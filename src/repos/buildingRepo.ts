@@ -76,8 +76,7 @@ export default class BuildingRepo implements IBuildingRepo {
           return null;
     }
 
-    public async findByCode (code: string): Promise<Building> {
-        console.log('THIS:NUTS');
+    public async findByCode (code: BuildingCode | string): Promise<Building> {
         const query = { code: code };
         
         const buildingRecord = await this.buildingSchema.findOne( query as FilterQuery<IBuildingPersistence & Document> );
