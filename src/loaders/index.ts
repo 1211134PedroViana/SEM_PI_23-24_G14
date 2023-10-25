@@ -36,6 +36,11 @@ export default async ({ expressApp }) => {
     schema: '../persistence/schemas/passageSchema',
   }
 
+  const elevatorSchema = {
+    name: 'elevatorSchema',
+    schema: '../persistence/schemas/elevatorSchema',
+  }
+
   const roleController = {
     name: config.controllers.role.name,
     path: config.controllers.role.path
@@ -54,6 +59,11 @@ export default async ({ expressApp }) => {
   const passageController = {
     name: config.controllers.passage.name,
     path: config.controllers.passage.path
+  }
+
+  const elevatorController = {
+    name: config.controllers.elevator.name,
+    path: config.controllers.elevator.path
   }
 
   const roleRepo = {
@@ -81,6 +91,11 @@ export default async ({ expressApp }) => {
     path: config.repos.passage.path
   }
 
+  const elevatorRepo = {
+    name: config.repos.elevator.name,
+    path: config.repos.elevator.path
+  }
+
   const roleService = {
     name: config.services.role.name,
     path: config.services.role.path
@@ -101,6 +116,11 @@ export default async ({ expressApp }) => {
     path: config.services.passage.path
   }
 
+  const elevatorService = {
+    name: config.services.elevator.name,
+    path: config.services.elevator.path
+  }
+
   await dependencyInjectorLoader({
     mongoConnection,
     schemas: [
@@ -108,26 +128,30 @@ export default async ({ expressApp }) => {
       roleSchema,
       buildingSchema,
       floorSchema,
-      passageSchema
+      passageSchema,
+      elevatorSchema
     ],
     controllers: [
       roleController,
       buildingController,
       floorController,
-      passageController
+      passageController,
+      elevatorController
     ],
     repos: [
       roleRepo,
       userRepo,
       buildingRepo,
       floorRepo,
-      passageRepo
+      passageRepo,
+      elevatorRepo
     ],
     services: [
       roleService,
       buildingService,
       floorService,
-      passageService
+      passageService,
+      elevatorService
     ]
   });
   Logger.info('✌️ Schemas, Controllers, Repositories, Services, etc. loaded');
