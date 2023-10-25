@@ -33,7 +33,7 @@ export class FloorMap extends Mapper<Floor> {
             building: floor.building.id.toString(),
             floorNumber: floor.floorNumber,
             description: floor.description.value,
-            map: floor.cell.floorNumber,
+            //map: floor.cell.floorNumber,
 
         }
     }
