@@ -3,4 +3,13 @@ export default interface IFloorDTO {
     buildingId: string;
     floorNumber: number;
     description: string;
+    
+    //Mapa de cada piso
+    map: {
+        line: number;
+        column: number;
+        cells: Cell[][];
+    }
+
 }
+

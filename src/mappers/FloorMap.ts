@@ -4,6 +4,7 @@ import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { Floor } from "../domain/floor";
 import IFloorDTO from "../dto/IFloorDTO";
 import { IFloorPersistence } from "../dataschema/IFloorPersistence";
+import ICellDTO from "../dto/ICellDTO";
 
 export class FloorMap extends Mapper<Floor> {
 
@@ -13,6 +14,7 @@ export class FloorMap extends Mapper<Floor> {
             buildingId: floor.building.id.toString(),
             floorNumber: floor.floorNumber,
             description: floor.description.value,
+            map: floor.map,
         } as IFloorDTO;
     }
 
