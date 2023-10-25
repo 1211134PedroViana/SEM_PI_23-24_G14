@@ -6,6 +6,7 @@ import { Guard } from "../core/logic/Guard";
 import { Description } from "./description";
 import { Building } from "./building";
 import { CellId } from "./cellId";
+import { Cell } from "./cell";
 
 interface FloorProps {
     building: Building;

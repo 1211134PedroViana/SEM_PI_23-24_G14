@@ -1,4 +1,4 @@
-interface Cell {
+export default interface Cell {
     id: string;
     buildingId: string;
     floorNumber: number;

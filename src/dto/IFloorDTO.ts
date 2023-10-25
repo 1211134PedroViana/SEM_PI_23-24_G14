@@ -1,3 +1,5 @@
+import Cell from "./ICellDTO";
+
 export default interface IFloorDTO {
     id: string;
     buildingId: string;

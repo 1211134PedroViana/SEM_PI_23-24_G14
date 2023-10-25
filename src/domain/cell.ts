@@ -21,5 +21,9 @@ export class Cell {
     get floorId (): FloorId {
         return this.floorId;
     }
-     
+
+    public static create () {
+        
+
+    }
 }
