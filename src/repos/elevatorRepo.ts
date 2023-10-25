@@ -5,6 +5,11 @@ import { IElevatorPersistence } from '../dataschema/IElevatorPersistence';
 import { Elevator } from '../domain/elevator';
 import { ElevatorMap } from '../mappers/ElevatorMap';
 import { Code } from 'mongodb';
+import {BuildingId} from "../domain/buildingId";
+import {Building} from "../domain/building";
+import {IBuildingPersistence} from "../dataschema/IBuildingPersistence";
+import {BuildingMap} from "../mappers/BuildingMap";
+import {ElevatorCode} from "../domain/elevatorCode";
 
 
 @Service()
@@ -53,6 +58,17 @@ export default class ElevatorRepo implements IElevatorRepo {
         } catch (err) {
             throw err;
         }
+    }
+
+    public async findByDomainId (elevatorId: ElevatorCode | string): Promise<Elevator> {
+        const query = { domainId: elevatorId};
+        const elevatorRecord = await this.elevatorSchema.findOne( query as FilterQuery<IBuildingPersistence & Document> );
+
+        if( elevatorRecord != null) {
+            return ElevatorMap.toDomain(elevatorRecord);
+        }
+        else
+            return null;
     }
     
     public async findAll(): Promise<Elevator[]> {
