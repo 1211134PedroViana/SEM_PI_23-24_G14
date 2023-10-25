@@ -20,7 +20,7 @@ export class FloorMap extends Mapper<Floor> {
 
         const floorOrError = Floor.create(
             floor,
-            new UniqueEntityID(floor.domainId)
+            new UniqueEntityID(floor._id)
         );
 
         floorOrError.isFailure ? console.log(floorOrError.getValue()): '';
@@ -32,7 +32,9 @@ export class FloorMap extends Mapper<Floor> {
             domainId: floor.id.toString(),
             building: floor.building.id.toString(),
             floorNumber: floor.floorNumber,
-            description: floor.description.value
+            description: floor.description.value,
+            map: floor.cell.floorNumber,
+
         }
     }
 }

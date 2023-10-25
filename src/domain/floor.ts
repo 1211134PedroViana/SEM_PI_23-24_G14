@@ -5,11 +5,14 @@ import { FloorId } from "./floorId";
 import { Guard } from "../core/logic/Guard";
 import { Description } from "./description";
 import { Building } from "./building";
+import { CellId } from "./cellId";
+import { Cell } from "./cell";
 
 interface FloorProps {
     building: Building;
     floorNumber: number;
     description: Description;
+    cell: Cell;
 }
 
 export class Floor extends AggregateRoot<FloorProps> {
@@ -40,6 +43,14 @@ export class Floor extends AggregateRoot<FloorProps> {
 
     set description ( value: Description ) {
         this.props.description = value;
+    }
+
+    get cell(): Cell {
+        return this.props.cell;
+    }
+
+    set cell ( value: Cell ) {
+        this.props.cell = value;
     }
 
     private constructor (props: FloorProps, id?: UniqueEntityID) {

@@ -34,7 +34,6 @@ export class BuildingMap extends Mapper<Building> {
         
         for (let i = 0; i < buildingList.length; i++) {
             const buildingOrError = Building.create({
-                id: buildingList[i].id.toString(),
                 code: buildingList[i].code,
                 description: buildingList[i].description,
                 name: buildingList[i].name
