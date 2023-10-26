@@ -6,13 +6,17 @@ import { Result } from "../core/logic/Result";
 import IElevatorController from './IControllers/IElevatorController';
 import IElevatorService from '../services/IServices/IElevatorService';
 import IElevatorDTO from '../dto/IElevatorDTO';
+import { ParamsDictionary } from 'express-serve-static-core';
+import { ParsedQs } from 'qs';
+import IBuildingDTO from "../dto/IBuildingDTO";
 
 
 @Service()
 export default class ElevatorController implements IElevatorController {
     constructor(
-        @Inject(config.services.elevator.name) private elevatorServiceInstance : IElevatorService
-    ) {}
+        @Inject(config.services.elevator.name) private elevatorServiceInstance: IElevatorService
+    ) {
+    }
 
     public async createElevator(req: Request, res: Response, next: NextFunction) {
         try {
@@ -24,6 +28,22 @@ export default class ElevatorController implements IElevatorController {
 
             const elevatorDTO = elevatorOrError.getValue();
             
+            return res.json( elevatorDTO ).status(201);
+
+        } catch (e) {
+            return next(e);
+        }
+    }
+
+    public async updateElevator(req: Request, res: Response, next: NextFunction) {
+        try {
+            const elevatorOrError = await this.elevatorServiceInstance.updateElevator(req.body as IElevatorDTO) as Result<IElevatorDTO>;
+
+            if(elevatorOrError.isFailure) {
+                return res.status(402).send(elevatorOrError.errorValue());
+            }
+
+            const elevatorDTO = elevatorOrError.getValue();
             return res.json( elevatorDTO ).status(201);
 
         } catch (e) {

@@ -4,10 +4,11 @@ import { Elevator } from "../../domain/elevator";
 import {BuildingId} from "../../domain/buildingId";
 import {Building} from "../../domain/building";
 import {ElevatorCode} from "../../domain/elevatorCode";
+import {Room} from "../../domain/room";
 
-export default interface IElevatorRepo extends Repo<Elevator> {
-    save(elevator: Elevator): Promise<Elevator>;
-    findByDomainId(elevatorId: ElevatorCode | string): Promise<Elevator>;
-    findAll(): Promise<Elevator[]>;
+export default interface IRoomRepo extends Repo<Room> {
+    save(room: Room): Promise<Room>;
+    findByDomainId(roomId: Code | string): Promise<Room>;
+    findAll(): Promise<Room[]>;
 
 }

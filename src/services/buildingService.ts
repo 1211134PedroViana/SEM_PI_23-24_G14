@@ -47,7 +47,7 @@ export default class BuildingService implements IBuildingService {
           if (buildingOrError.isFailure) {
             return Result.fail<IBuildingDTO>(buildingOrError.errorValue());
           }
-      
+
           const buildingResult = buildingOrError.getValue();
       
           // saves the new created building and returns the building DTO 
@@ -68,7 +68,7 @@ export default class BuildingService implements IBuildingService {
         const descriptionOrError = Description.create(buildingDTO.description);
           
         if (building === null) {
-          return Result.fail<IBuildingDTO>('Building not found with code:' + buildingDTO.code);
+          return Result.fail<IBuildingDTO>('Building not found with id:' + buildingDTO.id);
         }else{
           if (descriptionOrError.isFailure) {
             return Result.fail<IBuildingDTO>('Error updating building -> Invalid Description!');
