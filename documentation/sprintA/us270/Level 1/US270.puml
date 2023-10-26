@@ -1,0 +1,7 @@
+@startuml
+Actor User
+activate User
+
+User -> UI : Asks to create a
+
+@enduml
