@@ -31,7 +31,7 @@ export default class FloorService implements IFloorService {
           }
 
           const floorOrError = await Floor.create({
-            building: building,
+            buildingId: building.id.toString(),
             floorNumber: floorDTO.floorNumber,
             description: descriptionOrError.getValue()
           });

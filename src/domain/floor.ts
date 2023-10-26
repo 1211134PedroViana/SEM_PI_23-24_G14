@@ -4,15 +4,14 @@ import { Result } from "../core/logic/Result";
 import { FloorId } from "./floorId";
 import { Guard } from "../core/logic/Guard";
 import { Description } from "./description";
-import { Building } from "./building";
 import { CellId } from "./cellId";
 import { Cell } from "./cell";
 
 interface FloorProps {
-    building: Building;
+    buildingId: string;
     floorNumber: number;
     description: Description;
-    cell: Cell;
+    //cell: Cell;
 }
 
 export class Floor extends AggregateRoot<FloorProps> {
@@ -25,8 +24,8 @@ export class Floor extends AggregateRoot<FloorProps> {
         return new FloorId(this.floorId.toValue());
     }
 
-    get building (): Building {
-        return this.props.building;
+    get buildingId (): string {
+        return this.props.buildingId;
     }
 
     get floorNumber (): number {
@@ -44,7 +43,7 @@ export class Floor extends AggregateRoot<FloorProps> {
     set description ( value: Description ) {
         this.props.description = value;
     }
-
+/*
     get cell(): Cell {
         return this.props.cell;
     }
@@ -52,14 +51,16 @@ export class Floor extends AggregateRoot<FloorProps> {
     set cell ( value: Cell ) {
         this.props.cell = value;
     }
+    */
 
     private constructor (props: FloorProps, id?: UniqueEntityID) {
         super(props, id);
     }
 
     public static create(props: FloorProps, id?: UniqueEntityID): Result<Floor> {
+
         const guardedProps = [
-            { argument: props.building, argumentName: 'building' },
+            { argument: props.buildingId, argumentName: 'buildingId' },
             { argument: props.floorNumber, argumentName: 'floorNumber' }
         ];
 
