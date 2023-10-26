@@ -29,7 +29,7 @@ export default class ElevatorRepo implements IElevatorRepo {
     public async exists(elevator: Elevator): Promise<boolean> {
         const idX = elevator.code instanceof String ? (<String>elevator.code) : elevator.code;
 
-        const query = { PassageId: idX}; 
+        const query = { ElevatorId: idX};
         const elevatorDocument = await this.elevatorSchema.findOne( query as FilterQuery<IElevatorPersistence & Document>);
         return !!elevatorDocument === true;
     }
@@ -62,7 +62,7 @@ export default class ElevatorRepo implements IElevatorRepo {
 
     public async findByDomainId (elevatorId: ElevatorCode | string): Promise<Elevator> {
         const query = { domainId: elevatorId};
-        const elevatorRecord = await this.elevatorSchema.findOne( query as FilterQuery<IBuildingPersistence & Document> );
+        const elevatorRecord = await this.elevatorSchema.findOne( query as FilterQuery<IRoomPersistence & Document> );
 
         if( elevatorRecord != null) {
             return ElevatorMap.toDomain(elevatorRecord);
