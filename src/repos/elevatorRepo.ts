@@ -62,7 +62,7 @@ export default class ElevatorRepo implements IElevatorRepo {
 
     public async findByDomainId (elevatorId: ElevatorCode | string): Promise<Elevator> {
         const query = { domainId: elevatorId};
-        const elevatorRecord = await this.elevatorSchema.findOne( query as FilterQuery<IRoomPersistence & Document> );
+        const elevatorRecord = await this.elevatorSchema.findOne( query as FilterQuery<IElevatorPersistence & Document> );
 
         if( elevatorRecord != null) {
             return ElevatorMap.toDomain(elevatorRecord);
