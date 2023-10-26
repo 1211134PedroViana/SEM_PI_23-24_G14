@@ -1,0 +1,14 @@
+@startuml
+Actor User
+activate User
+
+User -> UI : Asks to create a building floor
+activate UI
+UI --> User : requests data(buildingId, floorNumber, Description)
+deactivate UI
+User -> UI : types requested data (buildingId, floorNumber, Descriptio)
+activate UI
+UI --> User : informs operation success
+deactivate UI
+
+@enduml
