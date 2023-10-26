@@ -60,4 +60,20 @@ export default class BuildingController implements IBuildingController {
             return next(e);
         }
     }
+
+    public async listBuildingsWithMinAndMaxFloors(req: Request, res: Response, next: NextFunction) {
+        try {
+            const buildingListOrError = await this.buildingServiceInstance.getAllBuildingsWithMinAndMaxFloors() as Result<IBuildingDTO[]>;
+
+            if (buildingListOrError.isFailure) {
+                return res.status(402).send(buildingListOrError.errorValue());
+            }
+
+            const buildingListDTO = buildingListOrError.errorValue();
+            return res.json(buildingListDTO).status(201);
+
+        } catch (e) {
+            return next(e);
+        }
+    }
 }

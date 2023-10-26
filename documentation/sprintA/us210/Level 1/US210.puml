@@ -11,5 +11,4 @@ activate UI
 UI --> User : returns a list with all the floors of that building
 deactivate UI
 
-
 @enduml

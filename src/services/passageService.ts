@@ -21,17 +21,18 @@ export default class PassageService implements IPassageService {
         
           const fromFloor = await this.floorRepo.findByObjectId(passageDTO.fromFloorId);
           const toFloor = await this.floorRepo.findByObjectId(passageDTO.toFloorId);
+          
           const locationOrError = Location.create({
             positionX: passageDTO.location.positionX,
             positionY: passageDTO.location.positionY,
             direction: passageDTO.location.direction,
           });
           
-          if (fromFloor === null) {
+          if (fromFloor === null || fromFloor === undefined) {
             return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.fromFloorId + '" not found');
           }
 
-          if (toFloor === null) {
+          if (toFloor === null || toFloor === undefined) {
             return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.toFloorId + '" not found');
           }
 
