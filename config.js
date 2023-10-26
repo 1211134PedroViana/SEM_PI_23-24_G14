@@ -56,6 +56,10 @@ export default {
     passage: {
       name: "PassageController",
       path: "../controllers/passageController"
+    },
+    robot: {
+      name: "RobotController",
+      path: "../controllers/robotController"
     }
     
   },
@@ -80,6 +84,10 @@ export default {
     passage: {
       name: "PassageRepo",
       path: "../repos/passageRepo"
+    },
+    robot: {
+      name: "RobotRepo",
+      path: "../repos/robotRepo"
     }
   },
 
@@ -99,6 +107,10 @@ export default {
     passage: {
       name: "PassageService",
       path: "../services/passageService"
+    },
+    robot: {
+      name: "RobotService",
+      path: "../services/robotService"
     }
   },
 };
