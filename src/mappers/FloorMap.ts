@@ -10,7 +10,7 @@ export class FloorMap extends Mapper<Floor> {
     public static toDTO( floor: Floor): IFloorDTO {
         return {
             id: floor.id.toString(),
-            buildingId: floor.building.id.toString(),
+            buildingId: floor.buildingId,
             floorNumber: floor.floorNumber,
             description: floor.description.value,
         } as IFloorDTO;
@@ -30,7 +30,7 @@ export class FloorMap extends Mapper<Floor> {
     public static toPersistence(floor: Floor): any {
         return {
             domainId: floor.id.toString(),
-            building: floor.building.id.toString(),
+            buildingId: floor.buildingId,
             floorNumber: floor.floorNumber,
             description: floor.description.value,
             //map: floor.cell.floorNumber,

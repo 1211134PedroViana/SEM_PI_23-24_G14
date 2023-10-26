@@ -8,6 +8,7 @@ import IBuildingRepo from './IRepos/IBuildingRepo';
 import { Description } from '../domain/description';
 import { Floor } from '../domain/floor';
 import { FloorMap } from '../mappers/FloorMap';
+import { Cell } from '../domain/cell';
 
 @Service()
 export default class FloorService implements IFloorService {
@@ -31,9 +32,9 @@ export default class FloorService implements IFloorService {
           }
 
           const floorOrError = await Floor.create({
-            building: building,
+            buildingId: building.id.toString(),
             floorNumber: floorDTO.floorNumber,
-            description: descriptionOrError.getValue()
+            description: descriptionOrError.getValue(),
           });
 
           if (floorOrError.isFailure) {

@@ -9,7 +9,7 @@ import { CellId } from "./cellId";
 import { Cell } from "./cell";
 
 interface FloorProps {
-    building: Building;
+    buildingId: string;
     floorNumber: number;
     description: Description;
     cell: Cell;
@@ -25,8 +25,8 @@ export class Floor extends AggregateRoot<FloorProps> {
         return new FloorId(this.floorId.toValue());
     }
 
-    get building (): Building {
-        return this.props.building;
+    get buildingId (): string {
+        return this.props.buildingId;
     }
 
     get floorNumber (): number {
@@ -59,14 +59,14 @@ export class Floor extends AggregateRoot<FloorProps> {
 
     public static create(props: FloorProps, id?: UniqueEntityID): Result<Floor> {
         const guardedProps = [
-            { argument: props.building, argumentName: 'building' },
+            { argument: props.buildingId, argumentName: 'buildingId' },
             { argument: props.floorNumber, argumentName: 'floorNumber' }
         ];
 
       const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);
       
       if (!guardResult.succeeded) {
-        return Result.fail<Floor>('Must provide a Building and a Floor number');
+        return Result.fail<Floor>('Must provide a Building ID and a Floor number');
       } else {
         const floor = new Floor({...props}, id);
         return Result.ok<Floor>( floor );
