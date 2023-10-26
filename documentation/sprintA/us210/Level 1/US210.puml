@@ -1,0 +1,15 @@
+@startuml
+Actor User
+activate User
+
+User -> UI : Requests a list of all the floors of a building
+activate UI
+UI --> User : requests data (buildingId)
+deactivate UI
+User -> UI : types requested data (buildingId)
+activate UI
+UI --> User : returns a list with all the floors of that building
+deactivate UI
+
+
+@enduml
