@@ -1,0 +1,29 @@
+@startuml 
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US390
+
+actor "Fleet Manager" as GM
+participant "<<System>> <<Context C4>> RobDroneGo" as Sys
+
+activate GM
+
+GM -> Sys: Request to view all existing robots 
+activate Sys
+
+opt if user sorts robots by designation
+GM -> Sys : Sorts robots by designation
+Sys --> GM : Shows robot list sorted by designation
+deactivate Sys
+end 
+
+opt if user sorts robots by task 
+GM -> Sys : Sorts robots by task
+activate Sys
+Sys --> GM : Shows robot list sorted by task
+end
+
+@enduml
+

@@ -9,13 +9,13 @@ const PassageSchema = new mongoose.Schema(
             unique: true 
         },
 
-        fromFloorId: { 
+        fromFloor: { 
             type: Schema.Types.ObjectId,
             ref: 'Floor',
             required: [true, 'Please enter Floor ID'],
         },
 
-        toFloorId: { 
+        toFloor: { 
             type: Schema.Types.ObjectId,
             ref: 'Floor',
             required: [true, 'Please enter Floor ID'],

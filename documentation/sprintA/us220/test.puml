@@ -1,0 +1,16 @@
+@startuml test
+
+object Test {
+Id
+UserID
+Question
+}
+
+
+object Test2 {
+Id
+Description
+}
+Question ||--|{ Responses
+
+@enduml

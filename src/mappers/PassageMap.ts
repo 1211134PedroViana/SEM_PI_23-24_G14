@@ -10,8 +10,8 @@ export class PassageMap extends Mapper<Passage> {
     public static toDTO( passage: Passage): IPassageDTO {
         return {
             id: passage.id.toString(),
-            fromFloorId: passage.fromFloorId,
-            toFloorId: passage.toFloorId,
+            fromFloorId: passage.fromFloor.id.toString(),
+            toFloorId: passage.toFloor.id.toString(),
             location: {
                 positionX: passage.location.positionX,
                 positionY: passage.location.positionY,
@@ -37,8 +37,8 @@ export class PassageMap extends Mapper<Passage> {
         
         for (let i = 0; i < passageList.length; i++) {
             const passageOrError = Passage.create({
-                fromFloorId: passageList[i].fromFloorId,
-                toFloorId: passageList[i].toFloorId,
+                fromFloor: passageList[i].fromFloor,
+                toFloor: passageList[i].toFloor,
                 location: passageList[i].location,
             }, new UniqueEntityID(passageList[i].domainId))
 
@@ -59,12 +59,12 @@ export class PassageMap extends Mapper<Passage> {
     public static toPersistence(passage: Passage): any {
         return {
             domainId: passage.id.toString(),
-            fromFloorId: passage.fromFloorId,
-            toFloorId: passage.toFloorId,
+            fromFloor: passage.fromFloor.id.toString(),
+            toFloor: passage.toFloor.id.toString(),
             location: {
-                positionX: passage.location.positionX,
-                positionY: passage.location.positionY,
-                direction: passage.location.direction,
+                 positionX: passage.location.positionX,
+                 positionY: passage.location.positionY,
+                 direction: passage.location.direction,
             }
         }
     }

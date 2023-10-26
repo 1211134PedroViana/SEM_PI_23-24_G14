@@ -27,16 +27,6 @@ export default( app: Router) => {
       }),
       (req, res, next) => ctrl.createElevator(req, res, next) );
 
-    //API PUT request - update data of a Building
-    route.put('/update',
-        celebrate({
-            body: Joi.object({
-                code: Joi.string().required(),
-                location: Joi.string().required()
-            })
-        }),
-        (req, res, next) => ctrl.updateElevator(req, res, next) );
-
       //API GET request - list all Passages
     route.get('/list',
     (req, res, next) => ctrl.listElevators(req, res, next) );

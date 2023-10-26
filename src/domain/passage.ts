@@ -11,8 +11,8 @@ import { Floor } from "./floor";
 
 interface PassageProps {
     
-    fromFloorId: string;
-    toFloorId: string;
+    fromFloor: Floor;
+    toFloor: Floor;
     location: Location;
 }
 
@@ -26,12 +26,12 @@ export class Passage extends AggregateRoot<PassageProps> {
         return new PassageId(this.passageId.toValue());
     }
 
-    get fromFloorId (): string {
-        return this.props.fromFloorId;
+    get fromFloor (): Floor {
+        return this.props.fromFloor;
     }
 
-    get toFloorId (): string {
-        return this.props.toFloorId;
+    get toFloor (): Floor {
+        return this.props.toFloor;
     }
 
     get location (): Location {
@@ -44,8 +44,8 @@ export class Passage extends AggregateRoot<PassageProps> {
 
     public static create(props: PassageProps, id?: UniqueEntityID): Result<Passage> {
         const guardedProps = [
-            { argument: props.fromFloorId, argumentName: 'fromFloorId' },
-            { argument: props.toFloorId, argumentName: 'toFloorId' },
+            { argument: props.fromFloor, argumentName: 'fromFloor' },
+            { argument: props.toFloor, argumentName: 'toFloor' },
             { argument: props.location, argumentName: 'location' }
         ];
 

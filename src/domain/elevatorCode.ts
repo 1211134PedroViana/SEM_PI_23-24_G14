@@ -25,9 +25,9 @@ export class ElevatorCode extends ValueObject<ElevatorCodeProps> {
       const isCodeValid = ElevatorCode.isValidCode(code);
 
       if (!guardResult.succeeded) {
-        return Result.fail<ElevatorCode>('Elevator Code cannot be null or undefined');
+        return Result.fail<ElevatorCode>('Building Code cannot be null or undefined');
       } else if (!isCodeValid) {
-        return Result.fail<ElevatorCode>('Invalid Elevator Code format');
+        return Result.fail<ElevatorCode>('Invalid Building Code format');
       } else {
         return Result.ok<ElevatorCode>(new ElevatorCode({ value: code }));
       }

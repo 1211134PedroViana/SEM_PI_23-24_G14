@@ -35,9 +35,7 @@ export class ElevatorMap extends Mapper<Elevator> {
         var index = 0;
         
         for (let i = 0; i < elevatorList.length; i++) {
-
             const elevatorOrError = Elevator.create({
-                code: elevatorList[i].code,
                 location: elevatorList[i].location,
             }, new UniqueEntityID(elevatorList[i].domainId))
 
@@ -59,9 +57,9 @@ export class ElevatorMap extends Mapper<Elevator> {
         return {
             domainId: elevator.id.toString(),
             location: {
-                 positionX: elevator.location,
+                 positionX: elevator.location.
                  positionY: elevator.location.positionY,
-                 direction: elevator.location.direction
+                 direction: elevator.location.direction,
             }
         }
     }

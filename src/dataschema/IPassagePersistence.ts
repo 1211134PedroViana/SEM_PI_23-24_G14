@@ -1,7 +1,7 @@
 export interface IPassagePersistence {
     domainId: string;
-    fromFloorId: string;
-    toFloorId: string;
+    fromFloor: string;
+    toFloor: string;
     location: {
         positionX: number;
         positionY: number;

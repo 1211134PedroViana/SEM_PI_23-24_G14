@@ -40,8 +40,8 @@ export default class PassageService implements IPassageService {
           }
 
           const passageOrError = await Passage.create({
-            fromFloorId: fromFloor.id.toString(),
-            toFloorId: toFloor.id.toString(),
+            fromFloor: fromFloor,
+            toFloor: toFloor,
             location: locationOrError.getValue(),
           });
 
