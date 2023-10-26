@@ -24,6 +24,11 @@ export class Location extends ValueObject<LocationProps> {
     private constructor (props: LocationProps) {
       super(props);
     }
+
+    //Checks if the text has only a char in the range of [A-Z]
+    public static isValidPositions (num1: number, num2: number): boolean {
+      return num1 >= 0 && num2 >= 0;
+    }
   
     public static create (props: LocationProps): Result<Location> {
         const guardedProps = [
@@ -35,8 +40,10 @@ export class Location extends ValueObject<LocationProps> {
       const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);
 
       if(!guardResult.succeeded) {
-        return Result.fail<Location>('');
-      } else{
+        return Result.fail<Location>('Must provide Position-X, Position-Y and the Direction');
+      } else if(!this.isValidPositions(props.positionX, props.positionY)){
+        return Result.fail<Location>('Invalid positions values');
+      } else {
         return Result.ok<Location>(new Location({...props}));
       }
     }

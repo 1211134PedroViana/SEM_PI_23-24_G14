@@ -16,14 +16,13 @@ export class Description extends ValueObject<DescriptionProps> {
 
     //Checks if the text has only a char in the range of [A-Z]
     public static isValidDescription (text: string): boolean {
+      if(text === undefined) {
+        return true;
+      }
       return text.length <= 255;
     }
   
     public static create (description: string): Result<Description> {
-      
-      if(description === undefined) {
-        return Result.ok<Description>(new Description({ value: description }));
-      }
 
       if(!this.isValidDescription(description)) {
         return Result.fail<Description>('Description exceeds the maximum characters(255)');

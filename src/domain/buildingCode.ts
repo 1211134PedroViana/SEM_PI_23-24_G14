@@ -15,7 +15,7 @@ export class BuildingCode extends ValueObject<BuildingCodeProps> {
       super(props);
     }
 
-    //Checks if the text has only a char in the range of [A-Z]
+    //Checks if the text has only alphanumerics and a max of 5 characters
     public static isValidCode (text: string): boolean {
         return new RegExp('^[a-zA-Z0-9 ]{1,5}$').test(text);
     }

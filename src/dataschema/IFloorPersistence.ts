@@ -1,6 +1,6 @@
 export interface IFloorPersistence {
     domainId: string;
-    building: string;
+    buildingId: string;
     floorNumber: number;
     description: string;
 }
