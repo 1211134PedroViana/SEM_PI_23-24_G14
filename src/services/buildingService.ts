@@ -68,7 +68,7 @@ export default class BuildingService implements IBuildingService {
         const descriptionOrError = Description.create(buildingDTO.description);
           
         if (building === null) {
-          return Result.fail<IBuildingDTO>('Building not found with code:' + buildingDTO.code);
+          return Result.fail<IBuildingDTO>('Building not found with id:' + buildingDTO.id);
         }else{
           if (descriptionOrError.isFailure) {
             return Result.fail<IBuildingDTO>('Error updating building -> Invalid Description!');

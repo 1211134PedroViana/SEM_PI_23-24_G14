@@ -160,7 +160,7 @@ describe("Building service", () => {
 
         })
 
-        it("Should return fail when repo return null in findByDomainId method", async () => {
+        it("Should return fail when updating a Building that dont exist", async () => {
             const buildingDTO = {
                 id: "test",
                 description: "test"
