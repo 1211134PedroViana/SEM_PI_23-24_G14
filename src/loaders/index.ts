@@ -39,7 +39,12 @@ export default async ({ expressApp }) => {
   const roomSchema = {
     name: 'roomSchema',
     schema: '../persistence/schemas/roomSchema',
-  }
+  };
+
+  const robotTypeSchema = {
+    name: 'robotTypeSchema',
+    schema: '../persistence/schemas/robotTypeSchema',
+  };
 
 
   const roleController = {
@@ -65,6 +70,11 @@ export default async ({ expressApp }) => {
   const roomController = {
     name: config.controllers.room.name,
     path: config.controllers.room.path
+  }
+
+  const robotTypeController = {
+    name: config.controllers.robotType.name,
+    path: config.controllers.robotType.path
   }
 
 
@@ -98,6 +108,11 @@ export default async ({ expressApp }) => {
     path: config.repos.room.path
   }
 
+  const robotTypeRepo = {
+    name: config.repos.robotType.name,
+    path: config.repos.robotType.path
+  }
+
   const roleService = {
     name: config.services.role.name,
     path: config.services.role.path
@@ -123,6 +138,11 @@ export default async ({ expressApp }) => {
     path: config.services.room.path
   }
 
+  const robotTypeService = {
+    name: config.services.robotType.name,
+    path: config.services.robotType.path
+  }
+
   await dependencyInjectorLoader({
     mongoConnection,
     schemas: [
@@ -131,14 +151,16 @@ export default async ({ expressApp }) => {
       buildingSchema,
       floorSchema,
       passageSchema,
-      roomSchema
+      roomSchema,
+      robotTypeSchema
     ],
     controllers: [
       roleController,
       buildingController,
       floorController,
       passageController,
-      roomController
+      roomController,
+      robotTypeController
     ],
     repos: [
       roleRepo,
@@ -146,14 +168,16 @@ export default async ({ expressApp }) => {
       buildingRepo,
       floorRepo,
       passageRepo,
-      roomRepo
+      roomRepo,
+      robotTypeRepo
     ],
     services: [
       roleService,
       buildingService,
       floorService,
       passageService,
-      roomService
+      roomService,
+      robotTypeService
     ]
   });
   Logger.info('✌️ Schemas, Controllers, Repositories, Services, etc. loaded');

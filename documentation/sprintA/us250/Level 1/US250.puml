@@ -1,0 +1,6 @@
+@startuml
+
+activate User
+User -> UI : Requests to edit a passage between buildings
+
+@enduml

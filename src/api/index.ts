@@ -6,6 +6,7 @@ import building from './routes/buildingRoute';
 import floor from './routes/floorRoute';
 import passage from './routes/passageRoute';
 import room from './routes/roomRoute';
+import robotType from './routes/robotTypeRoute';
 
 
 export default () => {
@@ -18,6 +19,7 @@ export default () => {
 	floor(app);
 	passage(app);
 	room(app);
+	robotType(app);
 
 	return app
 }

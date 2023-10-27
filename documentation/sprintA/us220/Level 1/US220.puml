@@ -1,0 +1,9 @@
+@startuml
+
+activate User
+User -> UI : Requests a list of the building floors with a passage to another building
+activate UI
+UI --> User : returns a list of the building floors with a passage to another building
+deactivate UI
+
+@enduml
