@@ -9,11 +9,14 @@ import { RobotTypeModel } from '../domain/valueObjects/robotTypeModel';
 import IRobotTypeRepo from './IRepos/IRobotTypeRepo';
 import { RobotType } from '../domain/robotType';
 import { RobotTypeMap } from '../mappers/RobotTypeMap';
+import ITaskTypeRepo from './IRepos/ITaskTypeRepo';
+
 
 @Service()
 export default class RobotTypeService implements IRobotTypeService {
     constructor(
-        @Inject(config.repos.robotType.name) private robotTypeRepo : IRobotTypeRepo
+        @Inject(config.repos.robotType.name) private robotTypeRepo : IRobotTypeRepo,
+        @Inject(config.repos.taskType.name) private taskTypeRepo : ITaskTypeRepo
     ) {}
 
     public async createRobotType(robotTypeDTO: IRobotTypeDTO): Promise<Result<IRobotTypeDTO>> {
@@ -22,6 +25,13 @@ export default class RobotTypeService implements IRobotTypeService {
           const robotTypeCodeOrError = RobotTypeCode.create(robotTypeDTO.code);
           const robotTypeBrandOrError = RobotTypeBrand.create(robotTypeDTO.brand);
           const robotTypeModelOrError = RobotTypeModel.create(robotTypeDTO.model);
+
+          for (const item of robotTypeDTO.taskTypes) {
+            const taskType = await this.taskTypeRepo.findByObjectId(item);
+            if (taskType === null) {
+              return Result.fail<IRobotTypeDTO>("TaskType with name: '" + item + "' not found");
+            }
+          }
           
           // verifies the code, brand and model creation
           if (robotTypeCodeOrError.isFailure) {
@@ -47,7 +57,8 @@ export default class RobotTypeService implements IRobotTypeService {
           const robotTypeOrError = await RobotType.create({
             code: robotTypeCodeOrError.getValue(),
             brand: robotTypeBrandOrError.getValue(),
-            model: robotTypeModelOrError.getValue()
+            model: robotTypeModelOrError.getValue(),
+            taskTypes: robotTypeDTO.taskTypes
           });
 
           if (robotTypeOrError.isFailure) {

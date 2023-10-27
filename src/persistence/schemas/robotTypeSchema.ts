@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Schema, Document } from 'mongoose';
 import { IRobotTypePersistence } from '../../dataschema/IRobotTypePersistence';
 
 const RobotTypeSchema = new mongoose.Schema(
@@ -22,7 +23,16 @@ const RobotTypeSchema = new mongoose.Schema(
         model: { 
             type: String,
             required: [true, 'Please enter RobotType Model'] 
-        }
+        },
+
+        taskTypes: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'TaskType',
+                required: [true, 'Please enter TaskTypes'] 
+            }
+        ]
+
     },
     {
         timestamps: true

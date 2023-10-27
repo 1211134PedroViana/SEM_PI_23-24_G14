@@ -6,13 +6,13 @@ import { RobotTypeCode } from "./valueObjects/robotTypeCode";
 import { RobotTypeBrand } from "./valueObjects/robotTypebrand";
 import { RobotTypeModel } from "./valueObjects/robotTypeModel";
 import { RobotTypeId } from "./valueObjects/robotTypeId";
-import { TaskType } from "./taskType";
+import { TaskTypeId } from "./valueObjects/taskTypeId";
 
 interface RobotTypeProps {
     code: RobotTypeCode;
     brand: RobotTypeBrand;
     model: RobotTypeModel;
-    taskTypes: TaskType[];
+    taskTypes: string[];
 }
 
 export class RobotType extends AggregateRoot<RobotTypeProps> {
@@ -44,6 +44,11 @@ export class RobotType extends AggregateRoot<RobotTypeProps> {
         this.props.model = value;
     }
 
+    get taskTypes (): string[] {
+        return this.props.taskTypes;
+    }
+
+
     private constructor (props: RobotTypeProps, id?: UniqueEntityID) {
         super(props, id);
     }
@@ -53,13 +58,14 @@ export class RobotType extends AggregateRoot<RobotTypeProps> {
       const guardedProps = [
         { argument: props.code, argumentName: 'code' },
         { argument: props.brand, argumentName: 'brand' },
-        { argument: props.model, argumentName: 'model' }
+        { argument: props.model, argumentName: 'model' },
+        { argument: props.taskTypes, argumentName: 'taskTypes' }
       ];
 
       const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);
       
       if (!guardResult.succeeded) {
-        return Result.fail<RobotType>('Must provide a RobotType code, brand and model');
+        return Result.fail<RobotType>('Must provide a RobotType code, brand, model and a list of type of tasks');
       } else {
         const robotType = new RobotType({ ...props }, id);
         return Result.ok<RobotType>( robotType );

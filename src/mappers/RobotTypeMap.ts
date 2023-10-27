@@ -9,11 +9,14 @@ import { IRobotTypePersistence } from "../dataschema/IRobotTypePersistence";
 export class RobotTypeMap extends Mapper<RobotType> {
 
     public static toDTO( robotType: RobotType): IRobotTypeDTO {
+
         return {
             id: robotType.id.toString(),
             code: robotType.code.value,
             brand: robotType.brand.value,
-            model: robotType.model.value
+            model: robotType.model.value,
+            taskTypes: robotType.taskTypes
+            
         } as IRobotTypeDTO;
     }
 
@@ -33,7 +36,8 @@ export class RobotTypeMap extends Mapper<RobotType> {
             domainId: robotType.id.toString(),
             code: robotType.code.value,
             brand: robotType.brand.value,
-            model: robotType.model.value
+            model: robotType.model.value,
+            taskTypes: robotType.taskTypes
         }
     }
 }

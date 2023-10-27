@@ -19,7 +19,8 @@ export default( app: Router) => {
         body: Joi.object({
             code: Joi.string().required(),
             brand: Joi.string().required(),
-            model: Joi.string().required()
+            model: Joi.string().required(),
+            taskTypes: Joi.array().items(Joi.string().required()).required()
         })
       }),
       (req, res, next) => ctrl.createRobotType(req, res, next) );
