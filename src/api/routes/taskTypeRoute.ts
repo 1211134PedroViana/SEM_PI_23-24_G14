@@ -10,7 +10,7 @@ const route = Router();
 export default( app: Router) => {
     app.use('/taskTypes', route);
 
-    const ctrl = Container.get(config.controllers.robotType.name) as ITaskTypeController;
+    const ctrl = Container.get(config.controllers.taskType.name) as ITaskTypeController;
 
     //API POST request - create a new TaskType
     route.post('/create',
