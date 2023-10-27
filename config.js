@@ -68,7 +68,12 @@ export default {
     robotType: {
       name: "RobotTypeController",
       path: "../controllers/robotTypeController"
+    },
+    taskType: {
+      name: "TaskTypeController",
+      path: "../controllers/taskTypeController"
     }
+
     
   },
 
@@ -104,6 +109,10 @@ export default {
     robotType: {
       name: "RobotTypeRepo",
       path: "../repos/robotTypeRepo"
+    },
+    taskType: {
+      name: "TaskTypeRepo",
+      path: "../repos/taskTypeRepo"
     }
   },
 
@@ -135,6 +144,10 @@ export default {
     robotType: {
       name: "RobotTypeService",
       path: "../services/robotTypeService"
+    },
+    taskType: {
+      name: "TaskTypeService",
+      path: "../services/taskTypeService"
     }
   },
 };

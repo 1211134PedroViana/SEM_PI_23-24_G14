@@ -46,6 +46,11 @@ export default async ({ expressApp }) => {
     schema: '../persistence/schemas/robotTypeSchema',
   };
 
+  const taskTypeSchema = {
+    name: 'taskTypeSchema',
+    schema: '../persistence/schemas/taskTypeSchema',
+  };
+
 
   const roleController = {
     name: config.controllers.role.name,
@@ -75,6 +80,11 @@ export default async ({ expressApp }) => {
   const robotTypeController = {
     name: config.controllers.robotType.name,
     path: config.controllers.robotType.path
+  }
+
+  const taskTypeController = {
+    name: config.controllers.taskType.name,
+    path: config.controllers.taskType.path
   }
 
 
@@ -113,6 +123,13 @@ export default async ({ expressApp }) => {
     path: config.repos.robotType.path
   }
 
+  const taskTypeRepo = {
+    name: config.repos.taskType.name,
+    path: config.repos.taskType.path
+  }
+
+
+
   const roleService = {
     name: config.services.role.name,
     path: config.services.role.path
@@ -143,6 +160,13 @@ export default async ({ expressApp }) => {
     path: config.services.robotType.path
   }
 
+  const taskTypeService = {
+    name: config.services.taskType.name,
+    path: config.services.taskType.path
+  }
+
+
+
   await dependencyInjectorLoader({
     mongoConnection,
     schemas: [
@@ -152,7 +176,8 @@ export default async ({ expressApp }) => {
       floorSchema,
       passageSchema,
       roomSchema,
-      robotTypeSchema
+      robotTypeSchema,
+      taskTypeSchema
     ],
     controllers: [
       roleController,
@@ -160,7 +185,8 @@ export default async ({ expressApp }) => {
       floorController,
       passageController,
       roomController,
-      robotTypeController
+      robotTypeController,
+      taskTypeController
     ],
     repos: [
       roleRepo,
@@ -169,7 +195,8 @@ export default async ({ expressApp }) => {
       floorRepo,
       passageRepo,
       roomRepo,
-      robotTypeRepo
+      robotTypeRepo,
+      taskTypeRepo
     ],
     services: [
       roleService,
@@ -177,7 +204,8 @@ export default async ({ expressApp }) => {
       floorService,
       passageService,
       roomService,
-      robotTypeService
+      robotTypeService,
+      taskTypeService
     ]
   });
   Logger.info('✌️ Schemas, Controllers, Repositories, Services, etc. loaded');
