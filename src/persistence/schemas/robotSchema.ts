@@ -30,8 +30,8 @@ const RobotSchema = new mongoose.Schema(
             type: String
         },
 
-        status: {
-            type: String
+        isActive: {
+            type: Boolean
         }
     },
     {

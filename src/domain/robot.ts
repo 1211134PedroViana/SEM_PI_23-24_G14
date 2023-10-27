@@ -4,14 +4,15 @@ import { RobotId } from "./robotId";
 import { Description } from "./description";
 import { Result } from "../core/logic/Result";
 import { Guard } from "../core/logic/Guard";
+import { RobotCode } from "./robotCode";
 
 interface RobotProps {
-    code: string;
+    code: RobotCode;
     nickname: string;
     robotType: string;
     serialNumber: number;
     description: Description;
-    status: string;
+    isActive: boolean;
 }
 
 export class Robot extends AggregateRoot<RobotProps> {
@@ -23,7 +24,7 @@ export class Robot extends AggregateRoot<RobotProps> {
         return new RobotId(this.robotId.toValue());
     }
 
-    get code (): string {
+    get code (): RobotCode {
         return this.props.code;
     }
 
@@ -43,8 +44,8 @@ export class Robot extends AggregateRoot<RobotProps> {
         return this.props.description;
     }
 
-    get status (): string {
-        return this.props.status;
+    get isActive (): boolean {
+        return this.props.isActive;
     }  
 
     set robotType ( value: string ) {
@@ -59,8 +60,8 @@ export class Robot extends AggregateRoot<RobotProps> {
         this.props.description = value;
     }
 
-    set status ( value: string ) {
-        this.props.status = value;
+    set isActive ( value: boolean ) {
+        this.props.isActive = value;
     }
 
     private constructor(props: RobotProps, id?: UniqueEntityID) {
@@ -75,7 +76,7 @@ export class Robot extends AggregateRoot<RobotProps> {
             { argument: props.robotType, argumentName: 'type'},
             { argument: props.serialNumber, argumentName: 'serialNumber'},
             { argument: props.description, argumentName: 'description'},
-            { argument: props.status, argumentName: 'status'},
+            { argument: props.isActive, argumentName: 'isActive'},
         ];
 
         const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);

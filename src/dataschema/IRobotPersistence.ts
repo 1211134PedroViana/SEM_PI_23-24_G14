@@ -5,5 +5,5 @@ export interface IRobotPersistence {
     robotType: string;
     serialNumber: number;
     description: string;
-    status: string;
+    isActive: boolean;
 }

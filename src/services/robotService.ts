@@ -45,7 +45,7 @@ export default class RobotService implements IRobotService {
                 robotType: robotDTO.robotType,
                 serialNumber: robotDTO.serialNumber,
                 description: descriptionOrError.getValue(),
-                status: robotDTO.status,
+                isActive: true,
             });
 
             if (robotOrError.isFailure) {

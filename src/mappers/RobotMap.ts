@@ -5,19 +5,19 @@ import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { Robot } from "../domain/robot";
 import IRobotDTO from "../dto/IRobotDTO";
 import { IRobotPersistence } from "../dataschema/IRobotPersistence";
-import { publicDecrypt } from "crypto";
+
 
 export class RobotMap extends Mapper<Robot> {
 
     public static toDTO( robot: Robot): IRobotDTO {
         return {
-            domainId: robot.id.toString(),
-            code: robot.code,
+            id: robot.id.toString(),
+            code: robot.code.value,
             nickname: robot.nickname,
             robotType: robot.robotType,
             serialNumber: robot.serialNumber.valueOf(),
             description: robot.description.value,
-            status: robot.status,
+            isActive: robot.isActive
         } as IRobotDTO;
     }
 
@@ -43,7 +43,7 @@ export class RobotMap extends Mapper<Robot> {
                     robotType: robotList[i].robotType,
                     serialNumber: robotList[i].serialNumber,
                     description: robotList[i].description,
-                    status: robotList[i].status,
+                    isActive: robotList[i].isActive,
                 }, new UniqueEntityID(robotList[i].domainId))
 
                 if (robotOrError.isSuccess) {
@@ -62,9 +62,9 @@ export class RobotMap extends Mapper<Robot> {
             domainId: robot.id.toString(),
             code: robot.code,
             nickname: robot.nickname,
-            type: robot.robotType,
+            robotType: robot.robotType,
             description: robot.description.value,
-            status: robot.status
+            isActive: robot.isActive
         }
     }
 }

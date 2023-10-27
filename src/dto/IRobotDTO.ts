@@ -5,5 +5,5 @@ export default interface IRobotDTO {
     robotType: string;
     serialNumber: number;
     description: string;
-    status: string;
+    isActive: boolean;
 }
