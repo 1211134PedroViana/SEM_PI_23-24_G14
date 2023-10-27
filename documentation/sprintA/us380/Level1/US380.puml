@@ -1,4 +1,4 @@
-@startuml 
+@startuml
 skinparam Monochrome true
 skinparam PackageStyle rectangle
 skinparam Shadowing false
@@ -15,6 +15,5 @@ activate UI
 
 UI --> User: Shows robot list
 deactivate UI
-
 
 @enduml
