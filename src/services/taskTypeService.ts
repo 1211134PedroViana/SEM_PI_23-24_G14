@@ -5,7 +5,6 @@ import ITaskTypeService from './IServices/ITaskTypeService';
 import ITaskTypeRepo from './IRepos/ITaskTypeRepo';
 import ITaskTypeDTO from '../dto/ITaskTypeDTO';
 import { Description } from '../domain/description';
-import { TaskTypeCode } from '../domain/valueObjects/taskTypeCode';
 import { TaskType } from '../domain/taskType';
 import { TaskTypeMap } from '../mappers/TaskTypeMap';
 
@@ -20,28 +19,22 @@ export default class TaskTypeService implements ITaskTypeService {
     public async createTaskType(taskTypeDTO: ITaskTypeDTO): Promise<Result<ITaskTypeDTO>> {
         try {          
          
-          const taskTypeCodeOrError = TaskTypeCode.create(taskTypeDTO.code);
           const taskTypeDescriptionOrError = Description.create(taskTypeDTO.description);
           
-          // verifies the code, brand and model creation
-          if (taskTypeCodeOrError.isFailure) {
-            return Result.fail<ITaskTypeDTO>(taskTypeCodeOrError.errorValue());
-          }
-
           if (taskTypeDescriptionOrError.isFailure) {
             return Result.fail<ITaskTypeDTO>(taskTypeDescriptionOrError.errorValue());
           }
 
           // checks if theres already a RobotType with the code provided
-          const taskTypeDocument = await this.taskTypeRepo.findByCode(taskTypeDTO.code);
+          const taskTypeDocument = await this.taskTypeRepo.findByName(taskTypeDTO.name);
           const found = !!taskTypeDocument;
   
           if (found) {
-            return Result.fail<ITaskTypeDTO>('TaskType already exists with code:' + taskTypeDTO.code);
+            return Result.fail<ITaskTypeDTO>('TaskType already exists with code:' + taskTypeDTO.name);
           }
 
           const taskTypeOrError = await TaskType.create({
-            code: taskTypeCodeOrError.getValue(),
+            name: taskTypeDTO.name,
             description: taskTypeDescriptionOrError.getValue()
           });
 

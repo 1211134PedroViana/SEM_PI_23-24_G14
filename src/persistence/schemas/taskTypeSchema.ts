@@ -9,10 +9,10 @@ const TaskTypeSchema = new mongoose.Schema(
             unique: true 
         },
 
-        code: { 
+        name: { 
             type: String, 
             unique: true,
-            required: [true, 'Please enter TaskType Code']
+            required: [true, 'Please enter TaskType name']
         },
 
         description: { 

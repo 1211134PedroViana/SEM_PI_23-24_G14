@@ -6,11 +6,13 @@ import { RobotTypeCode } from "./valueObjects/robotTypeCode";
 import { RobotTypeBrand } from "./valueObjects/robotTypebrand";
 import { RobotTypeModel } from "./valueObjects/robotTypeModel";
 import { RobotTypeId } from "./valueObjects/robotTypeId";
+import { TaskType } from "./taskType";
 
 interface RobotTypeProps {
     code: RobotTypeCode;
     brand: RobotTypeBrand;
     model: RobotTypeModel;
+    taskTypes: TaskType[];
 }
 
 export class RobotType extends AggregateRoot<RobotTypeProps> {

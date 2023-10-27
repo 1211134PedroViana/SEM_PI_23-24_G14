@@ -12,7 +12,7 @@ export class TaskTypeMap extends Mapper<TaskType> {
     public static toDTO( taskType: TaskType): ITaskTypeDTO {
         return {
             id: taskType.id.toString(),
-            code: taskType.code.value,
+            name: taskType.name,
             description: taskType.description.value
         } as ITaskTypeDTO;
     }
@@ -31,7 +31,7 @@ export class TaskTypeMap extends Mapper<TaskType> {
     public static toPersistence(taskType: TaskType): any {
         return {
             domainId: taskType.id.toString(),
-            code: taskType.code.value,
+            name: taskType.name,
             description: taskType.description.value
         }
     }

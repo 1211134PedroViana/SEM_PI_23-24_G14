@@ -16,7 +16,7 @@ export default( app: Router) => {
     route.post('/create',
       celebrate({
         body: Joi.object({
-            code: Joi.string().required(),
+            name: Joi.string().required(),
             description: Joi.string().required()
         })
       }),

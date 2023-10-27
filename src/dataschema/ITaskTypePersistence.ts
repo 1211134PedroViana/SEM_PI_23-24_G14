@@ -1,5 +1,5 @@
 export interface ITaskTypePersistence {
     domainId: string;
-    code: string;
+    name: string;
     description: string
 }

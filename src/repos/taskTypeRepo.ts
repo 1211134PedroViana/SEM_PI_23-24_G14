@@ -5,7 +5,6 @@ import { ITaskTypePersistence } from '../dataschema/ITaskTypePersistence';
 import { TaskTypeId } from '../domain/valueObjects/taskTypeId';
 import { TaskType } from '../domain/taskType';
 import { TaskTypeMap } from '../mappers/TaskTypeMap';
-import { TaskTypeCode } from '../domain/valueObjects/taskTypeCode';
 
 
 @Service()
@@ -76,8 +75,8 @@ export default class TaskTypeRepo implements ITaskTypeRepo {
           return null;
     }
 
-    public async findByCode (code: TaskTypeCode | string): Promise<TaskType> {
-        const query = { code: code };
+    public async findByName (name: string): Promise<TaskType> {
+        const query = { name: name };
         const taskTypeRecord = await this.taskTypeSchema.findOne( query as FilterQuery<ITaskTypePersistence & Document> );
 
         if( taskTypeRecord != null) {
