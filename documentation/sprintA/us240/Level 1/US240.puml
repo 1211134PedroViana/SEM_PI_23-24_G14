@@ -2,7 +2,7 @@
 Actor User
 activate User
 
-User -> UI : Asks to create a passageway between buildings
+User -> UI : Asks to create a passage between buildings
 activate UI
 UI --> User : requests data for the first building (buildingId)
 deactivate UI
