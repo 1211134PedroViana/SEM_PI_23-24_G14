@@ -1,9 +1,9 @@
 export default interface IRobotDTO {
-    domainId: string;
+    id: string;
     code: string;
     nickname: string;
     robotType: string;
-    serialNumber: Number;
+    serialNumber: number;
     description: string;
     status: string;
 }

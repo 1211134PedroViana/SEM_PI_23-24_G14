@@ -7,6 +7,7 @@ import { RobotCode } from "../domain/robotCode";
 import { Result } from "../core/logic/Result";
 import { Description } from "../domain/description";
 import { Robot } from "../domain/robot";
+import { RobotMap } from "../mappers/RobotMap";
 
 
 @Service()
@@ -58,7 +59,14 @@ export default class RobotService implements IRobotService {
 
             const robotDTOResult = RobotMap.toDTO( robotResult ) as IRobotDTO;
             return Result.ok<IRobotDTO>( robotDTOResult )
-        }   
+
+        } catch (e) {
+            throw e;
+        }    
     } 
 
+
+    public async updateRobot(robotDTO: IRobotDTO): Promise<Result<IRobotDTO>> {
+        return null;
+    }
 }

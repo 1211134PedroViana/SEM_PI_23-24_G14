@@ -9,7 +9,7 @@ interface RobotProps {
     code: string;
     nickname: string;
     robotType: string;
-    serialNumber: Number;
+    serialNumber: number;
     description: Description;
     status: string;
 }
@@ -35,7 +35,7 @@ export class Robot extends AggregateRoot<RobotProps> {
         return this.props.robotType;
     }
 
-    get serialNumber (): Number {
+    get serialNumber (): number {
         return this.props.serialNumber;
     }
 
@@ -51,7 +51,7 @@ export class Robot extends AggregateRoot<RobotProps> {
         this.props.robotType = value;
     }
 
-    set serialNumber ( value: Number) {
+    set serialNumber ( value: number) {
         this.props.serialNumber = value;
     }
 
