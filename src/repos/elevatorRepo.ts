@@ -56,7 +56,7 @@ export default class ElevatorRepo implements IElevatorRepo {
     }
     
     public async findAll(): Promise<Elevator[]> {
-        const passageList = await this.elevatorSchema.find()
-        return ElevatorMap.toDomainBulk(passageList);
+        const elevatorList = await this.elevatorSchema.find()
+        return ElevatorMap.toDomainBulk(elevatorList);
     }
 }
