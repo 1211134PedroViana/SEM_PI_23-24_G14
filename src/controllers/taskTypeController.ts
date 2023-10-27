@@ -10,7 +10,7 @@ import ITaskTypeDTO from '../dto/ITaskTypeDTO';
 @Service()
 export default class TaskTypeController implements ITaskTypeController {
     constructor(
-        @Inject(config.services.robotType.name) private taskTypeServiceInstance : ITaskTypeService
+        @Inject(config.services.taskType.name) private taskTypeServiceInstance : ITaskTypeService
     ) {}
 
     public async createTaskType(req: Request, res: Response, next: NextFunction) {

@@ -14,7 +14,7 @@ import { TaskTypeMap } from '../mappers/TaskTypeMap';
 @Service()
 export default class TaskTypeService implements ITaskTypeService {
     constructor(
-        @Inject(config.repos.robotType.name) private taskTypeRepo : ITaskTypeRepo
+        @Inject(config.repos.taskType.name) private taskTypeRepo : ITaskTypeRepo
     ) {}
 
     public async createTaskType(taskTypeDTO: ITaskTypeDTO): Promise<Result<ITaskTypeDTO>> {
