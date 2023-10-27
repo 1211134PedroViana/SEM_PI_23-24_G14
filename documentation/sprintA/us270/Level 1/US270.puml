@@ -1,7 +1,22 @@
 @startuml
-Actor User
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US270
+
+actor "User" as User
+participant "UI" as UI
+
 activate User
 
-User -> UI : Asks to create a
+User -> UI : asks to create an elevator on a building
+activate UI
+UI --> User : requests data (elevatorCode, location) 
+deactivate UI
+User -> UI : provides the required data
+activate UI
+UI --> User : shows confirmation and new elevator info
+deactivate UI
 
 @enduml

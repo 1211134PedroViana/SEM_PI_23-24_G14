@@ -1,4 +1,4 @@
-@startuml 
+@startuml
 skinparam Monochrome true
 skinparam PackageStyle rectangle
 skinparam Shadowing false
@@ -23,6 +23,7 @@ opt if user sorts robots by task
 User -> UI : Sorts robots by task
 activate UI
 UI --> User : Shows robot list sorted by task
+deactivate UI
 end
 
 @enduml

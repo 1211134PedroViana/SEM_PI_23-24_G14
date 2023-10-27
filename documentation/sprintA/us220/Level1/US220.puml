@@ -1,0 +1,18 @@
+@startuml
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US220
+
+actor "User" as User
+participant "UI" as UI
+
+activate User
+
+User -> UI : Requests a list of the building floors that have connection to another building
+activate UI
+UI --> User : returns a list of the building floors that have connection to another building
+deactivate UI
+
+@enduml
