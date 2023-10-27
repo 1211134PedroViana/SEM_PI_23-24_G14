@@ -13,7 +13,7 @@ export default( app: Router) => {
 
     const ctrl = Container.get(config.controllers.robotType.name) as IRobotTypeController;
 
-    //API POST request - create a new Building
+    //API POST request - create a new RobotType
     route.post('/create',
       celebrate({
         body: Joi.object({
