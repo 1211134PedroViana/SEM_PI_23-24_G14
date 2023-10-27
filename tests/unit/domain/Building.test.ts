@@ -4,6 +4,8 @@ import { Building } from '../../../src/domain/building';
 import { BuildingCode } from '../../../src/domain/buildingCode';
 import { Description } from '../../../src/domain/description';
 import IBuildingDTO from '../../../src/dto/IBuildingDTO';
+import 'mocha';
+
 
 describe("Building Domain", () => {
     beforeEach(function() {});
