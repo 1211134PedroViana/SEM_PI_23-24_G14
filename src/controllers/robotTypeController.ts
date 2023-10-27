@@ -10,7 +10,7 @@ import IRobotTypeDTO from '../dto/IRobotTypeDTO';
 @Service()
 export default class RobotTypeController implements IRobotTypeController {
     constructor(
-        @Inject(config.services.robotType) private robotTypeServiceInstance : IRobotTypeService
+        @Inject(config.services.robotType.name) private robotTypeServiceInstance : IRobotTypeService
     ) {}
 
     public async createRobotType(req: Request, res: Response, next: NextFunction) {
