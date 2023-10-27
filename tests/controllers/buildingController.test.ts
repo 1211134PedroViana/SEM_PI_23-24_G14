@@ -11,6 +11,7 @@ import BuildingRepo from '../../src/repos/buildingRepo';
 import BuildingService from '../../src/services/buildingService';
 import BuildingSchema from '../../src/persistence/schemas/buildingSchema';
 import { SinonSpy } from 'sinon';
+import { Building } from '../../src/domain/building';
 
 
 describe('Building Controller', function () {
@@ -19,14 +20,12 @@ describe('Building Controller', function () {
     let buildingRepo : BuildingRepo;
     let service : BuildingService;
 
-    let stub1, stub2;
-
-	before(function() {
+	beforeEach(function() {
 		buildingRepo = new BuildingRepo(BuildingSchema);
         service = new BuildingService(buildingRepo);
     });
 
-	after(function() {
+	afterEach(function() {
 		sandbox.restore();
 	});
 
@@ -41,8 +40,7 @@ describe('Building Controller', function () {
         };
 		let next: Partial<NextFunction> = () => {};
 
-		sinon.stub(service, "createBuilding").
-        resolves( Result.ok<IBuildingDTO>( {
+		sinon.stub(service, "createBuilding").resolves( Result.ok<IBuildingDTO>( {
             "id": "123",
             "code": req.body.code,
             "description": req.body.description,"name": req.body.name} 
@@ -59,106 +57,213 @@ describe('Building Controller', function () {
 		    sinon.assert.calledWith(res.json as SinonSpy<[any?]>, sinon.match({ 
                 "id": "123",
                 "code": req.body.code,
-                "description": req.body.description,"name": req.body.name
+                "description": req.body.description,
+				"name": req.body.name
             }));
 
         } catch(error) {
             throw error;
         }
+
+		sinon.restore();
 	});
 
     /*
-    it('roleController + roleService integration test using roleRepoistory and Role stubs', async function () {	
+    it('buildingController + buildingService integration test using buildingRepoistory and Building stubs', async function () {	
 		// Arrange	
-        let body = { "name":'role12' };
+        let body = { "code":'IDGAF', "description":'Departamento de Testos', "name":'somesing' };
         let req: Partial<Request> = {};
 		req.body = body;
 
         let res: Partial<Response> = {
-			json: sinon.spy()
+			json: sinon.spy() as SinonSpy<[any?]>
         };
 		let next: Partial<NextFunction> = () => {};
 
-		sinon.stub(Role, "create").returns(Result.ok({"id":"123", "name": req.body.name}));
-
-		let roleRepoInstance = Container.get("RoleRepo");
-		sinon.stub(roleRepoInstance, "save").returns(new Promise<Role>((resolve, reject) => {
-			resolve(Role.create({"id":"123", "name": req.body.name}).getValue())
+		sinon.stub(Building, "create").resolves(Result.ok({
+			"code": req.body.code,
+			"description": req.body.description,
+			"name": req.body.name
 		}));
 
-		let roleServiceInstance = Container.get("RoleService");
+		 const saveStub = sinon.stub(buildingRepo, "save");
+		 const building: any  = Building.create({
+			"code": req.body.code,
+			"description": req.body.description,
+			"name": req.body.name
+		  }).getValue();
+		  
+		  // Stub the save method to resolve with the expected Building instance
+		  saveStub.resolves(building);
 
-		const ctrl = new RoleController(roleServiceInstance as IRoleService);
+		const ctrl = new BuildingController(service as IBuildingService);
 
 		// Act
-		await ctrl.createRole(<Request>req, <Response>res, <NextFunction>next);
+		await ctrl.createBuilding(<Request>req, <Response>res, <NextFunction>next);
 
-		// Assert
-		sinon.assert.calledOnce(res.json);
-		sinon.assert.calledWith(res.json, sinon.match({ "id": "123","name": req.body.name}));
+		try {
+
+			// Assert
+		    sinon.assert.calledOnce(res.json as SinonSpy<[any?]>);
+		    sinon.assert.calledWith(res.json as SinonSpy<[any?]>, sinon.match({ 
+				"code": req.body.code,
+			    "description": req.body.description,
+			    "name": req.body.name
+		    }));
+
+		} catch(error) {
+			throw error;
+		}
+		sinon.restore();
 	});
+	*/
 
 
-    it('roleController + roleService integration test using spy on roleService', async function () {		
+    it('buildingController + buildingService integration test using spy on buildingService', async function () {		
 		// Arrange
-        let body = { "name":'role12' };
+        let body = { "code":'IDGAF', "description":'Departamento de Testos', "name":'somesing' };
         let req: Partial<Request> = {};
 		req.body = body;
 
         let res: Partial<Response> = {
-			json: sinon.spy()
+			json: sinon.spy() as SinonSpy<[any?]>
         };
 		let next: Partial<NextFunction> = () => {};
 
-		let roleRepoInstance = Container.get("RoleRepo");
-		sinon.stub(roleRepoInstance, "save").returns(new Promise<Role>((resolve, reject) => {
-			resolve(Role.create({"id":"123", "name": req.body.name}).getValue())
+		sinon.stub(buildingRepo, "save").returns(new Promise<Building>((resolve, reject) => {
+			resolve(Building.create({
+				"code": req.body.code,
+				"description": req.body.description,
+				"name": req.body.name
+			}).getValue())
 		}));
 
-		let roleServiceInstance = Container.get("RoleService");		
-		const roleServiceSpy = sinon.spy(roleServiceInstance, "createRole");
+		const buildingServiceMock: IBuildingService = {
 
-		const ctrl = new RoleController(roleServiceInstance as IRoleService);
+			createBuilding: async (buildingDTO: IBuildingDTO) => {
+				const dummyResult: Result<IBuildingDTO> = Result.ok({
+					"id": "123",
+					"code": req.body.code,
+                    "description": req.body.description,
+				    "name": req.body.name
+				});
+				
+				return Promise.resolve(dummyResult);
+			},
+			updateBuilding: async (buildingDTO: IBuildingDTO) => {
+				const dummyResult: Result<IBuildingDTO> = Result.ok({
+					"id": "123",
+					"code": req.body.code,
+                    "description": req.body.description,
+				    "name": req.body.name
+				});
+				
+				return Promise.resolve(dummyResult);
+			},
+			getAllBuildings: async () => {
+				const buildingList: IBuildingDTO[] = [
+					{
+					  "id": "test1",
+					  "code": "IDK01",
+                      "description": "Departamento de testes",
+				      "name": "stuff"
+					},
+					{
+						"id": "test2",
+						"code": "IDK02",
+						"description": "Departamento de testes 2.0",
+						"name": "stuff 2"
+					},
+					
+				  ];
+				  const result: Result<IBuildingDTO[]> = Result.ok(buildingList);
+				
+				  return Promise.resolve(result);
+			},
+		};
+
+		const createBuildingSpy: SinonSpy = sinon.spy(buildingServiceMock, 'createBuilding');
+		const updateBuildingSpy: SinonSpy = sinon.spy(buildingServiceMock, 'updateBuilding');
+		const getAllBuildingsSpy: SinonSpy = sinon.spy(buildingServiceMock, 'getAllBuildings');
+
+		const ctrl = new BuildingController(buildingServiceMock as IBuildingService);
 
 		// Act
-		await ctrl.createRole(<Request>req, <Response>res, <NextFunction>next);
+		await ctrl.createBuilding(<Request>req, <Response>res, <NextFunction>next);
 
-		// Assert
-		sinon.assert.calledOnce(res.json);
-		sinon.assert.calledWith(res.json, sinon.match({ "id": "123","name": req.body.name}));
-		sinon.assert.calledOnce(roleServiceSpy);
-		//sinon.assert.calledTwice(roleServiceSpy);
-		sinon.assert.calledWith(roleServiceSpy, sinon.match({name: req.body.name}));
+		try {
+
+			// Assert
+		    sinon.assert.calledOnce(res.json as SinonSpy<[any?]>);
+		    sinon.assert.calledWith(res.json as SinonSpy<[any?]>, sinon.match({ 
+				"id": "123",
+			    "code": req.body.code,
+			    "description": req.body.description,
+			    "name": req.body.name
+		    }));
+
+		    sinon.assert.calledOnce(createBuildingSpy);
+		    sinon.assert.calledWith(createBuildingSpy, sinon.match({
+				code: req.body.code,
+			    description: req.body.description,
+			    name: req.body.name
+		    }));
+
+		} catch(error) {
+			throw error;
+		}
+		sinon.restore();
 	});
 
-
-    it('roleController unit test using roleService mock', async function () {		
+	/*
+    it('buildingController unit test using buildingService mock', async function () {		
 		// Arrange
-        let body = { "name":'role12' };
+        let body = { "code":'IDGAF', "description":'Departamento de Testos', "name":'somesing' };
         let req: Partial<Request> = {};
 		req.body = body;
 
         let res: Partial<Response> = {
-			json: sinon.spy()
+			json: sinon.spy() as SinonSpy<[any?]>
         };
 		let next: Partial<NextFunction> = () => {};
 
-		let roleServiceInstance = Container.get("RoleService");		
-		const roleServiceMock = sinon.mock(roleServiceInstance, "createRole")
-		roleServiceMock.expects("createRole")
+		const buildingServiceSpy: SinonSpy = sinon.spy(service, "createBuilding");
+		
+		const buildingServiceMock = sinon.mock(buildingServiceSpy);
+		buildingServiceMock.expects("createBuilding")
 			.once()
-			.withArgs(sinon.match({name: req.body.name}))
-			.returns(Result.ok<IRoleDTO>( {"id":"123", "name": req.body.name} ));
+			.withArgs(sinon.match({
+				code: req.body.code,
+				description: req.body.description,
+				name: req.body.name
+			}))
+			.returns(Result.ok<IBuildingDTO>( {
+				"id": "123",
+				"code": req.body.code,
+				"description": req.body.description,
+				"name": req.body.name
+			} ));
 
-		const ctrl = new RoleController(roleServiceInstance as IRoleService);
+		const ctrl = new BuildingController(service as IBuildingService);
 
 		// Act
-		await ctrl.createRole(<Request>req, <Response>res, <NextFunction>next);
+		await ctrl.createBuilding(<Request>req, <Response>res, <NextFunction>next);
 
-		// Assert
-		roleServiceMock.verify();
-		sinon.assert.calledOnce(res.json);
-		sinon.assert.calledWith(res.json, sinon.match({ "id": "123","name": req.body.name}));
+		try {
+
+			buildingServiceMock.verify();
+			sinon.assert.calledOnce(res.json as SinonSpy<[any?]>);
+			sinon.assert.calledWith(res.json as SinonSpy<[any?]>, sinon.match({ 
+				"id": "123",
+			    "code": req.body.code,
+			    "description": req.body.description,
+			    "name": req.body.name
+		    }));
+
+		} catch(error) {
+			throw error;
+		}
+		sinon.restore();
 	});
     */
 });
