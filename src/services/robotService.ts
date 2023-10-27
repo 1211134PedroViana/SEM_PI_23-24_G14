@@ -8,12 +8,14 @@ import { Result } from "../core/logic/Result";
 import { Description } from "../domain/description";
 import { Robot } from "../domain/robot";
 import { RobotMap } from "../mappers/RobotMap";
+import IRobotTypeRepo from "./IRepos/IRobotTypeRepo";
 
 
 @Service()
 export default class RobotService implements IRobotService {
     constructor (
-        @Inject(config.repos.robot.name) private robotRepo : IRobotRepo
+        @Inject(config.repos.robot.name) private robotRepo : IRobotRepo,
+        @Inject(config.repos.robotType.name) private robotTypeRepo : IRobotTypeRepo
     ) {}
 
     public async createRobot(robotDTO: IRobotDTO): Promise<Result<IRobotDTO>> {
@@ -21,6 +23,7 @@ export default class RobotService implements IRobotService {
 
             const robotCodeOrError = RobotCode.create(robotDTO.code);
             const descriptionOrError = Description.create(robotDTO.description);
+            const robotType = await this.robotTypeRepo.findByObjectId(robotDTO.robotType);
 
             //verifies the code and description creation
             if(robotCodeOrError.isFailure) {
@@ -29,6 +32,10 @@ export default class RobotService implements IRobotService {
             
             if (descriptionOrError.isFailure && robotDTO.description != undefined) {
                 return Result.fail<IRobotDTO>('Invalid Description!');
+            }
+
+            if (robotType === null) {
+                return Result.fail<IRobotDTO>("RobotType with id: '" + robotDTO.robotType + "' not found");
             }
     
             // checks if theres already a robot with the code provided
@@ -58,6 +65,30 @@ export default class RobotService implements IRobotService {
             await this.robotRepo.save(robotResult);
 
             const robotDTOResult = RobotMap.toDTO( robotResult ) as IRobotDTO;
+            return Result.ok<IRobotDTO>( robotDTOResult )
+
+        } catch (e) {
+            throw e;
+        }    
+    } 
+
+    public async deactivateRobot(robotId: string): Promise<Result<IRobotDTO>> {
+        try {
+
+            const robotDocument = await this.robotRepo.findByDomainId(robotId);
+            const found = !!robotDocument;
+  
+            if (!found) {
+              return Result.fail<IRobotDTO>("Robot with ID: '" + robotId + "' not found");
+            }
+
+            // sets the Robot isActive to false
+            robotDocument.isActive = false;
+
+            //saves the robot with the update and returns the robot DTO
+            await this.robotRepo.save(robotDocument);
+
+            const robotDTOResult = RobotMap.toDTO( robotDocument ) as IRobotDTO;
             return Result.ok<IRobotDTO>( robotDTOResult )
 
         } catch (e) {

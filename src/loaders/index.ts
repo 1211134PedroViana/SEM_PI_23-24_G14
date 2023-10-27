@@ -41,6 +41,11 @@ export default async ({ expressApp }) => {
     schema: '../persistence/schemas/roomSchema',
   };
 
+  const robotSchema = {
+    name: 'robotSchema',
+    schema: '../persistence/schemas/robotSchema',
+  };
+
   const robotTypeSchema = {
     name: 'robotTypeSchema',
     schema: '../persistence/schemas/robotTypeSchema',
@@ -75,6 +80,11 @@ export default async ({ expressApp }) => {
   const roomController = {
     name: config.controllers.room.name,
     path: config.controllers.room.path
+  }
+
+  const robotController = {
+    name: config.controllers.robot.name,
+    path: config.controllers.robot.path
   }
 
   const robotTypeController = {
@@ -118,6 +128,11 @@ export default async ({ expressApp }) => {
     path: config.repos.room.path
   }
 
+  const robotRepo = {
+    name: config.repos.robot.name,
+    path: config.repos.robot.path
+  }
+
   const robotTypeRepo = {
     name: config.repos.robotType.name,
     path: config.repos.robotType.path
@@ -155,6 +170,11 @@ export default async ({ expressApp }) => {
     path: config.services.room.path
   }
 
+  const robotService = {
+    name: config.services.robot.name,
+    path: config.services.robot.path
+  }
+
   const robotTypeService = {
     name: config.services.robotType.name,
     path: config.services.robotType.path
@@ -176,6 +196,7 @@ export default async ({ expressApp }) => {
       floorSchema,
       passageSchema,
       roomSchema,
+      robotSchema,
       robotTypeSchema,
       taskTypeSchema
     ],
@@ -185,6 +206,7 @@ export default async ({ expressApp }) => {
       floorController,
       passageController,
       roomController,
+      robotController,
       robotTypeController,
       taskTypeController
     ],
@@ -195,6 +217,7 @@ export default async ({ expressApp }) => {
       floorRepo,
       passageRepo,
       roomRepo,
+      robotRepo,
       robotTypeRepo,
       taskTypeRepo
     ],
@@ -204,6 +227,7 @@ export default async ({ expressApp }) => {
       floorService,
       passageService,
       roomService,
+      robotService,
       robotTypeService,
       taskTypeService
     ]

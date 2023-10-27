@@ -43,4 +43,20 @@ export default class RobotController implements IRobotController {
             return next(e);
         }
     }
+
+    public async deactivateRobot(req: Request, res: Response, next: NextFunction) {
+        try {
+            const robotOrError = await this.robotServiceInstance.deactivateRobot(req.body as string) as Result<IRobotDTO>;
+
+            if (robotOrError.isFailure) {
+                return res.status(402).send(robotOrError.errorValue());
+            }
+
+            const robotDTO = robotOrError.getValue();
+            return res.json(robotDTO).status(201);
+
+        } catch (e) {
+            return next(e);
+        }
+    }
 }
