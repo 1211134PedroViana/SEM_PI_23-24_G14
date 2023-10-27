@@ -1,0 +1,29 @@
+@startuml 
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US390
+
+actor "Fleet Manager" as User
+participant "UI" as UI
+
+activate User
+
+User -> UI: Request to view all existing robots 
+activate UI
+
+opt if user sorts robots by designation
+User -> UI : Sorts robots by designation
+UI --> User : Shows robot list sorted by designation
+deactivate UI
+end 
+
+opt if user sorts robots by task 
+User -> UI : Sorts robots by task
+activate UI
+UI --> User : Shows robot list sorted by task
+end
+
+@enduml
+

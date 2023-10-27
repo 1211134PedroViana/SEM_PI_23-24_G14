@@ -1,0 +1,20 @@
+@startuml 
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US380
+
+actor "Fleet Manager" as User
+participant "UI" as UI
+
+activate User
+
+User -> UI: Request to view all existing robots 
+activate UI
+
+UI --> User: Shows robot list
+deactivate UI
+
+
+@enduml

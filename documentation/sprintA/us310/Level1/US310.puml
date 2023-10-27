@@ -1,0 +1,24 @@
+@startuml
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US310
+
+actor "User" as User
+participant "UI" as UI
+
+activate User
+
+User -> UI : Asks to create a building room
+activate UI
+UI --> User : requests data (roomCode, dimension, location, floorId)
+deactivate UI
+User -> UI : types requested data
+activate UI
+UI --> User : Shows confirmation and new room info
+
+deactivate UI
+
+@enduml
