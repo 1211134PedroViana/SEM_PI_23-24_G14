@@ -1,0 +1,31 @@
+@startuml
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US270
+
+actor "User" as User
+participant "SPA" as SPA
+participant "Room" as Room
+
+activate User
+
+User -> SPA : Asks to create a room
+activate SPA
+SPA -> User: requests data to room
+User -> SPA: put data about room(code, dimension, location)
+
+SPA -> Room: POST/ room{code, dimension, location}
+activate Room
+Room -> SPA: status code
+deactivate
+
+alt successfull case
+SPA -> User: room created successfully
+else failure
+SPA -> User: room not created
+end
+
+@enduml
