@@ -15,7 +15,7 @@ UI --> User : 1.1 : requests robot data
 deactivate UI
 User -> UI : 2 : change de isActive parameter in robot to false
 activate UI
-UI --> User : 2.1 : Shows confirmation and new robot info
+UI --> User : 2.1 : Shows confirmation and update robot info
 
 deactivate UI
 
