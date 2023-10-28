@@ -1,0 +1,17 @@
+@startuml
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US170
+
+actor "User" as User
+participant "UI" as UI
+
+activate User
+activate UI
+User -> UI : 1 : requests passage between two buildings
+UI --> User : returns json with passages
+
+
+@enduml
