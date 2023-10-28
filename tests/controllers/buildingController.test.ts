@@ -15,7 +15,6 @@ import { Building } from '../../src/domain/building';
 
 
 describe('Building Controller', function () {
-	const sandbox = sinon.createSandbox();
 
     let buildingRepo : BuildingRepo;
     let service : BuildingService;
@@ -26,7 +25,7 @@ describe('Building Controller', function () {
     });
 
 	afterEach(function() {
-		sandbox.restore();
+		sinon.restore();
 	});
 
     it('buildingController unit test using buildingService stub', async function () {
@@ -130,12 +129,14 @@ describe('Building Controller', function () {
         };
 		let next: Partial<NextFunction> = () => {};
 
+		const buildingDTO = {
+			code: req.body.code,
+			description: req.body.description,
+			name: req.body.name
+		} as IBuildingDTO;
+
 		sinon.stub(buildingRepo, "save").returns(new Promise<Building>((resolve, reject) => {
-			resolve(Building.create({
-				"code": req.body.code,
-				"description": req.body.description,
-				"name": req.body.name
-			}).getValue())
+			resolve(Building.create(buildingDTO).getValue())
 		}));
 
 		const buildingServiceMock: IBuildingService = {
@@ -196,9 +197,9 @@ describe('Building Controller', function () {
 			// Assert
 		    sinon.assert.calledOnce(res.json as SinonSpy<[any?]>);
 		    sinon.assert.calledWith(res.json as SinonSpy<[any?]>, sinon.match({ 
-				"id": "123",
-			    "code": req.body.code,
+			    "code": "IDGAF",
 			    "description": req.body.description,
+				"id": "123",
 			    "name": req.body.name
 		    }));
 

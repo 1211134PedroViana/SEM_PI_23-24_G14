@@ -9,12 +9,17 @@ describe("Passage Domain", () => {
     it('Should return result sucess when creating a Passage with valid arguments', () => {
         const location = Location.create({positionX: 2, positionY:2, direction:"west"});
 
-        const passage = Passage.create(
-        {
+        const passageDTO = {
             fromFloorId: "653a39fa63d09ff25a368334",
-            toFloorId: "653a3a0a63d09ff25a368338",
-            location: location.getValue()
-        });
+             toFloorId: "653a39fa63d09ff25a368335",
+             location: {
+                 positionX: 2,
+                 positionY: 2,
+                 direction: "west"
+                }
+		} as IPassageDTO;
+
+        const passage = Passage.create(passageDTO);
 
         try {
 
@@ -35,15 +40,8 @@ describe("Passage Domain", () => {
                 direction:"west"
             }
         } as IPassageDTO;
-        const location = Location.
-        create({positionX: passageDTO.location.positionX, positionY:passageDTO.location.positionY, direction:passageDTO.location.direction});
-
-        const passage = Passage.create(
-        {
-            fromFloorId: passageDTO.fromFloorId,
-            toFloorId: passageDTO.toFloorId,
-            location: location.getValue()
-        });
+        
+        const passage = Passage.create(passageDTO);
 
         try {
 

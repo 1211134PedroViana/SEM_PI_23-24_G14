@@ -12,12 +12,13 @@ describe("Building Domain", () => {
 
 
     it('Should return result sucess when creating a Building with valid arguments', () => {
-        const building = Building.create(
-        {
-            code: BuildingCode.create("AX56H").getValue(),
-            description: Description.create("Departamento de Dummys").getValue(),
-            name: "Dummy Building"
-        });
+        const buildingDTO = {
+			code: "AX56H",
+			description: "Departamento de Dummys",
+			name: "Dummy Building"
+		} as IBuildingDTO;
+
+        const building = Building.create(buildingDTO);
         expect(true).to.equal(building.isSuccess);
         expect(false).to.equal(building.isFailure);
     })
@@ -27,12 +28,7 @@ describe("Building Domain", () => {
             code: "TEST"
         } as IBuildingDTO;
 
-        const building = Building.create(
-        {
-            code: BuildingCode.create(buildingDTO.code).getValue(),
-            description: Description.create(buildingDTO.description).getValue(),
-            name: buildingDTO.name
-        });
+        const building = Building.create(buildingDTO);
 
         try {
 

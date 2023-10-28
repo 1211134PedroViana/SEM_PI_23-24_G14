@@ -3,15 +3,17 @@ import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { Result } from "../core/logic/Result";
 import { Guard } from "../core/logic/Guard";
 import { FloorMapperzId } from "./floorMapperzId";
-import { Floor } from "./floor";
+import { FloorMapRoom } from "./valueObjects/fMapRoom";
+import { FloorMapPassage } from "./valueObjects/fMapPassage";
+import { FloorMapElevator } from "./valueObjects/fMapElevator";
 
 // TODO: rewrite the attributes types when the classes Room, Elevator, Passage and Door are added
 interface FloorMapperzProps {
-    floor: Floor;
+    floorId: string;
     map: number[][];
-    fMapRooms: string[];
-    fMapPassages: string[];
-    fMapElevator: string;
+    fMapRooms: FloorMapRoom[];
+    fMapPassages: FloorMapPassage[];
+    fMapElevator: FloorMapElevator;
 }
 
 /*
@@ -46,23 +48,23 @@ export class FloorMapperz extends AggregateRoot<FloorMapperzProps> {
         return new FloorMapperzId(this.floorMapperzId.toValue());
     }
 
-    get floor (): Floor {
-        return this.props.floor;
+    get floorId (): string {
+        return this.props.floorId;
     }
 
     get map (): number[][] {
         return this.props.map;
     }
 
-    get fMapRooms (): string[] {
+    get fMapRooms (): FloorMapRoom[] {
         return this.props.fMapRooms;
     }
 
-    get fMapPassages (): string[] {
+    get fMapPassages (): FloorMapPassage[] {
         return this.props.fMapPassages;
     }
 
-    get fMapElevator (): string {
+    get fMapElevator (): FloorMapElevator {
         return this.props.fMapElevator;
     }
 

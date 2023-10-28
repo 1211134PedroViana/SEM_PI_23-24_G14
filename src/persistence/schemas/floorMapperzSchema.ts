@@ -9,7 +9,7 @@ const FloorMapperzSchema = new mongoose.Schema(
             unique: true 
         },
 
-        floor: { 
+        floorId: { 
             type: Schema.Types.ObjectId,
             ref: 'Floor',
             required: [true, 'Please enter Floor ID'],
@@ -27,22 +27,84 @@ const FloorMapperzSchema = new mongoose.Schema(
         
         fMapRooms: [
             {
-                type: Schema.Types.ObjectId,
-                ref: 'Room'
+                roomId: {
+                    type: String,
+                    required: true
+                },
+                dimension: {
+                    pos1: {
+                        type: Number,
+                        required: true
+                    },
+                    pos2: {
+                        type: Number,
+                        required: true
+                    },
+                    pos3: {
+                        type: Number,
+                        required: true
+                    },
+                    pos4: {
+                        type: Number,
+                        required: true
+                    }
+                },
+                location: {
+                    positionX: {
+                        type: Number,
+                        required: true
+                    },
+                    positionY: {
+                        type: Number,
+                        required: true
+                    },
+                    direction: {
+                        type: String,
+                        required: true
+                    }
+                }
             }
         ],
-
+        fMapElevator: {
+            elevatorId: {
+                type: String,
+                required: true
+            },
+            location: {
+                positionX: {
+                    type: Number,
+                    required: true
+                },
+                positionY: {
+                    type: Number,
+                    required: true
+                },
+                direction: {
+                    type: String,
+                    required: true
+                }
+            }
+        },
         fMapPassages: [
             {
-                type: Schema.Types.ObjectId,
-                ref: 'Passage',
-            }
-        ],
-
-        fMapElevators: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Elevator'
+                passageId: {
+                    type: String,
+                    required: true
+                },
+                location: {
+                    positionX: {
+                        type: Number,
+                        required: true
+                    },
+                    positionY: {
+                        type: Number,
+                        required: true
+                    },
+                    direction: {
+                        type: String,
+                        required: true
+                    }
+                }
             }
         ]
 
