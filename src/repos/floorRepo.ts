@@ -5,6 +5,8 @@ import { IFloorPersistence } from '../dataschema/IFloorPersistence';
 import { Floor } from '../domain/floor';
 import { FloorId } from '../domain/floorId';
 import { FloorMap } from '../mappers/FloorMap';
+import {Building} from "../domain/building";
+import {BuildingMap} from "../mappers/BuildingMap";
 
 @Service()
 export default class FloorRepo implements IFloorRepo {
@@ -74,4 +76,10 @@ export default class FloorRepo implements IFloorRepo {
         else
           return null;
     }
+
+    public async findAll(): Promise<Floor[]> {
+        const floorList = await this.floorSchema.find()
+        return FloorMap.toDomainBulk(floorList);
+    }
+
 }

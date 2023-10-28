@@ -7,12 +7,14 @@ export default interface IFloorDTO {
     description: string;
     /*
     //Mapa de cada piso
-    map: {
+    /*map: {
         line: number;
         column: number;
         cells: Cell[][];
     }
     */
+
+     */
 
 }
 

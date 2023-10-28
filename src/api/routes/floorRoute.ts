@@ -24,4 +24,19 @@ export default( app: Router) => {
       }),
       (req, res, next) => ctrl.createFloor(req, res, next) );
 
+    //API PUT request - update data of a Building
+    route.put('/update',
+        celebrate({
+            body: Joi.object({
+                buildingId: Joi.string().required(),
+                floorNumber: Joi.number().required(),
+                description: Joi.string()
+            })
+        }),
+        (req, res, next) => ctrl.updateFloor(req, res, next) );
+
+    //API GET request - list all Buildings
+    route.get('/list',
+        (req, res, next) => ctrl.listFloors(req, res, next) );
+
 }
