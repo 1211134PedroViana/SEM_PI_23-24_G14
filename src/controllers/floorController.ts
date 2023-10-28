@@ -12,9 +12,6 @@ export default class FloorController implements IFloorController {
     constructor(
         @Inject(config.services.floor.name) private floorServiceInstance : IFloorService
     ) {}
-    updateFloor() {
-        throw new Error('Method not implemented.');
-    }
 
     public async createFloor(req: Request, res: Response, next: NextFunction) {
         try {
@@ -32,7 +29,7 @@ export default class FloorController implements IFloorController {
         }
     }
 
-    public async updpateFloor(req: Request, res: Response, next: NextFunction) {
+    public async updateFloor(req: Request, res: Response, next: NextFunction) {
         try {
             const floorOrError = await this.floorServiceInstance.updateFloor(req.body as IFloorDTO) as Result<IFloorDTO>;
 

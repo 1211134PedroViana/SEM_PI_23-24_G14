@@ -9,6 +9,9 @@ import { Description } from '../domain/description';
 import { Floor } from '../domain/floor';
 import { FloorMap } from '../mappers/FloorMap';
 import { Cell } from '../domain/cell';
+import IBuildingDTO from "../dto/IBuildingDTO";
+import {BuildingMap} from "../mappers/BuildingMap";
+import {Building} from "../domain/building";
 
 @Service()
 export default class FloorService implements IFloorService {
@@ -21,7 +24,7 @@ export default class FloorService implements IFloorService {
         try {          
          
           const building = await this.buildingRepo.findByObjectId(floorDTO.buildingId);
-          const descriptionOrError = Description.create(floorDTO.description);
+            const descriptionOrError = Description.create(floorDTO.description);
           
           if (building === null) {
             return Result.fail<IFloorDTO>('Building with ID "' + floorDTO.buildingId + '" not found');
@@ -31,11 +34,7 @@ export default class FloorService implements IFloorService {
             return Result.fail<IFloorDTO>('Invalid Description!');
           }
 
-          const floorOrError = await Floor.create({
-            buildingId: building.id.toString(),
-            floorNumber: floorDTO.floorNumber,
-            description: descriptionOrError.getValue(),
-          });
+          const floorOrError = await Floor.create(floorDTO);
 
           if (floorOrError.isFailure) {
             return Result.fail<IFloorDTO>(floorOrError.errorValue());
@@ -51,5 +50,45 @@ export default class FloorService implements IFloorService {
             throw e;
         }
     }
+    public async updateFloor(floorDTO:IFloorDTO): Promise<Result<IFloorDTO>> {
+        try {
 
+            const floor = await this.floorRepo.findByDomainId(floorDTO.id);
+
+            const descriptionOrError = Description.create(floorDTO.description);
+
+            if (floor === null) {
+                return Result.fail<IFloorDTO>('Building not found with id:' + floorDTO.id);
+            }else{
+                if (descriptionOrError.isFailure) {
+                    return Result.fail<IFloorDTO>('Error updating building -> Invalid Description!');
+                }else{
+                    floor.description = descriptionOrError.getValue();
+
+                    await this.floorRepo.save(floor);
+                    const floorDTOResult = FloorMap.toDTO( floor ) as IFloorDTO;
+                    return Result.ok<IFloorDTO>( floorDTOResult );
+                }
+            }
+
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    public async getAllFloors(): Promise<Result<IFloorDTO[]>> {
+        try {
+            const floorList: Floor[] = await this.floorRepo.findAll();
+            let floorListDto: IFloorDTO[] = [];
+
+            if (floorList != null){
+                for (let i = 0; i < floorList.length; i++)
+                    floorListDto.push(FloorMap.toDTO(floorList[i]));
+                return Result.ok<IFloorDTO[]>(floorListDto);
+            }
+            return Result.fail<IFloorDTO[]>("There are no buildings to return.");
+        } catch (e) {
+            return Result.fail<IFloorDTO[]>(e.message);
+        }
+    }
 }
