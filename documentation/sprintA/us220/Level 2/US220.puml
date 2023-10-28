@@ -1,0 +1,24 @@
+@startuml
+autonumber
+
+Actor User
+activate User
+User -> SPA : List all passages of a building to another building
+activate SPA
+
+
+SPA -> PassageRepo : GET/passage/{fromFloorID, toFloorId, location}
+activate PassageRepo
+
+PassageRepo --> SPA : status code
+deactivate PassageRepo
+
+alt successfull case
+    SPA --> User : list successfully returned
+else failure
+    SPA --> User : list wasn't returned with success
+end
+
+
+
+@enduml
