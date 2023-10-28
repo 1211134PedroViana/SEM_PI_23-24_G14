@@ -1,0 +1,68 @@
+@startuml us240
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+autonumber
+participant "RobDroneGo UI" as UI
+participant "RobDroneGo" as API
+participant ":passageController" as PC 
+participant ":passageService" as PS 
+participant ":passageRepository" as PR
+participant ":floorRepository" as FR
+participant ":passageMap" as PM
+participant ":passageSchema" as SCHEMA
+participant ":passageDTO" as DTO
+participant ":passage" as P
+
+activate UI
+activate API
+UI -> API : .post(/passage)
+API -> PC : createPassage(req,res,next)
+activate PC
+PC -> PS : createPassage(passageDTO)
+activate PS
+PS -> FR : findByObjectId(fromFloorId)
+activate FR
+FR --> PS : fromFloor
+deactivate FR
+PS -> FR : findByObjectId(toFloorId)
+activate FR
+FR --> PS : toFloor
+deactivate FR
+PS -> PR : save(passage)
+activate PR
+PR -> PM : toPersistence(passage)
+activate PM
+PM --> PR : passage to save
+deactivate PM
+PR -> SCHEMA : create(rawSchema)
+activate SCHEMA
+SCHEMA --> PR : passage saved
+deactivate SCHEMA
+PR -> PM : toDomain(passageCreated)
+activate PM
+PM -> P : create(passageCreated)
+activate P
+P --> PM : passage
+deactivate P
+PM --> PR : passage form to return
+deactivate PM
+PR --> PS : passage
+deactivate PR
+PS -> PM : toDTO(passage)
+activate PM
+PM --> DTO : toDTO(passage)
+activate DTO
+DTO --> PM : passageDTO
+deactivate DTO
+PM --> PS : passageDTO
+deactivate PM
+PS --> PC : passageDTO
+deactivate PS
+PC --> API : passageDTO and status 201
+deactivate PC
+API --> UI : passageDTO and status 201
+deactivate UI
+deactivate API
+@enduml
