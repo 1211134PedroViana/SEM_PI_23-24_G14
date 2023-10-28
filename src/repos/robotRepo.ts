@@ -88,6 +88,17 @@ export default class RobotRepo implements IRobotRepo {
         }
     }
 
+    public async findByNickname (nickname: string): Promise<Robot> {
+        const query = { nickname: nickname };
+        const robotRecord = await this.robotSchema.findOne( query as FilterQuery<IRobotPersistence & Document> );
+        
+        if (robotRecord != null)  {
+            return RobotMap.toDomain(robotRecord);
+        } else {
+            return null;
+        }
+    }
+
     public async findAll(): Promise<Robot[]> {
         const robotList = await this.robotSchema.find()
         return RobotMap.toDomainBulk(robotList);
