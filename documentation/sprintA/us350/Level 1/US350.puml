@@ -1,0 +1,22 @@
+@startuml
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US350
+
+actor "User" as User
+participant "UI" as UI 
+
+activate User
+User -> UI : 1 : starts the robot creation process
+activate UI
+UI --> User : 1.1 : requests data (code, nickname, robotType, serialNumber, description, isActive)
+deactivate UI
+User -> UI : 2 : inserts the requested data 
+activate UI
+UI --> User : 2.1 : Shows confirmation and new robot info
+
+deactivate UI
+
+@enduml
