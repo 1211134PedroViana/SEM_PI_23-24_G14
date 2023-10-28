@@ -9,6 +9,22 @@ const RoomSchema = new mongoose.Schema(
             unique: true
         },
 
+        code: {
+            type: String,
+            unique: true,
+            required: true
+        },
+
+        name: {
+            type: String,
+            unique: true,
+            required: true
+        },
+
+        description: {
+            type: String
+        },
+
         dimension: {
             pos1: {
                 type: Number,
@@ -41,6 +57,11 @@ const RoomSchema = new mongoose.Schema(
                 type: String,
                 required: true
             }
+        },
+
+        floorId: {
+            type: Schema.Types.ObjectId,
+            required: true
         }
 
     },

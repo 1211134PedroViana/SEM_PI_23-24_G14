@@ -18,6 +18,8 @@ export default( app: Router) => {
         celebrate({
             body: Joi.object({
                 code: Joi.string().required(),
+                name: Joi.string().required(),
+                description: Joi.string(),
                 dimension: {
                     pos1: Joi.number().required(),
                     pos2: Joi.number().required(),
@@ -28,7 +30,8 @@ export default( app: Router) => {
                     positionX: Joi.number().required(),
                     positionY: Joi.number().required(),
                     direction: Joi.string().required()
-                }
+                },
+                floorId: Joi.string().required()
             })
         }),
         (req, res, next) => ctrl.createRoom(req, res, next) );
@@ -37,9 +40,19 @@ export default( app: Router) => {
     route.put('/update',
         celebrate({
             body: Joi.object({
-                code: Joi.string().required(),
-                dimension: Joi.string(),
-                location: Joi.string().required()
+                id: Joi.string().required(),
+                description: Joi.string(),
+                dimension: {
+                    pos1: Joi.number(),
+                    pos2: Joi.number(),
+                    pos3: Joi.number(),
+                    pos4: Joi.number(),
+                },
+                location: {
+                    positionX: Joi.number(),
+                    positionY: Joi.number(),
+                    direction: Joi.string()
+                }
             })
         }),
         (req, res, next) => ctrl.updateRoom(req, res, next) );
