@@ -33,6 +33,18 @@ export class Passage extends AggregateRoot<PassageProps> {
         return this.props.location;
     }
 
+    set fromFloorId ( value: string ) {
+        this.fromFloorId = value;
+    }
+
+    set toFloorId ( value: string ) {
+        this.toFloorId = value;
+    }
+
+    set location(value: Location) {
+        this.location = value;
+    }
+
     private constructor (props: PassageProps, id?: UniqueEntityID) {
         super(props, id);
     }
