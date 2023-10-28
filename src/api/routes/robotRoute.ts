@@ -40,4 +40,14 @@ export default( app: Router) => {
     //API GET request - list all Robots
     route.get('/list',
       (req, res, next) => ctrl.listRobots(req, res, next) );
+
+    
+    //API GET request - find robot by nickname
+    route.get('/findByNickname',
+     celebrate({
+      body: Joi.object({
+        nickname: Joi.string().required()
+      })
+     }),
+     (req, res, next) => ctrl.findRobotByNickname(req, res, next) );
 }

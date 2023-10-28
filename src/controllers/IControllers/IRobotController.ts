@@ -5,4 +5,5 @@ export default interface IRobotController {
     updateRobot(req: Request, res: Response, next: NextFunction);
     deactivateRobot(req: Request, res: Response, next: NextFunction);
     listRobots(req: Request, res: Response, next: NextFunction);
+    findRobotByNickname(req: Request, res: Response, next: NextFunction);
 }

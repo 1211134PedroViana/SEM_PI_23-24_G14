@@ -6,4 +6,5 @@ export default interface IRobotService {
     updateRobot(robotDTO: IRobotDTO): Promise<Result<IRobotDTO>>;
     deactivateRobot(robotDTO: IRobotDTO): Promise<Result<IRobotDTO>>;
     getAllRobots(): Promise<Result<IRobotDTO[]>>;
+    getAllRobotsWithNickname(robotNickname: IRobotDTO): Promise<Result<IRobotDTO>>;
 }

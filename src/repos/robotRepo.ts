@@ -6,6 +6,7 @@ import { Robot } from "../domain/robot";
 import { RobotId } from "../domain/robotId";
 import { RobotMap } from '../mappers/RobotMap';
 import { RobotCode } from "../domain/robotCode";
+import IRobotDTO from "../dto/IRobotDTO";
 
 @Service()
 export default class RobotRepo implements IRobotRepo {
@@ -88,8 +89,8 @@ export default class RobotRepo implements IRobotRepo {
         }
     }
 
-    public async findByNickname (nickname: string): Promise<Robot> {
-        const query = { nickname: nickname };
+    public async findByNickname (robotNickname: IRobotDTO): Promise<Robot> {
+        const query = { nickname: robotNickname.nickname };
         const robotRecord = await this.robotSchema.findOne( query as FilterQuery<IRobotPersistence & Document> );
         
         if (robotRecord != null)  {
