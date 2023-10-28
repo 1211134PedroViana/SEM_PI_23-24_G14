@@ -29,7 +29,7 @@ loop
     FloorMapper --> FloorService : floorDTO
     deactivate FloorMapper
 
-    FloorService -> FloorService : list.add(floorDTO)
+    FloorService -> FloorService : list.push(floorDTO)
 end
 
 FloorService --> FloorController : floorDTO[ ]
