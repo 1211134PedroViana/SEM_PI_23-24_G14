@@ -7,7 +7,7 @@ activate User
 User -> SPA : Edit a building floor information
 activate SPA
 
-SPA --> User : equests data (buildingId, floorNumber)
+SPA --> User : requests data (buildingId, floorNumber)
 deactivate SPA
 
 User -> SPA : types data (buildingId, floorNumber)

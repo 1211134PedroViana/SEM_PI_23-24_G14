@@ -1,0 +1,29 @@
+@startuml
+autonumber
+
+Actor User
+activate User
+User -> SPA : List all floors of a building
+activate SPA
+
+SPA --> User : requests data (buildingId)
+deactivate SPA
+
+User -> SPA : types data (buildingId)
+activate SPA
+
+SPA -> FloorRepo : GET/floor/{floorId, buildingId, floorNumber, description}
+activate FloorRepo
+
+FloorRepo --> SPA : status code
+deactivate FloorRepo
+
+alt successfull case
+    SPA --> User : list successfully returned
+else failure
+    SPA --> User : list wasn't returned with success
+end
+
+
+
+@enduml
