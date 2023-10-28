@@ -7,6 +7,7 @@ import IElevatorDTO from '../dto/IElevatorDTO';
 import { Location } from '../domain/location';
 import { Elevator } from '../domain/elevator';
 import { ElevatorMap } from '../mappers/ElevatorMap';
+import { ElevatorCode } from '../domain/elevatorCode';
 
 @Service()
 export default class ElevatorService implements IElevatorService {
@@ -14,8 +15,10 @@ export default class ElevatorService implements IElevatorService {
         @Inject(config.repos.elevator.name) private elevatorRepo : IElevatorRepo,
     ) {}
 
-    public async createPassage(elevatorDTO: IElevatorDTO): Promise<Result<IElevatorDTO>> {
-        try {          
+    public async createElevator(elevatorDTO: IElevatorDTO): Promise<Result<IElevatorDTO>> {
+        try {       
+          
+          const codeOrError = ElevatorCode.create(elevatorDTO.code);
         
           const locationOrError = Location.create({
             positionX: elevatorDTO.location.positionX,
@@ -23,12 +26,17 @@ export default class ElevatorService implements IElevatorService {
             direction: elevatorDTO.location.direction,
           });
 
+          if (codeOrError.isFailure) {
+            return Result.fail<IElevatorDTO>('Invalid Code');
+          }
+
           if (locationOrError.isFailure) {
             return Result.fail<IElevatorDTO>('Invalid Location');
           }
 
           const elevatorOrError = await Elevator.create({
-            location: locationOrError.getValue(),
+            code: codeOrError.getValue(),
+            location: locationOrError.getValue()
           });
 
           if (elevatorOrError.isFailure) {
@@ -46,7 +54,7 @@ export default class ElevatorService implements IElevatorService {
         }
     }
 
-    public async getAllPassages(): Promise<Result<IElevatorDTO[]>> {
+    public async getAllElevators(): Promise<Result<IElevatorDTO[]>> {
       try {
         const elevatorList: Elevator[] = await this.elevatorRepo.findAll();
         let elevatorListDto: IElevatorDTO[] = [];

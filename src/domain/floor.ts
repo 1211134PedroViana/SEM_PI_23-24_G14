@@ -12,7 +12,7 @@ interface FloorProps {
     buildingId: string;
     floorNumber: number;
     description: Description;
-    cell: Cell;
+    //cell: Cell;
 }
 
 export class Floor extends AggregateRoot<FloorProps> {
@@ -45,6 +45,7 @@ export class Floor extends AggregateRoot<FloorProps> {
         this.props.description = value;
     }
 
+    /*
     get cell(): Cell {
         return this.props.cell;
     }
@@ -52,12 +53,14 @@ export class Floor extends AggregateRoot<FloorProps> {
     set cell ( value: Cell ) {
         this.props.cell = value;
     }
+    */
 
     private constructor (props: FloorProps, id?: UniqueEntityID) {
         super(props, id);
     }
 
     public static create(props: FloorProps, id?: UniqueEntityID): Result<Floor> {
+        
         const guardedProps = [
             { argument: props.buildingId, argumentName: 'buildingId' },
             { argument: props.floorNumber, argumentName: 'floorNumber' }
