@@ -10,28 +10,30 @@ import { IRobotPersistence } from "../dataschema/IRobotPersistence";
 export class RobotMap extends Mapper<Robot> {
 
     public static toDTO( robot: Robot): IRobotDTO {
+        
         return {
             id: robot.id.toString(),
             code: robot.code.value,
             nickname: robot.nickname,
             robotType: robot.robotType,
-            serialNumber: robot.serialNumber.valueOf(),
+            serialNumber: robot.serialNumber,
             description: robot.description.value,
             isActive: robot.isActive
         } as IRobotDTO;
     }
 
         public static toDomain (robot: any | Model<IRobotPersistence & Document> ): Robot {
-
+            
             const robotOrError = Robot.create(
                 robot,
-                new UniqueEntityID(robot._id)
+                new UniqueEntityID(robot.domainId)
             );
 
             robotOrError.isFailure ? console.log(robotOrError): '';
             return robotOrError.isSuccess ? robotOrError.getValue(): null;
         }
 
+        
         public static toDomainBulk(robotList: any[]): Robot[] {
             var robotListDomain = [];
             var index = 0;
@@ -44,7 +46,7 @@ export class RobotMap extends Mapper<Robot> {
                     serialNumber: robotList[i].serialNumber,
                     description: robotList[i].description,
                     isActive: robotList[i].isActive,
-                }, new UniqueEntityID(robotList[i].domainId))
+                } as IRobotDTO, new UniqueEntityID(robotList[i].domainId))
 
                 if (robotOrError.isSuccess) {
                     robotListDomain[index] = robotOrError.getValue();
@@ -56,13 +58,15 @@ export class RobotMap extends Mapper<Robot> {
                 else
             return robotListDomain;
     }
+    
 
     public static toPersistence(robot: Robot): any {
         return {
             domainId: robot.id.toString(),
-            code: robot.code,
+            code: robot.code.value,
             nickname: robot.nickname,
             robotType: robot.robotType,
+            serialNumber: robot.serialNumber,
             description: robot.description.value,
             isActive: robot.isActive
         }

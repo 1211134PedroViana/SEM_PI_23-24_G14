@@ -5,6 +5,7 @@ import { Description } from "./description";
 import { Result } from "../core/logic/Result";
 import { Guard } from "../core/logic/Guard";
 import { RobotCode } from "./robotCode";
+import IRobotDTO from "../dto/IRobotDTO";
 
 interface RobotProps {
     code: RobotCode;
@@ -68,23 +69,26 @@ export class Robot extends AggregateRoot<RobotProps> {
         super(props, id);
     }
 
-    public static create(props: RobotProps, id?: UniqueEntityID): Result<Robot> {
+    public static create(robotDTO: IRobotDTO, id?: UniqueEntityID): Result<Robot> {
 
+        const code = RobotCode.create(robotDTO.code).getValue();
+        const description = Description.create(robotDTO.description).getValue();
+    
         const guardedProps = [
-            { argument: props.code, argumentName: 'code' },
-            { argument: props.nickname, argumentName: 'nickname' },
-            { argument: props.robotType, argumentName: 'type'},
-            { argument: props.serialNumber, argumentName: 'serialNumber'},
-            { argument: props.description, argumentName: 'description'},
-            { argument: props.isActive, argumentName: 'isActive'},
+            { argument: robotDTO.code, argumentName: 'code' },
+            { argument: robotDTO.nickname, argumentName: 'nickname' },
+            { argument: robotDTO.robotType, argumentName: 'robotType'},
+            { argument: robotDTO.serialNumber, argumentName: 'serialNumber'},
+            { argument: robotDTO.description, argumentName: 'description'},
+            { argument: robotDTO.isActive, argumentName: 'isActive'},
         ];
 
         const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);
 
         if (!guardResult.succeeded) {
-            return Result.fail<Robot>(' ');
+            return Result.fail<Robot>('Robot data cant be null or undefined');
         } else {
-            const robot = new Robot({...props}, id);
+            const robot = new Robot({code: code, nickname: robotDTO.nickname, robotType:robotDTO.robotType, serialNumber:robotDTO.serialNumber, description:description, isActive:robotDTO.isActive}, id);
             return Result.ok<Robot>( robot );
         }
     }

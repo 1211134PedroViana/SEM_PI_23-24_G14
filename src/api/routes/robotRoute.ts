@@ -31,7 +31,7 @@ export default( app: Router) => {
     route.patch('/deactivate',
       celebrate({
         body: Joi.object({
-          robotId: Joi.string().required()
+          id: Joi.string().required()
         })
       }),
       (req, res, next) => ctrl.deactivateRobot(req, res, next) );

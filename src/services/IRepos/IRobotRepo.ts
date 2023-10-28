@@ -7,5 +7,6 @@ import { RobotCode } from "../../domain/robotCode";
 export default interface IRobotRepo extends Repo<Robot> {
     save(robot: Robot): Promise<Robot>;
     findByDomainId(robotId: RobotId | string): Promise<Robot>;
+    findByObjectId (robotId: string): Promise<Robot>;
     findByCode(robotCode: RobotCode | string): Promise<Robot>;
 }

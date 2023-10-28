@@ -7,6 +7,7 @@ interface RobotCodeProps {
 }
 
 export class RobotCode extends ValueObject<RobotCodeProps> {
+    
     get value (): string {
         return this.props.value;
     }
@@ -17,9 +18,7 @@ export class RobotCode extends ValueObject<RobotCodeProps> {
 
     //checks if the code has 30 characters maximum and if it is alfanumeric
     public static isValidCode (code: string): boolean {
-        if (code.length > 30 || !/^[a-zA-Z0-9]+$/.test(code)) {
-            return false;
-        }
+        return new RegExp('^[a-zA-Z0-9]{1,30}$').test(code);
     }
 
     public static create (code: string): Result<RobotCode> {

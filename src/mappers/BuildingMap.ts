@@ -33,11 +33,12 @@ export class BuildingMap extends Mapper<Building> {
         var index = 0;
         
         for (let i = 0; i < buildingList.length; i++) {
+            
             const buildingOrError = Building.create({
                 code: buildingList[i].code,
                 description: buildingList[i].description,
                 name: buildingList[i].name
-            }, new UniqueEntityID(buildingList[i].domainId))
+            } as IBuildingDTO, new UniqueEntityID(buildingList[i].domainId))
 
             if (buildingOrError.isSuccess){
                 buildingListDomain[index] = buildingOrError.getValue();

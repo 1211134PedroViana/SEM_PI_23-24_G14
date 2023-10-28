@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Schema, Document } from 'mongoose';
 import { IRobotPersistence } from '../../dataschema/IRobotPersistence';
 
 const RobotSchema = new mongoose.Schema(
@@ -19,7 +20,9 @@ const RobotSchema = new mongoose.Schema(
         },
 
         robotType: {
-            type: String
+            type: Schema.Types.ObjectId,
+            ref: 'RobotType',
+            required: [true, 'Please enter RobotType']
         },
 
         serialNumber: {

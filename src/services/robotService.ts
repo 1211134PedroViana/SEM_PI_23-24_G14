@@ -20,7 +20,7 @@ export default class RobotService implements IRobotService {
 
     public async createRobot(robotDTO: IRobotDTO): Promise<Result<IRobotDTO>> {
         try {
-
+            
             const robotCodeOrError = RobotCode.create(robotDTO.code);
             const descriptionOrError = Description.create(robotDTO.description);
             const robotType = await this.robotTypeRepo.findByObjectId(robotDTO.robotType);
@@ -45,25 +45,19 @@ export default class RobotService implements IRobotService {
             if (found) {
                 return Result.fail<IRobotDTO>('Robot already exists with that code' + robotDTO.code);
             }
-
-            const robotOrError = await Robot.create({
-                code: robotCodeOrError.getValue(),
-                nickname: robotDTO.nickname,
-                robotType: robotDTO.robotType,
-                serialNumber: robotDTO.serialNumber,
-                description: descriptionOrError.getValue(),
-                isActive: true,
-            });
-
+            
+            robotDTO.isActive = true;
+            const robotOrError = await Robot.create(robotDTO);
+            
             if (robotOrError.isFailure) {
                 return Result.fail<IRobotDTO>(robotOrError.errorValue());
             }
-
+            
             const robotResult = robotOrError.getValue();
-
+            
             //saves the new created robot and returns the robot DTO
             await this.robotRepo.save(robotResult);
-
+            
             const robotDTOResult = RobotMap.toDTO( robotResult ) as IRobotDTO;
             return Result.ok<IRobotDTO>( robotDTOResult )
 
@@ -72,23 +66,24 @@ export default class RobotService implements IRobotService {
         }    
     } 
 
-    public async deactivateRobot(robotId: string): Promise<Result<IRobotDTO>> {
+    public async deactivateRobot(robotDTO: IRobotDTO): Promise<Result<IRobotDTO>> {
         try {
-
-            const robotDocument = await this.robotRepo.findByDomainId(robotId);
-            const found = !!robotDocument;
-  
-            if (!found) {
-              return Result.fail<IRobotDTO>("Robot with ID: '" + robotId + "' not found");
+           
+            const robot = await this.robotRepo.findByDomainId(robotDTO.id);
+            
+            if (robot === null) {
+              return Result.fail<IRobotDTO>("Robot with ID: '" + robotDTO.id + "' not found");
             }
 
+            
             // sets the Robot isActive to false
-            robotDocument.isActive = false;
-
+            robot.isActive = false;
+            
             //saves the robot with the update and returns the robot DTO
-            await this.robotRepo.save(robotDocument);
-
-            const robotDTOResult = RobotMap.toDTO( robotDocument ) as IRobotDTO;
+            await this.robotRepo.save(robot);
+        
+            const robotDTOResult = RobotMap.toDTO( robot ) as IRobotDTO;
+            
             return Result.ok<IRobotDTO>( robotDTOResult )
 
         } catch (e) {

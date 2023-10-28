@@ -38,11 +38,7 @@ export default class BuildingService implements IBuildingService {
             return Result.fail<IBuildingDTO>('Building already exists with code:' + buildingDTO.code);
           }
 
-          const buildingOrError = await Building.create({
-            code: buildingCodeOrError.getValue(),
-            description: descriptionOrError.getValue(),
-            name: buildingDTO.name,
-          });
+          const buildingOrError = await Building.create(buildingDTO);
 
           if (buildingOrError.isFailure) {
             return Result.fail<IBuildingDTO>(buildingOrError.errorValue());
