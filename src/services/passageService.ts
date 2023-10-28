@@ -40,11 +40,7 @@ export default class PassageService implements IPassageService {
             return Result.fail<IPassageDTO>('Invalid Location');
           }
 
-          const passageOrError = await Passage.create({
-            fromFloorId: fromFloor.id.toString(),
-            toFloorId: toFloor.id.toString(),
-            location: locationOrError.getValue(),
-          });
+          const passageOrError = await Passage.create(passageDTO);
 
           if (passageOrError.isFailure) {
             return Result.fail<IPassageDTO>(passageOrError.errorValue());

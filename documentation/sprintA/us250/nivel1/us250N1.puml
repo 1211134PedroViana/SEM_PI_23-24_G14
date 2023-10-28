@@ -1,0 +1,22 @@
+@startuml us250
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US250
+
+actor "User" as User
+participant "UI" as UI
+
+activate User
+User -> UI : 1: starts the editing passage process
+activate UI
+UI --> User : 1.1: requests data (id, description)
+deactivate UI
+User -> UI : 2: inserts the data (id, description)
+activate UI
+UI --> User : 2.1 : Shows confirmation of the passage
+deactivate UI 
+
+@enduml

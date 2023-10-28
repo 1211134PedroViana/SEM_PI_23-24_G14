@@ -7,5 +7,5 @@ export default interface IFloorService {
 
     createFloor(floorDTO: IFloorDTO): Promise<Result<IFloorDTO>>;
     updateFloor(floorDTO: IFloorDTO): Promise<Result<IFloorDTO>>;
-    getAllFloors(): Promise<Result<IFloorDTO[]>>;
+    //getAllFloors(): Promise<Result<IFloorDTO[]>>;
 }

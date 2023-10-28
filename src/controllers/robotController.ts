@@ -6,6 +6,7 @@ import IRobotDTO from '../dto/IRobotDTO';
 import { NextFunction, Response } from "express-serve-static-core";
 import { Result } from "../core/logic/Result";
 import { Request } from "express-jwt";
+import IRobotRepo from './IRepos/IRobotRepo';
 
 @Service()
 export default class RobotController implements IRobotController {
@@ -55,6 +56,22 @@ export default class RobotController implements IRobotController {
 
             const robotDTO = robotOrError.getValue();
             return res.json(robotDTO).status(201);
+
+        } catch (e) {
+            return next(e);
+        }
+    }
+
+    public async listRobots(req: Request, res: Response, next: NextFunction) {
+        try {
+            const robotListOrError = await this.robotServiceInstance.getAllRobots() as Result<IRobotDTO[]>;
+
+            if (robotListOrError.isFailure) {
+                return res.status(402).send(robotListOrError.errorValue());
+            }
+
+            const robotListDTO = robotListOrError.getValue();
+            return res.json(robotListDTO).status(201);
 
         } catch (e) {
             return next(e);

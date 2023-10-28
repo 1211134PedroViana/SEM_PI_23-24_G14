@@ -40,7 +40,7 @@ export class PassageMap extends Mapper<Passage> {
                 fromFloorId: passageList[i].fromFloorId,
                 toFloorId: passageList[i].toFloorId,
                 location: passageList[i].location,
-            }, new UniqueEntityID(passageList[i].domainId))
+            } as IPassageDTO, new UniqueEntityID(passageList[i].domainId))
 
             if (passageOrError.isSuccess){
                 passageListDomain[index] = passageOrError.getValue();

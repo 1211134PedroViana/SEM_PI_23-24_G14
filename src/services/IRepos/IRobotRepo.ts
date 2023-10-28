@@ -10,4 +10,5 @@ export default interface IRobotRepo extends Repo<Robot> {
     findByObjectId (robotId: string): Promise<Robot>;
     findByCode(robotCode: RobotCode | string): Promise<Robot>;
     findByNickname(nickname: string): Promise<Robot>;
+    findAll(): Promise<Robot[]>;
 }
