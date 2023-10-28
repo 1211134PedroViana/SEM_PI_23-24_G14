@@ -42,6 +42,8 @@ export default class PassageRepo implements IPassageRepo {
 
                 return PassageMap.toDomain(passageCreated);
             }else{
+                passageDocument.fromFloorId = passage.fromFloorId;
+                passageDocument.toFloorId = passage.toFloorId;
                 passageDocument.location.positionX = passage.location.positionX;
                 passageDocument.location.positionY = passage.location.positionY;
                 passageDocument.location.direction = passage.location.direction;

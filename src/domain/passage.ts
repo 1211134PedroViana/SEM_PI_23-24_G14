@@ -4,6 +4,7 @@ import { Result } from "../core/logic/Result";
 import { Guard } from "../core/logic/Guard";
 import { Location } from "./location";
 import { PassageId } from "./passageId";
+import IPassageDTO from "../dto/IPassageDTO";
 
 interface PassageProps {
     fromFloorId: string;
@@ -49,11 +50,13 @@ export class Passage extends AggregateRoot<PassageProps> {
         super(props, id);
     }
 
-    public static create(props: PassageProps, id?: UniqueEntityID): Result<Passage> {
+    public static create(passageDTO: IPassageDTO, id?: UniqueEntityID): Result<Passage> {
+        const location = Location.create({positionX: passageDTO.location.positionX, positionY: passageDTO.location.positionY, direction: passageDTO.location.direction})
+
         const guardedProps = [
-            { argument: props.fromFloorId, argumentName: 'fromFloorId' },
-            { argument: props.toFloorId, argumentName: 'toFloorId' },
-            { argument: props.location, argumentName: 'location' }
+            { argument: passageDTO.fromFloorId, argumentName: 'fromFloorId' },
+            { argument: passageDTO.toFloorId, argumentName: 'toFloorId' },
+            { argument: passageDTO.location, argumentName: 'location' }
         ];
 
       const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);
@@ -61,7 +64,7 @@ export class Passage extends AggregateRoot<PassageProps> {
       if (!guardResult.succeeded) {
         return Result.fail<Passage>('Must provide the Floor IDs and the Location');
       } else {
-        const passage = new Passage({...props}, id);
+        const passage = new Passage({fromFloorId: passageDTO.fromFloorId, toFloorId: passageDTO.toFloorId, location: location.getValue()}, id);
         return Result.ok<Passage>( passage );
       }
     }
