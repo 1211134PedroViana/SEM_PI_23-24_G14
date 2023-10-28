@@ -3,7 +3,7 @@ skinparam Monochrome true
 skinparam PackageStyle rectangle
 skinparam Shadowing false
 
-title Sequence Diagram: US170
+title Sequence Diagram: US260
 
 actor "User" as User
 participant "UI" as UI
