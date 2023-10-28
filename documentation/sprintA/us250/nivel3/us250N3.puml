@@ -1,0 +1,60 @@
+@startuml test
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+autonumber
+
+participant "RobDroneGo UI" as UI
+participant "RobDroneGo" as API
+participant ":passageController" as PC 
+participant ":passageService" as PS 
+participant ":passageRepository" as PR 
+participant ":floorRepository" as FR
+participant ":passageMap" as PM 
+participant ":passageDTO" as DTO 
+participant ":location" as L
+
+activate UI
+activate API
+UI -> API : .put(./passage)
+API -> PC : updatePassage(req,res,next)
+activate PC
+PC -> PS : updatepassage(req.body as passageDTO)
+activate PS
+PS -> PR : findByDomainId(id)
+activate PR
+PR --> PS : passage
+deactivate PR
+PS -> FR : findByObjectId(fromFloorId)
+activate FR
+FR --> PS : floor
+deactivate FR
+PS -> FR : findByObjectId(toFloorId)
+activate FR
+FR --> PS : floor
+deactivate  FR
+PS -> L : create(positionX,positionY,direction)
+activate L
+L --> PS : location
+deactivate L
+PS -> PR : save(passage)
+activate PR
+PR --> PS : updated passage
+deactivate PR
+PS -> PM : toDTO(passage)
+activate PM
+PM -> DTO : toDTO
+activate DTO
+DTO --> PM: passageDTO
+deactivate DTO
+PM --> PS : updatePassageDTO
+deactivate PM
+PS --> PC : updatedPassageDTO
+deactivate PS
+PC --> API : updatedPassageDTO and status 201
+deactivate PC
+API --> UI : updatedPassageDTO and status 201
+deactivate API
+deactivate UI
+@enduml
