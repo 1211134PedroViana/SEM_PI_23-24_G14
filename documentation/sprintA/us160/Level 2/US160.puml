@@ -1,0 +1,29 @@
+@startuml
+
+autonumber
+
+Actor User
+activate User
+User -> SPA : Edit a building information
+activate SPA
+
+SPA --> User : requests data (id)
+deactivate SPA
+
+User -> SPA : types data (id)
+activate SPA
+
+SPA -> Building : PUT/PATCH/ elevator/{code, description, name}
+activate Building
+
+Building --> SPA : status code
+deactivate Building
+
+alt successfull case
+    SPA --> User : building edited successfully
+else failure
+    SPA --> User : building not edited with success
+end
+
+
+@enduml
