@@ -1,0 +1,28 @@
+@startuml
+autonumber
+
+Actor User
+activate User
+User -> SPA : Create a building floor
+activate SPA
+
+SPA --> User : requests data (floorId, buildingId, floorNumber, description)
+deactivate SPA
+
+User -> SPA : types requested data (floorId, buildingId, floorNumber, description)
+activate SPA
+
+SPA -> Floor : POST/floor/{floorId, buildingId, floorNumber, description}
+activate Floor
+
+Floor --> SPA : status code
+deactivate Floor
+
+alt successfull case
+    SPA --> User : floor created successfully
+else failure
+    SPA --> User : floor not created
+end
+
+
+@enduml

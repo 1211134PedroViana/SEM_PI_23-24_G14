@@ -1,0 +1,44 @@
+@startuml
+
+activate SPA
+SPA -> GestaoInfoAPI : post(/api/floors)
+activate GestaoInfoAPI
+
+GestaoInfoAPI -> FloorController : post
+activate FloorController
+
+FloorController -> FloorService : createFloor(floorDTO)
+activate FloorService
+
+FloorService -> BuildingRepo : findByDomainId(floor.buildingId)
+activate BuildingRepo
+
+BuildingRepo --> FloorService : building
+deactivate BuildingRepo
+
+FloorService -> Floor : create
+
+FloorService -> FloorRepo : save(floor)
+activate FloorRepo
+
+FloorRepo --> FloorService : floor
+deactivate FloorRepo
+
+FloorService -> FloorMapper : toDTO(floor)
+activate FloorMapper
+
+FloorMapper --> FloorService : flooDTO
+deactivate FloorMapper
+
+FloorService --> FloorController : floorDTO
+deactivate FloorService
+
+FloorController --> GestaoInfoAPI : status code 201
+deactivate FloorController
+
+GestaoInfoAPI --> SPA : success
+deactivate GestaoInfoAPI
+
+deactivate SPA
+
+@enduml
