@@ -17,17 +17,27 @@ import {RoomCode} from "../domain/RoomCode";
 import {Dimension} from "../domain/dimension";
 import {RoomMap} from "../mappers/RoomMap";
 import IRoomRepo from "./IRepos/IRoomRepo";
+import IFloorRepo from './IRepos/IFloorRepo';
 
 @Service()
 export default class RoomService implements IRoomService {
     constructor(
         @Inject(config.repos.room.name) private roomRepo : IRoomRepo,
+        @Inject(config.repos.floor.name) private floorRepo : IFloorRepo
     ) {}
 
     public async createRoom(roomDTO: IRoomDTO): Promise<Result<IRoomDTO>> {
         try {
 
+            const floor = await this.floorRepo.findByObjectId(roomDTO.floorId);
+
+            if (floor === null) {
+                return Result.fail<IRoomDTO>('Floor with ID "' + roomDTO.floorId + '" not found');
+            }
+
             const codeOrError = RoomCode.create(roomDTO.code);
+            const description = Description.create(roomDTO.description);
+
             const dimensionOrError = Dimension.create({
                 pos1: roomDTO.dimension.pos1,
                 pos2: roomDTO.dimension.pos2,
@@ -40,15 +50,23 @@ export default class RoomService implements IRoomService {
                 direction: roomDTO.location.direction,
             });
 
+            if (codeOrError.isFailure) {
+                return Result.fail<IRoomDTO>('Invalid Room Code');
+            }
+
+            if (description.isFailure) {
+                return Result.fail<IRoomDTO>('Invalid Room Description');
+            }
+
+            if (dimensionOrError.isFailure) {
+                return Result.fail<IRoomDTO>('Invalid Dimensions');
+            }
+
             if (locationOrError.isFailure) {
                 return Result.fail<IRoomDTO>('Invalid Location');
             }
 
-            const roomOrError = await Room.create({
-                roomCode: codeOrError.getValue(),
-                dimension: dimensionOrError.getValue(),
-                location: locationOrError.getValue(),
-            });
+            const roomOrError = await Room.create(roomDTO);
 
             if (roomOrError.isFailure) {
                 return Result.fail<IRoomDTO>(roomOrError.errorValue());
@@ -65,15 +83,15 @@ export default class RoomService implements IRoomService {
         }
     }
 
-    public async updateRoom(roomDTO:IElevatorDTO): Promise<Result<IRoomDTO>> {
+    public async updateRoom(roomDTO:IRoomDTO): Promise<Result<IRoomDTO>> {
         try {
 
-            const room = await this.roomRepo.findByDomainId(roomDTO.code);
+            const room = await this.roomRepo.findByDomainId(roomDTO.id);
 
             const codeOrError = Description.create(roomDTO.code);
 
             if (room === null) {
-                return Result.fail<IRoomDTO>('Elevator not found with code:' + roomDTO.code);
+                return Result.fail<IRoomDTO>('Room not found with id:' + roomDTO.id);
             }else{
                 if (codeOrError.isFailure) {
                     return Result.fail<IRoomDTO>('Error updating room -> Invalid Code!');

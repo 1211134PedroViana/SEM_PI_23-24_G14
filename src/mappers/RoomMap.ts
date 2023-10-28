@@ -1,9 +1,6 @@
 import { Mapper } from "../core/infra/Mapper";
 import { Document, Model } from 'mongoose';
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
-import { Elevator } from "../domain/elevator";
-import IElevatorDTO from "../dto/IElevatorDTO";
-import { IElevatorPersistence } from "../dataschema/IElevatorPersistence";
 import IRoomDTO from "../dto/IRoomDTO";
 import {Room} from "../domain/room";
 import {IRoomPersistence} from "../dataschema/IRoomPersistence";
@@ -25,12 +22,13 @@ export class RoomMap extends Mapper<Room> {
                 positionY: room.location.positionY,
                 direction: room.location.direction,
             },
+            floorId: room.floorId
         } as IRoomDTO;
     }
 
     public static toDomain( room: any | Model<IRoomPersistence & Document> ): Room {
 
-        const roomOrError = Room.create(room, new UniqueEntityID(room._id));
+        const roomOrError = Room.create(room, new UniqueEntityID(room.domainId));
 
         roomOrError.isFailure ? console.log(roomOrError.getValue()): '';
         return roomOrError.isSuccess ? roomOrError.getValue(): null;
@@ -43,10 +41,13 @@ export class RoomMap extends Mapper<Room> {
         for (let i = 0; i < roomList.length; i++) {
 
             const roomOrError = Room.create({
-                roomCode: roomList[i].roomCode,
+                code: roomList[i].roomCode,
+                name: roomList[i].name,
+                description: roomList[i].description,
                 dimension: roomList[i].dimension,
                 location: roomList[i].location,
-            }, new UniqueEntityID(roomList[i].domainId))
+                floorId: roomList[i].floorId
+            } as IRoomDTO, new UniqueEntityID(roomList[i].domainId))
 
             if (roomOrError.isSuccess){
                 roomListDomain[index] = roomOrError.getValue();
@@ -65,6 +66,9 @@ export class RoomMap extends Mapper<Room> {
     public static toPersistence(room: Room): any {
         return {
             domainId: room.id.toString(),
+            code: room.code.value,
+            name: room.name,
+            description: room.description.value,
             dimension: {
                 pos1: room.dimension.pos1,
                 pos2: room.dimension.pos2,
@@ -75,7 +79,8 @@ export class RoomMap extends Mapper<Room> {
                 positionX: room.location.positionX,
                 positionY: room.location.positionY,
                 direction: room.location.direction
-            }
+            },
+            floorId: room.floorId
         }
     }
 }
