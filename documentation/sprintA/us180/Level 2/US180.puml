@@ -1,0 +1,28 @@
+@startuml
+autonumber
+
+Actor User
+activate User
+User -> SPA : List floors with a minimum and a maximum number of floors
+activate SPA
+
+SPA --> User : requests data (minFloors, maxFloors)
+deactivate SPA
+
+User -> SPA : types requested data (minFloors, maxFloors)
+
+activate SPA
+SPA -> BuildingRepo : GET/Building/{buildingId, code, description, name}
+activate BuildingRepo
+
+BuildingRepo --> SPA : status code
+deactivate BuildingRepo
+
+alt successfull case
+    SPA --> User : list successfully returned
+else failure
+    SPA --> User : list wasn't returned with success
+end
+
+
+@enduml
