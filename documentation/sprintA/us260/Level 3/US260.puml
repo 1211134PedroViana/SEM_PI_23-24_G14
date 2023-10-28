@@ -1,0 +1,32 @@
+@startuml
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US260
+
+participant "SPA" as SPA
+participant "GestaoInfoAPI" as API
+participant "PassageController" as Controller
+participant "PassageService" as Service
+participant "PassageRepo" as Repo
+participant "BuildingsRepo" as Repo2
+participant "PassageMap" as Map
+
+
+
+
+activate SPA
+SPA -> API: get(api/passage)
+activate API
+API -> Controller: get
+activate Controller
+Controller -> Service: listPassages()
+activate Service
+Service -> Repo: getAllPassages()
+activate Repo
+Repo -> Repo: findAll()
+
+
+
+@enduml
