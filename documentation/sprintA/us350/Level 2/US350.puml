@@ -1,0 +1,28 @@
+@startuml
+autonumber
+
+Actor User
+activate User
+User -> SPA : Asks to create a robot type
+activate SPA
+
+SPA --> User : requests data (robotTypeId, code, brand, model, taskTypes)
+deactivate SPA
+
+User -> SPA : types requested data (robotTypeId, code, brand, model, taskTypes)
+activate SPA
+
+SPA -> RobotType : POST/robotType(robotTypeId, code, brand, model, taskTypes)
+activate RobotType
+
+RobotType --> SPA : status code
+deactivate RobotType
+
+alt successfull case
+    SPA -> User: robot type created successfully
+else failure
+    SPA -> User: robot type not created
+end
+
+
+@enduml

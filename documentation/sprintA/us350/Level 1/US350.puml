@@ -9,13 +9,13 @@ actor "User" as User
 participant "UI" as UI 
 
 activate User
-User -> UI : 1 : starts the robot creation process
+User -> UI : 1 : starts the robot type creation process
 activate UI
-UI --> User : 1.1 : requests data (code, nickname, robotType, serialNumber, description, isActive)
+UI --> User : 1.1 : requests data (robotTypeId, code, brand, model, taskTypes)
 deactivate UI
 User -> UI : 2 : inserts the requested data 
 activate UI
-UI --> User : 2.1 : Shows confirmation and new robot info
+UI --> User : 2.1 : Shows confirmation and new robot type info
 
 deactivate UI
 

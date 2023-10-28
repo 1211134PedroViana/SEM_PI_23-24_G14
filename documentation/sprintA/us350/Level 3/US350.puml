@@ -1,0 +1,38 @@
+@startuml
+
+activate SPA
+SPA -> GestaoInfoAPI : post(/api/robotType)
+activate GestaoInfoAPI
+
+GestaoInfoAPI -> RobotTypeController : post
+activate RobotTypeController
+
+RobotTypeController -> RobotTypeService : createRobotType(robotTypeDTO)
+activate RobotTypeService
+
+RobotTypeService -> RobotType : create
+
+RobotTypeService -> RobotTypeRepo : save(robotType)
+activate RobotTypeRepo
+
+RobotTypeRepo --> RobotTypeService : robotType
+deactivate RobotTypeRepo
+
+RobotTypeService -> RobotTypeMap : toDTO(robotType)
+activate RobotTypeMap
+
+RobotTypeMap --> RobotTypeService : robotDTO
+deactivate RobotTypeMap
+
+RobotTypeService --> RobotTypeController : robotTypeDTO
+deactivate RobotTypeService
+
+RobotTypeController --> GestaoInfoAPI : status code 201
+deactivate RobotTypeController
+
+GestaoInfoAPI --> SPA : success
+deactivate GestaoInfoAPI
+
+deactivate SPA
+
+@enduml
