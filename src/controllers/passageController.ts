@@ -13,7 +13,7 @@ import { floor } from 'lodash';
 @Service()
 export default class PassageController implements IPassageController {
     constructor(
-        @Inject(config.services.passage.name) private passageServiceInstance : IPassageService
+        @Inject(config.services.passage.name) private passageServiceInstance: IPassageService
     ) {}
 
     public async createPassage(req: Request, res: Response, next: NextFunction) {
@@ -43,6 +43,22 @@ export default class PassageController implements IPassageController {
 
             const passageListDTO = passagesListOrError.getValue();
             return res.json( passageListDTO ).status(201);
+
+        } catch (e) {
+            return next(e);
+        }
+    }
+
+    public async listPassagesBetweenBuildings(req: Request, res: Response, next: NextFunction) {
+        try {
+            const passagesListOrError = await this.passageServiceInstance.getAllPassages() as Result<IPassageDTO[]>;
+
+            if(passagesListOrError.isFailure) {
+                return res.status(402).send(passagesListOrError.errorValue());
+            }
+
+            const passagesList = await this.passageServiceInstance.allPassagesBetweenBuildings(req.body as string, req.body as string, passagesListOrError.getValue()) as Result<IPassageDTO[]>;
+            return res.json(passagesList.getValue()).status(201);
 
         } catch (e) {
             return next(e);

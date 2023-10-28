@@ -8,12 +8,13 @@ import IFloorRepo from './IRepos/IFloorRepo';
 import { Location } from '../domain/location';
 import { Passage } from '../domain/passage';
 import { PassageMap } from '../mappers/PassageMap';
+import e from 'express';
 
 @Service()
 export default class PassageService implements IPassageService {
     constructor(
         @Inject(config.repos.passage.name) private passageRepo : IPassageRepo,
-        @Inject(config.repos.floor.name) private floorRepo : IFloorRepo,
+        @Inject(config.repos.floor.name) private floorRepo : IFloorRepo
     ) {}
 
     public async createPassage(passageDTO: IPassageDTO): Promise<Result<IPassageDTO>> {
@@ -105,4 +106,24 @@ export default class PassageService implements IPassageService {
         throw e;
       }
     }
+  
+  public async allPassagesBetweenBuildings(fromBuildingID: string, toBuildingID:string, passageDTO: IPassageDTO[]): Promise<Result<IPassageDTO[]>>{
+    try {
+      const passageListDto: IPassageDTO[] = [];
+      if (passageDTO != null) {
+        for (let index = 0; index < passageDTO.length; index++) {
+          const fromFloor = await this.floorRepo.findByDomainId(passageDTO[index].fromFloorId);
+          const toFloor = await this.floorRepo.findByDomainId(passageDTO[index].toFloorId);
+          if ((fromFloor.buildingId == fromBuildingID && toFloor.buildingId == toBuildingID) ||
+              (fromFloor.buildingId == toBuildingID && toFloor.buildingId == fromBuildingID)) {
+            passageListDto.push(passageDTO[index]);
+          }
+        }
+        return Result.ok<IPassageDTO[]>(passageListDto);
+      }
+      return Result.fail<IPassageDTO[]>("There are no passages to return.");
+    } catch (error) {
+      return Result.fail<IPassageDTO[]>(error.message);
+    }
+  }
 }

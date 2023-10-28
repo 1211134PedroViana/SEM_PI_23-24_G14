@@ -29,8 +29,17 @@ export default( app: Router) => {
       (req, res, next) => ctrl.createPassage(req, res, next) );
 
       //API GET request - list all Passages
+  route.get('/list',
+    celebrate({
+      body: Joi.object({
+        FromBuildingID: Joi.string().required(),
+        ToBuildingID: Joi.string().required(),
+      })
+    }),
+    (req, res, next) => ctrl.listPassages(req, res, next));
+  
     route.get('/list',
-    (req, res, next) => ctrl.listPassages(req, res, next) );
+      (req, res, next) => ctrl.listPassagesBetweenBuildings(req, res, next) );
     
     //API PUT request - edit a Passage
     route.put('/update',
