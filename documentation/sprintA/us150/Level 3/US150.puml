@@ -1,0 +1,46 @@
+@startuml
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US150
+
+participant "SPA" as SPA
+participant "GestaoInfoAPI" as API
+participant "BuildingController" as Controller
+participant "BuildingService" as Service
+participant "BuildingRepo" as Repo
+participant "BuildingMap" as Map
+participant "Building" as Building
+
+
+
+
+activate SPA
+SPA -> API: post(api/room)
+activate API
+API -> Controller: post
+activate Controller
+Controller -> Service: createBuilding()
+activate Service
+Service -> Building: create
+
+Service -> Repo: save(building)
+activate Repo
+Repo -> Service: building
+deactivate Repo
+
+
+Service -> Map: toDTO(building)
+activate Map
+Map -> Service: buildingDTO
+deactivate
+
+
+Service -> Controller: buildingDTO()
+Controller -> API: status code 201
+API -> SPA: Success
+
+
+@enduml

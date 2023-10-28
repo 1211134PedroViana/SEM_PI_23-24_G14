@@ -1,0 +1,31 @@
+@startuml
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US150
+
+actor "User" as User
+participant "SPA" as SPA
+participant "Building" as Building
+
+activate User
+
+User -> SPA : Asks to create a building
+activate SPA
+SPA -> User: requests data to building
+User -> SPA: put data about building(code, description, name)
+
+SPA -> Building: POST/ building{code, description, name}
+activate Building
+Building -> SPA: status code
+deactivate
+
+alt successfull case
+SPA -> User: building created successfully
+else failure
+SPA -> User: building not created
+end
+
+@enduml
