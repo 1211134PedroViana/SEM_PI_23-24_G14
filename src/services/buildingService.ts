@@ -98,4 +98,6 @@ export default class BuildingService implements IBuildingService {
         return Result.fail<IBuildingDTO[]>(e.message);
       }
     }
+
+    
 }

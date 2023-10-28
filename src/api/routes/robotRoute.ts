@@ -35,5 +35,9 @@ export default( app: Router) => {
         })
       }),
       (req, res, next) => ctrl.deactivateRobot(req, res, next) );
+    
       
+    //API GET request - list all Robots
+    route.get('/list',
+      (req, res, next) => ctrl.listRobots(req, res, next) );
 }
