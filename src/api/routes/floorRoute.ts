@@ -28,7 +28,7 @@ export default( app: Router) => {
     route.put('/update',
         celebrate({
             body: Joi.object({
-                buildingId: Joi.string().required(),
+                id: Joi.string().required(),
                 floorNumber: Joi.number().required(),
                 description: Joi.string()
             })

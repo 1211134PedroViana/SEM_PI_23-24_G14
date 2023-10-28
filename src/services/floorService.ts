@@ -63,6 +63,7 @@ export default class FloorService implements IFloorService {
                 if (descriptionOrError.isFailure) {
                     return Result.fail<IFloorDTO>('Error updating building -> Invalid Description!');
                 }else{
+                    floor.floorNumber = floorDTO.floorNumber;
                     floor.description = descriptionOrError.getValue();
 
                     await this.floorRepo.save(floor);
