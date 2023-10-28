@@ -6,11 +6,14 @@ import { Result } from "../core/logic/Result";
 import IFloorController from './IControllers/IFloorController';
 import IFloorService from '../services/IServices/IFloorService';
 import IFloorDTO from '../dto/IFloorDTO';
+import IPassageService from '../services/IServices/IPassageService';
+import IPassageDTO from '../dto/IPassageDTO';
 
 @Service()
 export default class FloorController implements IFloorController {
     constructor(
-        @Inject(config.services.floor.name) private floorServiceInstance : IFloorService
+        @Inject(config.services.floor.name) private floorServiceInstance: IFloorService,
+        @Inject(config.services.passage.name) private passageServiceInstance: IPassageService
     ) {}
 
     public async createFloor(req: Request, res: Response, next: NextFunction) {
@@ -54,6 +57,22 @@ export default class FloorController implements IFloorController {
             }
 
             const floorListDTO = floorListOrError.getValue();
+            return res.json(floorListDTO).status(201);
+
+        } catch (e) {
+            return next(e);
+        }
+    }
+
+    public async listFloorsWithPassage(req: Request, res: Response, next: NextFunction) {
+        try {
+            const passageListOrError = await this.passageServiceInstance.getAllPassages() as Result<IPassageDTO[]>;
+            if(passageListOrError.isFailure) {
+                return res.status(402).send(passageListOrError.errorValue());
+            }
+            const resultList = await this.floorServiceInstance.getFloorsWithPassage(passageListOrError.getValue()) as Result<IFloorDTO[]>;
+
+            const floorListDTO = resultList.getValue();
             return res.json(floorListDTO).status(201);
 
         } catch (e) {

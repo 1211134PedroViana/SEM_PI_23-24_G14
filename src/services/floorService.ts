@@ -12,12 +12,12 @@ import { Cell } from '../domain/cell';
 import IBuildingDTO from "../dto/IBuildingDTO";
 import {BuildingMap} from "../mappers/BuildingMap";
 import {Building} from "../domain/building";
-
+import IPassageDTO from '../dto/IPassageDTO';
 @Service()
 export default class FloorService implements IFloorService {
     constructor(
         @Inject(config.repos.floor.name) private floorRepo : IFloorRepo,
-        @Inject(config.repos.building.name) private buildingRepo : IBuildingRepo
+        @Inject(config.repos.building.name) private buildingRepo: IBuildingRepo
     ) {}
 
     public async createFloor(floorDTO: IFloorDTO): Promise<Result<IFloorDTO>> {
@@ -87,9 +87,32 @@ export default class FloorService implements IFloorService {
                     floorListDto.push(FloorMap.toDTO(floorList[i]));
                 return Result.ok<IFloorDTO[]>(floorListDto);
             }
-            return Result.fail<IFloorDTO[]>("There are no buildings to return.");
+            return Result.fail<IFloorDTO[]>("There are no floors to return.");
         } catch (e) {
             return Result.fail<IFloorDTO[]>(e.message);
+        }
+    }
+
+    public async getFloorsWithPassage(passageDTO : IPassageDTO[]): Promise<Result<IFloorDTO[]>> {
+        try {
+            let floorListDto: IFloorDTO[] = [];
+            if (passageDTO != null) {
+                for (let index = 0; index < passageDTO.length; index++) {
+                    const fromFloor = FloorMap.toDTO(await this.floorRepo.findByDomainId(passageDTO[index].fromFloorId));
+                    if (!floorListDto.includes(fromFloor)) {
+                        floorListDto.push(fromFloor);
+                    }
+                    const toFloor =FloorMap.toDTO(await this.floorRepo.findByDomainId(passageDTO[index].toFloorId));
+                    if (!floorListDto.includes(toFloor)) {
+                        floorListDto.push(toFloor);
+                    }
+                }
+                return Result.ok<IFloorDTO[]>(floorListDto);
+            }
+            return Result.fail<IFloorDTO[]>("There are no floors to return.");
+            
+        } catch (error) {
+            return Result.fail<IFloorDTO[]>(error.message);
         }
     }
 }

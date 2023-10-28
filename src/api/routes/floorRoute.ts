@@ -39,4 +39,6 @@ export default( app: Router) => {
     route.get('/list',
         (req, res, next) => ctrl.listFloors(req, res, next) );
 
+    route.get('/list',
+        (req, res, next) => ctrl.listFloorsWithPassage(req, res, next) );
 }
