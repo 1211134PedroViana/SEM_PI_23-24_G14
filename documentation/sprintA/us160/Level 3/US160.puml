@@ -1,0 +1,44 @@
+@startuml
+
+activate SPA
+SPA -> GestaoInfoAPI : put/patch(/api/building)
+activate GestaoInfoAPI
+
+GestaoInfoAPI -> BuildingController : put/patch
+activate BuildingController
+
+BuildingController -> BuildingService : editBuilding(buildingDTO)
+activate BuildingService
+
+BuildingService -> BuildingRepo : findByDomainId(building.id)
+activate BuildingRepo
+BuildingRepo --> BuildingService : building
+deactivate BuildingRepo
+
+BuildingService -> Building : edit
+activate Building
+Building -> BuildingService: building
+deactivate
+
+BuildingService -> BuildingRepo : save(building)
+activate BuildingRepo
+BuildingRepo --> BuildingService : building
+deactivate BuildingRepo
+
+BuildingService -> BuildingMapper : toDTO(building)
+activate BuildingMapper
+BuildingMapper --> BuildingService : buildingDTO
+deactivate BuildingMapper
+
+BuildingService --> BuildingController : buildingDTO
+deactivate BuildingService
+
+BuildingController --> GestaoInfoAPI : status code 201
+deactivate BuildingController
+
+GestaoInfoAPI --> SPA : success
+deactivate GestaoInfoAPI
+
+deactivate SPA
+
+@enduml
