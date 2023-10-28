@@ -72,7 +72,7 @@ export class RoomMap extends Mapper<Room> {
                 pos4: room.dimension.pos4
             },
             location: {
-                positionX: room.location,
+                positionX: room.location.positionX,
                 positionY: room.location.positionY,
                 direction: room.location.direction
             }

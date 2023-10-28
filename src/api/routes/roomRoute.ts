@@ -13,7 +13,7 @@ export default( app: Router) => {
 
     const ctrl = Container.get(config.controllers.room.name) as IRoomController;
 
-    //API POST request - create a new Floor of a existing Building
+    //API POST request - create a new Floor of an existing Building
     route.post('/create',
         celebrate({
             body: Joi.object({
