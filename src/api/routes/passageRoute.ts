@@ -32,5 +32,20 @@ export default( app: Router) => {
     route.get('/list',
     (req, res, next) => ctrl.listPassages(req, res, next) );
     
+    //API PUT request - edit a Passage
+    route.put('/update',
+      celebrate({
+        body: Joi.object({
+              id: Joi.string().required(),
+              fromFloorId: Joi.string().required(),
+              toFloorId: Joi.string().required(),
+              location: {
+                positionX: Joi.number().required(),
+                positionY: Joi.number().required(),
+                direction: Joi.string().required()
+            }
+          })
+      }),
+      (req, res, next) => ctrl.updatePassage(req, res, next) );
 
 }
