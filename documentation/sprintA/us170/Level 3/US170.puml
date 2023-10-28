@@ -1,0 +1,40 @@
+@startuml
+
+activate SPA
+SPA -> GestaoInfoAPI : get(/api/buildings)
+activate GestaoInfoAPI
+
+GestaoInfoAPI -> BuildingController : get
+activate BuildingController
+
+BuildingController -> BuildingService : listBuildings()
+activate BuildingService
+
+loop
+    BuildingService -> BuildingRepo : get
+    activate BuildingRepo
+
+    BuildingRepo --> BuildingService : building
+    deactivate BuildingRepo
+
+    BuildingService -> BuildingMap : toDTO(building)
+    activate BuildingMap
+
+    BuildingMap --> BuildingService : buildingDTO
+    deactivate BuildingMap
+
+    BuildingService -> BuildingService : list.push(buildingDTO)
+end
+
+BuildingService --> BuildingController : buildingDTO[ ]
+deactivate BuildingService
+
+BuildingController --> GestaoInfoAPI : status code 201
+deactivate BuildingController
+
+GestaoInfoAPI --> SPA : success
+deactivate GestaoInfoAPI
+
+deactivate SPA
+
+@enduml

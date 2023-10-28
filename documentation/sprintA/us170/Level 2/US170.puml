@@ -1,0 +1,21 @@
+@startuml
+autonumber
+
+Actor User
+activate User
+User -> SPA : List all the buildings
+activate SPA
+
+SPA -> BuildingRepo : GET/building/{buildingId, code, description, name}
+activate BuildingRepo
+
+BuildingRepo --> SPA : status code
+deactivate BuildingRepo
+
+alt successfull case
+    SPA --> User : list successfully returned
+else failure
+    SPA --> User : list wasn't returned with success
+end
+
+@enduml
