@@ -24,7 +24,7 @@ export default class FloorService implements IFloorService {
         try {          
          
           const building = await this.buildingRepo.findByObjectId(floorDTO.buildingId);
-            const descriptionOrError = Description.create(floorDTO.description);
+          const descriptionOrError = Description.create(floorDTO.description);
           
           if (building === null) {
             return Result.fail<IFloorDTO>('Building with ID "' + floorDTO.buildingId + '" not found');

@@ -8,15 +8,19 @@ import { Location } from '../domain/location';
 import { Elevator } from '../domain/elevator';
 import { ElevatorMap } from '../mappers/ElevatorMap';
 import { ElevatorCode } from '../domain/elevatorCode';
+import IBuildingRepo from './IRepos/IBuildingRepo';
 
 @Service()
 export default class ElevatorService implements IElevatorService {
     constructor(
         @Inject(config.repos.elevator.name) private elevatorRepo : IElevatorRepo,
+        @Inject(config.repos.building.name) private buildingRepo : IBuildingRepo
     ) {}
 
     public async createElevator(elevatorDTO: IElevatorDTO): Promise<Result<IElevatorDTO>> {
         try {       
+          
+          const building = await this.buildingRepo.findByObjectId(elevatorDTO.buildingId);
           
           const codeOrError = ElevatorCode.create(elevatorDTO.code);
         
@@ -26,6 +30,10 @@ export default class ElevatorService implements IElevatorService {
             direction: elevatorDTO.location.direction,
           });
 
+          if (building === null) {
+            return Result.fail<IElevatorDTO>('Building with ID "' + elevatorDTO.buildingId + '" not found');
+          }
+
           if (codeOrError.isFailure) {
             return Result.fail<IElevatorDTO>('Invalid Code');
           }
@@ -34,10 +42,7 @@ export default class ElevatorService implements IElevatorService {
             return Result.fail<IElevatorDTO>('Invalid Location');
           }
 
-          const elevatorOrError = await Elevator.create({
-            code: codeOrError.getValue(),
-            location: locationOrError.getValue()
-          });
+          const elevatorOrError = await Elevator.create(elevatorDTO);
 
           if (elevatorOrError.isFailure) {
             return Result.fail<IElevatorDTO>(elevatorOrError.errorValue());

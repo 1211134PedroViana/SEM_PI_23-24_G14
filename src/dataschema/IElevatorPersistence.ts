@@ -5,4 +5,5 @@ export interface IElevatorPersistence {
         positionY: number;
         direction: string;
     }
+    buildingId: string;
 }

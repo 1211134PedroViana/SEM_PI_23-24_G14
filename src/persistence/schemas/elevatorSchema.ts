@@ -22,6 +22,12 @@ const ElevatorSchema = new mongoose.Schema(
                 type: String,
                 required: true
               }
+        },
+
+        buildingId: {
+          type: Schema.Types.ObjectId,
+          ref:"Building",
+          required: true
         }
 
     },

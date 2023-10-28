@@ -5,4 +5,5 @@ export default interface IElevatorDTO {
         positionY: number;
         direction: string;
     }
+    buildingId: string;
 }
