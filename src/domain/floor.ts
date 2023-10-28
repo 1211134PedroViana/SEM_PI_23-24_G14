@@ -7,12 +7,16 @@ import { Description } from "./description";
 import { Building } from "./building";
 import { CellId } from "./cellId";
 import { Cell } from "./cell";
+import IBuildingDTO from "../dto/IBuildingDTO";
+import IFloorDTO from "../dto/IFloorDTO";
+import {BuildingCode} from "./buildingCode";
+import {map} from "lodash";
 
 interface FloorProps {
     buildingId: string;
     floorNumber: number;
     description: Description;
-    cell: Cell;
+    //cell: Cell;
 }
 
 export class Floor extends AggregateRoot<FloorProps> {
@@ -45,7 +49,7 @@ export class Floor extends AggregateRoot<FloorProps> {
         this.props.description = value;
     }
 
-    get cell(): Cell {
+    /*get cell(): Cell {
         return this.props.cell;
     }
 
@@ -53,22 +57,31 @@ export class Floor extends AggregateRoot<FloorProps> {
         this.props.cell = value;
     }
 
+     */
+
     private constructor (props: FloorProps, id?: UniqueEntityID) {
         super(props, id);
     }
 
-    public static create(props: FloorProps, id?: UniqueEntityID): Result<Floor> {
+    public static create(floorDTO: IFloorDTO, id?: UniqueEntityID): Result<Floor> {
+
+        const buildingId = floorDTO.buildingId;
+        const floorNumber = floorDTO.floorNumber;
+        const description = Description.create(floorDTO.description).getValue();
+
         const guardedProps = [
-            { argument: props.buildingId, argumentName: 'buildingId' },
-            { argument: props.floorNumber, argumentName: 'floorNumber' }
+            { argument: floorDTO.buildingId, argumentName: 'buildingId' },
+            { argument: floorDTO.floorNumber, argumentName: 'floorNumber' },
+            { argument: floorDTO.description, argumentName: 'description' },
+            //{ argument: floorDTO.map, argumentName: 'map' }
         ];
 
       const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);
-      
+
       if (!guardResult.succeeded) {
         return Result.fail<Floor>('Must provide a Building ID and a Floor number');
       } else {
-        const floor = new Floor({...props}, id);
+        const floor = new Floor({buildingId: buildingId, floorNumber: floorNumber, description: description}, id);
         return Result.ok<Floor>( floor );
       }
     }
