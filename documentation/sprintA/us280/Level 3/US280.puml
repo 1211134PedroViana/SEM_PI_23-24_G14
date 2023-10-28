@@ -1,0 +1,44 @@
+@startuml
+
+activate SPA
+SPA -> GestaoInfoAPI : put/patch(/api/elevator)
+activate GestaoInfoAPI
+
+GestaoInfoAPI -> ElevatorController : put/patch
+activate ElevatorController
+
+ElevatorController -> ElevatorService : editElevator(elevatorDTO)
+activate ElevatorService
+
+ElevatorService -> ElevatorRepo : findByDomainId(elevator.elevatorCode)
+activate ElevatorRepo
+ElevatorRepo --> ElevatorService : elevator
+deactivate ElevatorRepo
+
+ElevatorService -> Elevator : edit
+activate Elevator
+Elevator -> ElevatorService: elevator
+deactivate
+
+ElevatorService -> ElevatorRepo : save(elevator)
+activate ElevatorRepo
+ElevatorRepo --> ElevatorService : elevator
+deactivate ElevatorRepo
+
+ElevatorService -> ElevatorMapper : toDTO(elevator)
+activate ElevatorMapper
+ElevatorMapper --> ElevatorService : elevatorDTO
+deactivate ElevatorMapper
+
+ElevatorService --> ElevatorController : elevatorDTO
+deactivate ElevatorService
+
+ElevatorController --> GestaoInfoAPI : status code 201
+deactivate ElevatorController
+
+GestaoInfoAPI --> SPA : success
+deactivate GestaoInfoAPI
+
+deactivate SPA
+
+@enduml
