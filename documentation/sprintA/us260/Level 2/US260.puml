@@ -1,0 +1,22 @@
+@startuml
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US260
+
+actor "User" as User
+participant "SPA" as SPA
+participant "PassageRepo" as Repo
+
+
+activate User
+activate SPA
+User -> SPA : 1 : requests passage between two buildings
+SPA -> Repo: 2 : requests passage between two buildings
+Repo -> Repo: 3 : findAll()
+Repo -> SPA: 4 : show passages between buildings
+SPA -> "User": 5 : show passages between buildings
+
+
+@enduml
