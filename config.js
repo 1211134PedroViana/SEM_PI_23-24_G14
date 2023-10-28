@@ -72,6 +72,14 @@ export default {
     taskType: {
       name: "TaskTypeController",
       path: "../controllers/taskTypeController"
+    },
+    floorMapperz: {
+      name: "FloorMapperzController",
+      path: "../controllers/floorMapperzController"
+    },
+    elevator: {
+      name: "ElevatorController",
+      path: "../controllers/elevatorController"
     }
 
     
@@ -113,6 +121,14 @@ export default {
     taskType: {
       name: "TaskTypeRepo",
       path: "../repos/taskTypeRepo"
+    },
+    floorMapperz: {
+      name: "FloorMapperzRepo",
+      path: "../repos/floorMapperzRepo"
+    },
+    elevator: {
+      name: "ElevatorRepo",
+      path: "../repos/elevatorRepo"
     }
   },
 
@@ -148,6 +164,14 @@ export default {
     taskType: {
       name: "TaskTypeService",
       path: "../services/taskTypeService"
+    },
+    floorMapperz: {
+      name: "FloorMapperzService",
+      path: "../services/floorMapperzService"
+    },
+    elevator: {
+      name: "ElevatorService",
+      path: "../services/elevatorService"
     }
   },
 };

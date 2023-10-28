@@ -31,7 +31,7 @@ export default class RoomRepo implements IRoomRepo {
     }
 
     public async exists(room: Room): Promise<boolean> {
-        const idX = room.roomCode instanceof String ? (<String>room.roomCode) : room.roomCode;
+        const idX = room.code instanceof String ? (<String>room.code) : room.code;
 
         const query = { RoomId: idX};
         const roomDocument = await this.roomSchema.findOne( query as FilterQuery<IRoomPersistence & Document>);
@@ -66,6 +66,17 @@ export default class RoomRepo implements IRoomRepo {
 
     public async findByDomainId (roomId: Code | string): Promise<Room> {
         const query = { domainId: roomId};
+        const roomRecord = await this.roomSchema.findOne( query as FilterQuery<IRoomPersistence & Document> );
+
+        if( roomRecord != null) {
+            return RoomMap.toDomain(roomRecord);
+        }
+        else
+            return null;
+    }
+
+    public async findByObjectId (roomId: string): Promise<Room> {
+        const query = { _id: roomId};
         const roomRecord = await this.roomSchema.findOne( query as FilterQuery<IRoomPersistence & Document> );
 
         if( roomRecord != null) {

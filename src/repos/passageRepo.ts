@@ -68,6 +68,17 @@ export default class PassageRepo implements IPassageRepo {
           return null;
     }
 
+    public async findByObjectId (passageId: string): Promise<Passage> {
+        const query = { _id: passageId};
+        const passageRecord = await this.passageSchema.findOne( query as FilterQuery<IPassagePersistence & Document> );
+    
+        if( passageRecord != null) {
+          return PassageMap.toDomain(passageRecord);
+        }
+        else
+          return null;
+    }
+
     public async findAll(): Promise<Passage[]> {
         const passageList = await this.passageSchema.find()
         return PassageMap.toDomainBulk(passageList);

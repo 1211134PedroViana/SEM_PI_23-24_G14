@@ -1,37 +1,47 @@
 import { Mapper } from "../core/infra/Mapper";
 import { Document, Model } from 'mongoose';
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
-import { Floor } from "../domain/floor";
 import IFloorMapperzDTO from "../dto/IFloorMapperzDTO";
 import { IFloorMapperzPersistence } from "../dataschema/IFloorMapperzPersistence";
 import { FloorMapperz } from "../domain/floorMapperz";
 
 export class FloorMapperzMap extends Mapper<FloorMapperz> {
 
-    /*
+    
     public static toDTO( floorMapperz: FloorMapperz): IFloorMapperzDTO {
         return {
             id: floorMapperz.id.toString(),
-            floor: floorMapperz.floor.id.toString(),
+            floorId: floorMapperz.floorId,
             map: floorMapperz.map,
             fMapRooms: floorMapperz.fMapRooms.map((room) => ({
                 roomId: room.roomId,
-                startX: room.startX,
-                startY: room.startY,
-                endX: room.endX,
-                endY: room.endY,
+                dimension: {
+                    pos1: room.dimension.pos1,
+                    pos2: room.dimension.pos1,
+                    pos3: room.dimension.pos1,
+                    pos4: room.dimension.pos1,
+                },
+                location: {
+                    positionX: room.location.positionX,
+                    positionY: room.location.positionY,
+                    direction: room.location.direction
+                }
             })),
             fMapElevator: {
                 elevatorId: floorMapperz.fMapElevator.elevatorId,
-                positionX: floorMapperz.fMapElevator.positionX,
-                positionY: floorMapperz.fMapElevator.positionY,
-                direction: floorMapperz.fMapElevator.direction,
+                location: {
+                    positionX: floorMapperz.fMapElevator.location.positionX,
+                    positionY: floorMapperz.fMapElevator.location.positionY,
+                    direction: floorMapperz.fMapElevator.location.direction
+                }
             },
             fMapPassages: floorMapperz.fMapPassages.map((passage) => ({
                 passageId: passage.passageId,
-                positionX: passage.positionX,
-                positionY: passage.positionY,
-                direction: passage.direction,
+                location: {
+                    positionX: passage.location.positionX,
+                    positionY: passage.location.positionY,
+                    direction: passage.location.direction
+                }
             })),
         } as IFloorMapperzDTO;
     }
@@ -40,7 +50,7 @@ export class FloorMapperzMap extends Mapper<FloorMapperz> {
 
         const floorMapperzOrError = FloorMapperz.create(
             floorMapperz,
-            new UniqueEntityID(floorMapperz._id)
+            new UniqueEntityID(floorMapperz.domainId)
         );
 
         floorMapperzOrError.isFailure ? console.log(floorMapperzOrError.getValue()): '';
@@ -50,12 +60,39 @@ export class FloorMapperzMap extends Mapper<FloorMapperz> {
     public static toPersistence(floorMapperz: FloorMapperz): any {
         return {
             domainId: floorMapperz.id.toString(),
-            floor: floorMapperz.floor.id.toString(),
+            floorId: floorMapperz.floorId,
             map: floorMapperz.map,
-            fMapRooms: floorMapperz.fMapRooms.map((room: Room) => room.id.toString()), 
-            fMapElevator: floorMapperz.fMapElevator.id.toString(), 
-            fMapPassages: floorMapperz.fMapPassages.map((passage: Passage) => passage.id.toString()), 
+            fMapRooms: floorMapperz.fMapRooms.map((room) => ({
+                roomId: room.roomId,
+                dimension: {
+                    pos1: room.dimension.pos1,
+                    pos2: room.dimension.pos1,
+                    pos3: room.dimension.pos1,
+                    pos4: room.dimension.pos1,
+                },
+                location: {
+                    positionX: room.location.positionX,
+                    positionY: room.location.positionY,
+                    direction: room.location.direction
+                }
+            })),
+            fMapElevator: {
+                elevatorId: floorMapperz.fMapElevator.elevatorId,
+                location: {
+                    positionX: floorMapperz.fMapElevator.location.positionX,
+                    positionY: floorMapperz.fMapElevator.location.positionY,
+                    direction: floorMapperz.fMapElevator.location.direction
+                }
+            },
+            fMapPassages: floorMapperz.fMapPassages.map((passage) => ({
+                passageId: passage.passageId,
+                location: {
+                    positionX: passage.location.positionX,
+                    positionY: passage.location.positionY,
+                    direction: passage.location.direction
+                }
+            })), 
         }
     }
-    */
+    
 }

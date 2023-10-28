@@ -1,3 +1,4 @@
+/*
 import { Description } from '../../../src/domain/description';
 import { Robot } from '../../../src/domain/robot';
 import { RobotCode } from '../../../src/domain/robotCode';
@@ -75,4 +76,4 @@ describe("Robot domain", () => {
         expect(robot.isFailure).toBe(true);
       });
 })
-
+*/

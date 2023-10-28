@@ -98,34 +98,33 @@ describe("Building service", () => {
             const description = Description.create("Departamento de Testes 1.0");
             const newDescription = Description.create("Departamento de Testes 2.0");
 
-            const buildingOriginal = Building.create({
-                code: code.getValue(),
-                description: description.getValue(),
-                name: "some building"
-            }, new UniqueEntityID());
-
-            const newBuilding = Building.create({
-                code: code.getValue(),
-                description: newDescription.getValue(),
-                name: "some building 2.0"
-            }, buildingOriginal.getValue().id);
-
-            const buildingDTO = {
-                id: buildingOriginal.getValue().id.toString(),
-                description: newDescription.getValue().value,
-                name: "some building 2.0"
+            const dto = {
+                code: "GGHF5",
+                description: "Departamento de Testes 1.0",
+                name: "test 1.0"
             } as IBuildingDTO;
+
+            const updatedDTO = {
+                code: "GGHF5",
+                description: "Departamento de Testes 2.0",
+                name: "test 2.0"
+            } as IBuildingDTO;
+
+            const buildingOriginal = Building.create(dto, new UniqueEntityID);
+
+            const newBuilding = Building.create(updatedDTO, buildingOriginal.getValue().id);
+
 
             stub1.resolves(buildingOriginal.getValue());
             stub2.resolves(newBuilding.getValue());
 
             try {
 
-                const done = await bService.updateBuilding(buildingDTO);
+                const done = await bService.updateBuilding(updatedDTO);
 
                 expect(done.isSuccess).to.equal(true);
-                expect(done.getValue().description).to.be.equal(buildingDTO.description);
-                expect(done.getValue().name).to.be.equal(buildingDTO.name);
+                expect(done.getValue().description).to.be.equal(updatedDTO.description);
+                expect(done.getValue().name).to.be.equal(updatedDTO.name);
 
             } catch(error) {
                 throw error;
@@ -136,11 +135,13 @@ describe("Building service", () => {
             const code = BuildingCode.create("GGHF5");
             const description = Description.create("Departamento de Testes");
 
-            const buildingOriginal = Building.create({
-                code: code.getValue(),
-                description: description.getValue(),
-                name: "some building"
-            }, new UniqueEntityID());
+            const dto = {
+                code: "GGHF5",
+                description: "Departamento de Testes 1.0",
+                name: "test 1.0"
+            } as IBuildingDTO;
+
+            const buildingOriginal = Building.create(dto, new UniqueEntityID());
 
             const buildingDTO = {
                 id: buildingOriginal.getValue().id.toString(),

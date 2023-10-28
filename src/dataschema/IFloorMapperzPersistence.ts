@@ -1,6 +1,6 @@
 export interface IFloorMapperzPersistence {
     domainId: string;
-    floor: string;
+    floorId: string;
     map: number[][];
     fMapRooms: string[];
     fMapElevator: string;

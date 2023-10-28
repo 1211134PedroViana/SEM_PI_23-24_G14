@@ -1,25 +1,38 @@
 export default interface IFloorMapperzDTO {
     id: string;
-    floor: string;
+    floorId: string;
     map: number[][];
+
     fMapRooms: {
         roomId: string;
-        startX: number;
-        startY: number;
-        endX: number;
-        endY: number;
-
+        dimension: {
+            pos1: number;
+            pos2: number;
+            pos3: number;
+            pos4: number;
+        };
+        location: {
+            positionX: number;
+            positionY: number;
+            direction: string;
+        }
     }[];
+
     fMapElevator: {
         elevatorId: string;
-        positionX: number;
-        positionY: number;
-        direction: string; 
+        location: {
+            positionX: number;
+            positionY: number;
+            direction: string;
+        } 
     };
+
     fMapPassages: {
         passageId: string;
-        positionX: number;
-        positionY: number;
-        direction: string;
+        location: {
+            positionX: number;
+            positionY: number;
+            direction: string;
+        }
     }[];
 }
