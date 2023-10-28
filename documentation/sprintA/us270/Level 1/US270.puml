@@ -12,7 +12,7 @@ activate User
 
 User -> UI : asks to create an elevator on a building
 activate UI
-UI --> User : requests data (elevatorCode, location) 
+UI --> User : requests data (building, elevatorCode, listFloors, brand, model, serialNumber, description, location)
 deactivate UI
 User -> UI : provides the required data
 activate UI
