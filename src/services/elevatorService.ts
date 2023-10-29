@@ -49,7 +49,7 @@ export default class ElevatorService implements IElevatorService {
           }
       
           const elevatorResult = elevatorOrError.getValue();
-      
+          
           await this.elevatorRepo.save(elevatorResult);
       
           const elevatorDTOResult = ElevatorMap.toDTO( elevatorResult ) as IElevatorDTO;

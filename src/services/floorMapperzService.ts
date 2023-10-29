@@ -44,7 +44,7 @@ export default class FloorMapperzService implements IFloorMapperzService {
             }
 
             for (let i = 0; i < floorMapperzDTO.fMapRooms.length; i++) {
-                let room = await this.elevatorRepo.findByObjectId(floorMapperzDTO.fMapRooms[i].roomId);
+                let room = await this.roomRepo.findByObjectId(floorMapperzDTO.fMapRooms[i].roomId);
                 if(room === null) {
                     return Result.fail<IFloorMapperzDTO>('Room with ID "' + floorMapperzDTO.fMapRooms[i].roomId + '" not found')
                 }

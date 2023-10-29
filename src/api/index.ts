@@ -9,7 +9,8 @@ import room from './routes/roomRoute';
 import robot from './routes/robotRoute';
 import robotType from './routes/robotTypeRoute';
 import taskType from './routes/taskTypeRoute';
-
+import elevator from './routes/elevatorRoute';
+import floorMapperz from './routes/floorMapperzRoute';
 
 export default () => {
 	const app = Router();
@@ -24,6 +25,8 @@ export default () => {
 	robot(app);
 	robotType(app);
 	taskType(app);
+	elevator(app);
+	floorMapperz(app);
 
 	return app
 }

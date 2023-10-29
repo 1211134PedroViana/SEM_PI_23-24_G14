@@ -1,4 +1,3 @@
-import { Code } from "mongodb";
 import { Repo } from "../../core/infra/Repo";
 import { Elevator } from "../../domain/elevator";
 
