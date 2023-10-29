@@ -6,7 +6,6 @@ import { RobotTypeCode } from "./valueObjects/robotTypeCode";
 import { RobotTypeBrand } from "./valueObjects/robotTypebrand";
 import { RobotTypeModel } from "./valueObjects/robotTypeModel";
 import { RobotTypeId } from "./valueObjects/robotTypeId";
-import { TaskTypeId } from "./valueObjects/taskTypeId";
 
 interface RobotTypeProps {
     code: RobotTypeCode;

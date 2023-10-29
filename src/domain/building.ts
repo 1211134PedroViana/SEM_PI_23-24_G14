@@ -3,8 +3,8 @@ import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { Result } from "../core/logic/Result";
 import IBuildingDTO from "../dto/IBuildingDTO";
 import { BuildingId } from "./buildingId";
-import { BuildingCode } from "./buildingCode";
-import { Description } from "./description";
+import { BuildingCode } from "./valueObjects/buildingCode";
+import { Description } from "./valueObjects/description";
 import { Guard } from "../core/logic/Guard";
 
 interface BuildingProps {

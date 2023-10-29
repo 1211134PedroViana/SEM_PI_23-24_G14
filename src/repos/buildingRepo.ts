@@ -3,7 +3,7 @@ import { Document, FilterQuery, Model } from 'mongoose';
 import IBuildingRepo from '../services/IRepos/IBuildingRepo';
 import { IBuildingPersistence } from '../dataschema/IBuildingPersistence';
 import { Building } from '../domain/building';
-import { BuildingCode } from '../domain/buildingCode';
+import { BuildingCode } from '../domain/valueObjects/buildingCode';
 import { BuildingMap } from '../mappers/BuildingMap';
 import { BuildingId } from '../domain/buildingId';
 

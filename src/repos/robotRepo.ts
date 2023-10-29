@@ -5,7 +5,7 @@ import { Document, FilterQuery, Model } from "mongoose";
 import { Robot } from "../domain/robot";
 import { RobotId } from "../domain/robotId";
 import { RobotMap } from '../mappers/RobotMap';
-import { RobotCode } from "../domain/robotCode";
+import { RobotCode } from "../domain/valueObjects/robotCode";
 import IRobotDTO from "../dto/IRobotDTO";
 
 @Service()

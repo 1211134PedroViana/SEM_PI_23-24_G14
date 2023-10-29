@@ -5,7 +5,7 @@ import IFloorService from './IServices/IFloorService';
 import IFloorRepo from './IRepos/IFloorRepo';
 import IFloorDTO from '../dto/IFloorDTO';
 import IBuildingRepo from './IRepos/IBuildingRepo';
-import { Description } from '../domain/description';
+import { Description } from '../domain/valueObjects/description';
 import { Floor } from '../domain/floor';
 import { FloorMap } from '../mappers/FloorMap';
 import { Cell } from '../domain/cell';

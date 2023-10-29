@@ -1,8 +1,8 @@
 import { ValueObject } from "../../core/domain/ValueObject";
 import { Result } from "../../core/logic/Result";
 import { Guard } from "../../core/logic/Guard";
-import { Location } from "../location";
-import { Dimension } from "../dimension";
+import { Location } from "./location";
+import { Dimension } from "./dimension";
 
 interface FloorMapRoomProps {
   roomId: string;

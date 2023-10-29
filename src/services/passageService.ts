@@ -5,7 +5,7 @@ import IPassageService from './IServices/IPassageService';
 import IPassageRepo from './IRepos/IPassageRepo';
 import IPassageDTO from '../dto/IPassageDTO';
 import IFloorRepo from './IRepos/IFloorRepo';
-import { Location } from '../domain/location';
+import { Location } from '../domain/valueObjects/location';
 import { Passage } from '../domain/passage';
 import { PassageMap } from '../mappers/PassageMap';
 import e from 'express';

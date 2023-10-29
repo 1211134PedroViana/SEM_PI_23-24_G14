@@ -1,7 +1,7 @@
 import { Robot } from "../../domain/robot"
 import { Repo } from "../../core/infra/Repo";
 import { RobotId } from "../../domain/robotId";
-import { RobotCode } from "../../domain/robotCode";
+import { RobotCode } from "../../domain/valueObjects/robotCode";
 import IRobotDTO from "../../dto/IRobotDTO";
 
 

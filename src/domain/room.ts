@@ -2,11 +2,11 @@ import { AggregateRoot } from "../core/domain/AggregateRoot";
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { Result } from "../core/logic/Result";
 import { Guard } from "../core/logic/Guard";
-import { Location } from "./location";
-import {Dimension} from "./dimension";
-import {RoomCode} from "./RoomCode";
+import { Location } from "./valueObjects/location";
+import {Dimension} from "./valueObjects/dimension";
+import {RoomCode} from "./valueObjects/RoomCode";
 import IRoomDTO from "../dto/IRoomDTO";
-import { Description } from "./description";
+import { Description } from "./valueObjects/description";
 
 
 interface RoomProps {

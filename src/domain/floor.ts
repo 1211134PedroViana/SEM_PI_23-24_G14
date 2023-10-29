@@ -3,13 +3,13 @@ import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { Result } from "../core/logic/Result";
 import { FloorId } from "./floorId";
 import { Guard } from "../core/logic/Guard";
-import { Description } from "./description";
+import { Description } from "./valueObjects/description";
 import { Building } from "./building";
 import { CellId } from "./cellId";
 import { Cell } from "./cell";
 import IBuildingDTO from "../dto/IBuildingDTO";
 import IFloorDTO from "../dto/IFloorDTO";
-import {BuildingCode} from "./buildingCode";
+import {BuildingCode} from "./valueObjects/buildingCode";
 import {map} from "lodash";
 
 interface FloorProps {
