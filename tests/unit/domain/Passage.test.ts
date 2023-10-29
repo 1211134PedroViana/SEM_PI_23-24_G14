@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { Passage } from '../../../src/domain/passage';
-import { Location } from '../../../src/domain/location';
+import { Location } from '../../../src/domain/valueObjects/location';
 import IPassageDTO from '../../../src/dto/IPassageDTO';
 
 describe("Passage Domain", () => {

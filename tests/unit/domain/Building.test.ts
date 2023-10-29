@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import { UniqueEntityID } from '../../../src/core/domain/UniqueEntityID';
 import { Building } from '../../../src/domain/building';
-import { BuildingCode } from '../../../src/domain/buildingCode';
-import { Description } from '../../../src/domain/description';
+import { BuildingCode } from '../../../src/domain/valueObjects/buildingCode';
+import { Description } from '../../../src/domain/valueObjects/description';
 import IBuildingDTO from '../../../src/dto/IBuildingDTO';
 import 'mocha';
 

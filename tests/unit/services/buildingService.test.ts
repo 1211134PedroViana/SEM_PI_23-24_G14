@@ -5,8 +5,8 @@ import BuildingRepo from '../../../src/repos/buildingRepo';
 import BuildingService from '../../../src/services/buildingService';
 import BuildingSchema from '../../../src/persistence/schemas/buildingSchema';
 import IBuildingDTO from '../../../src/dto/IBuildingDTO';
-import { BuildingCode } from '../../../src/domain/buildingCode';
-import { Description } from '../../../src/domain/description';
+import { BuildingCode } from '../../../src/domain/valueObjects/buildingCode';
+import { Description } from '../../../src/domain/valueObjects/description';
 import { Building } from '../../../src/domain/building';
 import { SinonStub, stub } from 'sinon';
 
