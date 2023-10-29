@@ -33,7 +33,7 @@ export default( app: Router) => {
       }),
       (req, res, next) => ctrl.createElevator(req, res, next) );
 
-      //API GET request - list all Passages
+      //API GET request - list all Elevators
     route.get('/list',
     (req, res, next) => ctrl.listElevators(req, res, next) );
     

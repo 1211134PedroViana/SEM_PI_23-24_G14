@@ -4,7 +4,6 @@ import IElevatorRepo from '../services/IRepos/IElevatorRepo';
 import { IElevatorPersistence } from '../dataschema/IElevatorPersistence';
 import { Elevator } from '../domain/elevator';
 import { ElevatorMap } from '../mappers/ElevatorMap';
-import { Code } from 'mongodb';
 
 
 @Service()
@@ -36,9 +35,9 @@ export default class ElevatorRepo implements IElevatorRepo {
 
         try {
             if(elevatorDocument === null) {
-                const rawPassage: any = ElevatorMap.toPersistence(elevator);
+                const rawElevator: any = ElevatorMap.toPersistence(elevator);
 
-                const elevatorCreated = await this.elevatorSchema.create(rawPassage);
+                const elevatorCreated = await this.elevatorSchema.create(rawElevator);
 
                 return ElevatorMap.toDomain(elevatorCreated);
             }else{

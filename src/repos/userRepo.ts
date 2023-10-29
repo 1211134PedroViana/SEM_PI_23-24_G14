@@ -6,7 +6,7 @@ import { IUserPersistence } from '../dataschema/IUserPersistence';
 import IUserRepo from "../services/IRepos/IUserRepo";
 import { User } from "../domain/user";
 import { UserId } from "../domain/userId";
-import { UserEmail } from "../domain/userEmail";
+import { UserEmail } from "../domain/valueObjects/userEmail";
 import { UserMap } from "../mappers/UserMap";
 
 @Service()

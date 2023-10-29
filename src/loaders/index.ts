@@ -56,6 +56,16 @@ export default async ({ expressApp }) => {
     schema: '../persistence/schemas/taskTypeSchema',
   };
 
+  const elevatorSchema = {
+    name: 'elevatorSchema',
+    schema: '../persistence/schemas/elevatorSchema',
+  };
+
+  const floorMapperzSchema = {
+    name: 'floorMapperzSchema',
+    schema: '../persistence/schemas/floorMapperzSchema',
+  };
+
 
   const roleController = {
     name: config.controllers.role.name,
@@ -95,6 +105,16 @@ export default async ({ expressApp }) => {
   const taskTypeController = {
     name: config.controllers.taskType.name,
     path: config.controllers.taskType.path
+  }
+
+  const elevatorController = {
+    name: config.controllers.elevator.name,
+    path: config.controllers.elevator.path
+  }
+
+  const floorMapperzController = {
+    name: config.controllers.floorMapperz.name,
+    path: config.controllers.floorMapperz.path
   }
 
 
@@ -143,6 +163,16 @@ export default async ({ expressApp }) => {
     path: config.repos.taskType.path
   }
 
+  const elevatorRepo = {
+    name: config.repos.elevator.name,
+    path: config.repos.elevator.path
+  }
+
+  const floorMapperzRepo = {
+    name: config.repos.floorMapperz.name,
+    path: config.repos.floorMapperz.path
+  }
+
 
 
   const roleService = {
@@ -185,6 +215,16 @@ export default async ({ expressApp }) => {
     path: config.services.taskType.path
   }
 
+  const elevatorService = {
+    name: config.services.elevator.name,
+    path: config.services.elevator.path
+  }
+
+  const floorMapperzService = {
+    name: config.services.floorMapperz.name,
+    path: config.services.floorMapperz.path
+  }
+
 
 
   await dependencyInjectorLoader({
@@ -198,7 +238,9 @@ export default async ({ expressApp }) => {
       roomSchema,
       robotSchema,
       robotTypeSchema,
-      taskTypeSchema
+      taskTypeSchema,
+      elevatorSchema,
+      floorMapperzSchema
     ],
     controllers: [
       roleController,
@@ -208,7 +250,9 @@ export default async ({ expressApp }) => {
       roomController,
       robotController,
       robotTypeController,
-      taskTypeController
+      taskTypeController,
+      elevatorController,
+      floorMapperzController
     ],
     repos: [
       roleRepo,
@@ -219,7 +263,9 @@ export default async ({ expressApp }) => {
       roomRepo,
       robotRepo,
       robotTypeRepo,
-      taskTypeRepo
+      taskTypeRepo,
+      elevatorRepo,
+      floorMapperzRepo
     ],
     services: [
       roleService,
@@ -229,7 +275,9 @@ export default async ({ expressApp }) => {
       roomService,
       robotService,
       robotTypeService,
-      taskTypeService
+      taskTypeService,
+      elevatorService,
+      floorMapperzService
     ]
   });
   Logger.info('✌️ Schemas, Controllers, Repositories, Services, etc. loaded');

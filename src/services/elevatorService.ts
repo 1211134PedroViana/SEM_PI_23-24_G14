@@ -4,10 +4,10 @@ import { Result } from "../core/logic/Result";
 import IElevatorService from './IServices/IElevatorService';
 import IElevatorRepo from './IRepos/IElevatorRepo';
 import IElevatorDTO from '../dto/IElevatorDTO';
-import { Location } from '../domain/location';
+import { Location } from '../domain/valueObjects/location';
 import { Elevator } from '../domain/elevator';
 import { ElevatorMap } from '../mappers/ElevatorMap';
-import { ElevatorCode } from '../domain/elevatorCode';
+import { ElevatorCode } from '../domain/valueObjects/elevatorCode';
 import IBuildingRepo from './IRepos/IBuildingRepo';
 
 @Service()
@@ -49,7 +49,7 @@ export default class ElevatorService implements IElevatorService {
           }
       
           const elevatorResult = elevatorOrError.getValue();
-      
+          
           await this.elevatorRepo.save(elevatorResult);
       
           const elevatorDTOResult = ElevatorMap.toDTO( elevatorResult ) as IElevatorDTO;

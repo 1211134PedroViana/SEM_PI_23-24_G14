@@ -9,6 +9,12 @@ const ElevatorSchema = new mongoose.Schema(
             unique: true 
         },
 
+        code: {
+          type: String,
+          unique: true,
+          required: true
+        },
+
         location: {
             positionX: {
                 type: Number,

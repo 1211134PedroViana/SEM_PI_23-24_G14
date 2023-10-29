@@ -2,7 +2,7 @@ import { AggregateRoot } from "../core/domain/AggregateRoot";
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { Result } from "../core/logic/Result";
 import { Guard } from "../core/logic/Guard";
-import { Description } from "./description";
+import { Description } from "./valueObjects/description";
 import { TaskTypeId } from "./valueObjects/taskTypeId";
 
 

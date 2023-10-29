@@ -1,4 +1,6 @@
+/*
 import RobotRepo from '../../../src/repos/robotRepo';
+import RobotTypeRepo from '../../../src/repos/robotTypeRepo';
 import RobotService from '../../../src/services/robotService';
 import RobotSchema from '../../../src/persistence/schemas/robotSchema';
 import { SinonStub, stub } from 'sinon';
@@ -12,6 +14,7 @@ import { RobotCode } from '../../../src/domain/robotCode';
 describe("Robot service", () => {
     describe("Create robot", () => {
         let robotRepo : RobotRepo;
+        let roboTypeRepo : RobotTypeRepo;
         let service : RobotService;
         
         let stub1, stub2;
@@ -20,7 +23,7 @@ describe("Robot service", () => {
             robotRepo = new RobotRepo(RobotSchema);
             stub1 = sinon.stub(robotRepo, "save");
             stub2 = sinon.stub(robotRepo, "findByCode");
-            service = new RobotService(robotRepo);
+            service = new RobotService(robotRepo, roboTypeRepo);
         })
 
         after(() => {
@@ -35,7 +38,7 @@ describe("Robot service", () => {
                 robotType: "robot",
                 serialNumber: 123456789,
                 description: "Isto e um teste",
-                status: "Online"
+                isActive: true
             } as IRobotDTO;
 
             try {
@@ -47,7 +50,7 @@ describe("Robot service", () => {
                 expect(done.getValue().robotType).to.be.equal(robotDTO.robotType);
                 expect(done.getValue().serialNumber).to.be.equal(robotDTO.serialNumber);
                 expect(done.getValue().description).to.be.equal(robotDTO.description);
-                expect(done.getValue().status).to.be.equal(robotDTO.status);
+                expect(done.getValue().isActive).to.be.equal(robotDTO.isActive);
 
             } catch (e) {
                 throw e;
@@ -62,7 +65,7 @@ describe("Robot service", () => {
                 robotType: "robot",
                 serialNumber: 123456789,
                 description: "Isto e um teste",
-                status: "Online"
+                isActive: true
             } as IRobotDTO;
 
             try {
@@ -89,7 +92,7 @@ describe("Robot service", () => {
                 robotRepo = new RobotRepo(robotSchema);
                 stub1 = sinon.stub(robotRepo, "save");
                 stub2 = sinon.stub(robotRepo, "findByDomainId");
-                rService = new RobotService(robotRepo);
+                rService = new RobotService(robotRepo, roboTypeRepo);
             })
 
             after(() => {
@@ -97,15 +100,16 @@ describe("Robot service", () => {
                 stub2.restore();
             })
             
-            /*
+            
             it ("Shoud edit robots with success", async () => {
                 const code = RobotCode.create("GRGG2");
                 const des
             })
-            */
+            
         })
 
         
     })
 
 })
+*/

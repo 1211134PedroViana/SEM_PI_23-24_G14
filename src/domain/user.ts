@@ -2,9 +2,9 @@ import { AggregateRoot } from "../core/domain/AggregateRoot";
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { Result } from "../core/logic/Result";
 import { UserId } from "./userId";
-import { UserEmail } from "./userEmail";
+import { UserEmail } from "./valueObjects/userEmail";
 import { Role } from "../domain/role";
-import { UserPassword } from "./userPassword";
+import { UserPassword } from "./valueObjects/userPassword";
 import { Guard } from "../core/logic/Guard";
 
 

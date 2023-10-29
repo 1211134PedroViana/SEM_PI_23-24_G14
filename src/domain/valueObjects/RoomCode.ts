@@ -1,6 +1,6 @@
-import { ValueObject } from "../core/domain/ValueObject";
-import { Result } from "../core/logic/Result";
-import { Guard } from "../core/logic/Guard";
+import { ValueObject } from "../../core/domain/ValueObject";
+import { Result } from "../../core/logic/Result";
+import { Guard } from "../../core/logic/Guard";
 
 interface RoomCodeProps {
     value: string;
@@ -17,7 +17,7 @@ export class RoomCode extends ValueObject<RoomCodeProps> {
 
     //Checks if the text has only a char in the range of [A-Z]
     public static isValidCode (text: string): boolean {
-        return new RegExp('^[a-zA-Z]\\d{1,3}$').test(text);
+        return new RegExp('^[a-zA-Z]{1,3}$').test(text);
     }
 
     public static create (code: string): Result<RoomCode> {

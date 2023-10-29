@@ -1,10 +1,10 @@
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { AggregateRoot } from "../core/domain/AggregateRoot";
 import { RobotId } from "./robotId";
-import { Description } from "./description";
+import { Description } from "./valueObjects/description";
 import { Result } from "../core/logic/Result";
 import { Guard } from "../core/logic/Guard";
-import { RobotCode } from "./robotCode";
+import { RobotCode } from "./valueObjects/robotCode";
 import IRobotDTO from "../dto/IRobotDTO";
 
 interface RobotProps {

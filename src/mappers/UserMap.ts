@@ -7,8 +7,8 @@ import {IUserDTO} from "../dto/IUserDTO";
 import { User } from "../domain/user";
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 
-import { UserEmail } from "../domain/userEmail";
-import { UserPassword } from "../domain/userPassword";
+import { UserEmail } from "../domain/valueObjects/userEmail";
+import { UserPassword } from "../domain/valueObjects/userPassword";
 
 import RoleRepo from "../repos/roleRepo";
 

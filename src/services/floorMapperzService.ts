@@ -8,10 +8,10 @@ import IPassageRepo from './IRepos/IPassageRepo';
 import IRoomRepo from './IRepos/IRoomRepo';
 import IElevatorRepo from './IRepos/IElevatorRepo';
 import { FloorMapElevator } from '../domain/valueObjects/fMapElevator';
-import { Location } from '../domain/location';
+import { Location } from '../domain/valueObjects/location';
 import { FloorMapRoom } from '../domain/valueObjects/fMapRoom';
 import { FloorMapPassage } from '../domain/valueObjects/fMapPassage';
-import { Dimension } from '../domain/dimension';
+import { Dimension } from '../domain/valueObjects/dimension';
 import { FloorMapperz } from '../domain/floorMapperz';
 import { FloorMapperzMap } from '../mappers/FloorMapperzMap';
 import IFloorRepo from './IRepos/IFloorRepo';
@@ -44,7 +44,7 @@ export default class FloorMapperzService implements IFloorMapperzService {
             }
 
             for (let i = 0; i < floorMapperzDTO.fMapRooms.length; i++) {
-                let room = await this.elevatorRepo.findByObjectId(floorMapperzDTO.fMapRooms[i].roomId);
+                let room = await this.roomRepo.findByObjectId(floorMapperzDTO.fMapRooms[i].roomId);
                 if(room === null) {
                     return Result.fail<IFloorMapperzDTO>('Room with ID "' + floorMapperzDTO.fMapRooms[i].roomId + '" not found')
                 }

@@ -9,7 +9,7 @@ import {BuildingId} from "../domain/buildingId";
 import {Building} from "../domain/building";
 import {IBuildingPersistence} from "../dataschema/IBuildingPersistence";
 import {BuildingMap} from "../mappers/BuildingMap";
-import {ElevatorCode} from "../domain/elevatorCode";
+import {ElevatorCode} from "../domain/valueObjects/elevatorCode";
 import IRoomRepo from "../services/IRepos/IRoomRepo";
 import {IRoomPersistence} from "../dataschema/IRoomPersistence";
 import {Room} from "../domain/room";
@@ -64,7 +64,7 @@ export default class RoomRepo implements IRoomRepo {
         }
     }
 
-    public async findByDomainId (roomId: Code | string): Promise<Room> {
+    public async findByDomainId (roomId: string): Promise<Room> {
         const query = { domainId: roomId};
         const roomRecord = await this.roomSchema.findOne( query as FilterQuery<IRoomPersistence & Document> );
 

@@ -1,9 +1,9 @@
 import { AggregateRoot } from "../core/domain/AggregateRoot";
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { Result } from "../core/logic/Result";
-import { ElevatorCode } from "./elevatorCode";
+import { ElevatorCode } from "./valueObjects/elevatorCode";
 import { Guard } from "../core/logic/Guard";
-import { Location } from "./location";
+import { Location } from "./valueObjects/location";
 import IElevatorDTO from "../dto/IElevatorDTO";
 import { describe } from "mocha";
 
@@ -61,6 +61,7 @@ export class Elevator extends AggregateRoot<ElevatorProps> {
     }
 
     public static create(elevatorDTO: IElevatorDTO, id?: UniqueEntityID): Result<Elevator> {
+        
         const code = ElevatorCode.create(elevatorDTO.code);
         const location = Location.create({positionX: elevatorDTO.location.positionX, positionY: elevatorDTO.location.positionY, direction: elevatorDTO.location.direction})
 

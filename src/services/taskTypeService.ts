@@ -4,7 +4,7 @@ import { Result } from "../core/logic/Result";
 import ITaskTypeService from './IServices/ITaskTypeService';
 import ITaskTypeRepo from './IRepos/ITaskTypeRepo';
 import ITaskTypeDTO from '../dto/ITaskTypeDTO';
-import { Description } from '../domain/description';
+import { Description } from '../domain/valueObjects/description';
 import { TaskType } from '../domain/taskType';
 import { TaskTypeMap } from '../mappers/TaskTypeMap';
 

@@ -6,8 +6,8 @@ import IBuildingDTO from '../dto/IBuildingDTO';
 import { BuildingMap } from '../mappers/BuildingMap';
 import IBuildingRepo from './IRepos/IBuildingRepo';
 import IBuildingService from './IServices/IBuildingService';
-import { BuildingCode } from "../domain/buildingCode";
-import { Description } from "../domain/description";
+import { BuildingCode } from "../domain/valueObjects/buildingCode";
+import { Description } from "../domain/valueObjects/description";
 
 @Service()
 export default class BuildingService implements IBuildingService {

@@ -1,4 +1,5 @@
 export interface IElevatorPersistence {
+    domainId: string;
     code: string;
     location: {
         positionX: number;

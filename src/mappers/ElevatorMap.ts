@@ -10,7 +10,8 @@ export class ElevatorMap extends Mapper<Elevator> {
 
     public static toDTO( elevator: Elevator): IElevatorDTO {
         return {
-            code: elevator.id.toString(),
+            id: elevator.id.toString(),
+            code: elevator.code.value,
             location: {
                 positionX: elevator.location.positionX,
                 positionY: elevator.location.positionY,
@@ -21,7 +22,7 @@ export class ElevatorMap extends Mapper<Elevator> {
     }
 
     public static toDomain( elevator: any | Model<IElevatorPersistence & Document> ): Elevator {
-
+        
         const elevatorOrError = Elevator.create(
             elevator,
             new UniqueEntityID(elevator.domainId)
@@ -58,6 +59,7 @@ export class ElevatorMap extends Mapper<Elevator> {
     public static toPersistence(elevator: Elevator): any {
         return {
             domainId: elevator.id.toString(),
+            code: elevator.code.value,
             location: {
                  positionX: elevator.location.positionX,
                  positionY: elevator.location.positionY,

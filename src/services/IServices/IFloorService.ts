@@ -1,6 +1,4 @@
 import { Result } from "../../core/logic/Result";
-import { Building } from "../../domain/building";
-import IBuildingDTO from "../../dto/IBuildingDTO";
 import IFloorDTO from "../../dto/IFloorDTO";
 import IPassageDTO from "../../dto/IPassageDTO";
 

@@ -3,20 +3,14 @@ import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { Result } from "../core/logic/Result";
 import { FloorId } from "./floorId";
 import { Guard } from "../core/logic/Guard";
-import { Description } from "./description";
-import { Building } from "./building";
-import { CellId } from "./cellId";
-import { Cell } from "./cell";
-import IBuildingDTO from "../dto/IBuildingDTO";
+import { Description } from "./valueObjects/description";
 import IFloorDTO from "../dto/IFloorDTO";
-import {BuildingCode} from "./buildingCode";
-import {map} from "lodash";
+
 
 interface FloorProps {
     buildingId: string;
     floorNumber: number;
     description: Description;
-    //cell: Cell;
 }
 
 export class Floor extends AggregateRoot<FloorProps> {

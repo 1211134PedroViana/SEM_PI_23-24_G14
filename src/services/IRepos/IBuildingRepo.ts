@@ -1,6 +1,6 @@
 import { Repo } from "../../core/infra/Repo";
 import { Building } from "../../domain/building";
-import { BuildingCode } from "../../domain/buildingCode";
+import { BuildingCode } from "../../domain/valueObjects/buildingCode";
 import { BuildingId } from "../../domain/buildingId";
 
 export default interface IBuildingRepo extends Repo<Building> {
