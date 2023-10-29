@@ -57,7 +57,7 @@ export default class PassageController implements IPassageController {
                 return res.status(402).send(passagesListOrError.errorValue());
             }
 
-            const passagesList = await this.passageServiceInstance.allPassagesBetweenBuildings(req.body as string, req.body as string, passagesListOrError.getValue()) as Result<IPassageDTO[]>;
+            const passagesList = await this.passageServiceInstance.allPassagesBetweenBuildings(req.body.FromBuildingID, req.body.ToBuildingID, passagesListOrError.getValue()) as Result<IPassageDTO[]>;
             return res.json(passagesList.getValue()).status(201);
 
         } catch (e) {
