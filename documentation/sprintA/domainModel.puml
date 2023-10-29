@@ -45,13 +45,23 @@ package "<Aggregate> Building" #697774{
 
 package "<Aggregate> Floor" #99b3ff {
     entity Floor <<root>> {}
-    entity Room
     entity Map
-    class RoomCode <<(V,#B8255F)value object>>
     class Number <<(V,#B8255F)value object>>
 
-    Room "1" --> "1" RoomCode: has
     Floor "1" --> "1" Number : has
+}
+
+package "<Aggregate> Room" #99b3ff {
+    entity Room <<root>> {}
+    class RoomCode <<(V,#B8255F)value object>>
+    class RoomName <<(V,#B8255F)value object>>
+    class Description <<(V,#B8255F)value object>>
+    class Dimension <<(V,#B8255F)value object>>
+
+    Room "1" --> "1" RoomCode : has
+    Room "1" --> "1" RoomName : has
+    Room "1" --> "1" Description : has
+    Room "1" --> "1" Dimension : has
 }
 
 package "<Aggregate> Passage" #ddbbcc {
@@ -60,15 +70,11 @@ package "<Aggregate> Passage" #ddbbcc {
 
 package "<Aggregate> Robot" #eeeaaa {
     entity Robot <<root>> {}
-    class State <<(V,#B8255F)value object>> {
-        Available
-        Busy
-        Inhibited
-    }
+
     class SerialNumber <<(V,#B8255F)value object>>
     class Nickname <<(V,#B8255F)value object>>
     class RobotCode <<(V,#B8255F)value object>>
-    Robot "1" --> "1" State : has
+
     Robot "1" --> "1" SerialNumber : has
     Robot "1" --> "1" Nickname : has
     Robot "1" --> "1" RobotCode : has
@@ -103,11 +109,26 @@ package "<Aggregate> Elevator" #eeeeee {
 
 package "<Aggregate> RobotType" #ffddeb {
   entity RobotType <<root>> {}
+  class Code <<(V,#B8255F)value object>>
   class Brand <<(V,#B8255F)value object>>
   class Model <<(V,#B8255F)value object>>
 
   RobotType "1" --> "1" Brand : is of
   RobotType "1" --> "1" Model : has
+  RobotType "1" --> "1" Code : has
+}
+
+package "<Aggregate> Role" #ffddeb {
+  entity Role <<root>> {}
+}
+
+package "<Aggregate> TaskType" #ffddeb {
+  entity TaskType <<root>> {}
+  class TaskName <<(V,#B8255F)value object>>
+  class Description <<(V,#B8255F)value object>>
+
+  TaskType "1" --> "1" TaskName : has
+  TaskType "1" --> "1" Description : has
 }
 
 class Location <<(V,#B8255F)value object>> {
@@ -116,8 +137,10 @@ class Location <<(V,#B8255F)value object>> {
   Direction
 }
 
+
 Passage "1" --> "1" Location : has
 Elevator "1" --> "1" Location : has
+Elevator "1" --> "1..*" Floor : serves
 Room "1" --> "1" Location : has
 
 SystemUser --|> User
@@ -125,21 +148,22 @@ SystemUser --|> Admin
 SystemUser --|> TaskManager
 SystemUser --|> CampusManager
 SystemUser --|> FleetManager
-
+SystemUser "1" --> "1" Role : has
 
 Admin "1" --> "*" TaskManager : manages
 Admin "1" --> "*" CampusManager : manages
 Admin "1" --> "*" FleetManager : manages
 
 
-Building "1" --> "1..*" Floor : has
+Building "1" --> "0..1" Floor : has
 Building "1" --> "*" Elevator : has
-Building "1" --> "*" Passage : has
+Passage "1" --> "1" Floor : has
+Passage "1" --> "1" Floor : has
 
-Floor "1" --> "1" Map : has
+Floor "1" --> "0..*" Map : has
 
 
-Floor "1" --> "1..*" Room : has
+Room "1" --> "1*" Floor : has
 
 TaskManager "1" --> "*" Task : manages
 
@@ -156,6 +180,7 @@ ObjectDelivery "1" --> "1..*" RoomCode : has
 RobotType --|> Robot
 
 Robot "1" --> "*" Task : executes
+Robot "1" --> "1..*" TaskType : can execute
 
 
 @enduml

@@ -23,7 +23,12 @@ export default( app: Router) => {
                 positionY: Joi.number().required(),
                 direction: Joi.string().required()
             },
-            buildingId: Joi.string().required()
+            buildingId: Joi.string().required(), 
+            floorList: Joi.array().items(Joi.string().required()).required(),
+            brand: Joi.string(),
+            model: Joi.string(),
+            serialNumber: Joi.string(),
+            description: Joi.string()
         })
       }),
       (req, res, next) => ctrl.createElevator(req, res, next) );
