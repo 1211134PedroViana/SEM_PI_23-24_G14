@@ -24,10 +24,9 @@ export default class ElevatorService implements IElevatorService {
         try {       
           
           const building = await this.buildingRepo.findByObjectId(elevatorDTO.buildingId);
-
           
           for (let i = 0; i < elevatorDTO.floorList.length; i++) {
-            console.log(elevatorDTO.floorList[i])
+           
             let floor = await this.floorRepo.findByObjectId(elevatorDTO.floorList[i]);
             if(floor === null) {
                 return Result.fail<IElevatorDTO>('Floor with ID "' + elevatorDTO.floorList[i] + '" not found')

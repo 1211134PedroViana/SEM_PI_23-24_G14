@@ -50,7 +50,7 @@ export class ElevatorMap extends Mapper<Elevator> {
                 brand: elevatorList[i].brand,
                 model: elevatorList[i].model,
                 serialNumber: elevatorList[i].serialNumber,
-                description: elevatorList[i].description.value
+                description: elevatorList[i].description
             } as IElevatorDTO, new UniqueEntityID(elevatorList[i].domainId))
 
             if (elevatorOrError.isSuccess){

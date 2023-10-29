@@ -60,13 +60,9 @@ export class Room extends AggregateRoot<RoomProps> {
     }
 
     public static create(roomDTO: IRoomDTO, id?: UniqueEntityID): Result<Room> {
-        console.log('Creating Room:', roomDTO);
-        
         const code = RoomCode.create(roomDTO.code);
-        console.log('Code created:', code);
         
         const description = Description.create(roomDTO.description);
-        console.log('Description created:', description);
         
         const dimension = Dimension.create({
             pos1: roomDTO.dimension.pos1,
@@ -74,14 +70,13 @@ export class Room extends AggregateRoot<RoomProps> {
             pos3: roomDTO.dimension.pos3,
             pos4: roomDTO.dimension.pos4,
         });
-        console.log('Dimension created:', dimension);
+
         
         const location = Location.create({
             positionX: roomDTO.location.positionX,
             positionY: roomDTO.location.positionY,
             direction: roomDTO.location.direction,
         });
-        console.log('Location created:', location);
 
         const guardedProps = [
             { argument: roomDTO.code, argumentName: 'code' },
@@ -91,15 +86,13 @@ export class Room extends AggregateRoot<RoomProps> {
             { argument: roomDTO.floorId, argumentName: 'floorId' },
         ];
 
-        console.log('Guarding properties:', guardedProps);
-
         const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);
 
         if (!guardResult.succeeded) {
-            console.error('Failed to create a Room: ' + guardResult.message);
+        
             return Result.fail<Room>('Failed to create a Room: ' + guardResult.message);
         } else {
-            console.log('Creating Room instance...');
+         
             const room = new Room({
                 code: code.getValue(),
                 name: roomDTO.name,
@@ -108,7 +101,7 @@ export class Room extends AggregateRoot<RoomProps> {
                 location: location.getValue(),
                 floorId: roomDTO.floorId,
             }, id);
-            console.log('Room created:', room);
+        
             return Result.ok<Room>(room);
         }
     }

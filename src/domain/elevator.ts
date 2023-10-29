@@ -62,7 +62,7 @@ export class Elevator extends AggregateRoot<ElevatorProps> {
     }
 
     public static create(elevatorDTO: IElevatorDTO, id?: UniqueEntityID): Result<Elevator> {
-        
+        console.log(elevatorDTO);
         const code = ElevatorCode.create(elevatorDTO.code);
         const location = Location.create({positionX: elevatorDTO.location.positionX, positionY: elevatorDTO.location.positionY, direction: elevatorDTO.location.direction})
         const description = Description.create(elevatorDTO.description);
@@ -83,6 +83,7 @@ export class Elevator extends AggregateRoot<ElevatorProps> {
       if (!guardResult.succeeded) {
         return Result.fail<Elevator>(' ');
       } else {
+        
           const elevator = new Elevator({
               code: code.getValue(),
               location: location.getValue(),

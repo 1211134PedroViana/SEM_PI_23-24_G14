@@ -40,7 +40,6 @@ export class FloorMap extends Mapper<Floor> {
                 buildingId: floorList[i].buildingId,
                 floorNumber: floorList[i].floorNumber,
                 description: floorList[i].description,
-                //map: floorList[i].map
             } as IFloorDTO, new UniqueEntityID(floorList[i].domainId))
 
             if (floorOrError.isSuccess){
@@ -62,7 +61,6 @@ export class FloorMap extends Mapper<Floor> {
             buildingId: floor.buildingId,
             floorNumber: floor.floorNumber,
             description: floor.description.value,
-            //map: floor.cell.floorNumber,
 
         }
     }
