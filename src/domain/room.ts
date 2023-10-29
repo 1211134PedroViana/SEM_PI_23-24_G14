@@ -60,27 +60,56 @@ export class Room extends AggregateRoot<RoomProps> {
     }
 
     public static create(roomDTO: IRoomDTO, id?: UniqueEntityID): Result<Room> {
-
+        console.log('Creating Room:', roomDTO);
+        
         const code = RoomCode.create(roomDTO.code);
+        console.log('Code created:', code);
+        
         const description = Description.create(roomDTO.description);
-        const dimension = Dimension.create({pos1: roomDTO.dimension.pos1, pos2: roomDTO.dimension.pos2, pos3: roomDTO.dimension.pos3, pos4: roomDTO.dimension.pos4})
-        const location = Location.create({positionX: roomDTO.location.positionX, positionY: roomDTO.location.positionY, direction: roomDTO.location.direction})
+        console.log('Description created:', description);
+        
+        const dimension = Dimension.create({
+            pos1: roomDTO.dimension.pos1,
+            pos2: roomDTO.dimension.pos2,
+            pos3: roomDTO.dimension.pos3,
+            pos4: roomDTO.dimension.pos4,
+        });
+        console.log('Dimension created:', dimension);
+        
+        const location = Location.create({
+            positionX: roomDTO.location.positionX,
+            positionY: roomDTO.location.positionY,
+            direction: roomDTO.location.direction,
+        });
+        console.log('Location created:', location);
 
         const guardedProps = [
             { argument: roomDTO.code, argumentName: 'code' },
             { argument: roomDTO.name, argumentName: 'name' },
-            { argument: roomDTO.dimension, argumentName: 'dimension'},
+            { argument: roomDTO.dimension, argumentName: 'dimension' },
             { argument: roomDTO.location, argumentName: 'location' },
-            { argument: roomDTO.floorId, argumentName: 'floorId' }
+            { argument: roomDTO.floorId, argumentName: 'floorId' },
         ];
+
+        console.log('Guarding properties:', guardedProps);
 
         const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);
 
         if (!guardResult.succeeded) {
-            return Result.fail<Room>(' ');
+            console.error('Failed to create a Room: ' + guardResult.message);
+            return Result.fail<Room>('Failed to create a Room: ' + guardResult.message);
         } else {
-            const room = new Room({code: code.getValue(), name: roomDTO.name, description: description.getValue(), dimension: dimension.getValue(), location: location.getValue(), floorId: roomDTO.floorId}, id);
-            return Result.ok<Room>( room );
+            console.log('Creating Room instance...');
+            const room = new Room({
+                code: code.getValue(),
+                name: roomDTO.name,
+                description: description.getValue(),
+                dimension: dimension.getValue(),
+                location: location.getValue(),
+                floorId: roomDTO.floorId,
+            }, id);
+            console.log('Room created:', room);
+            return Result.ok<Room>(room);
         }
     }
 }
