@@ -13,7 +13,7 @@ export default( app: Router) => {
 
     const ctrl = Container.get(config.controllers.elevator.name) as IElevatorController;
 
-    //API POST request - create a new Floor of a existing Building
+    //API POST request - create a new Elevator
     route.post('/create',
       celebrate({
         body: Joi.object({
@@ -22,7 +22,13 @@ export default( app: Router) => {
                 positionX: Joi.number().required(),
                 positionY: Joi.number().required(),
                 direction: Joi.string().required()
-            }
+            },
+            buildingId: Joi.string().required(), 
+            floorList: Joi.array().items(Joi.string().required()).required(),
+            brand: Joi.string(),
+            model: Joi.string(),
+            serialNumber: Joi.string(),
+            description: Joi.string()
         })
       }),
       (req, res, next) => ctrl.createElevator(req, res, next) );

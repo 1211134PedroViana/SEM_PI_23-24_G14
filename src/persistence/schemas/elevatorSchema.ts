@@ -28,6 +28,31 @@ const ElevatorSchema = new mongoose.Schema(
           type: Schema.Types.ObjectId,
           ref:"Building",
           required: true
+        },
+        
+        floorList: [{
+          type: String,
+          required: true
+        }],
+        
+        brand: {
+          type: String,
+          required: true
+        },
+        
+        model: {
+          type: String,
+          required: true
+        },
+        
+        serialNumber: {
+          type: String,
+          required: true
+        },
+    
+        description: {
+          type: String,
+          required: true
         }
 
     },
