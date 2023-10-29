@@ -58,10 +58,10 @@ export default class FloorService implements IFloorService {
             const descriptionOrError = Description.create(floorDTO.description);
 
             if (floor === null) {
-                return Result.fail<IFloorDTO>('Building not found with id:' + floorDTO.id);
+                return Result.fail<IFloorDTO>('Floor not found with id:' + floorDTO.id);
             }else{
                 if (descriptionOrError.isFailure) {
-                    return Result.fail<IFloorDTO>('Error updating building -> Invalid Description!');
+                    return Result.fail<IFloorDTO>('Error updating floor -> Invalid Description!');
                 }else{
                     floor.floorNumber = floorDTO.floorNumber;
                     floor.description = descriptionOrError.getValue();

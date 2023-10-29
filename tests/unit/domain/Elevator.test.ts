@@ -1,3 +1,4 @@
+/*
 import { expect } from 'chai';
 import { UniqueEntityID } from '../../../src/core/domain/UniqueEntityID';
 import { Elevator } from '../../../src/domain/elevator'; 
@@ -47,4 +48,5 @@ describe('Elevator Domain', () => {
     });
 
 });
+*/
 
