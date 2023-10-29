@@ -9,11 +9,14 @@ import { Elevator } from '../domain/elevator';
 import { ElevatorMap } from '../mappers/ElevatorMap';
 import { ElevatorCode } from '../domain/valueObjects/elevatorCode';
 import IBuildingRepo from './IRepos/IBuildingRepo';
+import { Description } from '../domain/valueObjects/description';
+import IFloorRepo from './IRepos/IFloorRepo';
 
 @Service()
 export default class ElevatorService implements IElevatorService {
     constructor(
         @Inject(config.repos.elevator.name) private elevatorRepo : IElevatorRepo,
+        @Inject(config.repos.floor.name) private floorRepo : IFloorRepo,
         @Inject(config.repos.building.name) private buildingRepo : IBuildingRepo
     ) {}
 
@@ -21,8 +24,22 @@ export default class ElevatorService implements IElevatorService {
         try {       
           
           const building = await this.buildingRepo.findByObjectId(elevatorDTO.buildingId);
+
+          
+          for (let i = 0; i < elevatorDTO.floorList.length; i++) {
+            console.log(elevatorDTO.floorList[i])
+            let floor = await this.floorRepo.findByObjectId(elevatorDTO.floorList[i]);
+            if(floor === null) {
+                return Result.fail<IElevatorDTO>('Floor with ID "' + elevatorDTO.floorList[i] + '" not found')
+            }
+            if(floor.buildingId != elevatorDTO.buildingId) {
+              return Result.fail<IElevatorDTO>('Floor dont belong to Building');
+            }
+          }
           
           const codeOrError = ElevatorCode.create(elevatorDTO.code);
+
+          const descriptionOrError = Description.create(elevatorDTO.description);
         
           const locationOrError = Location.create({
             positionX: elevatorDTO.location.positionX,
@@ -40,6 +57,10 @@ export default class ElevatorService implements IElevatorService {
 
           if (locationOrError.isFailure) {
             return Result.fail<IElevatorDTO>('Invalid Location');
+          }
+
+          if (descriptionOrError.isFailure) {
+            return Result.fail<IElevatorDTO>('Invalid Description');
           }
 
           const elevatorOrError = await Elevator.create(elevatorDTO);

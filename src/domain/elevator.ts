@@ -6,6 +6,7 @@ import { Guard } from "../core/logic/Guard";
 import { Location } from "./valueObjects/location";
 import IElevatorDTO from "../dto/IElevatorDTO";
 import { describe } from "mocha";
+import { Description } from "./valueObjects/description";
 
 
 interface ElevatorProps {
@@ -16,7 +17,7 @@ interface ElevatorProps {
     brand: string;
     model: string;
     serialNumber: string;
-    description: string;
+    description: Description;
 }
 
 export class Elevator extends AggregateRoot<ElevatorProps> {
@@ -52,7 +53,7 @@ export class Elevator extends AggregateRoot<ElevatorProps> {
         return this.props.serialNumber;
     }
 
-    get description (): string {
+    get description (): Description {
         return this.props.description;
     }
 
@@ -64,6 +65,7 @@ export class Elevator extends AggregateRoot<ElevatorProps> {
         
         const code = ElevatorCode.create(elevatorDTO.code);
         const location = Location.create({positionX: elevatorDTO.location.positionX, positionY: elevatorDTO.location.positionY, direction: elevatorDTO.location.direction})
+        const description = Description.create(elevatorDTO.description);
 
         const guardedProps = [
             { argument: elevatorDTO.code, argumentName: 'code' },
@@ -89,7 +91,7 @@ export class Elevator extends AggregateRoot<ElevatorProps> {
               brand: elevatorDTO.brand,
               model: elevatorDTO.model,
               serialNumber: elevatorDTO.serialNumber,
-              description: elevatorDTO.description
+              description: description.getValue()
           }, id);
         return Result.ok<Elevator>( elevator );
       }

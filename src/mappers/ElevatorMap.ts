@@ -17,7 +17,12 @@ export class ElevatorMap extends Mapper<Elevator> {
                 positionY: elevator.location.positionY,
                 direction: elevator.location.direction,
             },
-            buildingId: elevator.buildingId
+            buildingId: elevator.buildingId,
+            floorList: elevator.floorList,
+            brand: elevator.brand,
+            model: elevator.model,
+            serialNumber: elevator.serialNumber,
+            description: elevator.description.value
         } as IElevatorDTO;
     }
 
@@ -40,6 +45,12 @@ export class ElevatorMap extends Mapper<Elevator> {
             const elevatorOrError = Elevator.create({
                 code: elevatorList[i].code,
                 location: elevatorList[i].location,
+                buildingId: elevatorList[i].buildingId,
+                floorList: elevatorList[i].floorList,
+                brand: elevatorList[i].brand,
+                model: elevatorList[i].model,
+                serialNumber: elevatorList[i].serialNumber,
+                description: elevatorList[i].description.value
             } as IElevatorDTO, new UniqueEntityID(elevatorList[i].domainId))
 
             if (elevatorOrError.isSuccess){
@@ -65,7 +76,12 @@ export class ElevatorMap extends Mapper<Elevator> {
                  positionY: elevator.location.positionY,
                  direction: elevator.location.direction,
             },
-            buildingId: elevator.buildingId
+            buildingId: elevator.buildingId,
+            floorList: elevator.floorList,
+            brand: elevator.brand,
+            model: elevator.model,
+            serialNumber: elevator.serialNumber,
+            description: elevator.description.value
         }
     }
 }

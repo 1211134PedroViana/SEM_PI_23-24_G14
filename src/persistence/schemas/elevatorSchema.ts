@@ -37,7 +37,8 @@ const ElevatorSchema = new mongoose.Schema(
         },
         
         floorList: [{
-          type: String,
+          type: Schema.Types.ObjectId,
+          ref:"Floor",
           required: true
         }],
         

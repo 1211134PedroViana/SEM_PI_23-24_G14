@@ -43,15 +43,6 @@ export class Floor extends AggregateRoot<FloorProps> {
         this.props.description = value;
     }
 
-    /*get cell(): Cell {
-        return this.props.cell;
-    }
-
-    set cell ( value: Cell ) {
-        this.props.cell = value;
-    }
-
-     */
 
     private constructor (props: FloorProps, id?: UniqueEntityID) {
         super(props, id);
@@ -67,7 +58,6 @@ export class Floor extends AggregateRoot<FloorProps> {
             { argument: floorDTO.buildingId, argumentName: 'buildingId' },
             { argument: floorDTO.floorNumber, argumentName: 'floorNumber' },
             { argument: floorDTO.description, argumentName: 'description' },
-            //{ argument: floorDTO.map, argumentName: 'map' }
         ];
 
       const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);
