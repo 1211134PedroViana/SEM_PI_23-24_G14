@@ -1,0 +1,19 @@
+@startuml
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US300
+
+actor "Campus Manager" as User
+participant "UI" as UI
+
+activate User
+
+User -> UI : 1 : requests building floors served by elevator
+activate UI
+
+UI --> User : returns json with floors served by elevator
+deactivate UI
+
+@enduml
