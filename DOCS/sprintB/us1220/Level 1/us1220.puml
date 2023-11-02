@@ -1,0 +1,24 @@
+@startuml
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US1220
+
+actor "Task Manager" as User
+participant "UI" as UI
+
+activate User
+
+User -> UI : Requests the passages between two buildings ordered by the shortest 
+activate UI
+UI --> User : requests data (startBuilding, finishBuilding)
+deactivate UI
+User -> UI : types requested data
+activate UI
+UI --> User : Shows list of passages ordered by the shortest
+
+deactivate UI
+
+@enduml
