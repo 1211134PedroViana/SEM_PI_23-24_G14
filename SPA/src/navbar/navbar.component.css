@@ -1,0 +1,12 @@
+.navbar {
+    background-color: rgb(41, 43, 56, 0.6) !important;
+}
+
+.nav-link {
+    color: #fff !important;
+}
+
+li:hover {
+    background-color: rgb(51, 61, 140);
+    border-radius: 10px;
+}

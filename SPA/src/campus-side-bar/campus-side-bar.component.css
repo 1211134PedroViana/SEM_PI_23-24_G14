@@ -1,6 +1,7 @@
 body {
     min-height: 100vh;
     min-height: -webkit-fill-available;
+    background-color: #282A35;
   }
   
   html {
@@ -83,6 +84,19 @@ body {
 
   .bg-dark {
     background-color: #090430 !important;
+  }
+
+  li:hover {
+    background-color: rgb(120, 42, 255);
+    border-radius: 15px;
+  }
+
+  .fs-4 {
+    font-family: 'Pixelify Sans', sans-serif !important;
+  }
+
+  .text-white {
+    font-family: 'Playpen Sans', cursive;
   }
   
   .scrollarea {
