@@ -9,7 +9,7 @@
 
 .group-cards {
     display: flex;
-    margin-top: 85px;
+    margin-top: 50px;
     justify-content: center;
 }
 
@@ -17,6 +17,8 @@
     margin-left: 5%;
     background-color: #090430;
     border: 0.2px solid #fff;
+    width: 14rem !important;
+    height: 8rem;
 }
 
 .card:hover {
@@ -26,7 +28,7 @@
 }
 
 .card-img-top {
-    max-height: 280px;
+    height:4rem;
 }
 
 .card-text {
