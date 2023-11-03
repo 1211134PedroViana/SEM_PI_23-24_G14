@@ -8,6 +8,9 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { BuildingComponent } from '../building/building.component';
 import { FloorComponent } from '../floor/floor.component';
 import { PassageComponent } from '../passage/passage.component';
+import { CreateBuildingComponent } from '../create-building/create-building.component';
+import { UpdateBuildingComponent } from '../update-building/update-building.component';
+import { ListBuildingsComponent } from '../list-buildings/list-buildings.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { PassageComponent } from '../passage/passage.component';
     NavbarComponent,
     BuildingComponent,
     FloorComponent,
-    PassageComponent
+    PassageComponent,
+    CreateBuildingComponent,
+    UpdateBuildingComponent,
+    ListBuildingsComponent
   ],
   imports: [
     BrowserModule,

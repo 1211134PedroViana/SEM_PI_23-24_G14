@@ -1,0 +1,36 @@
+.header {
+    text-align: center;
+    color: #fff;
+    font-size: 60px;
+    font-family: 'Playpen Sans', cursive;
+    margin-top: 50px;
+    text-shadow: 0 0 3px #fff;
+}
+
+.group-cards {
+    display: flex;
+    margin-top: 85px;
+    justify-content: center;
+}
+
+.card {
+    margin-left: 5%;
+    background-color: #090430;
+    border: 0.2px solid #fff;
+}
+
+.card:hover {
+    box-shadow: 4px 4px 3px rgba(255, 255, 255, 0.5); /* White shadow effect */
+    cursor: pointer;
+
+}
+
+.card-img-top {
+    max-height: 280px;
+}
+
+.card-text {
+    text-align: center;
+    color: #fff;
+    font-family: 'Playpen Sans', cursive;
+}
