@@ -12,7 +12,7 @@ import BuildingService from '../../src/services/buildingService';
 import BuildingSchema from '../../src/persistence/schemas/buildingSchema';
 import { SinonSpy } from 'sinon';
 import { Building } from '../../src/domain/building';
-
+import 'mocha';
 
 describe('Building Controller', function () {
 
