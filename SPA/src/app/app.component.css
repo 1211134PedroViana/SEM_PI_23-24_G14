@@ -1,5 +1,7 @@
 body {
-    background-color: rgb(18, 19, 29);
+    background-image: url("https://wallpaperaccess.com/full/4137610.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
 }
 
