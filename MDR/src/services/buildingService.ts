@@ -57,6 +57,7 @@ export default class BuildingService implements IBuildingService {
     }
 
     public async updateBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
+      
       try {
 
         const building = await this.buildingRepo.findByDomainId(buildingDTO.id);

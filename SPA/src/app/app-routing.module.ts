@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BuildingComponent } from 'src/building/building.component';
 import { CreateBuildingComponent } from 'src/create-building/create-building.component';
+import { FeaturesComponent } from 'src/features/features.component';
 import { FloorComponent } from 'src/floor/floor.component';
 import { ListBuildingsComponent } from 'src/list-buildings/list-buildings.component';
 import { PassageComponent } from 'src/passage/passage.component';

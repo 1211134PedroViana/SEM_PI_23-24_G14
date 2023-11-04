@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-building',
@@ -8,9 +7,8 @@ import { Router } from '@angular/router';
 })
 export class BuildingComponent {
 
-  constructor(private router: Router) {}
-
-  navigateTo(route: string) {
-    this.router.navigate([route]);
-  }
+  titleText = 'Buildings Management';
+  createButtonText = 'Create Building';
+  updateButtonText = 'Update Building';
+  listButtonText = 'List Buildings';
 }

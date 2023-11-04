@@ -14,6 +14,8 @@ import { CreateBuildingComponent } from '../create-building/create-building.comp
 import { UpdateBuildingComponent } from '../update-building/update-building.component';
 import { ListBuildingsComponent } from '../list-buildings/list-buildings.component';
 import { CreateBuildingFormComponent } from '../create-building-form/create-building-form.component';
+import { FeaturesComponent } from '../features/features.component';
+import { UpdateBuildingFormComponent } from '../update-building-form/update-building-form.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { CreateBuildingFormComponent } from '../create-building-form/create-buil
     CreateBuildingComponent,
     UpdateBuildingComponent,
     ListBuildingsComponent,
-    CreateBuildingFormComponent
+    CreateBuildingFormComponent,
+    FeaturesComponent,
+    UpdateBuildingFormComponent
   ],
   imports: [
     BrowserModule,

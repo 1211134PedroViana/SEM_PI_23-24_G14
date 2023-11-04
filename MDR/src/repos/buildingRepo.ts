@@ -42,8 +42,15 @@ export default class BuildingRepo implements IBuildingRepo {
 
                 return BuildingMap.toDomain(buildingCreated);
             }else{
-                buildingDocument.description = building.description.value;
-                buildingDocument.name = building.name;
+                if(building.description.value === undefined) {
+                    buildingDocument.name = building.name;
+                } else if(building.name === undefined) {
+                    buildingDocument.description = building.description.value;
+                } else {
+                    buildingDocument.description = building.description.value;
+                    buildingDocument.name = building.name;
+                }
+            
                 await buildingDocument.save();
 
                 return building;
