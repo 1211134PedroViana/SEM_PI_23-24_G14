@@ -7,32 +7,22 @@
     text-shadow: 0 0 3px #fff;
 }
 
-.group-cards {
+.group-buttons {
     display: flex;
-    margin-top: 50px;
+    margin-top: 40px;
     justify-content: center;
 }
 
-.card {
-    margin-left: 5%;
+.btn-primary {
+    margin: 20px;
     background-color: #090430;
-    border: 0.2px solid #fff;
-    width: 14rem !important;
-    height: 8rem;
-}
-
-.card:hover {
-    box-shadow: 4px 4px 3px rgba(255, 255, 255, 0.5); /* White shadow effect */
-    cursor: pointer;
-
-}
-
-.card-img-top {
-    height:4rem;
-}
-
-.card-text {
-    text-align: center;
-    color: #fff;
+    padding: 15px;
+    border-radius: 25px;
     font-family: 'Playpen Sans', cursive;
 }
+
+.btn-primary:hover {
+    background-color: #170c6b;
+    box-shadow: 4px 4px 3px rgba(255, 255, 255, 0.5);
+}
+
