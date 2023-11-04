@@ -42,9 +42,9 @@ export default class BuildingRepo implements IBuildingRepo {
 
                 return BuildingMap.toDomain(buildingCreated);
             }else{
-                if(building.description.value === undefined) {
+                if(building.description.value === undefined || building.description.value === "") {
                     buildingDocument.name = building.name;
-                } else if(building.name === undefined) {
+                } else if(building.name === undefined || building.name === "") {
                     buildingDocument.description = building.description.value;
                 } else {
                     buildingDocument.description = building.description.value;

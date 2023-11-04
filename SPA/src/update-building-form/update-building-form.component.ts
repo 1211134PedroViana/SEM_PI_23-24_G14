@@ -18,11 +18,26 @@ export class UpdateBuildingFormComponent {
   constructor(private buildingService: BuildingService) { }
 
   onSubmit() {
-    const buildingData = ({
-      id: this.id,
-      name: this.name,
-      description: this.description
-    }) as Building;
+    let buildingData: Building;
+
+    if(this.name === " ") {
+      buildingData = ({
+        id: this.id,
+        description: this.description
+      }) as Building;
+
+    }else if( this.description === " ") {
+      buildingData = ({
+        id: this.id,
+        name: this.name
+      }) as Building;
+    }else {
+      buildingData = ({
+        id: this.id,
+        name: this.name,
+        description: this.description
+      }) as Building;
+    }
 
     this.buildingService.updateBuilding(buildingData)
       .pipe(
