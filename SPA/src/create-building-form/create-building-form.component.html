@@ -1,16 +1,16 @@
-<form>
+<form (ngSubmit)="onSubmit()">
     <p class="form-title">Create a new Building</p>
     <div class="mb-3">
-      <label for="inputCode" class="form-label">Building Code</label>
-      <input type="email" class="form-control" id="inputCode" aria-describedby="emailHelp">
+      <label for="code" class="form-label">Building Code</label>
+      <input type="code" class="form-control" name="code" [(ngModel)]="code">
     </div>
     <div class="mb-3">
-      <label for="inputName" class="form-label">Building Name</label>
-      <input type="password" class="form-control" id="inputName">
+      <label for="name" class="form-label">Building Name</label>
+      <input type="name" class="form-control" name="name" [(ngModel)]="name">
     </div>
     <div class="mb-3">
-        <label for="inputDescription" class="form-label">Building Description</label>
-        <textarea type="password" class="form-control" id="inputDescription"></textarea>
+        <label for="description" class="form-label">Building Description</label>
+        <textarea type="description" class="form-control" name="description" [(ngModel)]="description"></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
