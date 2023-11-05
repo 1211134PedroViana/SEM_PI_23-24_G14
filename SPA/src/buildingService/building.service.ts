@@ -38,5 +38,16 @@ export class BuildingService {
       );
   }
 
+  getAllBuildings(): Observable<Building[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.http.get<Building[]>(this.listUrl, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
 
 }
