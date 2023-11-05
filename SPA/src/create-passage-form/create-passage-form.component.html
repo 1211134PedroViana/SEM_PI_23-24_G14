@@ -1,0 +1,29 @@
+<form class="row g-3" (ngSubmit)="onSubmit()">
+    <p class="form-title">Create a new Passage</p>
+    <div class="mb-3">
+      <label for="fromFloorId" class="form-label">From Floor ID</label>
+      <input type="fromFloorId" class="form-control" name="fromFloorId" [(ngModel)]="fromFloorId">
+    </div>
+    <div class="mb-3">
+      <label for="toFloorId" class="form-label">To Floor ID</label>
+      <input type="toFloorId" class="form-control" name="toFloorId" [(ngModel)]="toFloorId">
+    </div>
+    <div class="col-md-6">
+        <label for="positionX" class="form-label">Position X</label>
+        <input type="text" class="form-control" id="positionX">
+    </div>
+    <div class="col-md-4">
+        <label for="positionY" class="form-label">Position Y</label>
+        <input type="text" class="form-control" id="positionY">
+    </div>
+    <div class="col-md-2">
+        <label for="direction" class="form-label">Direction</label>
+        <select id="direction" class="form-select">
+            <option selected>north</option>
+            <option>west</option>
+        </select>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+</form>

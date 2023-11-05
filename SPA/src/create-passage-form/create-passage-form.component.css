@@ -1,0 +1,39 @@
+form {
+    padding: 20px;
+    width: 45%;
+    margin: auto;
+    margin-top: 20px;
+    background-color: #090430;
+    border-radius: 30px;
+}
+
+.form-label {
+    color: #fff;
+    font-family: 'Playpen Sans', cursive;
+}
+
+.form-control {
+    width: 100%;
+}
+
+.form-title {
+    text-align: center;
+    color: #fff;
+    font-family: 'Playpen Sans', cursive;
+}
+
+.col-md-6 {
+    width: 35%;
+}
+
+.col-md-4 {
+    width: 35%;
+}
+
+.col-md-2 {
+    width: 25%;
+}
+
+.btn-primary {
+    width: 25%;
+}
