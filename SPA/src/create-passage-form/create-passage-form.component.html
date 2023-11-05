@@ -10,15 +10,15 @@
     </div>
     <div class="col-md-6">
         <label for="positionX" class="form-label">Position X</label>
-        <input type="text" class="form-control" id="positionX">
+        <input type="text" class="form-control" name="positionX" [(ngModel)]="positionX">
     </div>
     <div class="col-md-4">
         <label for="positionY" class="form-label">Position Y</label>
-        <input type="text" class="form-control" id="positionY">
+        <input type="text" class="form-control" name="positionY" [(ngModel)]="positionY">
     </div>
     <div class="col-md-2">
         <label for="direction" class="form-label">Direction</label>
-        <select id="direction" class="form-select">
+        <select class="form-select" name="direction" [(ngModel)]="direction">
             <option selected>north</option>
             <option>west</option>
         </select>
