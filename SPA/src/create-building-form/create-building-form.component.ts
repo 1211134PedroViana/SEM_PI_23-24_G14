@@ -27,10 +27,10 @@ export class CreateBuildingFormComponent {
     this.buildingService.addBuilding(buildingData)
       .pipe(
         tap((response) => {
-          console.log('Building added successfully', response);
+          console.log('Building created successfully', response);
         }),
         catchError((error) => {
-          console.error('Error occurred while adding the building', error);
+          console.error('Error occurred while creating the Building', error);
           throw error;
         })
       )

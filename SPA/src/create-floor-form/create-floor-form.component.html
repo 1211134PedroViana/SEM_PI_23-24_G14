@@ -1,0 +1,16 @@
+<form (ngSubmit)="onSubmit()">
+    <p class="form-title">Create a new Floor</p>
+    <div class="mb-3">
+      <label for="buildingId" class="form-label">Building ID</label>
+      <input type="buildingId" class="form-control" name="buildingId" [(ngModel)]="buildingId">
+    </div>
+    <div class="mb-3">
+      <label for="floorNumber" class="form-label">Floor Number</label>
+      <input type="floorNumber" class="form-control" name="floorNumber" [(ngModel)]="floorNumber">
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Floor Description</label>
+        <textarea type="description" class="form-control" name="description" [(ngModel)]="description"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

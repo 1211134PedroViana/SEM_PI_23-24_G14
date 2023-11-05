@@ -16,6 +16,8 @@ import { ListBuildingsComponent } from '../list-buildings/list-buildings.compone
 import { CreateBuildingFormComponent } from '../create-building-form/create-building-form.component';
 import { FeaturesComponent } from '../features/features.component';
 import { UpdateBuildingFormComponent } from '../update-building-form/update-building-form.component';
+import { CreateFloorFormComponent } from '../create-floor-form/create-floor-form.component';
+import { CreatePassageFormComponent } from '../create-passage-form/create-passage-form.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { UpdateBuildingFormComponent } from '../update-building-form/update-buil
     ListBuildingsComponent,
     CreateBuildingFormComponent,
     FeaturesComponent,
-    UpdateBuildingFormComponent
+    UpdateBuildingFormComponent,
+    CreateFloorFormComponent,
+    CreatePassageFormComponent
   ],
   imports: [
     BrowserModule,

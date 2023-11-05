@@ -13,6 +13,9 @@ export class FeaturesComponent {
   @Input() createButtonText: string = ' ';
   @Input() updateButtonText: string = ' ';
   @Input() listButtonText: string = ' ';
+  @Input() createRoute: string = ' ';
+  @Input() updateRoute: string = ' ';
+  @Input() listRoute: string = ' ';
 
   constructor(private router: Router) {}
 
