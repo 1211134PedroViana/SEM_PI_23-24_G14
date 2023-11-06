@@ -12,7 +12,9 @@ export class FloorComponent {
   createButtonText = 'Create Floor';
   updateButtonText = 'Update Floor';
   listButtonText = 'List Floors';
+  extraButtonText = 'Load Map';
   createRoute = '/floor/create';
   updateRoute = '/floor/update';
   listRoute = '/floor/list';
+  extraRoute = '/floor/loadMap';
 }
