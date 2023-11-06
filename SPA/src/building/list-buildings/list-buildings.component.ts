@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BuildingService } from '../../src/buildingService/building.service';
+import { BuildingService } from '../../../src/buildingService/building.service';
 import { catchError, tap } from 'rxjs/operators';
 import Building from 'src/buildingService/building';
 

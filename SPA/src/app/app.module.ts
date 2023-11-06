@@ -10,14 +10,17 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { BuildingComponent } from '../building/building.component';
 import { FloorComponent } from '../floor/floor.component';
 import { PassageComponent } from '../passage/passage.component';
-import { CreateBuildingComponent } from '../create-building/create-building.component';
-import { UpdateBuildingComponent } from '../update-building/update-building.component';
-import { ListBuildingsComponent } from '../list-buildings/list-buildings.component';
-import { CreateBuildingFormComponent } from '../create-building-form/create-building-form.component';
+import { CreateBuildingComponent } from '../building/create-building/create-building.component';
+import { UpdateBuildingComponent } from '../building/update-building/update-building.component';
+import { ListBuildingsComponent } from '../building/list-buildings/list-buildings.component';
+import { CreateBuildingFormComponent } from '../building/create-building-form/create-building-form.component';
 import { FeaturesComponent } from '../features/features.component';
-import { UpdateBuildingFormComponent } from '../update-building-form/update-building-form.component';
-import { CreateFloorFormComponent } from '../create-floor-form/create-floor-form.component';
-import { CreatePassageFormComponent } from '../create-passage-form/create-passage-form.component';
+import { UpdateBuildingFormComponent } from '../building/update-building-form/update-building-form.component';
+import { CreateFloorFormComponent } from '../floor/create-floor-form/create-floor-form.component';
+import { CreatePassageFormComponent } from '../passage/create-passage-form/create-passage-form.component';
+import { FleetSideBarComponent } from '../fleet-side-bar/fleet-side-bar.component';
+import { RobotTypeComponent } from '../robot-type/robot-type.component';
+import { CreateRobotTypeComponent } from '../robot-type/create-robot-type/create-robot-type.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { CreatePassageFormComponent } from '../create-passage-form/create-passag
     FeaturesComponent,
     UpdateBuildingFormComponent,
     CreateFloorFormComponent,
-    CreatePassageFormComponent
+    CreatePassageFormComponent,
+    FleetSideBarComponent,
+    RobotTypeComponent,
+    CreateRobotTypeComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,37 @@
+form {
+    padding: 20px;
+    width: 45%;
+    margin: auto;
+    margin-top: 20px;
+    background-color: #090430;
+    border-radius: 30px;
+}
+
+.form-label {
+    color: #fff;
+    font-family: 'Playpen Sans', cursive;
+}
+
+.form-control {
+    width: 100%;
+}
+
+.form-title {
+    text-align: center;
+    color: #fff;
+    font-family: 'Playpen Sans', cursive;
+}
+
+.form-check-label {
+    color: #fff;
+    font-family: 'Playpen Sans', cursive;
+}
+
+.taskType {
+    color: #fff;
+    font-family: 'Playpen Sans', cursive;
+}
+
+.btn-primary {
+    width: 20%;
+}
