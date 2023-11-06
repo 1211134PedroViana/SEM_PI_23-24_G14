@@ -22,7 +22,7 @@ import { FleetSideBarComponent } from '../fleet-side-bar/fleet-side-bar.componen
 import { RobotTypeComponent } from '../robot-type/robot-type.component';
 import { CreateRobotTypeComponent } from '../robot-type/create-robot-type/create-robot-type.component';
 import { Featuresv4Component } from '../featuresv4/featuresv4.component';
-import { LoadFloorMapComponent } from '../floor/load-floor-map/load-floor-map.component';
+import { LoadFloorMapComponent } from '../load-floor-map/load-floor-map.component';
 
 @NgModule({
   declarations: [

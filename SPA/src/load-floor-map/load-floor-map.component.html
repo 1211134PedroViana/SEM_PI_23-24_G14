@@ -1,0 +1,8 @@
+<form (ngSubmit)="onSubmit()">
+    <p class="form-title">Load Floor Map</p>
+    <div class="mb-3">
+        <label for="formFile" class="form-label">JSON file</label>
+        <input class="form-control" type="file" (change)="onFileChange($event)" accept=".json" id="formFile">
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
