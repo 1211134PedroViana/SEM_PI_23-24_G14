@@ -30,33 +30,14 @@ export class CreateBuildingFormComponent {
         tap((response) => {
           console.log('Building created successfully', response);
           const message = `Building created successfully! | ID: ${response.id} | Code: ${response.code} | Name: ${response.name} | Description: ${response.description}`;
-          this.showSuccessMessage(message);
+          this.snackBar.open(message);
         }),
         catchError((error) => {
           console.error('Error occurred while creating the Building', error);
-          this.showErrorMessage('Failed to create building');
+          this.snackBar.open('Failed to create building');
           throw error;
         })
       )
       .subscribe();
   }
-
-  private showSuccessMessage(message: string) {
-    const config = new MatSnackBarConfig();
-    config.panelClass = ['background-green'];
-    config.verticalPosition = 'bottom';
-    config.horizontalPosition = 'center';
-
-    this.snackBar.open(message, 'X', config);
-  }
-  
-  private showErrorMessage(message: string) {
-    const config = new MatSnackBarConfig();
-    config.panelClass = ['background-red'];
-    config.verticalPosition = 'bottom';
-    config.horizontalPosition = 'center';
-
-    this.snackBar.open(message, 'X', config);
-  }
-
 }

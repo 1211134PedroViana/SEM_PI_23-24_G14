@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar, MatSnackBarConfig  } from '@angular/material/snack-bar';
 import { catchError, tap } from 'rxjs/operators';
 import RobotType from 'src/robotTypeService/robotType';
 import { RobotTypeService } from 'src/robotTypeService/robotType-service';
@@ -16,7 +17,7 @@ export class CreateRobotTypeComponent {
   model: string = " ";
   taskTypes: string[] = [];
 
-  constructor(private robotTypeService: RobotTypeService) { }
+  constructor(private robotTypeService: RobotTypeService, private snackBar: MatSnackBar) { }
 
   onSubmit() {
     const robotTypeData = ({

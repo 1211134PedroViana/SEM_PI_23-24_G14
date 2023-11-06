@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar, MatSnackBarConfig  } from '@angular/material/snack-bar';
 import { BuildingService } from '../../../src/buildingService/building.service';
 import { catchError, tap } from 'rxjs/operators';
 import Building from 'src/buildingService/building';
@@ -15,7 +16,7 @@ export class UpdateBuildingFormComponent {
   name: string = " "; 
   description: string = " ";
 
-  constructor(private buildingService: BuildingService) { }
+  constructor(private buildingService: BuildingService, private snackBar: MatSnackBar) { }
 
   onSubmit() {
     let buildingData: Building;

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, tap } from 'rxjs/operators';
 import { FloorMapService } from 'src/floorMapService/floorMap-service';
 
@@ -9,7 +10,7 @@ import { FloorMapService } from 'src/floorMapService/floorMap-service';
 })
 export class LoadFloorMapComponent {
 
-  constructor(private floorMapService: FloorMapService) { }
+  constructor(private floorMapService: FloorMapService, private snackBar: MatSnackBar) { }
 
   selectedFile: File | null = null;
 
@@ -26,9 +27,11 @@ export class LoadFloorMapComponent {
       .pipe(
         tap((response) => {
           console.log('Floor Map loaded successfully', response);
+          this.snackBar.open('Floor Map uploaded successfully');
         }),
         catchError((error) => {
           console.error('Error occurred while loading the Floor Map', error);
+          this.snackBar.open('Failed to upload floor map');
           throw error;
         })
       )
