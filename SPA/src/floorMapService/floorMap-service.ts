@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 
@@ -14,12 +14,14 @@ export class FloorMapService {
 
   constructor(private http: HttpClient) { }
 
-  loadFloorMap(floorMap: File | null): Observable<File> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+  loadFloorMap(floorMap: File | null): Observable<any> {
+    if (!floorMap) {
+      return throwError('File is missing');
+    }
+    const formData = new FormData();
+    formData.append('file', floorMap);
 
-    return this.http.patch<File>(this.loadMapUrl, floorMap, httpOptions)
+    return this.http.patch<any>(this.loadMapUrl, formData)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

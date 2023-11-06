@@ -17,9 +17,9 @@ export class FloorMapperzMap extends Mapper<FloorMapperz> {
                 roomId: room.roomId,
                 dimension: {
                     pos1: room.dimension.pos1,
-                    pos2: room.dimension.pos1,
-                    pos3: room.dimension.pos1,
-                    pos4: room.dimension.pos1,
+                    pos2: room.dimension.pos2,
+                    pos3: room.dimension.pos3,
+                    pos4: room.dimension.pos4,
                 },
                 location: {
                     positionX: room.location.positionX,
