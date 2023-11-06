@@ -21,6 +21,8 @@ import { CreatePassageFormComponent } from '../passage/create-passage-form/creat
 import { FleetSideBarComponent } from '../fleet-side-bar/fleet-side-bar.component';
 import { RobotTypeComponent } from '../robot-type/robot-type.component';
 import { CreateRobotTypeComponent } from '../robot-type/create-robot-type/create-robot-type.component';
+import { Featuresv4Component } from '../featuresv4/featuresv4.component';
+import { LoadFloorMapComponent } from '../floor/load-floor-map/load-floor-map.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { CreateRobotTypeComponent } from '../robot-type/create-robot-type/create
     CreatePassageFormComponent,
     FleetSideBarComponent,
     RobotTypeComponent,
-    CreateRobotTypeComponent
+    CreateRobotTypeComponent,
+    Featuresv4Component,
+    LoadFloorMapComponent
   ],
   imports: [
     BrowserModule,
