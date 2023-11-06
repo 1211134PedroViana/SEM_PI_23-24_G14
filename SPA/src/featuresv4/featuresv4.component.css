@@ -1,8 +1,8 @@
 .header {
     text-align: center;
     color: #fff;
-    font-size: 60px;
-    font-family: 'Playpen Sans', cursive;
+    font-size: 30px !important;
+    font-family: 'Playpen Sans', cursive !important;
     margin-top: 50px;
     text-shadow: 0 0 3px #fff;
 }

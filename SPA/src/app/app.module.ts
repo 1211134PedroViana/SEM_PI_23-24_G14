@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +24,7 @@ import { RobotTypeComponent } from '../robot-type/robot-type.component';
 import { CreateRobotTypeComponent } from '../robot-type/create-robot-type/create-robot-type.component';
 import { Featuresv4Component } from '../featuresv4/featuresv4.component';
 import { LoadFloorMapComponent } from '../load-floor-map/load-floor-map.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { LoadFloorMapComponent } from '../load-floor-map/load-floor-map.componen
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
