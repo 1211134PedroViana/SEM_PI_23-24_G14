@@ -25,6 +25,8 @@ import { CreateRobotTypeComponent } from '../robot-type/create-robot-type/create
 import { Featuresv4Component } from '../featuresv4/featuresv4.component';
 import { LoadFloorMapComponent } from '../load-floor-map/load-floor-map.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SignInComponent } from '../sign-in/sign-in.component';
+import { MapViewerComponent } from '../map-viewer/map-viewer.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RobotTypeComponent,
     CreateRobotTypeComponent,
     Featuresv4Component,
-    LoadFloorMapComponent
+    LoadFloorMapComponent,
+    SignInComponent,
+    MapViewerComponent
   ],
   imports: [
     BrowserModule,
