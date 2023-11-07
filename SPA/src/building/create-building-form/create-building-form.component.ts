@@ -4,6 +4,7 @@ import { BuildingService } from '../../../src/buildingService/building.service';
 import { catchError, tap } from 'rxjs/operators';
 import Building from 'src/buildingService/building';
 
+
 @Component({
   selector: 'app-create-building-form',
   templateUrl: './create-building-form.component.html',
@@ -34,7 +35,7 @@ export class CreateBuildingFormComponent {
         }),
         catchError((error) => {
           console.error('Error occurred while creating the Building', error);
-          this.snackBar.open('Failed to create building');
+          this.snackBar.open('Failed to create building, returned code:' + error.status);
           throw error;
         })
       )

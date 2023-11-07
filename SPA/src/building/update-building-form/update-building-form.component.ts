@@ -46,7 +46,7 @@ export class UpdateBuildingFormComponent {
           console.log('Building updated successfully', response);
         }),
         catchError((error) => {
-          console.error('Error occurred while updating the building', error);
+          console.error('Error occurred while updating the building, returned code:' + error.status);
           throw error;
         })
       )

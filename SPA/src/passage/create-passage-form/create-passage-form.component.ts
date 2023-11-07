@@ -40,7 +40,7 @@ export class CreatePassageFormComponent {
         }),
         catchError((error) => {
           console.error('Error occurred while creating the Passage', error);
-          this.snackBar.open('Failed to create passage');
+          this.snackBar.open('Failed to create passage, returned code:' + error.status);
           throw error;
         })
       )

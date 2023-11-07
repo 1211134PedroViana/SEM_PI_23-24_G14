@@ -31,12 +31,10 @@ export class LoadFloorMapComponent {
         }),
         catchError((error) => {
           console.error('Error occurred while loading the Floor Map', error);
-          this.snackBar.open('Failed to upload floor map');
+          this.snackBar.open('Failed to upload floor map, returned code:' + error.status);
           throw error;
         })
       )
       .subscribe();
   }
-
-
 }

@@ -33,7 +33,7 @@ export class CreateFloorFormComponent {
         }),
         catchError((error) => {
           console.error('Error occurred while creating the Floor', error);
-          this.snackBar.open('Failed to create floor');
+          this.snackBar.open('Failed to create floor, returned code:' + error.status);
           throw error;
         })
       )
