@@ -1,0 +1,22 @@
+@startuml
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US1130
+
+actor "CampusManager" as CampusManager
+participant "UI" as UI
+
+activate CampusManager
+
+CampusManager -> UI : asks to create an elevator on a building
+activate UI
+UI --> CampusManager : requests data (building, elevatorCode, listFloors, brand, model, serialNumber, description, location)
+deactivate UI
+CampusManager -> UI : provides the required data
+activate UI
+UI --> CampusManager : shows confirmation and new elevator info
+deactivate UI
+
+@enduml
