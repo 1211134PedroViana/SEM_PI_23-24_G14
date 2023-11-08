@@ -1,0 +1,21 @@
+@startuml us1180
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US1180
+
+participant "UI" as UI
+
+activate CampusManager
+CampusManager -> UI : 1: starts the editing passage process
+activate UI
+UI --> CampusManager : 1.1: requests data (id, description)
+deactivate UI
+CampusManager -> UI : 2: inserts the data (id, description)
+activate UI
+UI --> CampusManager : 2.1 : Shows confirmation of the passage
+deactivate UI 
+
+@enduml
