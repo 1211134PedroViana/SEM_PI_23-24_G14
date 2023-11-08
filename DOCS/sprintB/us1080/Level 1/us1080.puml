@@ -1,0 +1,10 @@
+@startuml
+Actor CampusManager
+activate CampusManager
+
+CampusManager -> UI : Requests a list of the buildings with the minimum and the maximum floors
+activate UI
+UI --> CampusManager : returns a list of the buildings with the minimum and the maximum floors
+deactivate UI
+
+@enduml

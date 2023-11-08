@@ -1,0 +1,28 @@
+@startuml
+autonumber
+
+Actor CampusManager
+activate CampusManager
+CampusManager -> SPA : List floors with a minimum and a maximum number of floors
+activate SPA
+
+SPA --> CampusManager : requests data (minFloors, maxFloors)
+deactivate SPA
+
+CampusManager -> SPA : types requested data (minFloors, maxFloors)
+
+activate SPA
+SPA -> BuildingRepo : GET/Building/{buildingId, code, description, name}
+activate BuildingRepo
+
+BuildingRepo --> SPA : status code
+deactivate BuildingRepo
+
+alt successfull case
+    SPA --> CampusManager : list successfully returned
+else failure
+    SPA --> CampusManager : list wasn't returned with success
+end
+
+
+@enduml
