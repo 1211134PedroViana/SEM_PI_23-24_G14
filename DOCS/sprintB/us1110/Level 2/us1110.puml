@@ -1,0 +1,29 @@
+@startuml
+
+autonumber
+
+Actor CampusManager
+activate CampusManager
+CampusManager -> SPA : Edit a building floor information
+activate SPA
+
+SPA --> CampusManager : requests data (buildingId, floorNumber)
+deactivate SPA
+
+CampusManager -> SPA : types data (buildingId, floorNumber)
+activate SPA
+
+SPA -> Floor : PUT/PATCH/ floor/{floorId, buildingId, floorNumber, description}
+activate Floor
+
+Floor --> SPA : status code
+deactivate Floor
+
+alt successfull case
+    SPA --> CampusManager : floor edited successfully
+else failure
+    SPA --> CampusManager : floor not edited with success
+end
+
+
+@enduml
