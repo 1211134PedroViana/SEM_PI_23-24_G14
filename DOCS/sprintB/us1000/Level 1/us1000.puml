@@ -1,0 +1,22 @@
+@startuml
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US1000
+
+actor "FleetManager" as FleetManager
+participant "UI" as UI
+
+activate FleetManager
+FleetManager -> UI : 1 : starts the robot type creation process
+activate UI
+UI --> FleetManager : 1.1 : requests data (robotTypeId, code, brand, model, taskTypes)
+deactivate UI
+FleetManager -> UI : 2 : inserts the requested data
+activate UI
+UI --> FleetManager : 2.1 : Shows confirmation and new robot type info
+
+deactivate UI
+
+@enduml
