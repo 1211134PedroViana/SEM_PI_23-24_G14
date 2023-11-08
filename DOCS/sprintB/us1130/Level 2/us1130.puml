@@ -1,0 +1,31 @@
+@startuml
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US270
+
+actor "CampusManager" as CampusManager
+participant "SPA" as SPA
+participant "Elevator" as Elevator
+
+activate CampusManager
+
+CampusManager -> SPA : Asks to create a elevator
+activate SPA
+SPA -> CampusManager: requests data
+CampusManager -> SPA: put data about Elevator(building, elevatorCode, listFloors, brand, model, serialNumber, description, location)
+
+SPA -> Elevator: POST/ Elevator{building, elevatorCode, listFloors, brand, model, serialNumber, description, location}
+activate Elevator
+Elevator -> SPA: status code
+deactivate
+
+alt successfull case
+SPA -> CampusManager: Elevator created successfully
+else failure
+SPA -> CampusManager: Elevator not created
+end
+
+@enduml
