@@ -1,0 +1,29 @@
+@startuml
+autonumber
+
+Actor CampusManager
+activate CampusManager
+CampusManager -> SPA : List all floors of a building
+activate SPA
+
+SPA --> CampusManager : requests data (buildingId)
+deactivate SPA
+
+CampusManager -> SPA : types data (buildingId)
+activate SPA
+
+SPA -> FloorRepo : GET/floor/{floorId, buildingId, floorNumber, description}
+activate FloorRepo
+
+FloorRepo --> SPA : status code
+deactivate FloorRepo
+
+alt successfull case
+    SPA --> CampusManager : list successfully returned
+else failure
+    SPA --> CampusManager : list wasn't returned with success
+end
+
+
+
+@enduml

@@ -1,0 +1,14 @@
+@startuml
+Actor CampusManager
+activate CampusManager
+
+CampusManager -> UI : Requests a list of all the floors of a building
+activate UI
+UI --> CampusManager : requests data (buildingId)
+deactivate UI
+CampusManager -> UI : types requested data (buildingId)
+activate UI
+UI --> CampusManager : returns a list with all the floors of that building
+deactivate UI
+
+@enduml
