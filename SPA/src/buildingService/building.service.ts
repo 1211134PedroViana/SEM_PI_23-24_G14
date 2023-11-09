@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import Building from './building';
 
@@ -13,6 +13,9 @@ export class BuildingService {
   private createUrl = 'http://localhost:4000/api/buildings/create';
   private updateUrl = 'http://localhost:4000/api/buildings/update';
   private listUrl = 'http://localhost:4000/api/buildings/list';
+
+  private isVisible = new BehaviorSubject<boolean>(false);
+  private building = new BehaviorSubject<Building>({} as Building);
 
   constructor(private http: HttpClient) { }
 
@@ -49,5 +52,21 @@ export class BuildingService {
       );
   }
 
+  openForm(building: Building) {
+    this.building.next(building);
+    this.isVisible.next(true);
+  }
+
+  closeForm() {
+    this.isVisible.next(false);
+  }
+
+  getFormVisibility() {
+    return this.isVisible.asObservable();
+  }
+
+  getBuilding() {
+    return this.building.asObservable();
+  }
 
 }

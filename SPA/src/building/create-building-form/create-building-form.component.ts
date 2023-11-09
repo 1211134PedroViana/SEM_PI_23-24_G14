@@ -19,6 +19,10 @@ export class CreateBuildingFormComponent {
 
   constructor(private buildingService: BuildingService, private snackBar: MatSnackBar) { }
 
+  closeForm() {
+    this.buildingService.closeForm();
+  }
+
   onSubmit() {
     const buildingData = ({
       code: this.code,

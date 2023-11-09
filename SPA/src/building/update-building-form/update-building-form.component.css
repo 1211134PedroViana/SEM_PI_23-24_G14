@@ -16,6 +16,18 @@ form {
     width: 100%;
 }
 
+.form-control:disabled {
+    background-color: lightgrey;
+}
+
+.code_form {
+    width: 35%;
+}
+
+.name_form {
+    width: 60%;
+}
+
 .form-title {
     text-align: center;
     color: #fff;

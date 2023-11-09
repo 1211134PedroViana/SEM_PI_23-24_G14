@@ -12,33 +12,24 @@ import Building from 'src/buildingService/building';
 
 export class UpdateBuildingFormComponent {
 
-  id: string = " "; 
-  name: string = " "; 
-  description: string = " ";
+  selectedBuilding: any;
 
   constructor(private buildingService: BuildingService, private snackBar: MatSnackBar) { }
 
+  ngOnInit() {
+    this.buildingService.getBuilding().subscribe((building) => {
+      this.selectedBuilding = building;
+    });
+    console.log(this.selectedBuilding);
+  }
+
   onSubmit() {
-    let buildingData: Building;
 
-    if(this.name === " ") {
-      buildingData = ({
-        id: this.id,
-        description: this.description
-      }) as Building;
-
-    }else if( this.description === " ") {
-      buildingData = ({
-        id: this.id,
-        name: this.name
-      }) as Building;
-    }else {
-      buildingData = ({
-        id: this.id,
-        name: this.name,
-        description: this.description
-      }) as Building;
-    }
+    let buildingData = ({
+       id: this.selectedBuilding.id,
+      name: this.selectedBuilding.name,
+      description: this.selectedBuilding.description
+    }) as Building;
 
     this.buildingService.updateBuilding(buildingData)
       .pipe(

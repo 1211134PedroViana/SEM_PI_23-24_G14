@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let building of buildings; let i = index">
+      <tr *ngFor="let building of buildings; let i = index" (click)="openForm(building)">
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ building.code }}</td>
         <td>{{ building.name }}</td>

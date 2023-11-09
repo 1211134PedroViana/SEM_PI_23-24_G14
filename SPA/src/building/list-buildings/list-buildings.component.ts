@@ -13,6 +13,8 @@ export class ListBuildingsComponent implements OnInit {
 
   buildings: Building[] = [];
 
+  selectedBuilding: any;
+
   constructor(private buildingService: BuildingService) { }
 
   ngOnInit(): void {
@@ -32,5 +34,12 @@ export class ListBuildingsComponent implements OnInit {
         })
       )
       .subscribe()
+  }
+
+  isFormOpen = false;
+  openForm(building: Building) {
+    // Pass building data to the form component (e.g., using a service)
+    this.buildingService.openForm(building);
+    this.isFormOpen = true;
   }
 }
