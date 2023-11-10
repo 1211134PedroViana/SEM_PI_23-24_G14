@@ -1,0 +1,14 @@
+@startuml
+Actor CampusManager
+activate CampusManager
+
+CampusManager -> UI : Requests a list of two passages between buildings
+activate UI
+UI --> CampusManager : requests data (buildingId1, buildingId2)
+deactivate UI
+CampusManager -> UI : types requested data (buildingId1, buildingId2)
+activate UI
+UI --> CampusManager : returns a list with all the passages between buildings
+deactivate UI
+
+@enduml

@@ -1,0 +1,52 @@
+@startuml
+
+activate SPA
+SPA -> GestaoInfoAPI : get(/api/passages)
+activate GestaoInfoAPI
+
+GestaoInfoAPI -> FloorController : get
+activate FloorController
+
+FloorController -> PassageService : listPassages()
+activate PassageService
+
+PassageService -> BuildingRepo : findByDomainId(building)
+activate BuildingRepo
+
+BuildingRepo --> PassageService : building
+deactivate BuildingRepo
+
+PassageService -> BuildingRepo : findByDomainId(building)
+activate BuildingRepo
+
+BuildingRepo --> PassageService : building
+deactivate BuildingRepo
+
+loop
+    PassageService -> PassageRepo : get
+    activate PassageRepo
+
+    PassageRepo --> PassageService : passages
+    deactivate PassageRepo
+
+    PassageService -> PassageMapper : toDTO(passages)
+    activate PassageMapper
+
+    PassageMapper --> PassageService : passageDTO
+    deactivate PassageMapper
+
+    PassageService -> PassageService : list.push(passageDTO)
+end
+
+PassageService --> FloorController : passageDTO[ ]
+deactivate PassageService
+
+FloorController --> GestaoInfoAPI : status code 201
+deactivate FloorController
+
+GestaoInfoAPI --> SPA : success
+deactivate GestaoInfoAPI
+
+deactivate SPA
+
+@enduml

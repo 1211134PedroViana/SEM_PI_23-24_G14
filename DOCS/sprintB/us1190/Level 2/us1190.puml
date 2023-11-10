@@ -1,0 +1,29 @@
+@startuml
+autonumber
+
+Actor CampusManager
+activate CampusManager
+CampusManager -> SPA : List all passages between two buildings
+activate SPA
+
+SPA --> CampusManager : requests data (buildingId1, buildingId2)
+deactivate SPA
+
+CampusManager -> SPA : types data (buildingId, buildingId2)
+activate SPA
+
+SPA -> FloorRepo : GET/passages/{id, fromFloorId, toFloorId, location}
+activate FloorRepo
+
+FloorRepo --> SPA : status code
+deactivate FloorRepo
+
+alt successfull case
+    SPA --> CampusManager : list successfully returned
+else failure
+    SPA --> CampusManager : list wasn't returned with success
+end
+
+
+
+@enduml
