@@ -35,11 +35,15 @@ export class CreateBuildingFormComponent {
         tap((response) => {
           console.log('Building created successfully', response);
           const message = `Building created successfully! | ID: ${response.id} | Code: ${response.code} | Name: ${response.name} | Description: ${response.description}`;
-          this.snackBar.open(message);
+          this.snackBar.open(message, 'Close', {
+            duration: 5000, // 5 seconds
+          });
         }),
         catchError((error) => {
           console.error('Error occurred while creating the Building', error);
-          this.snackBar.open('Failed to create building, returned code:' + error.status);
+          this.snackBar.open('Failed to create building, returned code:' + error.status, 'Close', {
+            duration: 5000, // 5 seconds
+          });
           throw error;
         })
       )

@@ -23,10 +23,14 @@ export class UpdateBuildingFormComponent {
     console.log(this.selectedBuilding);
   }
 
+  closeForm() {
+    this.buildingService.closeForm();
+  }
+
   onSubmit() {
 
     let buildingData = ({
-       id: this.selectedBuilding.id,
+      id: this.selectedBuilding.id,
       name: this.selectedBuilding.name,
       description: this.selectedBuilding.description
     }) as Building;
@@ -35,9 +39,16 @@ export class UpdateBuildingFormComponent {
       .pipe(
         tap((response) => {
           console.log('Building updated successfully', response);
+          const message = `Building updated successfully! | ID: ${response.id} | Code: ${response.code} | Name: ${response.name} | Description: ${response.description}`;
+          this.snackBar.open(message, 'Close', {
+            duration: 5000, // 5 seconds
+          });
         }),
         catchError((error) => {
           console.error('Error occurred while updating the building, returned code:' + error.status);
+          this.snackBar.open('Failed to updated building, returned code:' + error.status, 'Close', {
+            duration: 5000, // 5 seconds
+          });
           throw error;
         })
       )

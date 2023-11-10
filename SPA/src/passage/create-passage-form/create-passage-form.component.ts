@@ -36,11 +36,15 @@ export class CreatePassageFormComponent {
         tap((response) => {
           console.log('Passage created successfully', response);
           const message = `Passage created successfully! | ID: ${response.id} | Floor ID: ${response.fromFloorId} | Floor ID: ${response.toFloorId} | Position X: ${response.location.positionX} | Position Y: ${response.location.positionY} | Direction: ${response.location.direction}`;
-          this.snackBar.open(message);
+          this.snackBar.open(message, 'Close', {
+            duration: 5000, // 5 seconds
+          });
         }),
         catchError((error) => {
           console.error('Error occurred while creating the Passage', error);
-          this.snackBar.open('Failed to create passage, returned code:' + error.status);
+          this.snackBar.open('Failed to create passage, returned code:' + error.status, 'Close', {
+            duration: 5000, // 5 seconds
+          });
           throw error;
         })
       )

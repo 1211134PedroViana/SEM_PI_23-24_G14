@@ -29,11 +29,15 @@ export class CreateFloorFormComponent {
         tap((response) => {
           console.log('Floor created successfully', response);
           const message = `Floor created successfully! | ID: ${response.id} | Building ID: ${response.buildingId} | Number: ${response.floorNumber} | Description: ${response.description}`;
-          this.snackBar.open(message);
+          this.snackBar.open(message, 'Close', {
+            duration: 5000, // 5 seconds
+          });
         }),
         catchError((error) => {
           console.error('Error occurred while creating the Floor', error);
-          this.snackBar.open('Failed to create floor, returned code:' + error.status);
+          this.snackBar.open('Failed to create floor, returned code:' + error.status, 'Close', {
+            duration: 5000, // 5 seconds
+          });
           throw error;
         })
       )
