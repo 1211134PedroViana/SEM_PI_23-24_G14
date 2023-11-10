@@ -1,0 +1,21 @@
+@startuml
+autonumber
+
+Actor User
+activate User
+User -> SPA : List all the elevators
+activate SPA
+
+SPA -> ElevatorRepo : GET/elevator/{id, code, location, buildingId, floorList, brand, model, number, description}
+activate ElevatorRepo
+
+ElevatorRepo --> SPA : status code
+deactivate ElevatorRepo
+
+alt successfull case
+    SPA --> User : list successfully returned
+else failure
+    SPA --> User : list wasn't returned with success
+end
+
+@enduml

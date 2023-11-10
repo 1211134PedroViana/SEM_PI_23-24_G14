@@ -1,0 +1,40 @@
+@startuml
+
+activate SPA
+SPA -> GestaoInfoAPI : get(/api/elevators)
+activate GestaoInfoAPI
+
+GestaoInfoAPI -> ElevatorController : get
+activate ElevatorController
+
+ElevatorController -> ElevatorService : listElevators()
+activate ElevatorService
+
+loop
+    ElevatorService -> ElevatorRepo : get
+    activate ElevatorRepo
+
+    ElevatorRepo --> ElevatorService : elevator
+    deactivate ElevatorRepo
+
+    ElevatorService -> ElevatorMap : toDTO(building)
+    activate ElevatorService
+
+    ElevatorService --> ElevatorService : elevatorDTO
+    deactivate ElevatorMap
+
+    ElevatorService -> ElevatorService : list.push(elevatorDTO)
+end
+
+ElevatorService --> ElevatorController : elevatorDTO[ ]
+deactivate ElevatorService
+
+ElevatorController --> GestaoInfoAPI : status code 201
+deactivate ElevatorController
+
+GestaoInfoAPI --> SPA : success
+deactivate GestaoInfoAPI
+
+deactivate SPA
+
+@enduml
