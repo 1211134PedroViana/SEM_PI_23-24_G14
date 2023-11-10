@@ -12,6 +12,7 @@ import * as THREE from "three";
 export class MapViewerComponent implements AfterViewInit {
 
   private floorViewer: any;
+  private container: any;
 
 
   @ViewChild('myCanvas') private canvasRef!: ElementRef;
@@ -39,8 +40,13 @@ export class MapViewerComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.container = document.getElementById('container');
+    console.log('-->' + this.container.clientWidth)
     this.floorViewer = new ThumbRaiser(
-        {}, // General Parameters
+        {
+            containerWidth: this.container.clientWidth,
+            containerHeight: this.container.clientHeight
+        }, // General Parameters
         {
             enabled: true,
             introductionClips: [
@@ -283,11 +289,12 @@ export class MapViewerComponent implements AfterViewInit {
         { type: THREE.PCFSoftShadowMap }, // Shadows parameters
         {}, // Fog parameters
         {}, // Collision detection parameters
-        { view: "fixed", initialViewport: new THREE.Vector4(0.0, 1.0, 0.45, 0.5), initialFogDensity: 0.1 }, // Fixed view camera parameters
-        { view: "first-person", initialViewport: new THREE.Vector4(1.0, 1.0, 0.55, 0.5), initialOrientation: new Orientation(0.0, -10.0), orientationMax: new Orientation(180.0, 90.0), initialFogDensity: 0.7 }, // First-person view camera parameters
-        { view: "third-person", initialViewport: new THREE.Vector4(0.0, 0.0, 0.55, 0.5), initialOrientation: new Orientation(0.0, -20.0), initialDistance: 2.0, distanceMin: 1.0, distanceMax: 4.0, initialFogDensity: 0.3 }, // Third-person view camera parameters
-        { view: "top", initialViewport: new THREE.Vector4(1.0, 0.0, 0.45, 0.5), initialOrientation: new Orientation(0.0, -90.0), initialDistance: 4.0, distanceMin: 1.0, distanceMax: 16.0, initialFogDensity: 0.2 }, // Top view camera parameters
-        { view: "mini-map", initialViewport: new THREE.Vector4(0.5, 0.5, 0.3, 0.3), initialOrientation: new Orientation(180.0, -90.0), initialZoom: 0.64, zoomMin: 0.64, zoomMax: 5.12 } // Mini-map view camera parameters
+        { view: "fixed", initialViewport: new THREE.Vector4(0.0, 1.0, 0.45, 0.5), initialFogDensity: 0.1, containerWidth: this.container.clientWidth, containerHeight: this.container.clientHeight }, // Fixed view camera parameters
+        { view: "first-person", initialViewport: new THREE.Vector4(1.0, 1.0, 0.55, 0.5), initialOrientation: new Orientation(0.0, -10.0), orientationMax: new Orientation(180.0, 90.0), initialFogDensity: 0.7, containerWidth: this.container.clientWidth, containerHeight: this.container.clientHeight }, // First-person view camera parameters
+        { view: "third-person", initialViewport: new THREE.Vector4(0.0, 0.0, 0.55, 0.5), initialOrientation: new Orientation(0.0, -20.0), initialDistance: 2.0, distanceMin: 1.0, distanceMax: 4.0, initialFogDensity: 0.3, containerWidth: this.container.clientWidth, containerHeight: this.container.clientHeight }, // Third-person view camera parameters
+        { view: "top", initialViewport: new THREE.Vector4(1.0, 0.0, 0.45, 0.5), initialOrientation: new Orientation(0.0, -90.0), initialDistance: 4.0, distanceMin: 1.0, distanceMax: 16.0, initialFogDensity: 0.2, containerWidth: this.container.clientWidth, containerHeight: this.container.clientHeight }, // Top view camera parameters
+        { view: "mini-map", initialViewport: new THREE.Vector4(0.5, 0.5, 0.3, 0.3), initialOrientation: new Orientation(180.0, -90.0), initialZoom: 0.64, zoomMin: 0.64, zoomMax: 5.12, containerWidth: this.container.clientWidth, containerHeight: this.container.clientHeight  }, // Mini-map view camera parameters
+
     );
     this.render(this.floorViewer);
   }

@@ -31,6 +31,8 @@ import UserInterface from "./user_interface.js";
 /*
  * generalParameters = {
  *  setDevicePixelRatio: Boolean
+ *  containerWidth: number
+ *  containerHeight: number
  * }
  *
  * audioParameters = {
@@ -229,7 +231,9 @@ import UserInterface from "./user_interface.js";
  *  initialFov: Float,
  *  near: Float,
  *  far: Float,
- *  initialFogDensity: Float
+ *  initialFogDensity: Float,
+ *  containerWidth: number,
+ *  containerHeight: number
  * }
  *
  * firstPersonViewCameraParameters = {
@@ -257,7 +261,9 @@ import UserInterface from "./user_interface.js";
  *  initialFov: Float,
  *  near: Float,
  *  far: Float,
- *  initialFogDensity: Float
+ *  initialFogDensity: Float,
+ *  containerWidth: number,
+ *  containerHeight: number
  * }
  *
  * thirdPersonViewCameraParameters = {
@@ -285,7 +291,9 @@ import UserInterface from "./user_interface.js";
  *  initialFov: Float,
  *  near: Float,
  *  far: Float,
- *  initialFogDensity: Float
+ *  initialFogDensity: Float,
+ *  containerWidth: number,
+ *  containerHeight: number
  * }
  *
  * topViewCameraParameters = {
@@ -313,7 +321,9 @@ import UserInterface from "./user_interface.js";
  *  initialFov: Float,
  *  near: Float,
  *  far: Float,
- *  initialFogDensity: Float
+ *  initialFogDensity: Float,
+ *  containerWidth: number,
+ *  containerHeight: number
  * }
  *
  * miniMapCameraParameters = {
@@ -341,7 +351,9 @@ import UserInterface from "./user_interface.js";
  *  initialFov: Float,
  *  near: Float,
  *  far: Float,
- *  initialFogDensity: Float // Doesn't apply to this camera
+ *  initialFogDensity: Float, // Doesn't apply to this camera
+ *  containerWidth: number,
+ *  containerHeight: number
  * }
  */
 
@@ -364,7 +376,6 @@ export default class ThumbRaiser {
         this.thirdPersonViewCameraParameters = merge({}, cameraData, thirdPersonViewCameraParameters);
         this.topViewCameraParameters = merge({}, cameraData, topViewCameraParameters);
         this.miniMapCameraParameters = merge({}, cameraData, miniMapCameraParameters);
-
         // Set the game state
         this.gameRunning = false;
 
@@ -437,9 +448,11 @@ export default class ThumbRaiser {
         this.renderer.autoClear = false;
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = this.shadowsParameters.type;
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.renderer.domElement.id = "canvas";
+        this.renderer.setSize(this.generalParameters.containerWidth, this.generalParameters.containerHeight);
+        //this.renderer.setSize(800 , 600);
+        this.renderer.domElement.id = "myCanvas";
         document.body.appendChild(this.renderer.domElement);
+        document.getElementById("scene").appendChild(this.renderer.domElement);
 
         // Get and configure the panels' <div> elements (with the exception of the user interface checkbox, which will be addressed later)
         this.viewsPanel = document.getElementById("views-panel");

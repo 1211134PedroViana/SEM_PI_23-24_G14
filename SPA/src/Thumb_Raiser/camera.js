@@ -27,6 +27,8 @@ import * as THREE from "three";
  *  near: Float,
  *  far: Float,
  *  initialFogDensity: Float // Doesn't apply to mini-map camera
+ *  containerWidth: number,
+ *  containerHeight: number
  * }
  */
 
@@ -205,11 +207,11 @@ export default class Camera {
     snapViewport(frame) { // drag: "none"; resize: string identifying the pointed frame
         let west, east;
         if (frame == "none" || frame.includes("west")) {
-            west = { size: window.innerWidth, currentPosition: this.viewport.x };
+            west = { size: this.containerWidth, currentPosition: this.viewport.x };
             this.snapPosition(west);
         }
         if (frame == "none" || frame.includes("east")) {
-            east = { size: window.innerWidth, currentPosition: (this.viewport.x + this.viewport.width) };
+            east = { size: this.containerWidth, currentPosition: (this.viewport.x + this.viewport.width) };
             this.snapPosition(east);
         }
         if (frame == "none") {
@@ -229,11 +231,11 @@ export default class Camera {
 
         let south, north;
         if (frame == "none" || frame.includes("south")) {
-            south = { size: window.innerHeight, currentPosition: this.viewport.y };
+            south = { size: this.containerHeight, currentPosition: this.viewport.y };
             this.snapPosition(south);
         }
         if (frame == "none" || frame.includes("north")) {
-            north = { size: window.innerHeight, currentPosition: (this.viewport.y + this.viewport.height) };
+            north = { size: this.containerHeight, currentPosition: (this.viewport.y + this.viewport.height) };
             this.snapPosition(north);
         }
         if (frame == "none") {
@@ -254,11 +256,11 @@ export default class Camera {
 
     dragViewport(mouse) {
         const increment = mouse.currentPosition.clone().sub(mouse.initialPosition);
-        this.viewport.x = THREE.MathUtils.clamp(this.previousViewport.x + increment.x, 0, window.innerWidth - this.viewport.width);
-        this.viewport.y = THREE.MathUtils.clamp(this.previousViewport.y + increment.y, 0, window.innerHeight - this.viewport.height);
+        this.viewport.x = THREE.MathUtils.clamp(this.previousViewport.x + increment.x, 0, this.containerWidth - this.viewport.width);
+        this.viewport.y = THREE.MathUtils.clamp(this.previousViewport.y + increment.y, 0, this.containerHeight - this.viewport.height);
         this.snapViewport("none");
         this.viewport = this.roundViewport(this.viewport);
-        this.currentViewport = this.pixelsToPercentage(this.viewport, window.innerWidth, window.innerHeight);
+        this.currentViewport = this.pixelsToPercentage(this.viewport, this.containerWidth, this.containerHeight);
     }
 
     resizeViewport(frame, mouse) {
@@ -308,7 +310,7 @@ export default class Camera {
                 break;
         }
         this.viewport = this.roundViewport(this.viewport);
-        this.currentViewport = this.pixelsToPercentage(this.viewport, window.innerWidth, window.innerHeight);
+        this.currentViewport = this.pixelsToPercentage(this.viewport, this.containerWidth, this.containerHeight);
         this.setProjectionParameters();
     }
 
@@ -323,7 +325,7 @@ export default class Camera {
             this.viewport.height = this.viewport.width;
         }
         this.viewport = this.roundViewport(this.viewport);
-        this.currentViewport = this.pixelsToPercentage(this.viewport, window.innerWidth, window.innerHeight);
+        this.currentViewport = this.pixelsToPercentage(this.viewport, this.containerWidth, this.containerHeight);
         this.setProjectionParameters();
     }
 
@@ -331,7 +333,7 @@ export default class Camera {
         if (viewport !== undefined) {
             this.currentViewport = viewport;
         }
-        this.viewport = this.percentageToPixels(this.currentViewport, window.innerWidth, window.innerHeight);
+        this.viewport = this.percentageToPixels(this.currentViewport, this.containerWidth, this.containerHeight);
         this.viewportWidthMin = Math.round(this.viewportSizeMin * window.innerWidth);
         this.viewportHeightMin = Math.round(this.viewportSizeMin * window.innerHeight);
         if (this.view == "mini-map") {
