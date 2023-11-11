@@ -326,5 +326,9 @@ export class MapViewerComponent implements AfterViewInit, OnInit {
         this.floors = floors;
     });  
   }
+
+  onFloorChange() {
+    
+  }
     
 }
