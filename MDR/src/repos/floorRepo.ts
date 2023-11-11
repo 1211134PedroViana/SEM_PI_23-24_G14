@@ -77,6 +77,23 @@ export default class FloorRepo implements IFloorRepo {
           return null;
     }
 
+    public async findByBuilding (buildingId: string | string): Promise<Floor[]> {
+        const floors: Floor[] = [];
+        const query: FilterQuery<IFloorPersistence & Document> = { buildingId };
+        
+        const floorRecords = await this.floorSchema.find(query);
+        
+        if (floorRecords.length > 0) {
+            floorRecords.forEach((floorRecord) => {
+                const floor = FloorMap.toDomain(floorRecord);
+                floors.push(floor);
+            });
+            return floors;
+        } else {
+            return null;
+        }
+    }
+
     public async findAll(): Promise<Floor[]> {
         const floorList = await this.floorSchema.find()
         return FloorMap.toDomainBulk(floorList);

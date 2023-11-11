@@ -30,7 +30,7 @@ export default class BuildingRepo implements IBuildingRepo {
     }
 
     public async save(building: Building): Promise<Building> {
-        const query = { domainId: building.id.toString()}; 
+        const query = { _id: building.id}; 
 
         const buildingDocument = await this.buildingSchema.findOne( query );
 

@@ -8,4 +8,5 @@ export default interface IFloorService {
     updateFloor(floorDTO: IFloorDTO): Promise<Result<IFloorDTO>>;
     getAllFloors(): Promise<Result<IFloorDTO[]>>;
     getFloorsWithPassage(passageDTO: IPassageDTO[]): Promise<Result<IFloorDTO[]>>;
+    getFloorsFromBuilding(buildingId: string): Promise<Result<IFloorDTO[]>>;
 }

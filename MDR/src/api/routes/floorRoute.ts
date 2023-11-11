@@ -41,4 +41,7 @@ export default( app: Router) => {
 
     route.get('/list',
         (req, res, next) => ctrl.listFloorsWithPassage(req, res, next) );
+
+    route.get('/fromBuilding/:buildingId',
+        (req, res, next) => ctrl.listFloorsFromBuilding(req, res, next) );
 }

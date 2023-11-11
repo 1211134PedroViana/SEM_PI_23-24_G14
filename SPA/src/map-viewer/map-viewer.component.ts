@@ -5,6 +5,8 @@ import * as THREE from "three";
 import Building from 'src/buildingService/building';
 import Floor from 'src/floorService/floor';
 import { BuildingService } from 'src/buildingService/building.service';
+import { FloorService } from 'src/floorService/floor-service';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
@@ -15,13 +17,14 @@ import { BuildingService } from 'src/buildingService/building.service';
 export class MapViewerComponent implements AfterViewInit, OnInit {
 
   buildings: Building[] = [];
-  selectedBuilding: Building | undefined;
-  selectedFloor: Floor | undefined;
+  floors: Floor[] = [];
+  selectedBuilding: string = "";
+  selectedFloor: Floor | null = null;
 
   private floorViewer: any;
   private container: any;
 
-  constructor(private buildingService: BuildingService) {}
+  constructor(private buildingService: BuildingService, private floorService: FloorService) {}
 
   @ViewChild('myCanvas') private canvasRef!: ElementRef;
 
@@ -318,7 +321,9 @@ export class MapViewerComponent implements AfterViewInit, OnInit {
   }
 
   onBuildingChange() {
-    // Handle building change, update available floors, or perform any other logic
+    this.floorService.getFloorsFromBuilding(this.selectedBuilding).subscribe((floors) => {
+        this.floors = floors;
+    });  
   }
     
 }

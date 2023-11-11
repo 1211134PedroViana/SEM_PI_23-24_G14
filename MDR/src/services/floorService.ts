@@ -8,11 +8,9 @@ import IBuildingRepo from './IRepos/IBuildingRepo';
 import { Description } from '../domain/valueObjects/description';
 import { Floor } from '../domain/floor';
 import { FloorMap } from '../mappers/FloorMap';
-import { Cell } from '../domain/cell';
-import IBuildingDTO from "../dto/IBuildingDTO";
-import {BuildingMap} from "../mappers/BuildingMap";
-import {Building} from "../domain/building";
 import IPassageDTO from '../dto/IPassageDTO';
+
+
 @Service()
 export default class FloorService implements IFloorService {
     constructor(
@@ -113,6 +111,28 @@ export default class FloorService implements IFloorService {
             
         } catch (error) {
             return Result.fail<IFloorDTO[]>(error.message);
+        }
+    }
+
+    public async getFloorsFromBuilding(buildingId: string): Promise<Result<IFloorDTO[]>> {
+        try {
+            const building = await this.buildingRepo.findByDomainId(buildingId);
+
+            if (building === null) {
+                return Result.fail<IFloorDTO[]>('Building with ID "' + buildingId + '" not found');
+            }
+
+            const floorList: Floor[] = await this.floorRepo.findByBuilding(building.id.toString());
+            let floorListDto: IFloorDTO[] = [];
+
+            if (floorList != null){
+                for (let i = 0; i < floorList.length; i++)
+                    floorListDto.push(FloorMap.toDTO(floorList[i]));
+                return Result.ok<IFloorDTO[]>(floorListDto);
+            }
+            return Result.fail<IFloorDTO[]>("There are no floors to return.");
+        } catch (e) {
+            return Result.fail<IFloorDTO[]>(e.message);
         }
     }
 }

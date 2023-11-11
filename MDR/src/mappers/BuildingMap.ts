@@ -21,7 +21,7 @@ export class BuildingMap extends Mapper<Building> {
 
         const buildingOrError = Building.create(
             building,
-            new UniqueEntityID(building.domainId)
+            new UniqueEntityID(building._id)
         );
 
         buildingOrError.isFailure ? console.log(buildingOrError.error): '';

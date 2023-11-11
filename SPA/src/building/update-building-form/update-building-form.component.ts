@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig  } from '@angular/material/snack-bar';
 import { BuildingService } from '../../../src/buildingService/building.service';
 import { catchError, tap } from 'rxjs/operators';

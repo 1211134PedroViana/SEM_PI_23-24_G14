@@ -16,21 +16,29 @@
     #views-panel {
         position: absolute;
         width: 100.0vmin;
-        left: 35%;
+        left: 50%;
         font-size: 1.5vmin;
         color: white;
     }
 
-    .buildings {
+    #building_floor {
+        display: flex;
+        flex-direction: row;
         position: absolute;
         left:30%;
-        width: 115px;
+        width: 230px;
         padding: 5px;
-        font-size: 1.5vmin;
-        background-color: rgb(197, 197, 197, 0.4);
-        color: black;
+        font-size: 12px;
+        background-color: rgb(197, 197, 197, 0);
+        color: #fff;
         border-radius: 6px;
+        border: 1px solid black;
     } 
+
+    .dropdown {
+        margin-bottom: 10px; /* Add some margin between dropdowns */
+        margin-left: 10px;
+    }
 
     #mouse-help-panel {
         display: none;
@@ -435,11 +443,20 @@
                 </tr>
             </table>
         </div>
-        <div class="buildings">
-            <label for="building">Building:</label>
-            <select id="building" [(ngModel)]="selectedBuilding" (change)="onBuildingChange()">
-              <option *ngFor="let building of buildings" [value]="building">{{ building.code }}</option>
-            </select>
+        <div id="building_floor">
+            <div class="dropdown">
+              <label for="building">Building:</label>
+              <select id="building" [(ngModel)]="selectedBuilding" (change)="onBuildingChange()">
+                <option *ngFor="let building of buildings" [value]="building.id">{{ building.code }}</option>
+              </select>
+            </div>
+          
+            <div *ngIf="selectedBuilding" class="dropdown">
+              <label for="floor">Floor:</label>
+              <select id="floor" [(ngModel)]="selectedFloor">
+                <option *ngFor="let floor of floors" [value]="floor">{{ floor.floorNumber }}</option>
+              </select>
+            </div>
         </div>
     </div>
 </div>

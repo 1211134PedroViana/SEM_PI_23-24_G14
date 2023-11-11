@@ -14,6 +14,7 @@ export class FloorService {
   private createUrl = 'http://localhost:4000/api/floors/create';
   private updateUrl = 'http://localhost:4000/api/floors/update';
   private listUrl = 'http://localhost:4000/api/floors/list';
+  private listFromBuildingUrl = 'http://localhost:4000/api/floors/fromBuilding/';
 
   constructor(private http: HttpClient) { }
 
@@ -23,6 +24,17 @@ export class FloorService {
     };
 
     return this.http.post<Floor>(this.createUrl, floor, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
+  getFloorsFromBuilding(buildingId: string): Observable<Floor[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.http.get<Floor[]>(this.listFromBuildingUrl + buildingId, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
