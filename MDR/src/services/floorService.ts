@@ -21,12 +21,14 @@ export default class FloorService implements IFloorService {
     public async createFloor(floorDTO: IFloorDTO): Promise<Result<IFloorDTO>> {
         try {          
          
-          const building = await this.buildingRepo.findByObjectId(floorDTO.buildingId);
+          const building = await this.buildingRepo.findByDomainId(floorDTO.buildingId);
           const descriptionOrError = Description.create(floorDTO.description);
           
           if (building === null) {
             return Result.fail<IFloorDTO>('Building with ID "' + floorDTO.buildingId + '" not found');
           }
+          
+          floorDTO.buildingId = building.id.toString();
 
           if (descriptionOrError.isFailure && floorDTO.description != undefined) {
             return Result.fail<IFloorDTO>('Invalid Description!');

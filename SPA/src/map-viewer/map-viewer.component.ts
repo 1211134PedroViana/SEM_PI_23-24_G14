@@ -321,6 +321,7 @@ export class MapViewerComponent implements AfterViewInit, OnInit {
   }
 
   onBuildingChange() {
+    this.floors = [];
     this.floorService.getFloorsFromBuilding(this.selectedBuilding).subscribe((floors) => {
         this.floors = floors;
     });  

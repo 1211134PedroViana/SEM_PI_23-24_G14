@@ -1,10 +1,12 @@
-<form (ngSubmit)="onSubmit()">
+<form class="row g-2" (ngSubmit)="onSubmit()">
     <p class="form-title">Create a new Floor</p>
-    <div class="mb-3">
-      <label for="buildingId" class="form-label">Building ID</label>
-      <input type="buildingId" class="form-control" name="buildingId" [(ngModel)]="buildingId">
+    <div class="col-md-6">
+      <label for="building" class="form-label">Building</label>
+      <select class="form-select" id="building" name="buildingId" [(ngModel)]="buildingId">
+        <option *ngFor="let building of buildings" [value]="building.id">{{ building.code }}</option>
+      </select>
     </div>
-    <div class="mb-3">
+    <div class="col-md-4">
       <label for="floorNumber" class="form-label">Floor Number</label>
       <input type="floorNumber" class="form-control" name="floorNumber" [(ngModel)]="floorNumber">
     </div>
@@ -12,5 +14,5 @@
         <label for="description" class="form-label">Floor Description</label>
         <textarea type="description" class="form-control" name="description" [(ngModel)]="description"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Create</button>
 </form>

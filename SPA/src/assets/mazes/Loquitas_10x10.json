@@ -177,7 +177,7 @@
         "primaryColor": "0xffffff",
         "maps": {
             "map": {
-                "url": "assets/textures/wood_door.jpg"
+                "url": "assets/textures/poke.gif"
             }
         },
         "wrapS": 1,

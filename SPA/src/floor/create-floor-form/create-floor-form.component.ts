@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, tap } from 'rxjs/operators';
+import Building from 'src/buildingService/building';
+import { BuildingService } from 'src/buildingService/building.service';
 import Floor from 'src/floorService/floor';
 import { FloorService } from 'src/floorService/floor-service';
 
@@ -11,13 +13,16 @@ import { FloorService } from 'src/floorService/floor-service';
 })
 export class CreateFloorFormComponent {
 
-  buildingId: string = " "; 
-  floorNumber: number = 0; 
-  description: string = " ";
+  buildings: Building[] = [];
 
-  constructor(private floorService: FloorService, private snackBar: MatSnackBar) { }
+  buildingId: string = ""; 
+  floorNumber: number = 0; 
+  description: string = "";
+
+  constructor(private floorService: FloorService, private buildingService: BuildingService, private snackBar: MatSnackBar) { }
 
   onSubmit() {
+    console.log("id:" + this.buildingId);
     const floorData = ({
       buildingId: this.buildingId,
       floorNumber: this.floorNumber,
@@ -42,6 +47,12 @@ export class CreateFloorFormComponent {
         })
       )
       .subscribe();
+  }
+
+  ngOnInit() {
+    this.buildingService.getAllBuildings().subscribe((buildings) => {
+      this.buildings = buildings;
+    });
   }
 
 }

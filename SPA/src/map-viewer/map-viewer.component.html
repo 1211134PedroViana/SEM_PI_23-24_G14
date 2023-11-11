@@ -446,14 +446,14 @@
         <div id="building_floor">
             <div class="dropdown">
               <label for="building">Building:</label>
-              <select id="building" [(ngModel)]="selectedBuilding" (change)="onBuildingChange()">
+              <select class="form-select" id="building" [(ngModel)]="selectedBuilding" (change)="onBuildingChange()">
                 <option *ngFor="let building of buildings" [value]="building.id">{{ building.code }}</option>
               </select>
             </div>
           
             <div *ngIf="selectedBuilding" class="dropdown">
               <label for="floor">Floor:</label>
-              <select id="floor" [(ngModel)]="selectedFloor">
+              <select class="form-select" id="floor" [(ngModel)]="selectedFloor">
                 <option *ngFor="let floor of floors" [value]="floor">{{ floor.floorNumber }}</option>
               </select>
             </div>

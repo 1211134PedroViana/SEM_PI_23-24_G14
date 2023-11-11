@@ -21,3 +21,13 @@ form {
     color: #fff;
     font-family: 'Playpen Sans', cursive;
 }
+
+.form-select {
+    width: 75%;
+    font-family: 'Playpen Sans', cursive;
+}
+
+.btn-primary {
+    width: 25%;
+    margin: auto;    
+}
