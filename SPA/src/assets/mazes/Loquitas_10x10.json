@@ -22,10 +22,10 @@
         "primaryColor": "0xffffff",
         "maps": {
             "color": {
-                "url": "assets/textures/ground_0003_2k_372HqZ/ground_0003_color_2k.jpg"
+                "url": "assets/textures/ground_VennerWhiteOak/VeneerWhiteOakRandomMatched001_COL_2K_METALNESS.png"
             },
             "ao": {
-                "url": "assets/textures/ground_0003_2k_372HqZ/ground_0003_ao_2k.jpg",
+                "url": "assets/textures/ground_VennerWhiteOak/VeneerWhiteOakRandomMatched001_AO_2K_METALNESS.png",
                 "intensity": 1.0
             },
             "displacement": {
@@ -34,7 +34,7 @@
                 "bias": 0.0
             },
             "normal": {
-                "url": "assets/textures/ground_0003_2k_372HqZ/ground_0003_normal_opengl_2k.png",
+                "url": "assets/textures/ground_VennerWhiteOak/VeneerWhiteOakRandomMatched001_NRM_2K_METALNESS.png",
                 "type": 0,
                 "scale": { "x": 2.0, "y": 2.0 }
             },
@@ -43,7 +43,7 @@
                 "scale": 1.0
             },
             "roughness": {
-                "url": "assets/textures/ground_0003_2k_372HqZ/ground_0003_roughness_2k.jpg",
+                "url": "assets/textures/ground_0003_2k_372HqZ/VeneerWhiteOakRandomMatched001_ROUGHNESS_2K_METALNESS.png",
                 "rough": 1.0
             }
         },
@@ -59,10 +59,10 @@
         "primaryColor": "0xffffff",
         "maps": {
             "color": {
-                "url": "assets/textures/concrete_0007_2k_xtGY5J/concrete_0007_color_2k.jpg"
+                "url": "assets/textures/wall_brick/BricksDragfacedRunning008_COL_2K.png"
             },
             "ao": {
-                "url": "assets/textures/concrete_0007_2k_xtGY5J/concrete_0007_ao_2k.jpg",
+                "url": "assets/textures/wall_brick/BricksDragfacedRunning008_AO_2K.png",
                 "intensity": 1.0
             },
             "displacement": {
@@ -71,17 +71,23 @@
                 "bias": 0.0
             },
             "normal": {
-                "url": "assets/textures/concrete_0007_2k_xtGY5J/concrete_0007_normal_opengl_2k.png",
+                "url": "assets/textures/wall_brick/BricksDragfacedRunning008_NRM_2K.png",
                 "type": 0,
                 "scale": { "x": 2.0, "y": 2.0 }
                 },
             "bump": {
-                "url": "",
+                "url": "assets/textures/wall_brick/BricksDragfacedRunning008_BUMP_2K.png",
                 "scale": 1.0
             },
             "roughness": {
-                "url": "assets/textures/concrete_0007_2k_xtGY5J/concrete_0007_roughness_2k.jpg",
+                "url": "",
                 "rough": 1.0
+            },
+            "gloss": {
+                "url": "assets/textures/wall_brick/BricksDragfacedRunning008_GLOSS_2K.png"
+            },
+            "reflection": {
+                "url": "assets/textures/wall_brick/BricksDragfacedRunning008_REFL_2K.png"
             }
         },
         "wrapS": 1,

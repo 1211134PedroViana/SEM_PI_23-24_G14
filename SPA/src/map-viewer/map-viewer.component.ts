@@ -1,7 +1,10 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild, OnDestroy } from '@angular/core';
+import { AfterViewInit, OnInit, Component, ElementRef, Input, ViewChild, OnDestroy } from '@angular/core';
 import ThumbRaiser from 'src/Thumb_Raiser/thumb_raiser';
 import Orientation from 'src/Thumb_Raiser/orientation';
 import * as THREE from "three";
+import Building from 'src/buildingService/building';
+import Floor from 'src/floorService/floor';
+import { BuildingService } from 'src/buildingService/building.service';
 
 
 @Component({
@@ -9,11 +12,16 @@ import * as THREE from "three";
   templateUrl: './map-viewer.component.html',
   styleUrls: ['./map-viewer.component.css']
 })
-export class MapViewerComponent implements AfterViewInit {
+export class MapViewerComponent implements AfterViewInit, OnInit {
+
+  buildings: Building[] = [];
+  selectedBuilding: Building | undefined;
+  selectedFloor: Floor | undefined;
 
   private floorViewer: any;
   private container: any;
 
+  constructor(private buildingService: BuildingService) {}
 
   @ViewChild('myCanvas') private canvasRef!: ElementRef;
 
@@ -230,7 +238,7 @@ export class MapViewerComponent implements AfterViewInit {
             selected: 2
         }, // Cube texture parameters
         { 
-          url: "assets/mazes/Loquitas_10x10_displacement.json",
+          url: "assets/mazes/Loquitas_10x10.json",
           helpersColor: new THREE.Color(0xff0077) 
         }, // Maze parameters
         { 
@@ -301,6 +309,16 @@ export class MapViewerComponent implements AfterViewInit {
 
   ngOnDestroy() {
     this.cleanup();
+  }
+
+  ngOnInit() {
+    this.buildingService.getAllBuildings().subscribe((buildings) => {
+      this.buildings = buildings;
+    });
+  }
+
+  onBuildingChange() {
+    // Handle building change, update available floors, or perform any other logic
   }
     
 }

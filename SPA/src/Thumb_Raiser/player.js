@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { STLLoader } from 'three/addons/loaders/STLLoader';
 import { merge } from "./merge.js";
 import { CylinderHelper, BoxHelper } from "./helpers.js";
 
@@ -29,7 +30,7 @@ export default class Player extends THREE.Group {
 
         this.loaded = false;
 
-        this.onLoad = function (description) {
+        this.onLoad = function (description) {  
             this.add(description.scene);
             this.animations = description.animations;
 
@@ -62,7 +63,7 @@ export default class Player extends THREE.Group {
             this.body.getWorldPosition(this.body.worldPosition);
             this.body.worldScale = new THREE.Vector3();
             this.body.getWorldScale(this.body.worldScale);
-
+            
             // Compute the face position in world space
             this.face.worldPosition = new THREE.Vector3();
             this.face.getWorldPosition(this.face.worldPosition);
@@ -92,6 +93,8 @@ export default class Player extends THREE.Group {
         // Create a resource .gltf or .glb file loader
         const loader = new GLTFLoader();
 
+        const stlLoader = new STLLoader();
+       
         // Load a model description resource file
         loader.load(
             //Resource URL
