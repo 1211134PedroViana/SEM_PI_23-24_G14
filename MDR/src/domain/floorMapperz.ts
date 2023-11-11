@@ -18,20 +18,20 @@ interface FloorMapperzProps {
 
 /*
  "map": [
-            [2, 2, 2, 2, 2, 3, 2, 2, 1],
-            [1, 0, 0, 0, 0, 1, 0, 0, 1],
-            [2, 2, 2, 0, 2, 2, 0, 2, 0],
+            [3, 2, 2, 2, 2, 3, 2, 2, 1],
+            [1, 0, 0, 0, 0, 2, 0, 0, 1],
+            [2, 2, 2, 2, 2, 2, 2, 2, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [1, 2, 2, 2, 2, 2, 0, 0, 1],
-            [3, 0, 0, 0, 0, 0, 1, 0, 0],
+            [3, 2, 2, 2, 2, 2, 1, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 0, 2],
             [1, 0, 0, 0, 0, 0, 1, 0, 0],
-            [2, 2, 2, 2, 2, 2, 2, 2, 0]
+            [2, 2, 2, 2, 2, 2, 2, 2, 2]
         ],
 
         Walls of the Floor:
         0 -> no walls in the cell
-        1 -> wall at north of the cell
-        2 -> wall at west of the cell
+        1 -> wall at west of the cell
+        2 -> wall at north of the cell
         3 -> wall both at north and west of the cell
 
 */

@@ -92,6 +92,36 @@ export default class Maze extends THREE.Group {
                 secondaryColor: new THREE.Color(parseInt(description.wall.secondaryColor, 16))
             });
 
+            const door = new Wall({
+                groundHeight: description.ground.size.height,
+                segments: new THREE.Vector2(description.door.segments.width, description.door.segments.height),
+                materialParameters: {
+                    color: new THREE.Color(parseInt(description.door.primaryColor, 16)),
+                    mapUrl: description.door.maps.map.url,
+                    wrapS: wrappingModes[description.door.wrapS],
+                    wrapT: wrappingModes[description.door.wrapT],
+                    repeat: new THREE.Vector2(description.door.repeat.u, description.door.repeat.v),
+                    magFilter: magnificationFilters[description.door.magFilter],
+                    minFilter: minificationFilters[description.door.minFilter]
+                },
+                secondaryColor: new THREE.Color(parseInt(description.door.secondaryColor, 16))
+            });
+
+            const elevator = new Wall({
+                groundHeight: description.ground.size.height,
+                segments: new THREE.Vector2(description.elevator.segments.width, description.elevator.segments.height),
+                materialParameters: {
+                    color: new THREE.Color(parseInt(description.elevator.primaryColor, 16)),
+                    mapUrl: description.elevator.maps.map.url,
+                    wrapS: wrappingModes[description.elevator.wrapS],
+                    wrapT: wrappingModes[description.elevator.wrapT],
+                    repeat: new THREE.Vector2(description.elevator.repeat.u, description.elevator.repeat.v),
+                    magFilter: magnificationFilters[description.elevator.magFilter],
+                    minFilter: minificationFilters[description.elevator.minFilter]
+                },
+                secondaryColor: new THREE.Color(parseInt(description.elevator.secondaryColor, 16))
+            });
+
             // Build the maze
             let clonedWall;
             this.aabb = [];
@@ -124,6 +154,46 @@ export default class Maze extends THREE.Group {
                     }
                 }
             }
+
+            let elevatorLocation = description.floorElevator.location;
+            clonedWall = elevator.clone();
+            let clonedWall2 = elevator.clone();
+            if(elevatorLocation.direction === "north") {
+                clonedWall.position.set(elevatorLocation.positionX - this.halfSize.width + 0.5, 0.25, elevatorLocation.positionY - this.halfSize.depth);
+                this.add(clonedWall);
+                this.aabb[elevatorLocation.positionY][elevatorLocation.positionX][0] = new THREE.Box3().setFromObject(clonedWall).applyMatrix4(new THREE.Matrix4().makeScale(this.scale.x, this.scale.y, this.scale.z));
+                this.helper.add(new THREE.Box3Helper(this.aabb[elevatorLocation.positionY][elevatorLocation.positionX][0], this.helpersColor));
+            }else{
+                clonedWall.rotateY(Math.PI / 2.0);
+                clonedWall.position.set(elevatorLocation.positionX - this.halfSize.width, 0.25, elevatorLocation.positionY - this.halfSize.depth + 0.5);
+                this.add(clonedWall);
+                this.aabb[elevatorLocation.positionY][elevatorLocation.positionX][1] = new THREE.Box3().setFromObject(clonedWall).applyMatrix4(new THREE.Matrix4().makeScale(this.scale.x, this.scale.y, this.scale.z));
+                this.helper.add(new THREE.Box3Helper(this.aabb[elevatorLocation.positionY][elevatorLocation.positionX][1], this.helpersColor));
+
+                clonedWall2.rotateY(Math.PI / 2.0);
+                clonedWall2.position.set(elevatorLocation.positionX - this.halfSize.width, 0.25, (elevatorLocation.positionY + 1) - this.halfSize.depth + 0.5);
+                this.add(clonedWall2);
+                this.aabb[elevatorLocation.positionY + 1][elevatorLocation.positionX][1] = new THREE.Box3().setFromObject(clonedWall).applyMatrix4(new THREE.Matrix4().makeScale(this.scale.x, this.scale.y, this.scale.z));
+                this.helper.add(new THREE.Box3Helper(this.aabb[elevatorLocation.positionY + 1][elevatorLocation.positionX][1], this.helpersColor));
+            }
+
+            description.room.forEach(room => {
+                let doorLocation = room.location;
+                clonedWall = door.clone();
+
+                if(doorLocation.direction === "north") {
+                    clonedWall.position.set(doorLocation.positionX - this.halfSize.width + 0.5, 0.25, doorLocation.positionY - this.halfSize.depth);
+                    this.add(clonedWall);
+                    this.aabb[doorLocation.positionY][doorLocation.positionX][0] = new THREE.Box3().setFromObject(clonedWall).applyMatrix4(new THREE.Matrix4().makeScale(this.scale.x, this.scale.y, this.scale.z));
+                    this.helper.add(new THREE.Box3Helper(this.aabb[doorLocation.positionY][doorLocation.positionX][0], this.helpersColor));
+                }else{
+                    clonedWall.rotateY(Math.PI / 2.0);
+                    clonedWall.position.set(doorLocation.positionX - this.halfSize.width, 0.25, doorLocation.positionY - this.halfSize.depth + 0.5);
+                    this.add(clonedWall);
+                    this.aabb[doorLocation.positionY][doorLocation.positionX][1] = new THREE.Box3().setFromObject(clonedWall).applyMatrix4(new THREE.Matrix4().makeScale(this.scale.x, this.scale.y, this.scale.z));
+                    this.helper.add(new THREE.Box3Helper(this.aabb[doorLocation.positionY][doorLocation.positionX][1], this.helpersColor));
+                }
+            });
 
             // Store the player's initial position and direction
             this.initialPosition = this.cellToCartesian(description.player.initialPosition);

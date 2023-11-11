@@ -1,23 +1,83 @@
 {
     "maze": {
-        "size": { "width": 10, "depth": 10 },
+        "size": { "width": 9, "depth": 8 },
         "map": [
-            [3, 3, 2, 2, 2, 2, 3, 2, 2, 3, 1],
-            [1, 1, 3, 2, 1, 1, 2, 2, 1, 1, 1],
-            [1, 1, 2, 1, 1, 2, 2, 1, 1, 0, 1],
-            [1, 2, 3, 1, 2, 2, 1, 1, 2, 0, 1],
-            [3, 0, 0, 3, 1, 2, 0, 3, 1, 2, 1],
-            [1, 3, 0, 0, 0, 3, 1, 0, 1, 1, 1],
-            [1, 2, 1, 3, 2, 0, 2, 2, 1, 1, 1],
-            [3, 2, 0, 2, 1, 1, 3, 1, 2, 1, 1],
-            [1, 3, 0, 1, 2, 2, 0, 1, 2, 0, 1],
-            [1, 2, 2, 1, 1, 2, 3, 2, 0, 2, 1],
-            [2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 0]
+            [3, 2, 2, 2, 2, 3, 2, 2, 1, 0],
+            [1, 0, 0, 0, 0, 1, 0, 0, 1, 0],
+            [2, 2, 2, 0, 2, 2, 0, 2, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [3, 2, 2, 2, 2, 2, 1, 0, 1, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 2, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+            [2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         ],
         "exitLocation": [9.5, 6.0]
     },
+    "room": [
+        {
+            "roomId": "6548deaf5c1f0f0111c718d8",
+            "dimension": {
+                "pos1": 0,
+                "pos2": 0,
+                "pos3": 4,
+                "pos4": 2
+            },
+            "location": {
+                "positionX": 3,
+                "positionY": 2,
+                "direction": "north"
+            }
+        },
+        {
+            "roomId": "6548ded25c1f0f0111c718dc",
+            "dimension": {
+                "pos1": 6,
+                "pos2": 2,
+                "pos3": 0,
+                "pos4": 0
+            },
+            "location": {
+                "positionX": 6,
+                "positionY": 2,
+                "direction": "north"
+            }
+        },
+        {
+            "roomId": "6548ded25c1f0f0111c718dc",
+            "dimension": {
+                "pos1": 6,
+                "pos2": 2,
+                "pos3": 0,
+                "pos4": 0
+            },
+            "location": {
+                "positionX": 6,
+                "positionY": 4,
+                "direction": "west"
+            }
+        }
+    ],
+    "floorElevator": {
+        "elevatorId": "6548df025c1f0f0111c718e1",
+        "location": {
+            "positionX": 8,
+            "positionY": 2,
+            "direction": "west"
+        }
+    },
+    "passage": [
+        {
+            "passageId": "6547ccee1ce30663f62d7204",
+            "location": {
+                "positionX": 5,
+                "positionY": 5,
+                "direction": "west"
+            }
+        }
+    ],
     "ground": {
-        "size": { "width": 10.0, "height": 0.0625, "depth": 10.0 },
+        "size": { "width": 9.0, "height": 0.0625, "depth": 8.0 },
         "segments": { "width": 1, "height": 1, "depth": 1 },
         "primaryColor": "0xffffff",
         "maps": {
@@ -43,7 +103,7 @@
                 "scale": 1.0
             },
             "roughness": {
-                "url": "assets/textures/ground_0003_2k_372HqZ/VeneerWhiteOakRandomMatched001_ROUGHNESS_2K_METALNESS.png",
+                "url": "assets/textures/ground_VennerWhiteOak/VeneerWhiteOakRandomMatched001_ROUGHNESS_2K_METALNESS.png",
                 "rough": 1.0
             }
         },
@@ -97,8 +157,38 @@
         "minFilter": 5,
         "secondaryColor": "0x6b554b"
     },
+    "elevator": {
+        "segments": { "width": 1, "height": 1 },
+        "primaryColor": "0xffffff",
+        "maps": {
+            "map": {
+                "url": "assets/textures/elevator.jpg"
+            }
+        },
+        "wrapS": 1,
+        "wrapT": 0,
+        "repeat": { "u": 1.0, "v": 1.0 },
+        "magFilter": 1,
+        "minFilter": 5,
+        "secondaryColor": "0x6b554b"
+    },
+    "door": {
+        "segments": { "width": 1, "height": 1 },
+        "primaryColor": "0xffffff",
+        "maps": {
+            "map": {
+                "url": "assets/textures/wood_door.jpg"
+            }
+        },
+        "wrapS": 1,
+        "wrapT": 0,
+        "repeat": { "u": 1.0, "v": 1.0 },
+        "magFilter": 1,
+        "minFilter": 5,
+        "secondaryColor": "0x6b554b"
+    },
     "player": {
-        "initialPosition": [7.0, 6.0],
+        "initialPosition": [3.0, 2.0],
         "initialDirection": 0.0
     }
 }
