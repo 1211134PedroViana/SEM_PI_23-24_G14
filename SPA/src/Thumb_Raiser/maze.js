@@ -160,12 +160,14 @@ export default class Maze extends THREE.Group {
 
             let elevatorLocation = description.floorElevator.location;
             const mtlLoader = new MTLLoader();
+            const mtlLoader2 = new MTLLoader();
             const objLoader = new OBJLoader();
+            const objLoader2 = new OBJLoader();
             
-            mtlLoader.load('assets/models/elevator.mtl', (materials) => {
+            mtlLoader.load('assets/models/Elevator/elevator.mtl', (materials) => {
                 materials.preload();
                 objLoader.setMaterials(materials);
-                objLoader.load('assets/models/3d-elevator.obj', (object) => {
+                objLoader.load('assets/models/Elevator/3d-elevator.obj', (object) => {
 
                     if(elevatorLocation.direction === "north") {
                         object.position.set(elevatorLocation.positionX - this.halfSize.width + 0.5, 0.59, elevatorLocation.positionY - this.halfSize.depth);
@@ -180,7 +182,7 @@ export default class Maze extends THREE.Group {
                     }
                 });
 
-                objLoader.load('assets/models/3d-elevator.obj', (object) => {
+                objLoader.load('assets/models/Elevator/3d-elevator.obj', (object) => {
 
                     if(elevatorLocation.direction === "north") {
                         object.position.set(elevatorLocation.positionX - this.halfSize.width + 0.5, 0.59, (elevatorLocation.positionY + 1) - this.halfSize.depth);
@@ -198,21 +200,23 @@ export default class Maze extends THREE.Group {
             
 
             description.room.forEach(room => {
-                let doorLocation = room.location;
+                mtlLoader2.load('assets/models/WoodDoubleDoor/WoodDoubleDoor.mtl', (materials) => {
+                    materials.preload();
+                    objLoader2.setMaterials(materials);
+                    objLoader2.load('assets/models/WoodDoubleDoor/WoodDoubleDoor.obj', (object) => {
+                        let doorLocation = room.location;
 
-                const loader = new FBXLoader();
-                loader.load('assets/models/3d_door.fbx', (object) => {
-
-                    if(doorLocation.direction === "north") {
-                        object.position.set(doorLocation.positionX - this.halfSize.width + 0.5, 0, doorLocation.positionY - this.halfSize.depth);
-                        object.scale.set(0.013, 0.006, 0.005);
-                        this.add(object);
-                    }else{
-                        object.rotateY(Math.PI / 2.0);
-                        object.position.set(doorLocation.positionX - this.halfSize.width, 0, doorLocation.positionY - this.halfSize.depth + 0.5);
-                        object.scale.set(0.013, 0.006, 0.005);
-                        this.add(object);
-                    }
+                        if(doorLocation.direction === "north") {
+                            object.position.set(doorLocation.positionX - this.halfSize.width + 0.5, 0, doorLocation.positionY - this.halfSize.depth);
+                            object.scale.set(0.16, 0.1, 0.1);
+                            this.add(object);
+                        }else{
+                            object.rotateY(Math.PI / 2.0);
+                            object.position.set(doorLocation.positionX - this.halfSize.width, 0, doorLocation.positionY - this.halfSize.depth + 0.5);
+                            object.scale.set(0.16, 0.1, 0.1);
+                            this.add(object);
+                        }
+                    });
                 });   
             });
 
