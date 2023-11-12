@@ -27,8 +27,6 @@ export default class FloorService implements IFloorService {
           if (building === null) {
             return Result.fail<IFloorDTO>('Building with ID "' + floorDTO.buildingId + '" not found');
           }
-          
-          floorDTO.buildingId = building.id.toString();
 
           if (descriptionOrError.isFailure && floorDTO.description != undefined) {
             return Result.fail<IFloorDTO>('Invalid Description!');

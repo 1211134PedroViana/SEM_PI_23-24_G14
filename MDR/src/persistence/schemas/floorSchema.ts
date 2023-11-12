@@ -10,7 +10,7 @@ const FloorSchema = new mongoose.Schema(
         },
 
         buildingId: { 
-            type: Schema.Types.ObjectId,
+            type: String,
             ref: 'Building',
             required: [true, 'Please enter Building ID'],
         },

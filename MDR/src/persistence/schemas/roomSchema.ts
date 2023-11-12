@@ -60,7 +60,7 @@ const RoomSchema = new mongoose.Schema(
         },
 
         floorId: {
-            type: Schema.Types.ObjectId,
+            type: String,
             required: true
         }
 

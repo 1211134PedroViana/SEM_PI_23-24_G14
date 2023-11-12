@@ -27,7 +27,7 @@ const RobotTypeSchema = new mongoose.Schema(
 
         taskTypes: [
             {
-                type: Schema.Types.ObjectId,
+                type: String,
                 ref: 'TaskType',
                 required: [true, 'Please enter TaskTypes'] 
             }

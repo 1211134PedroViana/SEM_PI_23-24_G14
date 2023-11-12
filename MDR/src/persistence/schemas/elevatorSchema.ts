@@ -31,13 +31,13 @@ const ElevatorSchema = new mongoose.Schema(
         },
 
         buildingId: {
-          type: Schema.Types.ObjectId,
+          type: String,
           ref:"Building",
           required: true
         },
         
         floorList: [{
-          type: Schema.Types.ObjectId,
+          type: String,
           ref:"Floor",
           required: true
         }],

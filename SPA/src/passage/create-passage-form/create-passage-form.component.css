@@ -1,6 +1,6 @@
 form {
     padding: 20px;
-    width: 45%;
+    width: 60%;
     margin: auto;
     margin-top: 20px;
     background-color: #090430;
@@ -22,18 +22,19 @@ form {
     font-family: 'Playpen Sans', cursive;
 }
 
-.col-md-6 {
-    width: 35%;
+.form-select {
+    width: 75%;
 }
 
-.col-md-4 {
-    width: 35%;
-}
-
-.col-md-2 {
-    width: 25%;
+.col-12 {
+    margin: inherit;
 }
 
 .btn-primary {
     width: 25%;
+    font-family: 'Playpen Sans', cursive;
+}
+
+.row {
+    margin-top: 5px;
 }

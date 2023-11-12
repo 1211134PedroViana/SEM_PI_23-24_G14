@@ -10,7 +10,7 @@ const FloorMapperzSchema = new mongoose.Schema(
         },
 
         floorId: { 
-            type: Schema.Types.ObjectId,
+            type: String,
             ref: 'Floor',
             required: [true, 'Please enter Floor ID'],
         },

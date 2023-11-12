@@ -20,7 +20,7 @@ const RobotSchema = new mongoose.Schema(
         },
 
         robotType: {
-            type: Schema.Types.ObjectId,
+            type: String,
             ref: 'RobotType',
             required: [true, 'Please enter RobotType']
         },
