@@ -1,4 +1,7 @@
 import * as THREE from "three";
+import { FBXLoader,  } from 'three/examples/jsm/loaders/FBXLoader';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader';
+import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 import { OBB } from "three/addons/math/OBB.js";
 import { merge } from "./merge.js";
 import Ground from "./ground.js";
@@ -156,44 +159,64 @@ export default class Maze extends THREE.Group {
             }
 
             let elevatorLocation = description.floorElevator.location;
-            clonedWall = elevator.clone();
-            let clonedWall2 = elevator.clone();
-            if(elevatorLocation.direction === "north") {
-                clonedWall.position.set(elevatorLocation.positionX - this.halfSize.width + 0.5, 0.25, elevatorLocation.positionY - this.halfSize.depth);
-                this.add(clonedWall);
-                this.aabb[elevatorLocation.positionY][elevatorLocation.positionX][0] = new THREE.Box3().setFromObject(clonedWall).applyMatrix4(new THREE.Matrix4().makeScale(this.scale.x, this.scale.y, this.scale.z));
-                this.helper.add(new THREE.Box3Helper(this.aabb[elevatorLocation.positionY][elevatorLocation.positionX][0], this.helpersColor));
-            }else{
-                clonedWall.rotateY(Math.PI / 2.0);
-                clonedWall.position.set(elevatorLocation.positionX - this.halfSize.width, 0.25, elevatorLocation.positionY - this.halfSize.depth + 0.5);
-                this.add(clonedWall);
-                this.aabb[elevatorLocation.positionY][elevatorLocation.positionX][1] = new THREE.Box3().setFromObject(clonedWall).applyMatrix4(new THREE.Matrix4().makeScale(this.scale.x, this.scale.y, this.scale.z));
-                this.helper.add(new THREE.Box3Helper(this.aabb[elevatorLocation.positionY][elevatorLocation.positionX][1], this.helpersColor));
+            const mtlLoader = new MTLLoader();
+            const objLoader = new OBJLoader();
+            
+            mtlLoader.load('assets/models/elevator.mtl', (materials) => {
+                materials.preload();
+                objLoader.setMaterials(materials);
+                objLoader.load('assets/models/3d-elevator.obj', (object) => {
 
-                clonedWall2.rotateY(Math.PI / 2.0);
-                clonedWall2.position.set(elevatorLocation.positionX - this.halfSize.width, 0.25, (elevatorLocation.positionY + 1) - this.halfSize.depth + 0.5);
-                this.add(clonedWall2);
-                this.aabb[elevatorLocation.positionY + 1][elevatorLocation.positionX][1] = new THREE.Box3().setFromObject(clonedWall).applyMatrix4(new THREE.Matrix4().makeScale(this.scale.x, this.scale.y, this.scale.z));
-                this.helper.add(new THREE.Box3Helper(this.aabb[elevatorLocation.positionY + 1][elevatorLocation.positionX][1], this.helpersColor));
-            }
+                    if(elevatorLocation.direction === "north") {
+                        object.position.set(elevatorLocation.positionX - this.halfSize.width + 0.5, 0.59, elevatorLocation.positionY - this.halfSize.depth);
+                        object.scale.set(0.0054, 0.0028, 0.005);
+                        this.add(object);
+                    }else{
+                        object.rotation.set(0, 0, 0);
+                        object.rotateY(Math.PI / -2);
+                        object.position.set(elevatorLocation.positionX - this.halfSize.width, 0.59, elevatorLocation.positionY - this.halfSize.depth + 0.5);
+                        object.scale.set(0.0054, 0.0028, 0.005);
+                        this.add(object);
+                    }
+                });
+
+                objLoader.load('assets/models/3d-elevator.obj', (object) => {
+
+                    if(elevatorLocation.direction === "north") {
+                        object.position.set(elevatorLocation.positionX - this.halfSize.width + 0.5, 0.59, (elevatorLocation.positionY + 1) - this.halfSize.depth);
+                        object.scale.set(0.0054, 0.0028, 0.005);
+                        this.add(object);
+                    }else{
+                        object.rotation.set(0, 0, 0);
+                        object.rotateY(Math.PI / -2);
+                        object.position.set(elevatorLocation.positionX - this.halfSize.width, 0.59, (elevatorLocation.positionY + 1) - this.halfSize.depth + 0.5);
+                        object.scale.set(0.0054, 0.0028, 0.005);
+                        this.add(object);
+                    }
+                });
+            });
+            
 
             description.room.forEach(room => {
                 let doorLocation = room.location;
-                clonedWall = door.clone();
 
-                if(doorLocation.direction === "north") {
-                    clonedWall.position.set(doorLocation.positionX - this.halfSize.width + 0.5, 0.25, doorLocation.positionY - this.halfSize.depth);
-                    this.add(clonedWall);
-                    this.aabb[doorLocation.positionY][doorLocation.positionX][0] = new THREE.Box3().setFromObject(clonedWall).applyMatrix4(new THREE.Matrix4().makeScale(this.scale.x, this.scale.y, this.scale.z));
-                    this.helper.add(new THREE.Box3Helper(this.aabb[doorLocation.positionY][doorLocation.positionX][0], this.helpersColor));
-                }else{
-                    clonedWall.rotateY(Math.PI / 2.0);
-                    clonedWall.position.set(doorLocation.positionX - this.halfSize.width, 0.25, doorLocation.positionY - this.halfSize.depth + 0.5);
-                    this.add(clonedWall);
-                    this.aabb[doorLocation.positionY][doorLocation.positionX][1] = new THREE.Box3().setFromObject(clonedWall).applyMatrix4(new THREE.Matrix4().makeScale(this.scale.x, this.scale.y, this.scale.z));
-                    this.helper.add(new THREE.Box3Helper(this.aabb[doorLocation.positionY][doorLocation.positionX][1], this.helpersColor));
-                }
+                const loader = new FBXLoader();
+                loader.load('assets/models/3d_door.fbx', (object) => {
+
+                    if(doorLocation.direction === "north") {
+                        object.position.set(doorLocation.positionX - this.halfSize.width + 0.5, 0, doorLocation.positionY - this.halfSize.depth);
+                        object.scale.set(0.013, 0.006, 0.005);
+                        this.add(object);
+                    }else{
+                        object.rotateY(Math.PI / 2.0);
+                        object.position.set(doorLocation.positionX - this.halfSize.width, 0, doorLocation.positionY - this.halfSize.depth + 0.5);
+                        object.scale.set(0.013, 0.006, 0.005);
+                        this.add(object);
+                    }
+                });   
             });
+
+            
 
             // Store the player's initial position and direction
             this.initialPosition = this.cellToCartesian(description.player.initialPosition);
