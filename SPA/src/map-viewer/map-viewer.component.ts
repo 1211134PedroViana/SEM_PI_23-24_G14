@@ -20,6 +20,7 @@ export class MapViewerComponent implements AfterViewInit, OnInit {
   floors: Floor[] = [];
   selectedBuilding: string = "";
   selectedFloor: Floor | null = null;
+  floorMapUrl = "";
 
   private floorViewer: any;
   private container: any;

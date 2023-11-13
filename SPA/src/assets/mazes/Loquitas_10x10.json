@@ -119,10 +119,10 @@
         "primaryColor": "0xffffff",
         "maps": {
             "color": {
-                "url": "assets/textures/wall_brick/BricksDragfacedRunning008_COL_2K.png"
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_COL_3K.jpg"
             },
             "ao": {
-                "url": "assets/textures/wall_brick/BricksDragfacedRunning008_AO_2K.png",
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_AO_3K.jpg",
                 "intensity": 1.0
             },
             "displacement": {
@@ -131,12 +131,12 @@
                 "bias": 0.0
             },
             "normal": {
-                "url": "assets/textures/wall_brick/BricksDragfacedRunning008_NRM_2K.png",
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_NRM_3K.png",
                 "type": 0,
                 "scale": { "x": 2.0, "y": 2.0 }
                 },
             "bump": {
-                "url": "assets/textures/wall_brick/BricksDragfacedRunning008_BUMP_2K.png",
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_BUMP_3K.jpg",
                 "scale": 1.0
             },
             "roughness": {
@@ -144,10 +144,10 @@
                 "rough": 1.0
             },
             "gloss": {
-                "url": "assets/textures/wall_brick/BricksDragfacedRunning008_GLOSS_2K.png"
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_GLOSS_3K.jpg"
             },
             "reflection": {
-                "url": "assets/textures/wall_brick/BricksDragfacedRunning008_REFL_2K.png"
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_REFL_3K.jpg"
             }
         },
         "wrapS": 1,
@@ -162,7 +162,7 @@
         "primaryColor": "0xffffff",
         "maps": {
             "map": {
-                "url": "assets/textures/elevator.jpg"
+                "url": "assets/models/Elevator/3d-elevator.obj"
             }
         },
         "wrapS": 1,
@@ -177,7 +177,7 @@
         "primaryColor": "0xffffff",
         "maps": {
             "map": {
-                "url": "assets/textures/poke.gif"
+                "url": "assets/models/WoodDoubleDoor/WoodDoubleDoor.obj"
             }
         },
         "wrapS": 1,

@@ -27,7 +27,7 @@ export default class RobotTypeService implements IRobotTypeService {
           const robotTypeModelOrError = RobotTypeModel.create(robotTypeDTO.model);
 
           for (const item of robotTypeDTO.taskTypes) {
-            const taskType = await this.taskTypeRepo.findByObjectId(item);
+            const taskType = await this.taskTypeRepo.findByDomainId(item);
             if (taskType === null) {
               return Result.fail<IRobotTypeDTO>("TaskType with name: '" + item + "' not found");
             }
