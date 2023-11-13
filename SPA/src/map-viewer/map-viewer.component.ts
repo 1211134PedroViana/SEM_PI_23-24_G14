@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './map-viewer.component.html',
   styleUrls: ['./map-viewer.component.css']
 })
-export class MapViewerComponent implements AfterViewInit, OnInit {
+export class MapViewerComponent implements OnInit {
 
   buildings: Building[] = [];
   floors: Floor[] = [];
@@ -51,9 +51,9 @@ export class MapViewerComponent implements AfterViewInit, OnInit {
     this.floorViewer.dispose(); // Dispose of any Three.js resources
   }
 
-  ngAfterViewInit(): void {
+  createFloorViewer(mapUrl: string): void {
     this.container = document.getElementById('container');
-    console.log('-->' + this.container.clientWidth)
+    
     this.floorViewer = new ThumbRaiser(
         {
             containerWidth: this.container.clientWidth,
@@ -242,7 +242,7 @@ export class MapViewerComponent implements AfterViewInit, OnInit {
             selected: 2
         }, // Cube texture parameters
         { 
-          url: "assets/mazes/Loquitas_10x10.json",
+          url: mapUrl,
           helpersColor: new THREE.Color(0xff0077) 
         }, // Maze parameters
         { 
@@ -329,7 +329,12 @@ export class MapViewerComponent implements AfterViewInit, OnInit {
   }
 
   onFloorChange() {
-    
+    if(this.floorViewer != undefined) {
+        this.cleanup();
+        this.createFloorViewer("assets/mazes/buildingB_floor2.json");
+    } else {
+        this.createFloorViewer("assets/mazes/buildingB_floor2.json");
+    }
   }
     
 }

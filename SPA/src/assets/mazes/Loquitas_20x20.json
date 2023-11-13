@@ -27,15 +27,15 @@
         "exitLocation": [-0.5, 1.0]
     },
     "ground": {
-        "size": { "width": 20.0, "height": 0.125, "depth": 20.0 },
+        "size": { "width": 20.0, "height": 0.0625, "depth": 20.0 },
         "segments": { "width": 1, "height": 1, "depth": 1 },
         "primaryColor": "0xffffff",
         "maps": {
             "color": {
-                "url": "./textures/ground_0029_2k_6zfZ8Q/ground_0029_color_2k.jpg"
+                "url": "assets/textures/ground_VennerWhiteOak/VeneerWhiteOakRandomMatched001_COL_2K_METALNESS.png"
             },
             "ao": {
-                "url": "./textures/ground_0029_2k_6zfZ8Q/ground_0029_ao_2k.jpg",
+                "url": "assets/textures/ground_VennerWhiteOak/VeneerWhiteOakRandomMatched001_AO_2K_METALNESS.png",
                 "intensity": 1.0
             },
             "displacement": {
@@ -44,35 +44,35 @@
                 "bias": 0.0
             },
             "normal": {
-                "url": "./textures/ground_0029_2k_6zfZ8Q/ground_0029_normal_opengl_2k.png",
+                "url": "assets/textures/ground_VennerWhiteOak/VeneerWhiteOakRandomMatched001_NRM_2K_METALNESS.png",
                 "type": 0,
-                "scale": { "x": 1.0, "y": 1.0 }
+                "scale": { "x": 2.0, "y": 2.0 }
             },
             "bump": {
                 "url": "",
                 "scale": 1.0
             },
             "roughness": {
-                "url": "./textures/ground_0029_2k_6zfZ8Q/ground_0029_roughness_2k.jpg",
+                "url": "assets/textures/ground_VennerWhiteOak/VeneerWhiteOakRandomMatched001_ROUGHNESS_2K_METALNESS.png",
                 "rough": 1.0
             }
         },
         "wrapS": 1,
         "wrapT": 1,
-        "repeat": { "u": 16.0, "v": 16.0 },
+        "repeat": { "u": 4.0, "v": 4.0 },
         "magFilter": 1,
         "minFilter": 5,
-        "secondaryColor": "0x683a22"
+        "secondaryColor": "0x6b554b"
     },
     "wall": {
         "segments": { "width": 1, "height": 1 },
         "primaryColor": "0xffffff",
         "maps": {
             "color": {
-                "url": "./textures/concrete_0020_2k_BnKy6k/concrete_0020_color_2k.jpg"
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_COL_3K.jpg"
             },
             "ao": {
-                "url": "./textures/concrete_0020_2k_BnKy6k/concrete_0020_ao_2k.jpg",
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_AO_3K.jpg",
                 "intensity": 1.0
             },
             "displacement": {
@@ -81,17 +81,23 @@
                 "bias": 0.0
             },
             "normal": {
-                "url": "./textures/concrete_0020_2k_BnKy6k/concrete_0020_normal_opengl_2k.png",
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_NRM_3K.png",
                 "type": 0,
-                "scale": { "x": 0.5, "y": 0.5 }
+                "scale": { "x": 2.0, "y": 2.0 }
                 },
             "bump": {
-                "url": "",
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_BUMP_3K.jpg",
                 "scale": 1.0
             },
             "roughness": {
-                "url": "./textures/concrete_0020_2k_BnKy6k/concrete_0020_roughness_2k.jpg",
+                "url": "",
                 "rough": 1.0
+            },
+            "gloss": {
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_GLOSS_3K.jpg"
+            },
+            "reflection": {
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_REFL_3K.jpg"
             }
         },
         "wrapS": 1,
@@ -99,7 +105,37 @@
         "repeat": { "u": 2.0, "v": 1.0 },
         "magFilter": 1,
         "minFilter": 5,
-        "secondaryColor": "0x683a22"
+        "secondaryColor": "0x6b554b"
+    },
+    "elevator": {
+        "segments": { "width": 1, "height": 1 },
+        "primaryColor": "0xffffff",
+        "maps": {
+            "map": {
+                "url": "assets/models/Elevator/3d-elevator.obj"
+            }
+        },
+        "wrapS": 1,
+        "wrapT": 0,
+        "repeat": { "u": 1.0, "v": 1.0 },
+        "magFilter": 1,
+        "minFilter": 5,
+        "secondaryColor": "0x6b554b"
+    },
+    "door": {
+        "segments": { "width": 1, "height": 1 },
+        "primaryColor": "0xffffff",
+        "maps": {
+            "map": {
+                "url": "assets/models/WoodDoubleDoor/WoodDoubleDoor.obj"
+            }
+        },
+        "wrapS": 1,
+        "wrapT": 0,
+        "repeat": { "u": 1.0, "v": 1.0 },
+        "magFilter": 1,
+        "minFilter": 5,
+        "secondaryColor": "0x6b554b"
     },
     "player": {
         "initialPosition": [6.0, 10.0],
