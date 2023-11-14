@@ -1,4 +1,5 @@
 import { Service, Inject } from 'typedi';
+import multer from 'multer';
 import config from "../../config";
 import { Result } from "../core/logic/Result";
 import IFloorMapperzService from './IServices/IFloorMapperz';
@@ -26,7 +27,7 @@ export default class FloorMapperzService implements IFloorMapperzService {
         @Inject(config.repos.elevator.name) private elevatorRepo : IElevatorRepo
     ) {}
 
-    public async loadFloorMap(floorMapperzDTO: IFloorMapperzDTO): Promise<Result<IFloorMapperzDTO>> {
+    public async loadFloorMap(file: Express.Multer.File, floorMapperzDTO: IFloorMapperzDTO): Promise<Result<IFloorMapperzDTO>> {
         try {   
 
             const fMapRooms = [];
@@ -116,6 +117,15 @@ export default class FloorMapperzService implements IFloorMapperzService {
             }
         
           await this.floorMapperzRepo.save(floorMapperzOrError.getValue());
+
+          const storage = multer.diskStorage({
+            destination: function (req, file, cb) {
+              cb(null, 'assets/mazes/'); 
+            },
+            filename: function (req, file, cb) {
+              cb(null, file.originalname);
+            }
+          });
       
           const floorMapDTOResult = FloorMapperzMap.toDTO( floorMapperzOrError.getValue() ) as IFloorMapperzDTO;
             return Result.ok<IFloorMapperzDTO>( floorMapDTOResult )
