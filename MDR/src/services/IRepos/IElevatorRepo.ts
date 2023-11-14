@@ -8,4 +8,5 @@ export default interface IElevatorRepo extends Repo<Elevator> {
   findAll(): Promise<Elevator[]>;
   findByObjectId(elevatorId: string): Promise<Elevator>;
   findByDomainId(buildingId: BuildingId | string): Promise<Building>;
+  findByBuildingId(buildingID: string): Promise<Elevator | null>;
 }
