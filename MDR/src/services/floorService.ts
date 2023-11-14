@@ -135,4 +135,5 @@ export default class FloorService implements IFloorService {
             return Result.fail<IFloorDTO[]>(e.message);
         }
     }
+
 }

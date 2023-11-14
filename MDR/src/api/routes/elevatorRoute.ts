@@ -37,5 +37,11 @@ export default( app: Router) => {
     route.get('/list',
     (req, res, next) => ctrl.listElevators(req, res, next) );
     
-
+      // API GET request - list floors served by an Elevator
+    route.get('/elevatorsByFloor', celebrate({
+    params: Joi.object({
+      elevatorId: Joi.string().required(),
+    }),
+  }),
+  (req, res, next) => ctrl.listFloorsServedByElevatorInBuilding(req, res, next));
 }

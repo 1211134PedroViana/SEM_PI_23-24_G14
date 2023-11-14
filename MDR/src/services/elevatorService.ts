@@ -94,4 +94,21 @@ export default class ElevatorService implements IElevatorService {
         return Result.fail<IElevatorDTO[]>(e.message);
       }
     }
-}
+
+    public async getFloorsServedByElevatorInBuilding(buildingId: string): Promise<Result<string[]>> {
+      try {
+        
+        const elevator = await this.elevatorRepo.findByBuildingId(buildingId);
+    
+        if (!elevator) {
+          return Result.fail<string[]>(`Elevator for building ${buildingId} not found`);
+        }
+    
+        const floorsServed = elevator.floorList || [];
+    
+        return Result.ok<string[]>(floorsServed);
+      } catch (error) {
+        return Result.fail<string[]>(error.message);
+      }
+    }
+  }
