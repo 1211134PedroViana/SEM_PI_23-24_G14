@@ -170,28 +170,14 @@ export default class Maze extends THREE.Group {
                 objLoader.load('assets/models/Elevator/3d-elevator.obj', (object) => {
 
                     if(elevatorLocation.direction === "north") {
+                        object.rotateY(Math.PI);
                         object.position.set(elevatorLocation.positionX - this.halfSize.width + 0.5, 0.59, elevatorLocation.positionY - this.halfSize.depth);
                         object.scale.set(0.0054, 0.0028, 0.005);
                         this.add(object);
                     }else{
                         object.rotation.set(0, 0, 0);
-                        object.rotateY(Math.PI / -2);
+                        object.rotateY(Math.PI / 2);
                         object.position.set(elevatorLocation.positionX - this.halfSize.width, 0.59, elevatorLocation.positionY - this.halfSize.depth + 0.5);
-                        object.scale.set(0.0054, 0.0028, 0.005);
-                        this.add(object);
-                    }
-                });
-
-                objLoader.load('assets/models/Elevator/3d-elevator.obj', (object) => {
-
-                    if(elevatorLocation.direction === "north") {
-                        object.position.set(elevatorLocation.positionX - this.halfSize.width + 0.5, 0.59, (elevatorLocation.positionY + 1) - this.halfSize.depth);
-                        object.scale.set(0.0054, 0.0028, 0.005);
-                        this.add(object);
-                    }else{
-                        object.rotation.set(0, 0, 0);
-                        object.rotateY(Math.PI / -2);
-                        object.position.set(elevatorLocation.positionX - this.halfSize.width, 0.59, (elevatorLocation.positionY + 1) - this.halfSize.depth + 0.5);
                         object.scale.set(0.0054, 0.0028, 0.005);
                         this.add(object);
                     }

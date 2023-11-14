@@ -1,0 +1,21 @@
+@startuml
+autonumber
+
+Actor User
+activate User
+User -> SPA : List all the robots
+activate SPA
+
+SPA -> RobotRepo : GET/robots/{robotId, code, nickname, robotType, serialNumber, description, isActive}
+activate RobotRepo
+
+RobotRepo --> SPA : status code
+deactivate RobotRepo
+
+alt successfull case
+    SPA --> User : list successfully returned
+else failure
+    SPA --> User : list wasn't returned with success
+end
+
+@enduml

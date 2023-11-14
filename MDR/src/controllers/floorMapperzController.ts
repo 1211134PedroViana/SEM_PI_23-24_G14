@@ -19,7 +19,7 @@ export default class FloorMapperzController implements IFloorMapperzController {
 
             const jsonContent = JSON.parse(req.file.buffer.toString());
         
-            const floorMapOrError = await this.floorMapServiceInstance.loadFloorMap(jsonContent as IFloorMapperzDTO) as Result<IFloorMapperzDTO>;
+            const floorMapOrError = await this.floorMapServiceInstance.loadFloorMap(req.file, jsonContent as IFloorMapperzDTO) as Result<IFloorMapperzDTO>;
 
             if(floorMapOrError.isFailure) {
                 return res.status(402).send(floorMapOrError.errorValue());

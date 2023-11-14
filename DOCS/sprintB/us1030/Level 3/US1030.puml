@@ -1,0 +1,40 @@
+@startuml
+
+activate SPA
+SPA -> GestaoInfoAPI : get(/api/robots)
+activate GestaoInfoAPI
+
+GestaoInfoAPI -> RobotController : get
+activate RobotController
+
+RobotController -> RobotService : listRobots()
+activate RobotService
+
+loop
+    RobotService -> RobotRepo : get
+    activate RobotRepo
+
+    RobotRepo --> RobotService : robot
+    deactivate RobotRepo
+
+    RobotService -> RobotMap : toDTO(building)
+    activate RobotService
+
+    RobotService --> RobotService : robotDTO
+    deactivate RobotMap
+
+    RobotService -> RobotService : list.push(robotDTO)
+end
+
+RobotService --> RobotController : robotDTO[ ]
+deactivate RobotService
+
+RobotController --> GestaoInfoAPI : status code 201
+deactivate RobotController
+
+GestaoInfoAPI --> SPA : success
+deactivate GestaoInfoAPI
+
+deactivate SPA
+
+@enduml
