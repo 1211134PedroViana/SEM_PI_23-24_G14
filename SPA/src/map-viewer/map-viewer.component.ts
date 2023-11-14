@@ -331,9 +331,9 @@ export class MapViewerComponent implements OnInit {
   onFloorChange() {
     if(this.floorViewer != undefined) {
         this.cleanup();
-        this.createFloorViewer("assets/mazes/buildingB_floor1.json");
+        this.createFloorViewer("assets/mazes/buildingC_floor2.json");
     } else {
-        this.createFloorViewer("assets/mazes/buildingB_floor1.json");
+        this.createFloorViewer("assets/mazes/buildingC_floor2.json");
     }
   }
     
