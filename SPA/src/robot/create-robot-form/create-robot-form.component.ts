@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig  } from '@angular/material/snack-bar';
 import { catchError, tap } from 'rxjs/operators';
 import Robot from 'src/robotService/robot';
-import { RobotService } from '../../robotService/robot.service';
+import { RobotService } from '../../robotService/robot-service';
 
 @Component({
     selector: 'app-create-robot-form',

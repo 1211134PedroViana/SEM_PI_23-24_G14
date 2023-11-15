@@ -5,7 +5,7 @@ import * as THREE from "three";
 import Building from 'src/buildingService/building';
 import Floor from 'src/floorService/floor';
 import { BuildingService } from 'src/buildingService/building.service';
-import { FloorService } from 'src/floorService/floor.service';
+import { FloorService } from 'src/floorService/floor-service';
 import { FormsModule } from '@angular/forms';
 import { FloorMapService } from 'src/floorMapService/floorMap-service';
 

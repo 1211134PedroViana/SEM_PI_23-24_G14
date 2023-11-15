@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
-import { RobotService } from 'src/robotService/robot.service';
+import { RobotService } from 'src/robotService/robot-service';
 import Robot from 'src/robotService/robot';
 
 @Component({
