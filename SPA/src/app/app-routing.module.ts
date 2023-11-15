@@ -13,6 +13,8 @@ import { RobotTypeComponent } from 'src/robot-type/robot-type.component';
 import { CreateRobotTypeComponent } from 'src/robot-type/create-robot-type/create-robot-type.component';
 import { LoadFloorMapComponent } from 'src/load-floor-map/load-floor-map.component';
 import { MapViewerComponent } from 'src/map-viewer/map-viewer.component';
+import { CreateRobotComponent } from 'src/robot/create-robot/create-robot.component';
+import { RobotComponent } from 'src/robot/robot.component';
 
 const routes: Routes = [
 
@@ -33,6 +35,10 @@ const routes: Routes = [
 
   { path: 'robotType', component: RobotTypeComponent, children: [
     { path: 'create', component: CreateRobotTypeComponent }
+  ]},
+
+  { path: 'robot', component: RobotComponent, children: [
+    { path: 'create', component: CreateRobotComponent }
   ]},
 
   { path: 'floor3DViewer', component: MapViewerComponent}

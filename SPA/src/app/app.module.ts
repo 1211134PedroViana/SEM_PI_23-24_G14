@@ -27,6 +27,9 @@ import { LoadFloorMapComponent } from '../load-floor-map/load-floor-map.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignInComponent } from '../sign-in/sign-in.component';
 import { MapViewerComponent } from '../map-viewer/map-viewer.component';
+import { RobotComponent } from 'src/robot/robot.component';
+import { CreateRobotComponent } from 'src/robot/create-robot/create-robot.component';
+import { CreateRobotFormComponent } from 'src/robot/create-robot-form/create-robot-form.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,9 @@ import { MapViewerComponent } from '../map-viewer/map-viewer.component';
     FleetSideBarComponent,
     RobotTypeComponent,
     CreateRobotTypeComponent,
+    RobotComponent,
+    CreateRobotComponent,
+    CreateRobotFormComponent,
     Featuresv4Component,
     LoadFloorMapComponent,
     SignInComponent,
