@@ -4,7 +4,7 @@ import { catchError, tap } from 'rxjs/operators';
 import Building from 'src/buildingService/building';
 import { BuildingService } from 'src/buildingService/building.service';
 import Floor from 'src/floorService/floor';
-import { FloorService } from 'src/floorService/floor-service';
+import { FloorService } from 'src/floorService/floor.service';
 
 @Component({
   selector: 'app-create-floor-form',
@@ -15,8 +15,8 @@ export class CreateFloorFormComponent {
 
   buildings: Building[] = [];
 
-  buildingId: string = ""; 
-  floorNumber: number = 0; 
+  buildingId: string = "";
+  floorNumber: number = 0;
   description: string = "";
 
   constructor(private floorService: FloorService, private buildingService: BuildingService, private snackBar: MatSnackBar) { }

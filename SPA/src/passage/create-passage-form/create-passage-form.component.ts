@@ -4,7 +4,7 @@ import { catchError, tap } from 'rxjs/operators';
 import Building from 'src/buildingService/building';
 import { BuildingService } from 'src/buildingService/building.service';
 import Floor from 'src/floorService/floor';
-import { FloorService } from 'src/floorService/floor-service';
+import { FloorService } from 'src/floorService/floor.service';
 import Passage from 'src/passageService/passage';
 import { PassageService } from 'src/passageService/passage-service';
 
@@ -71,16 +71,16 @@ export class CreatePassageFormComponent implements OnInit {
 
   onFromBuildingChange() {
     this.floors1 = [];
-    this.floorService.getFloorsFromBuilding(this.selectedFromBuilding).subscribe((floors) => {
+    this.floorService.getFloorsFromBuilding(this.selectedFromBuilding).subscribe((floors: Floor[]) => {
         this.floors1 = floors;
-    }); 
+    });
   }
 
   onToBuildingChange() {
     this.floors2 = [];
-    this.floorService.getFloorsFromBuilding(this.selectedToBuilding).subscribe((floors) => {
+    this.floorService.getFloorsFromBuilding(this.selectedToBuilding).subscribe((floors: Floor[]) => {
         this.floors2 = floors;
-    }); 
+    });
   }
 
 }

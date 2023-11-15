@@ -5,7 +5,7 @@ import * as THREE from "three";
 import Building from 'src/buildingService/building';
 import Floor from 'src/floorService/floor';
 import { BuildingService } from 'src/buildingService/building.service';
-import { FloorService } from 'src/floorService/floor-service';
+import { FloorService } from 'src/floorService/floor.service';
 import { FormsModule } from '@angular/forms';
 
 
@@ -53,7 +53,7 @@ export class MapViewerComponent implements OnInit {
 
   createFloorViewer(mapUrl: string): void {
     this.container = document.getElementById('container');
-    
+
     this.floorViewer = new ThumbRaiser(
         {
             containerWidth: this.container.clientWidth,
@@ -241,13 +241,13 @@ export class MapViewerComponent implements OnInit {
             ],
             selected: 2
         }, // Cube texture parameters
-        { 
+        {
           url: mapUrl,
-          helpersColor: new THREE.Color(0xff0077) 
+          helpersColor: new THREE.Color(0xff0077)
         }, // Maze parameters
-        { 
+        {
           url: "assets/models/gltf/RobotExpressive/RobotExpressive.glb",
-          helpersColor: new THREE.Color(0x0055ff) 
+          helpersColor: new THREE.Color(0x0055ff)
         }, // Player parameters
         {
             intensity: 0.1
@@ -325,7 +325,7 @@ export class MapViewerComponent implements OnInit {
     this.floors = [];
     this.floorService.getFloorsFromBuilding(this.selectedBuilding).subscribe((floors) => {
         this.floors = floors;
-    });  
+    });
   }
 
   onFloorChange() {
@@ -336,5 +336,5 @@ export class MapViewerComponent implements OnInit {
         this.createFloorViewer("assets/mazes/buildingC_floor2.json");
     }
   }
-    
+
 }
