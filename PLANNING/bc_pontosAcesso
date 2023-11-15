@@ -1,0 +1,20 @@
+% BC - Pisos
+pisos(a,[a1,a2]).
+pisos(b,[b1,b2,b3]).
+pisos(c,[c1,c2,c3,c4]).
+pisos(d,[d1,d2,d3]).
+
+% BC - Elevador
+elevador(a,[a1,a2]).
+elevador(b,[b1,b2,b3]).
+elevador(c,[c1,c2,c3,c4]).
+elevador(d,[d1,d2,d3]).
+
+% BC - Corredor
+corredor(a,b,a2,b2).
+corredor(b,c,b2,c3).
+corredor(b,d,b2,d3).
+corredor(b,c,b3,c4).
+corredor(c,d,c2,d2).
+corredor(c,d,c3,d3).
+
