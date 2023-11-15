@@ -11,6 +11,7 @@ import { catchError } from 'rxjs/operators';
 export class FloorMapService {
 
   private loadMapUrl = 'http://localhost:4000/api/loadMap';
+  private getFloorMapUrl = 'http://localhost:4000/api/loadMap/'
 
   constructor(private http: HttpClient) { }
 
@@ -22,6 +23,17 @@ export class FloorMapService {
     formData.append('file', floorMap);
 
     return this.http.patch<any>(this.loadMapUrl, formData)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
+  getFloorMap(floorId: string): Observable<any> {
+    if (floorId === null) {
+      return throwError('Floor ID is missing');
+    }
+
+    return this.http.get<any>(this.getFloorMapUrl + floorId)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

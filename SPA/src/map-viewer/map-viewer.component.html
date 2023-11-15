@@ -454,7 +454,7 @@
             <div *ngIf="selectedBuilding" class="dropdown">
               <label for="floor">Floor:</label>
               <select class="form-select" id="floor" [(ngModel)]="selectedFloor" (change)="onFloorChange()">
-                <option *ngFor="let floor of floors" [value]="floor">{{ floor.floorNumber }}</option>
+                <option *ngFor="let floor of floors" [value]="floor.id">{{ floor.floorNumber }}</option>
               </select>
             </div>
         </div>
