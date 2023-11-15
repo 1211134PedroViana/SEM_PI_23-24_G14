@@ -50,4 +50,16 @@ export default( app: Router) => {
       })
      }),
      (req, res, next) => ctrl.findRobotByNickname(req, res, next) );
+
+     // API GET request - retrieve robots by nickname or taskType
+    route.get(
+      '/retrieve',
+      celebrate({
+          query: Joi.object({
+              nickname: Joi.string(),
+              taskType: Joi.string(),
+          }),
+      }),
+      (req, res, next) => ctrl.findRobotsByNicknameOrTaskType(req, res, next)
+  );
 }

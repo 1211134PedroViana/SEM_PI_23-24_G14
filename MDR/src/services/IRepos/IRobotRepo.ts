@@ -12,4 +12,6 @@ export default interface IRobotRepo extends Repo<Robot> {
     findByCode(robotCode: RobotCode | string): Promise<Robot>;
     findByNickname(robotNickname: IRobotDTO): Promise<Robot>;
     findAll(): Promise<Robot[]>;
+    findByTaskType(taskType: string): Promise<Robot[]>;
+    findByNicknameOrTaskType(robotNickname: IRobotDTO, taskType: string): Promise<Robot[]>;
 }

@@ -92,4 +92,28 @@ export default class RobotController implements IRobotController {
             return next(e);
         }
     }
+
+    public async findRobotsByNicknameOrTaskType(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { nickname, taskType } = req.body as {nickname: IRobotDTO, taskType?: string };
+    
+            // Ensure at least one of the parameters is provided
+            if (!nickname && !taskType) {
+                return res.status(400).send('Please provide a nickname or a taskType.');
+            }
+    
+            const robotsOrError = await this.robotServiceInstance.getRobotsByNicknameOrTaskType(nickname, taskType) as Result<IRobotDTO[]>;
+    
+            if (robotsOrError.isFailure) {
+                return res.status(402).send(robotsOrError.errorValue());
+            }
+    
+            const robotDTOs = robotsOrError.getValue();
+            return res.json(robotDTOs).status(200);
+    
+        } catch (e) {
+            return next(e);
+        }
+    }
+    
 }

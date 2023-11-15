@@ -128,4 +128,25 @@ export default class RobotService implements IRobotService {
             return Result.fail<IRobotDTO>(e.message);
         } 
     }
+
+    public async getRobotsByNicknameOrTaskType(robotNickname: IRobotDTO, taskType?: string): Promise<Result<IRobotDTO[]>> {
+        try {
+            let robots: Robot[];
+
+            if (taskType) {
+                // If taskType is provided, retrieve robots by taskType
+                robots = await this.robotRepo.findByNicknameOrTaskType(robotNickname, taskType);
+            } else {
+                // Retrieve robots by nickname
+                const robotFound: Robot = await this.robotRepo.findByNickname(robotNickname);
+                robots = robotFound ? [robotFound] : [];
+            }
+
+            const robotDTOs = robots.map(robot => RobotMap.toDTO(robot));
+
+            return Result.ok<IRobotDTO[]>(robotDTOs);
+        } catch (error) {
+            return Result.fail<IRobotDTO[]>(error.message);
+        }
+    }
 }
