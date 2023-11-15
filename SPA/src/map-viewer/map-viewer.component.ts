@@ -8,6 +8,7 @@ import { BuildingService } from 'src/buildingService/building.service';
 import { FloorService } from 'src/floorService/floor-service';
 import { FormsModule } from '@angular/forms';
 import { FloorMapService } from 'src/floorMapService/floorMap-service';
+import FloorMap from 'src/floorMapService/floorMap';
 
 
 @Component({
@@ -331,16 +332,15 @@ export class MapViewerComponent implements OnInit {
 
   onFloorChange() {
     if(this.floorViewer != undefined) {
-        this.floorMapService.getFloorMap(this.selectedFloor).subscribe((floorMap: any) => {
+        this.floorMapService.getFloorMap(this.selectedFloor).subscribe((floorMap: FloorMap) => {
             this.floorMapUrl = floorMap.fileUrl;
         });
         this.cleanup();
         this.createFloorViewer(this.floorMapUrl);
     } else {
-        this.floorMapService.getFloorMap(this.selectedFloor).subscribe((floorMap: any) => {
-            this.floorMapUrl = floorMap.fileUrl;
+        this.floorMapService.getFloorMap(this.selectedFloor).subscribe((floorMap: FloorMap) => {
+            this.createFloorViewer(floorMap.fileUrl);
         });
-        this.createFloorViewer(this.floorMapUrl);
     }
   }
 

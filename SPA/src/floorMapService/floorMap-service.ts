@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import FloorMap from './floorMap';
 
 
 @Injectable({
@@ -28,12 +29,12 @@ export class FloorMapService {
       );
   }
 
-  getFloorMap(floorId: string): Observable<any> {
+  getFloorMap(floorId: string): Observable<FloorMap> {
     if (floorId === null) {
       return throwError('Floor ID is missing');
     }
 
-    return this.http.get<any>(this.getFloorMapUrl + floorId)
+    return this.http.get<FloorMap>(this.getFloorMapUrl + floorId)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
