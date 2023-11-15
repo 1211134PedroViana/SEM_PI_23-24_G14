@@ -66,7 +66,7 @@ export class FloorMapperz extends AggregateRoot<FloorMapperzProps> {
       if (!guardResult.succeeded) {
         return Result.fail<FloorMapperz>('Must provide the File URL');
       } else {
-        const floorMapperz = new FloorMapperz({...props}, id);
+        const floorMapperz = new FloorMapperz({floorId: props.floorId, fileUrl: props.fileUrl}, id);
         return Result.ok<FloorMapperz>( floorMapperz );
       }
     }

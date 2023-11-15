@@ -33,4 +33,7 @@ export default( app: Router) => {
     route.patch('', upload.single('file'),
       (req, res, next) => ctrl.loadFloorMap(req, res, next) );
 
+    //API GET request - get Floor Map
+    route.get('/:floorId', (req, res, next) => ctrl.getFloorMap(req, res, next));
+
 }

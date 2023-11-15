@@ -5,4 +5,5 @@ import IFloorMapperzDTO from "../../dto/IFloorMapperzDTO";
 export default interface IFloorMapperzService {
 
     loadFloorMap(file: Express.Multer.File, floorMapDTO: IFloorMapperzDTO): Promise<Result<IFloorMapperzDTO>>;
+    getFloorMap(floorId: string): Promise<Result<IFloorMapperzDTO>>;
 }

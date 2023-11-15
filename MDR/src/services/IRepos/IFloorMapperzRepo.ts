@@ -6,4 +6,5 @@ import { FloorMapperzId } from "../../domain/floorMapperzId";
 export default interface IFloorMapperzRepo extends Repo<FloorMapperz> {
     save(floorMap: FloorMapperz): Promise<FloorMapperz>;
     findByDomainId(floorMapId: FloorMapperzId | string): Promise<FloorMapperz>;
+    findByFloorId(floorId: string): Promise<FloorMapperz>;
 }
