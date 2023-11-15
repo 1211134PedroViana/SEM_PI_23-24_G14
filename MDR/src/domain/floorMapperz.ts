@@ -7,13 +7,9 @@ import { FloorMapRoom } from "./valueObjects/fMapRoom";
 import { FloorMapPassage } from "./valueObjects/fMapPassage";
 import { FloorMapElevator } from "./valueObjects/fMapElevator";
 
-// TODO: rewrite the attributes types when the classes Room, Elevator, Passage and Door are added
 interface FloorMapperzProps {
     floorId: string;
-    map: number[][];
-    fMapRooms: FloorMapRoom[];
-    fMapPassages: FloorMapPassage[];
-    fMapElevator: FloorMapElevator;
+    fileUrl: string;
 }
 
 /*
@@ -52,20 +48,8 @@ export class FloorMapperz extends AggregateRoot<FloorMapperzProps> {
         return this.props.floorId;
     }
 
-    get map (): number[][] {
-        return this.props.map;
-    }
-
-    get fMapRooms (): FloorMapRoom[] {
-        return this.props.fMapRooms;
-    }
-
-    get fMapPassages (): FloorMapPassage[] {
-        return this.props.fMapPassages;
-    }
-
-    get fMapElevator (): FloorMapElevator {
-        return this.props.fMapElevator;
+    get fileUrl(): string {
+        return this.props.fileUrl;
     }
 
     private constructor (props: FloorMapperzProps, id?: UniqueEntityID) {
@@ -74,16 +58,13 @@ export class FloorMapperz extends AggregateRoot<FloorMapperzProps> {
 
     public static create(props: FloorMapperzProps, id?: UniqueEntityID): Result<FloorMapperz> {
         const guardedProps = [
-            { argument: props.map, argumentName: 'map' },
-            { argument: props.fMapRooms, argumentName: 'fMapRooms' },
-            { argument: props.fMapPassages, argumentName: 'fMapPassages' },
-            { argument: props.fMapElevator, argumentName: 'fMapElevator' }
+            { argument: props.fileUrl, argumentName: 'fileUrl' }
         ];
 
       const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);
       
       if (!guardResult.succeeded) {
-        return Result.fail<FloorMapperz>('Must provide the Map, Rooms, Passages and Elevator');
+        return Result.fail<FloorMapperz>('Must provide the File URL');
       } else {
         const floorMapperz = new FloorMapperz({...props}, id);
         return Result.ok<FloorMapperz>( floorMapperz );

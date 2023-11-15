@@ -30,86 +30,39 @@ export default class FloorMapperzService implements IFloorMapperzService {
     public async loadFloorMap(file: Express.Multer.File, floorMapperzDTO: IFloorMapperzDTO): Promise<Result<IFloorMapperzDTO>> {
         try {   
 
-            const fMapRooms = [];
-            const fMapPassages = [];
+            const fileUrl = "assets/mazes/" + file.originalname;
+            floorMapperzDTO.fileUrl = fileUrl;
 
-            const floor = await this.floorRepo.findByObjectId(floorMapperzDTO.floorId);
-            const elevator = await this.elevatorRepo.findByObjectId(floorMapperzDTO.fMapElevator.elevatorId);
+            const floor = await this.floorRepo.findByDomainId(floorMapperzDTO.floorId);
+            const elevator = await this.elevatorRepo.findByDomainId(floorMapperzDTO.floorElevator.elevatorId);
 
             if (floor === null) {
                 return Result.fail<IFloorMapperzDTO>('Floor with ID "' + floorMapperzDTO.floorId + '" not found');
             }
 
             if (elevator === null) {
-                return Result.fail<IFloorMapperzDTO>('Elevator with ID "' + floorMapperzDTO.fMapElevator.elevatorId + '" not found');
+                return Result.fail<IFloorMapperzDTO>('Elevator with ID "' + floorMapperzDTO.floorElevator.elevatorId + '" not found');
             }
 
-            for (let i = 0; i < floorMapperzDTO.fMapRooms.length; i++) {
-                let room = await this.roomRepo.findByObjectId(floorMapperzDTO.fMapRooms[i].roomId);
+            for (let i = 0; i < floorMapperzDTO.room.length; i++) {
+                let room = await this.roomRepo.findByDomainId(floorMapperzDTO.room[i].roomId);
                 if(room === null) {
-                    return Result.fail<IFloorMapperzDTO>('Room with ID "' + floorMapperzDTO.fMapRooms[i].roomId + '" not found')
+                    return Result.fail<IFloorMapperzDTO>('Room with ID "' + floorMapperzDTO.room[i].roomId + '" not found')
                 }
             }
 
-            for (let i = 0; i < floorMapperzDTO.fMapPassages.length; i++) {
-                let passage = await this.passageRepo.findByObjectId(floorMapperzDTO.fMapPassages[i].passageId);
-                if(passage === null) {
-                    return Result.fail<IFloorMapperzDTO>('Passage with ID "' + floorMapperzDTO.fMapPassages[i].passageId + '" not found')
+            if(floorMapperzDTO.passage != undefined) {
+                for (let i = 0; i < floorMapperzDTO.passage.length; i++) {
+                    let passage = await this.passageRepo.findByDomainId(floorMapperzDTO.passage[i].passageId);
+                    if(passage === null) {
+                        return Result.fail<IFloorMapperzDTO>('Passage with ID "' + floorMapperzDTO.passage[i].passageId + '" not found')
+                    }
                 }
-            }
-
-            const elevatorLocation = Location.create({
-                positionX: floorMapperzDTO.fMapElevator.location.positionX,
-                positionY: floorMapperzDTO.fMapElevator.location.positionY,
-                direction: floorMapperzDTO.fMapElevator.location.direction
-            });
-
-        
-            const fMapElevator = FloorMapElevator.create({
-                elevatorId: floorMapperzDTO.fMapElevator.elevatorId,
-                location: elevatorLocation.getValue()
-            });
-
-            for (let i = 0; i < floorMapperzDTO.fMapRooms.length; i++) {
-                const roomDimension = Dimension.create({
-                    pos1: floorMapperzDTO.fMapRooms[i].dimension.pos1,
-                    pos2: floorMapperzDTO.fMapRooms[i].dimension.pos2,
-                    pos3: floorMapperzDTO.fMapRooms[i].dimension.pos3,
-                    pos4: floorMapperzDTO.fMapRooms[i].dimension.pos4
-                });
-                const roomLocation = Location.create({
-                    positionX: floorMapperzDTO.fMapRooms[i].location.positionX,
-                    positionY: floorMapperzDTO.fMapRooms[i].location.positionY,
-                    direction: floorMapperzDTO.fMapRooms[i].location.direction
-                });
-                let room = FloorMapRoom.create({
-                    roomId: floorMapperzDTO.fMapRooms[i].roomId,
-                    dimension: roomDimension.getValue(),
-                    location: roomLocation.getValue()
-                });
-                fMapRooms.push(room.getValue());
-            }
-
-
-            for (let i = 0; i < floorMapperzDTO.fMapPassages.length; i++) {
-                const passageLocation = Location.create({
-                    positionX: floorMapperzDTO.fMapPassages[i].location.positionX,
-                    positionY: floorMapperzDTO.fMapPassages[i].location.positionY,
-                    direction: floorMapperzDTO.fMapPassages[i].location.direction
-                });
-                let passage = FloorMapPassage.create({
-                    passageId: floorMapperzDTO.fMapPassages[i].passageId,
-                    location: passageLocation.getValue()
-                });
-                fMapPassages.push(passage.getValue());
             }
 
             const floorMapperzOrError = FloorMapperz.create({
                 floorId: floorMapperzDTO.floorId,
-                map: floorMapperzDTO.map,
-                fMapRooms: fMapRooms,
-                fMapPassages: fMapPassages,
-                fMapElevator: fMapElevator.getValue()
+                fileUrl: floorMapperzDTO.fileUrl
             });
 
             if (floorMapperzOrError.isFailure) {
@@ -117,15 +70,6 @@ export default class FloorMapperzService implements IFloorMapperzService {
             }
         
           await this.floorMapperzRepo.save(floorMapperzOrError.getValue());
-
-          const storage = multer.diskStorage({
-            destination: function (req, file, cb) {
-              cb(null, 'assets/mazes/'); 
-            },
-            filename: function (req, file, cb) {
-              cb(null, file.originalname);
-            }
-          });
       
           const floorMapDTOResult = FloorMapperzMap.toDTO( floorMapperzOrError.getValue() ) as IFloorMapperzDTO;
             return Result.ok<IFloorMapperzDTO>( floorMapDTOResult )

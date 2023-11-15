@@ -1,7 +1,7 @@
 {
-  "name": "bulletproof-nodejs",
+  "name": "robdronego-nodejs",
   "version": "1.0.0",
-  "description": "Bulletproof node.js",
+  "description": "App RobDroneGo node.js",
   "main": "src/app.ts",
   "scripts": {
     "build": "tsc",

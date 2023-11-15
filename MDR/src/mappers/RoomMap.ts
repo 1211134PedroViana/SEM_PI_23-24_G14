@@ -10,7 +10,8 @@ export class RoomMap extends Mapper<Room> {
 
     public static toDTO( room: Room): IRoomDTO {
         return {
-            code: room.id.toString(),
+            id: room.id.toString(),
+            code: room.code.value,
             dimension: {
                 pos1: room.dimension.pos1,
                 pos2: room.dimension.pos2,

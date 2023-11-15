@@ -1,16 +1,9 @@
 import { Service, Inject } from 'typedi';
 import config from "../../config";
 import { Result } from "../core/logic/Result";
-import IElevatorService from './IServices/IElevatorService';
-import IElevatorRepo from './IRepos/IElevatorRepo';
-import IElevatorDTO from '../dto/IElevatorDTO';
 import { Location } from '../domain/valueObjects/location';
 import { Room } from '../domain/room';
-import { ElevatorMap } from '../mappers/ElevatorMap';
-import IBuildingDTO from "../dto/IBuildingDTO";
 import {Description} from "../domain/valueObjects/description";
-import {BuildingMap} from "../mappers/BuildingMap";
-import {BuildingCode} from "../domain/valueObjects/buildingCode";
 import IRoomDTO from "../dto/IRoomDTO";
 import IRoomService from "./IServices/IRoomService";
 import {RoomCode} from "../domain/valueObjects/RoomCode";
@@ -29,7 +22,7 @@ export default class RoomService implements IRoomService {
     public async createRoom(roomDTO: IRoomDTO): Promise<Result<IRoomDTO>> {
         try {
 
-            const floor = await this.floorRepo.findByObjectId(roomDTO.floorId);
+            const floor = await this.floorRepo.findByDomainId(roomDTO.floorId);
 
             if (floor === null) {
                 return Result.fail<IRoomDTO>('Floor with ID "' + roomDTO.floorId + '" not found');

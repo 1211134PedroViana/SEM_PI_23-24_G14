@@ -1,12 +1,5 @@
 import { Service, Inject } from 'typedi';
 import { Document, FilterQuery, Model } from 'mongoose';
-import IFloorRepo from '../services/IRepos/IFloorRepo';
-import { IFloorPersistence } from '../dataschema/IFloorPersistence';
-import { Floor } from '../domain/floor';
-import { FloorId } from '../domain/floorId';
-import { FloorMap } from '../mappers/FloorMap';
-import {Building} from "../domain/building";
-import {BuildingMap} from "../mappers/BuildingMap";
 import { IFloorMapperzPersistence } from '../dataschema/IFloorMapperzPersistence';
 import IFloorMapperzRepo from '../services/IRepos/IFloorMapperzRepo';
 import { FloorMapperz } from '../domain/floorMapperz';

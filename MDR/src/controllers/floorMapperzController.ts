@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { Inject, Service } from 'typedi';
 import config from "../../config";
-
+import { readFile } from 'fs/promises';
 import { Result } from "../core/logic/Result";
 import IFloorMapperzController from './IControllers/IFloorMapperzController';
 import IFloorMapperzService from '../services/IServices/IFloorMapperz';
@@ -16,9 +16,9 @@ export default class FloorMapperzController implements IFloorMapperzController {
 
     public async loadFloorMap(req: Request, res: Response, next: NextFunction) {
         try {
-
-            const jsonContent = JSON.parse(req.file.buffer.toString());
-        
+            const filePath = req.file.path;
+            const fileContent = await readFile(filePath, 'utf-8');
+            const jsonContent = JSON.parse(fileContent);
             const floorMapOrError = await this.floorMapServiceInstance.loadFloorMap(req.file, jsonContent as IFloorMapperzDTO) as Result<IFloorMapperzDTO>;
 
             if(floorMapOrError.isFailure) {

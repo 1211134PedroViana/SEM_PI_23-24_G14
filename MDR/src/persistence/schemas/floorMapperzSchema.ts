@@ -15,99 +15,10 @@ const FloorMapperzSchema = new mongoose.Schema(
             required: [true, 'Please enter Floor ID'],
         },
 
-        map: {
-            type: [
-                [
-                    Number
-                ]
-            ],
-            default: [],
-            required: [true, 'Please enter Map']
-        },
-        
-        fMapRooms: [
-            {
-                roomId: {
-                    type: String,
-                    required: true
-                },
-                dimension: {
-                    pos1: {
-                        type: Number,
-                        required: true
-                    },
-                    pos2: {
-                        type: Number,
-                        required: true
-                    },
-                    pos3: {
-                        type: Number,
-                        required: true
-                    },
-                    pos4: {
-                        type: Number,
-                        required: true
-                    }
-                },
-                location: {
-                    positionX: {
-                        type: Number,
-                        required: true
-                    },
-                    positionY: {
-                        type: Number,
-                        required: true
-                    },
-                    direction: {
-                        type: String,
-                        required: true
-                    }
-                }
-            }
-        ],
-        fMapElevator: {
-            elevatorId: {
-                type: String,
-                required: true
-            },
-            location: {
-                positionX: {
-                    type: Number,
-                    required: true
-                },
-                positionY: {
-                    type: Number,
-                    required: true
-                },
-                direction: {
-                    type: String,
-                    required: true
-                }
-            }
-        },
-        fMapPassages: [
-            {
-                passageId: {
-                    type: String,
-                    required: true
-                },
-                location: {
-                    positionX: {
-                        type: Number,
-                        required: true
-                    },
-                    positionY: {
-                        type: Number,
-                        required: true
-                    },
-                    direction: {
-                        type: String,
-                        required: true
-                    }
-                }
-            }
-        ]
-
+        fileUrl: {
+            type: String,
+            required: [true, 'Please enter File URL']
+        }
     },
     {
         timestamps: true

@@ -1,9 +1,9 @@
 export default interface IFloorMapperzDTO {
     id: string;
     floorId: string;
-    map: number[][];
+    fileUrl: string;
 
-    fMapRooms: {
+    room: {
         roomId: string;
         dimension: {
             pos1: number;
@@ -18,7 +18,7 @@ export default interface IFloorMapperzDTO {
         }
     }[];
 
-    fMapElevator: {
+    floorElevator: {
         elevatorId: string;
         location: {
             positionX: number;
@@ -27,7 +27,7 @@ export default interface IFloorMapperzDTO {
         } 
     };
 
-    fMapPassages: {
+    passage: {
         passageId: string;
         location: {
             positionX: number;

@@ -22,10 +22,10 @@ export default class ElevatorService implements IElevatorService {
 
   public async createElevator(elevatorDTO: IElevatorDTO): Promise<Result<IElevatorDTO>> {
     try {
-      const building = await this.buildingRepo.findByObjectId(elevatorDTO.buildingId);
+      const building = await this.buildingRepo.findByDomainId(elevatorDTO.buildingId);
 
       for (let i = 0; i < elevatorDTO.floorList.length; i++) {
-        const floor = await this.floorRepo.findByObjectId(elevatorDTO.floorList[i]);
+        const floor = await this.floorRepo.findByDomainId(elevatorDTO.floorList[i]);
         if (floor === null) {
           return Result.fail<IElevatorDTO>('Floor with ID "' + elevatorDTO.floorList[i] + '" not found');
         }
