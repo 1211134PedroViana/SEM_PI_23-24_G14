@@ -85,4 +85,10 @@ export default class ElevatorRepo implements IElevatorRepo {
       return null;
     }
   }
+
+  public async findByBuildingId(elevatorId: string): Promise<Elevator> {
+    
+    return null;
+    
+  }
 }
