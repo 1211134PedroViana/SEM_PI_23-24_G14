@@ -62,4 +62,15 @@ export default class FloorMapperzRepo implements IFloorMapperzRepo {
         else
           return null;
     }
+
+    public async findByFloorId (floorId: string): Promise<FloorMapperz> {
+        const query = { floorId: floorId};
+        const floorMapRecord = await this.floorMapperzSchema.findOne( query as FilterQuery<IFloorMapperzPersistence & Document> );
+    
+        if( floorMapRecord != null) {
+          return FloorMapperzMap.toDomain(floorMapRecord);
+        }
+        else
+          return null;
+    }
 }

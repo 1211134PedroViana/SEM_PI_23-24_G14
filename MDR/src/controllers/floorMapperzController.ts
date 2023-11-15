@@ -32,4 +32,21 @@ export default class FloorMapperzController implements IFloorMapperzController {
             return next(e);
         }
     }
+
+    public async getFloorMap(req: Request, res: Response, next: NextFunction) {
+        try {
+            const floorId = req.params.floorId;
+            const floorMapOrError = await this.floorMapServiceInstance.getFloorMap(floorId) as Result<IFloorMapperzDTO>;
+
+            if(floorMapOrError.isFailure) {
+                return res.status(402).send(floorMapOrError.errorValue());
+            }
+
+            const floorMapDTO = floorMapOrError.getValue();
+            return res.json( floorMapDTO ).status(201);
+
+        } catch (e) {
+            return next(e);
+        }
+    }
 }

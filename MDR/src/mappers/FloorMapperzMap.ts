@@ -17,7 +17,6 @@ export class FloorMapperzMap extends Mapper<FloorMapperz> {
     }
 
     public static toDomain( floorMapperz: any | Model<IFloorMapperzPersistence & Document> ): FloorMapperz {
-
         const floorMapperzOrError = FloorMapperz.create(
             floorMapperz,
             new UniqueEntityID(floorMapperz.domainId)

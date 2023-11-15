@@ -77,4 +77,26 @@ export default class FloorMapperzService implements IFloorMapperzService {
             throw e;
         }
     }
+
+    public async getFloorMap(floorId: string): Promise<Result<IFloorMapperzDTO>> {
+        try {
+            const floor = await this.floorRepo.findByDomainId(floorId);
+
+            if (floor === null) {
+                return Result.fail<IFloorMapperzDTO>('Floor with ID "' + floorId + '" not found');
+            }
+
+            const floorMap = await this.floorMapperzRepo.findByFloorId(floorId);
+            
+            if(floorMap != null) {
+                const floorMapDto = FloorMapperzMap.toDTO(floorMap);
+                return Result.ok<IFloorMapperzDTO>(floorMapDto);
+            } else {
+                return Result.fail<IFloorMapperzDTO>('Floor Map with Floor ID "' + floorId + '" not found');
+            }
+            
+        } catch (e) {
+            return Result.fail<IFloorMapperzDTO>(e.message);
+        }
+    }
 }
