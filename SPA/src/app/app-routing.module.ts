@@ -18,6 +18,9 @@ import { RobotComponent } from 'src/robot/robot.component';
 import { CreateElevatorComponent } from 'src/elevator/create-elevator/create-elevator.component';
 import {ElevatorComponent} from "../elevator/elevator.component";
 import {CreateElevatorFormComponent} from "../elevator/create-elevator-form/create-elevator-form.component";
+import {UpdateElevatorComponent} from "../elevator/update-elevator/update-elevator.component";
+import {ListElevatorComponent} from "../elevator/list-elevators/list-elevator.component";
+import {UpdateElevatorFormComponent} from "../elevator/update-elevator-form/update-elevator-form.component";
 
 const routes: Routes = [
 
@@ -47,7 +50,10 @@ const routes: Routes = [
   { path: 'floor3DViewer', component: MapViewerComponent},
 
   { path: 'elevator', component: ElevatorComponent, children: [
-  { path: 'create', component: CreateElevatorFormComponent}
+    { path: 'create', component: CreateElevatorFormComponent},
+      { path: 'update', component: UpdateElevatorComponent},
+      { path: 'list', component: ListElevatorComponent}
+
     ]},
 
 ];
