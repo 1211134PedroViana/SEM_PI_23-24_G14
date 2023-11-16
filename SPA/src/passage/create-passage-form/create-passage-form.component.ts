@@ -4,7 +4,7 @@ import { catchError, tap } from 'rxjs/operators';
 import Building from 'src/buildingService/building';
 import { BuildingService } from 'src/buildingService/building.service';
 import Floor from 'src/floorService/floor';
-import { FloorService } from 'src/floorService/floor.service';
+import { FloorService } from 'src/floorService/floor-service';
 import Passage from 'src/passageService/passage';
 import { PassageService } from 'src/passageService/passage-service';
 

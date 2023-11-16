@@ -5,8 +5,10 @@ import * as THREE from "three";
 import Building from 'src/buildingService/building';
 import Floor from 'src/floorService/floor';
 import { BuildingService } from 'src/buildingService/building.service';
-import { FloorService } from 'src/floorService/floor.service';
+import { FloorService } from 'src/floorService/floor-service';
 import { FormsModule } from '@angular/forms';
+import { FloorMapService } from 'src/floorMapService/floorMap-service';
+import FloorMap from 'src/floorMapService/floorMap';
 
 
 @Component({
@@ -19,13 +21,13 @@ export class MapViewerComponent implements OnInit {
   buildings: Building[] = [];
   floors: Floor[] = [];
   selectedBuilding: string = "";
-  selectedFloor: Floor | null = null;
+  selectedFloor: string = "";
   floorMapUrl = "";
 
   private floorViewer: any;
   private container: any;
 
-  constructor(private buildingService: BuildingService, private floorService: FloorService) {}
+  constructor(private buildingService: BuildingService, private floorService: FloorService, private floorMapService: FloorMapService) {}
 
   @ViewChild('myCanvas') private canvasRef!: ElementRef;
 
@@ -323,17 +325,22 @@ export class MapViewerComponent implements OnInit {
 
   onBuildingChange() {
     this.floors = [];
-    this.floorService.getFloorsFromBuilding(this.selectedBuilding).subscribe((floors) => {
+    this.floorService.getFloorsFromBuilding(this.selectedBuilding).subscribe((floors: any) => {
         this.floors = floors;
     });
   }
 
   onFloorChange() {
     if(this.floorViewer != undefined) {
+        this.floorMapService.getFloorMap(this.selectedFloor).subscribe((floorMap: FloorMap) => {
+            this.floorMapUrl = floorMap.fileUrl;
+        });
         this.cleanup();
-        this.createFloorViewer("assets/mazes/buildingC_floor2.json");
+        this.createFloorViewer(this.floorMapUrl);
     } else {
-        this.createFloorViewer("assets/mazes/buildingC_floor2.json");
+        this.floorMapService.getFloorMap(this.selectedFloor).subscribe((floorMap: FloorMap) => {
+            this.createFloorViewer(floorMap.fileUrl);
+        });
     }
   }
 

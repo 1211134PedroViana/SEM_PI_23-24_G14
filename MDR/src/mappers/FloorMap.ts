@@ -23,7 +23,7 @@ export class FloorMap extends Mapper<Floor> {
         
         const floorOrError = Floor.create(
             floor,
-            new UniqueEntityID(floor._id)
+            new UniqueEntityID(floor.domainId)
         );
 
         floorOrError.isFailure ? console.log(floorOrError.getValue()): '';

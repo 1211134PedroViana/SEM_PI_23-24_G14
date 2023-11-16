@@ -6,6 +6,8 @@ import { OBB } from "three/addons/math/OBB.js";
 import { merge } from "./merge.js";
 import Ground from "./ground.js";
 import Wall from "./wall.js";
+import Door from "./door.js";
+import Elevator from "./elevator.js";
 
 /*
  * parameters = {
@@ -95,36 +97,6 @@ export default class Maze extends THREE.Group {
                 secondaryColor: new THREE.Color(parseInt(description.wall.secondaryColor, 16))
             });
 
-            const door = new Wall({
-                groundHeight: description.ground.size.height,
-                segments: new THREE.Vector2(description.door.segments.width, description.door.segments.height),
-                materialParameters: {
-                    color: new THREE.Color(parseInt(description.door.primaryColor, 16)),
-                    mapUrl: description.door.maps.map.url,
-                    wrapS: wrappingModes[description.door.wrapS],
-                    wrapT: wrappingModes[description.door.wrapT],
-                    repeat: new THREE.Vector2(description.door.repeat.u, description.door.repeat.v),
-                    magFilter: magnificationFilters[description.door.magFilter],
-                    minFilter: minificationFilters[description.door.minFilter]
-                },
-                secondaryColor: new THREE.Color(parseInt(description.door.secondaryColor, 16))
-            });
-
-            const elevator = new Wall({
-                groundHeight: description.ground.size.height,
-                segments: new THREE.Vector2(description.elevator.segments.width, description.elevator.segments.height),
-                materialParameters: {
-                    color: new THREE.Color(parseInt(description.elevator.primaryColor, 16)),
-                    mapUrl: description.elevator.maps.map.url,
-                    wrapS: wrappingModes[description.elevator.wrapS],
-                    wrapT: wrappingModes[description.elevator.wrapT],
-                    repeat: new THREE.Vector2(description.elevator.repeat.u, description.elevator.repeat.v),
-                    magFilter: magnificationFilters[description.elevator.magFilter],
-                    minFilter: minificationFilters[description.elevator.minFilter]
-                },
-                secondaryColor: new THREE.Color(parseInt(description.elevator.secondaryColor, 16))
-            });
-
             // Build the maze
             let clonedWall;
             this.aabb = [];
@@ -158,55 +130,21 @@ export default class Maze extends THREE.Group {
                 }
             }
 
-            let elevatorLocation = description.floorElevator.location;
-            const mtlLoader = new MTLLoader();
-            const mtlLoader2 = new MTLLoader();
-            const objLoader = new OBJLoader();
-            const objLoader2 = new OBJLoader();
-            
-            mtlLoader.load('assets/models/Elevator/elevator.mtl', (materials) => {
-                materials.preload();
-                objLoader.setMaterials(materials);
-                objLoader.load('assets/models/Elevator/3d-elevator.obj', (object) => {
+            // Create Elevator of the floor and add it to the scene
+            const elevator = new Elevator({
+                elevator: description.floorElevator.location,
+                halfSize: this.halfSize,
+            });
+            this.add(elevator);
 
-                    if(elevatorLocation.direction === "north") {
-                        object.rotateY(Math.PI);
-                        object.position.set(elevatorLocation.positionX - this.halfSize.width + 0.5, 0.59, elevatorLocation.positionY - this.halfSize.depth);
-                        object.scale.set(0.0054, 0.0028, 0.005);
-                        this.add(object);
-                    }else{
-                        object.rotation.set(0, 0, 0);
-                        object.rotateY(Math.PI / 2);
-                        object.position.set(elevatorLocation.positionX - this.halfSize.width, 0.59, elevatorLocation.positionY - this.halfSize.depth + 0.5);
-                        object.scale.set(0.0054, 0.0028, 0.005);
-                        this.add(object);
-                    }
+            // Create Rooms of the floor and add it to the scene
+            description.room.forEach(d => {
+                const door = new Door({
+                    door: d.location,
+                    halfSize: this.halfSize,
                 });
+                this.add(door);
             });
-            
-
-            description.room.forEach(room => {
-                mtlLoader2.load('assets/models/WoodDoubleDoor/WoodDoubleDoor.mtl', (materials) => {
-                    materials.preload();
-                    objLoader2.setMaterials(materials);
-                    objLoader2.load('assets/models/WoodDoubleDoor/WoodDoubleDoor.obj', (object) => {
-                        let doorLocation = room.location;
-
-                        if(doorLocation.direction === "north") {
-                            object.position.set(doorLocation.positionX - this.halfSize.width + 0.5, 0, doorLocation.positionY - this.halfSize.depth);
-                            object.scale.set(0.16, 0.1, 0.1);
-                            this.add(object);
-                        }else{
-                            object.rotateY(Math.PI / 2.0);
-                            object.position.set(doorLocation.positionX - this.halfSize.width, 0, doorLocation.positionY - this.halfSize.depth + 0.5);
-                            object.scale.set(0.16, 0.1, 0.1);
-                            this.add(object);
-                        }
-                    });
-                });   
-            });
-
-            
 
             // Store the player's initial position and direction
             this.initialPosition = this.cellToCartesian(description.player.initialPosition);
