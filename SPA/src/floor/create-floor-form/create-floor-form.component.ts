@@ -15,8 +15,8 @@ export class CreateFloorFormComponent {
 
   buildings: Building[] = [];
 
-  buildingId: string = ""; 
-  floorNumber: number = 0; 
+  buildingId: string = "";
+  floorNumber: number = 0;
   description: string = "";
 
   constructor(private floorService: FloorService, private buildingService: BuildingService, private snackBar: MatSnackBar) { }

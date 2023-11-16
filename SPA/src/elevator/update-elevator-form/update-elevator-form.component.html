@@ -1,0 +1,25 @@
+<form (ngSubmit)="onSubmit()">
+    <p class="form-title">Update Elevator</p>
+    <button class="close-button" (click)="closeForm()">X</button>
+    <div class="mb-3">
+        <label for="code" class="form-label">Code</label>
+        <input type="text" class="form-control" name="code" placeholder={{selectedElevator.code}} [(ngModel)]="selectedElevator.code">
+    </div>
+    <div class="mb-3">
+      <label for="buildingId" class="form-label">Building Id</label>
+      <input type="buildingId" class="form-control" name="buildingId" [(ngModel)]="selectedElevator.buildingId">
+    </div>
+    <div class="mb-3">
+        <label for="brand" class="form-label">Elevator Brand</label>
+        <textarea type="brand" class="form-control" name="brand" [(ngModel)]="selectedElevator.brand"></textarea>
+    </div>
+  <div class="mb-3">
+    <label for="model" class="form-label">Elevator Model</label>
+    <textarea type="model" class="form-control" name="model" [(ngModel)]="selectedElevator.model"></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="serialNumber" class="form-label">Elevator serialNumber</label>
+    <textarea type="serialNumber" class="form-control" name="serialNumber" [(ngModel)]="selectedElevator.serialNumber"></textarea>
+  </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

@@ -71,16 +71,16 @@ export class CreatePassageFormComponent implements OnInit {
 
   onFromBuildingChange() {
     this.floors1 = [];
-    this.floorService.getFloorsFromBuilding(this.selectedFromBuilding).subscribe((floors) => {
+    this.floorService.getFloorsFromBuilding(this.selectedFromBuilding).subscribe((floors: Floor[]) => {
         this.floors1 = floors;
-    }); 
+    });
   }
 
   onToBuildingChange() {
     this.floors2 = [];
-    this.floorService.getFloorsFromBuilding(this.selectedToBuilding).subscribe((floors) => {
+    this.floorService.getFloorsFromBuilding(this.selectedToBuilding).subscribe((floors: Floor[]) => {
         this.floors2 = floors;
-    }); 
+    });
   }
 
 }

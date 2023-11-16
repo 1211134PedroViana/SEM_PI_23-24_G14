@@ -30,6 +30,12 @@ import { MapViewerComponent } from '../map-viewer/map-viewer.component';
 import { RobotComponent } from 'src/robot/robot.component';
 import { CreateRobotComponent } from 'src/robot/create-robot/create-robot.component';
 import { CreateRobotFormComponent } from 'src/robot/create-robot-form/create-robot-form.component';
+import { CreateElevatorComponent } from '../elevator/create-elevator/create-elevator.component';
+import {ElevatorComponent} from "../elevator/elevator.component";
+import {CreateElevatorFormComponent} from "../elevator/create-elevator-form/create-elevator-form.component";
+import {UpdateElevatorComponent} from "../elevator/update-elevator/update-elevator.component";
+import {ListElevatorComponent} from "../elevator/list-elevators/list-elevator.component";
+import {UpdateElevatorFormComponent} from "../elevator/update-elevator-form/update-elevator-form.component";
 
 @NgModule({
   declarations: [
@@ -56,7 +62,13 @@ import { CreateRobotFormComponent } from 'src/robot/create-robot-form/create-rob
     Featuresv4Component,
     LoadFloorMapComponent,
     SignInComponent,
-    MapViewerComponent
+    MapViewerComponent,
+    ElevatorComponent,
+    CreateElevatorComponent,
+    CreateElevatorFormComponent,
+    UpdateElevatorComponent,
+    ListElevatorComponent,
+    UpdateElevatorFormComponent
   ],
   imports: [
     BrowserModule,

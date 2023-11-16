@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FloorService } from '../../../src/floorService/floor.service';
+import { FloorService } from '../../floorService/floor-service';
 import { catchError, tap } from 'rxjs/operators';
 import Floor from '../../floorService/floor';
 

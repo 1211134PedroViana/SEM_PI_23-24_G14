@@ -1,0 +1,61 @@
+<form (ngSubmit)="onSubmit()">
+  <p class="form-title">Create a new Elevator</p>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <label class="form-label" for="building">Building:</label>
+      <select class="form-select" id="building" name="buildingId" [(ngModel)]="buildingId">
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label" for="floor">Floor List:</label>
+      <input type="text" class="form-control" name="floorList" [(ngModel)]="floorList">
+    </div>
+
+    <div class="col-md-4">
+      <label for="brand" class="form-label">Brand</label>
+      <input type="text" class="form-control" name="brand" [(ngModel)]="brand">
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-4">
+      <label for="positionX" class="form-label">Position X</label>
+      <input type="text" class="form-control" name="positionX" [(ngModel)]="positionX">
+    </div>
+
+    <div class="col-md-4">
+      <label for="positionY" class="form-label">Position Y</label>
+      <input type="text" class="form-control" name="positionY" [(ngModel)]="positionY">
+    </div>
+
+    <div class="col-md-4">
+      <label for="direction" class="form-label">Direction</label>
+      <select class="form-select" name="direction" [(ngModel)]="direction">
+        <option selected>north</option>
+        <option>west</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-4">
+      <label for="model" class="form-label">Model</label>
+      <input type="text" class="form-control" name="model" [(ngModel)]="model">
+    </div>
+
+    <div class="col-md-4">
+      <label for="serialNumber" class="form-label">Serial Number</label>
+      <input type="text" class="form-control" name="serialNumber" [(ngModel)]="serialNumber">
+    </div>
+
+    <div class="col-md-4">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" name="description" [(ngModel)]="description" rows="3"></textarea>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Create</button>
+  </div>
+</form>
