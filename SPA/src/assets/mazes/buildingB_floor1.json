@@ -142,7 +142,7 @@
         "location": {
             "positionX": 21,
             "positionY": 7,
-            "direction": "west"
+            "direction": "north"
         }
     },
     "ground": {

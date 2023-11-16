@@ -333,10 +333,9 @@ export class MapViewerComponent implements OnInit {
   onFloorChange() {
     if(this.floorViewer != undefined) {
         this.floorMapService.getFloorMap(this.selectedFloor).subscribe((floorMap: FloorMap) => {
-            this.floorMapUrl = floorMap.fileUrl;
+            this.cleanup();
+            this.createFloorViewer(floorMap.fileUrl);
         });
-        this.cleanup();
-        this.createFloorViewer(this.floorMapUrl);
     } else {
         this.floorMapService.getFloorMap(this.selectedFloor).subscribe((floorMap: FloorMap) => {
             this.createFloorViewer(floorMap.fileUrl);
