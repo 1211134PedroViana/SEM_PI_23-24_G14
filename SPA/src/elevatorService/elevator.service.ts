@@ -15,7 +15,7 @@ export class ElevatorService {
   private listUrl = 'http://localhost:4200/api/elevator/list';
 
   private isVisible = new BehaviorSubject<boolean>(false);
-  private building = new BehaviorSubject<Elevator>({} as Elevator);
+  private elevator = new BehaviorSubject<Elevator>({} as Elevator);
 
   constructor(private http: HttpClient) { }
 
@@ -53,7 +53,7 @@ export class ElevatorService {
   }
 
   openForm(elevator: Elevator) {
-    this.building.next(elevator);
+    this.elevator.next(elevator);
     this.isVisible.next(true);
   }
 
@@ -65,8 +65,8 @@ export class ElevatorService {
     return this.isVisible.asObservable();
   }
 
-  getBuilding() {
-    return this.building.asObservable();
+  getElevator() {
+    return this.elevator.asObservable();
   }
 
 }

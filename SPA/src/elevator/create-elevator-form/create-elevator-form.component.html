@@ -1,85 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Elevator Data Insertion</title>
-</head>
-<body>
-<h1>Elevator Data Insertion</h1>
+<form (ngSubmit)="onSubmit()">
+  <p class="form-title">Create a new Elevator</p>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <label class="form-label" for="building">Building:</label>
+      <select class="form-select" id="building" name="buildingId" [(ngModel)]="buildingId">
+      </select>
+    </div>
 
-<form id="elevatorForm">
-  <label for="id">ID:</label>
-  <input type="text" id="id" name="id" required><br>
+    <div class="col-md-4">
+      <label class="form-label" for="floor">Floor List:</label>
+      <input type="text" class="form-control" name="floorList" [(ngModel)]="floorList">
+    </div>
 
-  <label for="code">Code:</label>
-  <input type="text" id="code" name="code" required><br>
+    <div class="col-md-4">
+      <label for="brand" class="form-label">Brand</label>
+      <input type="text" class="form-control" name="brand" [(ngModel)]="brand">
+    </div>
+  </div>
 
-  <label for="positionX">Position X:</label>
-  <input type="number" id="positionX" name="positionX" required><br>
+  <div class="row g-3">
+    <div class="col-md-4">
+      <label for="positionX" class="form-label">Position X</label>
+      <input type="text" class="form-control" name="positionX" [(ngModel)]="positionX">
+    </div>
 
-  <label for="positionY">Position Y:</label>
-  <input type="number" id="positionY" name="positionY" required><br>
+    <div class="col-md-4">
+      <label for="positionY" class="form-label">Position Y</label>
+      <input type="text" class="form-control" name="positionY" [(ngModel)]="positionY">
+    </div>
 
-  <label for="direction">Direction:</label>
-  <input type="text" id="direction" name="direction" required><br>
+    <div class="col-md-4">
+      <label for="direction" class="form-label">Direction</label>
+      <select class="form-select" name="direction" [(ngModel)]="direction">
+        <option selected>north</option>
+        <option>west</option>
+      </select>
+    </div>
+  </div>
 
-  <label for="buildingId">Building ID:</label>
-  <input type="text" id="buildingId" name="buildingId" required><br>
+  <div class="row g-3">
+    <div class="col-md-4">
+      <label for="model" class="form-label">Model</label>
+      <input type="text" class="form-control" name="model" [(ngModel)]="model">
+    </div>
 
-  <label for="floorList">Floor List:</label>
-  <input type="text" id="floorList" name="floorList" required><br>
+    <div class="col-md-4">
+      <label for="serialNumber" class="form-label">Serial Number</label>
+      <input type="text" class="form-control" name="serialNumber" [(ngModel)]="serialNumber">
+    </div>
 
-  <label for="brand">Brand:</label>
-  <input type="text" id="brand" name="brand" required><br>
+    <div class="col-md-4">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" name="description" [(ngModel)]="description" rows="3"></textarea>
+    </div>
+  </div>
 
-  <label for="model">Model:</label>
-  <input type="text" id="model" name="model" required><br>
-
-  <label for="serialNumber">Serial Number:</label>
-  <input type="text" id="serialNumber" name="serialNumber" required><br>
-
-  <label for="description">Description:</label>
-  <textarea id="description" name="description" rows="4" required></textarea><br>
-
-  <button type="button" onclick="submitForm()">Submit</button>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Create</button>
+  </div>
 </form>
-
-<script>
-  function submitForm() {
-    // Fetch values from the form
-    const id = document.getElementById('id').value;
-    const code = document.getElementById('code').value;
-    const positionX = parseFloat(document.getElementById('positionX').value);
-    const positionY = parseFloat(document.getElementById('positionY').value);
-    const direction = document.getElementById('direction').value;
-    const buildingId = document.getElementById('buildingId').value;
-    const floorList = document.getElementById('floorList').value.split(',').map(floor => floor.trim());
-    const brand = document.getElementById('brand').value;
-    const model = document.getElementById('model').value;
-    const serialNumber = document.getElementById('serialNumber').value;
-    const description = document.getElementById('description').value;
-
-    // Create Elevator object
-    const elevatorData = {
-      id,
-      code,
-      location: {
-        positionX,
-        positionY,
-        direction
-      },
-      buildingId,
-      floorList,
-      brand,
-      model,
-      serialNumber,
-      description
-    };
-
-    // Display the data (You can send it to the server or perform further actions)
-    console.log(elevatorData);
-  }
-</script>
-</body>
-</html>
