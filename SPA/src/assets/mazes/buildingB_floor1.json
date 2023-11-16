@@ -1,6 +1,10 @@
 {
+    "floorId": "83dc808e-e762-4e5c-8479-bd42481acf31",
     "maze": {
-        "size": { "width": 22, "depth": 10 },
+        "size": {
+            "width": 22,
+            "depth": 10
+        },
         "map": [
             [3, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 3, 2, 2, 2, 1],
             [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
@@ -14,11 +18,14 @@
             [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
             [3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
         ],
-        "exitLocation": [16, 9]
+        "exitLocation": [
+            16,
+            9
+        ]
     },
     "room": [
         {
-            "roomId": "6548deaf5c1f0f0111c718d8",
+            "roomId": "5e18b34e-63f8-4321-9746-8fbc78f7fb2f",
             "dimension": {
                 "pos1": 0,
                 "pos2": 0,
@@ -32,7 +39,7 @@
             }
         },
         {
-            "roomId": "6548ded25c1f0f0111c718dc",
+            "roomId": "a2e5062d-b030-4ef1-bc5a-bbe884a31ca7",
             "dimension": {
                 "pos1": 6,
                 "pos2": 2,
@@ -46,7 +53,7 @@
             }
         },
         {
-            "roomId": "6548ded25c1f0f0111c718dc",
+            "roomId": "a4c20162-7e6d-48e8-b86d-8dd517551e39",
             "dimension": {
                 "pos1": 6,
                 "pos2": 2,
@@ -60,7 +67,7 @@
             }
         },
         {
-            "roomId": "6548ded25c1f0f0111c718dc",
+            "roomId": "a9dd3d34-3af7-40a2-a32b-b7c16a092342",
             "dimension": {
                 "pos1": 6,
                 "pos2": 2,
@@ -74,7 +81,7 @@
             }
         },
         {
-            "roomId": "6548ded25c1f0f0111c718dc",
+            "roomId": "232e3ff7-1b6f-4ea5-beb5-1ec5fbb86790",
             "dimension": {
                 "pos1": 6,
                 "pos2": 2,
@@ -88,7 +95,7 @@
             }
         },
         {
-            "roomId": "6548ded25c1f0f0111c718dc",
+            "roomId": "dba8d117-4f0d-4274-b88f-df73a31c870d",
             "dimension": {
                 "pos1": 6,
                 "pos2": 2,
@@ -102,7 +109,7 @@
             }
         },
         {
-            "roomId": "6548ded25c1f0f0111c718dc",
+            "roomId": "5c58eec2-fd59-4465-8bb1-6a566aec65fa",
             "dimension": {
                 "pos1": 6,
                 "pos2": 2,
@@ -116,7 +123,7 @@
             }
         },
         {
-            "roomId": "6548ded25c1f0f0111c718dc",
+            "roomId": "a47851de-0ce2-4753-b8b3-87b28ee774ac",
             "dimension": {
                 "pos1": 6,
                 "pos2": 2,
@@ -131,7 +138,7 @@
         }
     ],
     "floorElevator": {
-        "elevatorId": "6548df025c1f0f0111c718e1",
+        "elevatorId": "a9cd38ce-eae1-49b8-ac64-dd01ead1d959",
         "location": {
             "positionX": 21,
             "positionY": 7,
@@ -139,8 +146,16 @@
         }
     },
     "ground": {
-        "size": { "width": 22.0, "height": 0.0625, "depth": 10.0 },
-        "segments": { "width": 1, "height": 1, "depth": 1 },
+        "size": {
+            "width": 22.0,
+            "height": 0.0625,
+            "depth": 10.0
+        },
+        "segments": {
+            "width": 1,
+            "height": 1,
+            "depth": 1
+        },
         "primaryColor": "0xffffff",
         "maps": {
             "color": {
@@ -158,7 +173,10 @@
             "normal": {
                 "url": "assets/textures/ground_VennerWhiteOak/VeneerWhiteOakRandomMatched001_NRM_2K_METALNESS.png",
                 "type": 0,
-                "scale": { "x": 2.0, "y": 2.0 }
+                "scale": {
+                    "x": 2.0,
+                    "y": 2.0
+                }
             },
             "bump": {
                 "url": "",
@@ -171,13 +189,19 @@
         },
         "wrapS": 1,
         "wrapT": 1,
-        "repeat": { "u": 4.0, "v": 4.0 },
+        "repeat": {
+            "u": 4.0,
+            "v": 4.0
+        },
         "magFilter": 1,
         "minFilter": 5,
         "secondaryColor": "0x6b554b"
     },
     "wall": {
-        "segments": { "width": 1, "height": 1 },
+        "segments": {
+            "width": 1,
+            "height": 1
+        },
         "primaryColor": "0xffffff",
         "maps": {
             "color": {
@@ -195,8 +219,11 @@
             "normal": {
                 "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_NRM_3K.png",
                 "type": 0,
-                "scale": { "x": 2.0, "y": 2.0 }
-                },
+                "scale": {
+                    "x": 2.0,
+                    "y": 2.0
+                }
+            },
             "bump": {
                 "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_BUMP_3K.jpg",
                 "scale": 1.0
@@ -214,13 +241,19 @@
         },
         "wrapS": 1,
         "wrapT": 0,
-        "repeat": { "u": 2.0, "v": 1.0 },
+        "repeat": {
+            "u": 2.0,
+            "v": 1.0
+        },
         "magFilter": 1,
         "minFilter": 5,
         "secondaryColor": "0x6b554b"
     },
     "elevator": {
-        "segments": { "width": 1, "height": 1 },
+        "segments": {
+            "width": 1,
+            "height": 1
+        },
         "primaryColor": "0xffffff",
         "maps": {
             "map": {
@@ -229,13 +262,19 @@
         },
         "wrapS": 1,
         "wrapT": 0,
-        "repeat": { "u": 1.0, "v": 1.0 },
+        "repeat": {
+            "u": 1.0,
+            "v": 1.0
+        },
         "magFilter": 1,
         "minFilter": 5,
         "secondaryColor": "0x6b554b"
     },
     "door": {
-        "segments": { "width": 1, "height": 1 },
+        "segments": {
+            "width": 1,
+            "height": 1
+        },
         "primaryColor": "0xffffff",
         "maps": {
             "map": {
@@ -244,13 +283,19 @@
         },
         "wrapS": 1,
         "wrapT": 0,
-        "repeat": { "u": 1.0, "v": 1.0 },
+        "repeat": {
+            "u": 1.0,
+            "v": 1.0
+        },
         "magFilter": 1,
         "minFilter": 5,
         "secondaryColor": "0x6b554b"
     },
     "player": {
-        "initialPosition": [1.0, 4.0],
+        "initialPosition": [
+            1.0,
+            4.0
+        ],
         "initialDirection": 0.0
     }
 }

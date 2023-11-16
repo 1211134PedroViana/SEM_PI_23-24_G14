@@ -33,7 +33,7 @@ export class CreateFloorFormComponent {
       .pipe(
         tap((response) => {
           console.log('Floor created successfully', response);
-          const message = `Floor created successfully! | ID: ${response.id} | Building ID: ${response.buildingId} | Number: ${response.floorNumber} | Description: ${response.description}`;
+          const message = `Floor created successfully! | Number: ${response.floorNumber} | Description: ${response.description}`;
           this.snackBar.open(message, 'Close', {
             duration: 5000, // 5 seconds
           });

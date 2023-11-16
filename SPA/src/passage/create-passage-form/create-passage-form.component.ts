@@ -47,7 +47,7 @@ export class CreatePassageFormComponent implements OnInit {
       .pipe(
         tap((response) => {
           console.log('Passage created successfully', response);
-          const message = `Passage created successfully! | ID: ${response.id} | Floor ID: ${response.fromFloorId} | Floor ID: ${response.toFloorId} | Position X: ${response.location.positionX} | Position Y: ${response.location.positionY} | Direction: ${response.location.direction}`;
+          const message = `Passage created successfully! | Position X: ${response.location.positionX} | Position Y: ${response.location.positionY} | Direction: ${response.location.direction}`;
           this.snackBar.open(message, 'Close', {
             duration: 5000, // 5 seconds
           });
