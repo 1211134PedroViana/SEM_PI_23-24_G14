@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elevator Data Insertion</title>
+</head>
+<body>
+<h1>Elevator Data Insertion</h1>
+
+<form id="elevatorForm">
+  <label for="id">ID:</label>
+  <input type="text" id="id" name="id" required><br>
+
+  <label for="code">Code:</label>
+  <input type="text" id="code" name="code" required><br>
+
+  <label for="positionX">Position X:</label>
+  <input type="number" id="positionX" name="positionX" required><br>
+
+  <label for="positionY">Position Y:</label>
+  <input type="number" id="positionY" name="positionY" required><br>
+
+  <label for="direction">Direction:</label>
+  <input type="text" id="direction" name="direction" required><br>
+
+  <label for="buildingId">Building ID:</label>
+  <input type="text" id="buildingId" name="buildingId" required><br>
+
+  <label for="floorList">Floor List:</label>
+  <input type="text" id="floorList" name="floorList" required><br>
+
+  <label for="brand">Brand:</label>
+  <input type="text" id="brand" name="brand" required><br>
+
+  <label for="model">Model:</label>
+  <input type="text" id="model" name="model" required><br>
+
+  <label for="serialNumber">Serial Number:</label>
+  <input type="text" id="serialNumber" name="serialNumber" required><br>
+
+  <label for="description">Description:</label>
+  <textarea id="description" name="description" rows="4" required></textarea><br>
+
+  <button type="button" onclick="submitForm()">Submit</button>
+</form>
+
+<script>
+  function submitForm() {
+    // Fetch values from the form
+    const id = document.getElementById('id').value;
+    const code = document.getElementById('code').value;
+    const positionX = parseFloat(document.getElementById('positionX').value);
+    const positionY = parseFloat(document.getElementById('positionY').value);
+    const direction = document.getElementById('direction').value;
+    const buildingId = document.getElementById('buildingId').value;
+    const floorList = document.getElementById('floorList').value.split(',').map(floor => floor.trim());
+    const brand = document.getElementById('brand').value;
+    const model = document.getElementById('model').value;
+    const serialNumber = document.getElementById('serialNumber').value;
+    const description = document.getElementById('description').value;
+
+    // Create Elevator object
+    const elevatorData = {
+      id,
+      code,
+      location: {
+        positionX,
+        positionY,
+        direction
+      },
+      buildingId,
+      floorList,
+      brand,
+      model,
+      serialNumber,
+      description
+    };
+
+    // Display the data (You can send it to the server or perform further actions)
+    console.log(elevatorData);
+  }
+</script>
+</body>
+</html>

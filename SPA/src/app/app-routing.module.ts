@@ -15,6 +15,8 @@ import { LoadFloorMapComponent } from 'src/load-floor-map/load-floor-map.compone
 import { MapViewerComponent } from 'src/map-viewer/map-viewer.component';
 import { CreateRobotComponent } from 'src/robot/create-robot/create-robot.component';
 import { RobotComponent } from 'src/robot/robot.component';
+import { CreateElevatorComponent } from 'src/elevator/create-elevator/create-elevator.component';
+import {ElevatorComponent} from "../elevator/elevator.component";
 
 const routes: Routes = [
 
@@ -41,8 +43,12 @@ const routes: Routes = [
     { path: 'create', component: CreateRobotComponent }
   ]},
 
-  { path: 'floor3DViewer', component: MapViewerComponent}
-  
+  { path: 'floor3DViewer', component: MapViewerComponent},
+
+  { path: 'elevator', component: ElevatorComponent, children: [
+  { path: 'create', component: CreateElevatorComponent}
+    ]},
+
 ];
 
 @NgModule({
