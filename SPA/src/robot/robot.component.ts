@@ -11,7 +11,7 @@ export class RobotComponent {
     createButtonText = 'Create Robot';
     updateButtonText = 'Update Robot';
     listButtonText = 'List Robots';
-    createRoute = '/robot/create';
-    updateRoute = '/robot/update';
-    listRoute = '/robot/list';
+    createRoute = '/fleet/robot/create';
+    updateRoute = '/fleet/robot/update';
+    listRoute = '/fleet/robot/list';
 }

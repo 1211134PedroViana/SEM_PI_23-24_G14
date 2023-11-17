@@ -26,7 +26,7 @@
       }
     </style>
 
-<main class="form-signin">
+<main *ngIf="isVisible" class="form-signin">
 
     <div class="brand">
       <h1 class="company">
@@ -37,7 +37,7 @@
         RobDroneGo
       </h1>
     </div>
-    <form>
+    <form (ngSubmit)="onSubmit()">
       <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
   
       <div class="form-floating">
@@ -69,4 +69,8 @@
       <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2023–2023</p>
     </form>
-  </main>
+</main>
+
+<router-outlet></router-outlet>
+
+

@@ -37,6 +37,8 @@ import {UpdateElevatorComponent} from "../elevator/update-elevator/update-elevat
 import {ListElevatorComponent} from "../elevator/list-elevators/list-elevator.component";
 import {UpdateElevatorFormComponent} from "../elevator/update-elevator-form/update-elevator-form.component";
 import {ListPassageComponent} from "../passage/list-passages/list-passage.component";
+import { AppCampusComponent } from '../app-campus/app-campus.component';
+import { AppFleetComponent } from '../app-fleet/app-fleet.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,9 @@ import {ListPassageComponent} from "../passage/list-passages/list-passage.compon
     UpdateElevatorComponent,
     ListElevatorComponent,
     UpdateElevatorFormComponent,
-    ListPassageComponent
+    ListPassageComponent,
+    AppCampusComponent,
+    AppFleetComponent
   ],
   imports: [
     BrowserModule,

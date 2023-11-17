@@ -10,5 +10,5 @@ export class RobotTypeComponent {
 
   titleText = 'Robot Types Management';
   createButtonText = 'Create RobotType';
-  createRoute = '/robotType/create';
+  createRoute = '/fleet/robotType/create';
 }

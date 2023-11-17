@@ -11,7 +11,7 @@ export class PassageComponent {
   createButtonText = 'Create Passage';
   updateButtonText = 'Update Passage';
   listButtonText = 'List Passages';
-  createRoute = '/passage/create';
-  updateRoute = '/passage/update';
-  listRoute = '/passage/list';
+  createRoute = '/campus/passage/create';
+  updateRoute = '/campus/passage/update';
+  listRoute = '/campus/passage/list';
 }
