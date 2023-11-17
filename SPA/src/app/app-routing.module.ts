@@ -22,51 +22,45 @@ import {UpdateElevatorComponent} from "../elevator/update-elevator/update-elevat
 import {ListElevatorComponent} from "../elevator/list-elevators/list-elevator.component";
 import {UpdateElevatorFormComponent} from "../elevator/update-elevator-form/update-elevator-form.component";
 import {ListPassageComponent} from "../passage/list-passages/list-passage.component";
-import {CreateRoomComponent} from "../room/create-room/create-room.component";
-import {RoomComponent} from "../room/room.component";
-import {CreateRoomFormComponent} from "../room/create-room-form/create-room-form.component";
+import { AppCampusComponent } from 'src/app-campus/app-campus.component';
+import { AppFleetComponent } from 'src/app-fleet/app-fleet.component';
 
 const routes: Routes = [
 
-  { path: 'building', component: BuildingComponent, children: [
-    { path: 'create', component: CreateBuildingComponent },
-    { path: 'update', component: UpdateBuildingComponent },
-    { path: 'list', component: ListBuildingsComponent }
-  ]},
-
-  { path: 'floor', component: FloorComponent, children: [
-    { path: 'create', component: CreateFloorFormComponent },
-    { path: 'loadMap', component: LoadFloorMapComponent }
-  ]},
-
-  { path: 'room', component: RoomComponent, children: [
-      { path: 'create', component: CreateRoomFormComponent },
-      ]},
-
-  { path: 'passage', component: PassageComponent, children: [
-    { path: 'create', component: CreatePassageFormComponent },
-
-      { path: 'list', component: ListPassageComponent}
-
+  //Campus Manager App
+  { path: 'campus', component: AppCampusComponent, children: [
+    { path: 'building', component: BuildingComponent, children: [
+      { path: 'create', component: CreateBuildingComponent },
+      { path: 'update', component: UpdateBuildingComponent },
+      { path: 'list', component: ListBuildingsComponent }
     ]},
-
-  { path: 'robotType', component: RobotTypeComponent, children: [
-    { path: 'create', component: CreateRobotTypeComponent }
-  ]},
-
-  { path: 'robot', component: RobotComponent, children: [
-    { path: 'create', component: CreateRobotComponent }
-  ]},
-
-  { path: 'floor3DViewer', component: MapViewerComponent},
-
-  { path: 'elevator', component: ElevatorComponent, children: [
-    { path: 'create', component: CreateElevatorFormComponent},
+    { path: 'floor', component: FloorComponent, children: [
+      { path: 'create', component: CreateFloorFormComponent },
+      { path: 'loadMap', component: LoadFloorMapComponent }
+    ]},
+    { path: 'passage', component: PassageComponent, children: [
+      { path: 'create', component: CreatePassageFormComponent },
+      { path: 'list', component: ListPassageComponent}
+    ]},
+    { path: 'elevator', component: ElevatorComponent, children: [
+      { path: 'create', component: CreateElevatorFormComponent},
       { path: 'update', component: UpdateElevatorComponent},
       { path: 'list', component: ListElevatorComponent}
-
     ]},
+    { path: 'floor3DViewer', component: MapViewerComponent }
+  ]},
 
+  //Fleet Manager App
+  { path: 'fleet', component: AppFleetComponent, children: [
+    { path: 'robotType', component: RobotTypeComponent, children: [
+      { path: 'create', component: CreateRobotTypeComponent }
+    ]},
+    { path: 'robot', component: RobotComponent, children: [
+      { path: 'create', component: CreateRobotComponent }
+    ]},
+    { path: 'floor3DViewer', component: MapViewerComponent }
+  ]},
+  
 ];
 
 @NgModule({

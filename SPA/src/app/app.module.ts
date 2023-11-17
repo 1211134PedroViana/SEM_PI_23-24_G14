@@ -37,9 +37,8 @@ import {UpdateElevatorComponent} from "../elevator/update-elevator/update-elevat
 import {ListElevatorComponent} from "../elevator/list-elevators/list-elevator.component";
 import {UpdateElevatorFormComponent} from "../elevator/update-elevator-form/update-elevator-form.component";
 import {ListPassageComponent} from "../passage/list-passages/list-passage.component";
-import {CreateRoomComponent} from "../room/create-room/create-room.component";
-import {CreateRoomFormComponent} from "../room/create-room-form/create-room-form.component";
-import {RoomComponent} from "../room/room.component";
+import { AppCampusComponent } from '../app-campus/app-campus.component';
+import { AppFleetComponent } from '../app-fleet/app-fleet.component';
 
 @NgModule({
   declarations: [
@@ -74,9 +73,8 @@ import {RoomComponent} from "../room/room.component";
     ListElevatorComponent,
     UpdateElevatorFormComponent,
     ListPassageComponent,
-    CreateRoomComponent,
-    CreateRoomFormComponent,
-    RoomComponent
+    AppCampusComponent,
+    AppFleetComponent
   ],
   imports: [
     BrowserModule,

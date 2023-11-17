@@ -40,7 +40,7 @@ export class UpdateBuildingFormComponent {
       .pipe(
         tap((response) => {
           console.log('Building updated successfully', response);
-          const message = `Building updated successfully! | ID: ${response.id} | Code: ${response.code} | Name: ${response.name} | Description: ${response.description}`;
+          const message = `Building updated successfully! | Code: ${response.code} | Name: ${response.name} | Description: ${response.description}`;
           this.snackBar.open(message, 'Close', {
             duration: 5000, // 5 seconds
           });

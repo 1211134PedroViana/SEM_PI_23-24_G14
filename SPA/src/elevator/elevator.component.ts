@@ -12,7 +12,7 @@ export class ElevatorComponent {
   createButtonText = 'Create Elevators';
   updateButtonText = 'Update Elevators';
   listButtonText = 'List Elevators';
-  createRoute = '/elevator/create';
-  updateRoute = '/elevator/update';
-  listRoute = '/elevator/list';
+  createRoute = '/campus/elevator/create';
+  updateRoute = '/campus/elevator/update';
+  listRoute = '/campus/elevator/list';
 }

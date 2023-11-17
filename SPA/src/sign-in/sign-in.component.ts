@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -6,5 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent {
+  selectedRole: string = "";
+  isVisible: boolean = true;
 
+  constructor(private router: Router) {}
+
+  onSubmit(): void {
+    this.isVisible = false;
+    if(this.selectedRole === "Campus") {
+      this.router.navigate(["/campus"]);
+    } else if(this.selectedRole === "Fleet"){
+      this.router.navigate(["/fleet"]);
+    } else {
+      //ignore
+    }
+  }
 }

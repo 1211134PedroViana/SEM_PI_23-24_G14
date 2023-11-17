@@ -15,13 +15,13 @@
 
 .btn-primary {
     margin: 20px;
-    background-color: #090430;
+    background-color: rgba(217, 221, 220, 0.1);
     padding: 15px;
     border-radius: 25px;
     font-family: 'Playpen Sans', cursive;
 }
 
 .btn-primary:hover {
-    background-color: #170c6b;
+    background-color: rgb(194, 200, 199, 0.4);
     box-shadow: 4px 4px 3px rgba(255, 255, 255, 0.5);
 }

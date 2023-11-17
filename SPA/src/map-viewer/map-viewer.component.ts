@@ -66,11 +66,11 @@ export class MapViewerComponent implements OnInit {
             enabled: true,
             introductionClips: [
                 {
-                    url: "assets/clips/el-gringo-12613.mp3",
+                    url: "assets/clips/berserkOST.mp3",
                     position: "initial", // Global (non-positional) audio object: ""; positional audio object: "scene x y z" (scene specific position in cartesian coordinates), "maze line column" (maze specific position in cell coordinates), "exit" (maze exit location), "initial" (player initial position), "player" (player current position), "spotlight" (spotlight current position)
                     referenceDistance: 1.0,
-                    loop: false,
-                    volume: 0.5
+                    loop: true,
+                    volume: 0.3
                 }
             ],
             idleClips: [
@@ -114,14 +114,7 @@ export class MapViewerComponent implements OnInit {
             ],
             deathClips: [
                 {
-                    url: "assets/clips/176653326.mp3",
-                    position: "player",
-                    referenceDistance: 1.0,
-                    loop: false,
-                    volume: 0.75
-                },
-                {
-                    url: "assets/clips/Horn+Squeeze+Clown.mp3",
+                    url: "assets/clips/robloxOOF.mp3",
                     position: "player",
                     referenceDistance: 1.0,
                     loop: false,

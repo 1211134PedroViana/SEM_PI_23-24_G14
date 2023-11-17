@@ -22,7 +22,6 @@ export class CreateFloorFormComponent {
   constructor(private floorService: FloorService, private buildingService: BuildingService, private snackBar: MatSnackBar) { }
 
   onSubmit() {
-    console.log("id:" + this.buildingId);
     const floorData = ({
       buildingId: this.buildingId,
       floorNumber: this.floorNumber,
