@@ -24,6 +24,8 @@ import {UpdateElevatorFormComponent} from "../elevator/update-elevator-form/upda
 import {ListPassageComponent} from "../passage/list-passages/list-passage.component";
 import { AppCampusComponent } from 'src/app-campus/app-campus.component';
 import { AppFleetComponent } from 'src/app-fleet/app-fleet.component';
+import {RoomComponent} from "../room/room.component";
+import {CreateRoomFormComponent} from "../room/create-room-form/create-room-form.component";
 
 const routes: Routes = [
 
@@ -37,6 +39,9 @@ const routes: Routes = [
     { path: 'floor', component: FloorComponent, children: [
       { path: 'create', component: CreateFloorFormComponent },
       { path: 'loadMap', component: LoadFloorMapComponent }
+    ]},
+    { path: 'room', component: RoomComponent, children: [
+      { path: 'create', component: CreateRoomFormComponent },
     ]},
     { path: 'passage', component: PassageComponent, children: [
       { path: 'create', component: CreatePassageFormComponent },
@@ -60,7 +65,7 @@ const routes: Routes = [
     ]},
     { path: 'floor3DViewer', component: MapViewerComponent }
   ]},
-  
+
 ];
 
 @NgModule({
