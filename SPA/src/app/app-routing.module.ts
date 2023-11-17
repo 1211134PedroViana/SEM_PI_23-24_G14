@@ -21,6 +21,7 @@ import {CreateElevatorFormComponent} from "../elevator/create-elevator-form/crea
 import {UpdateElevatorComponent} from "../elevator/update-elevator/update-elevator.component";
 import {ListElevatorComponent} from "../elevator/list-elevators/list-elevator.component";
 import {UpdateElevatorFormComponent} from "../elevator/update-elevator-form/update-elevator-form.component";
+import {ListPassageComponent} from "../passage/list-passages/list-passage.component";
 
 const routes: Routes = [
 
@@ -36,8 +37,11 @@ const routes: Routes = [
   ]},
 
   { path: 'passage', component: PassageComponent, children: [
-    { path: 'create', component: CreatePassageFormComponent }
-  ]},
+    { path: 'create', component: CreatePassageFormComponent },
+
+      { path: 'list', component: ListPassageComponent}
+
+    ]},
 
   { path: 'robotType', component: RobotTypeComponent, children: [
     { path: 'create', component: CreateRobotTypeComponent }

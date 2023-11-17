@@ -36,6 +36,7 @@ import {CreateElevatorFormComponent} from "../elevator/create-elevator-form/crea
 import {UpdateElevatorComponent} from "../elevator/update-elevator/update-elevator.component";
 import {ListElevatorComponent} from "../elevator/list-elevators/list-elevator.component";
 import {UpdateElevatorFormComponent} from "../elevator/update-elevator-form/update-elevator-form.component";
+import {ListPassageComponent} from "../passage/list-passages/list-passage.component";
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import {UpdateElevatorFormComponent} from "../elevator/update-elevator-form/upda
     CreateElevatorFormComponent,
     UpdateElevatorComponent,
     ListElevatorComponent,
-    UpdateElevatorFormComponent
+    UpdateElevatorFormComponent,
+    ListPassageComponent
   ],
   imports: [
     BrowserModule,
