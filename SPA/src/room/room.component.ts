@@ -12,7 +12,7 @@ export class RoomComponent {
   createButtonText = 'Create Rooms';
   updateButtonText = 'Update Rooms';
   listButtonText = 'List Rooms';
-  createRoute = '/room/create';
-  updateRoute = '/room/update';
-  listRoute = '/room/list';
+  createRoute = '/campus/room/create';
+  updateRoute = '/campus/room/update';
+  listRoute = '/campus/room/list';
 }
