@@ -22,6 +22,9 @@ import {UpdateElevatorComponent} from "../elevator/update-elevator/update-elevat
 import {ListElevatorComponent} from "../elevator/list-elevators/list-elevator.component";
 import {UpdateElevatorFormComponent} from "../elevator/update-elevator-form/update-elevator-form.component";
 import {ListPassageComponent} from "../passage/list-passages/list-passage.component";
+import {CreateRoomComponent} from "../room/create-room/create-room.component";
+import {RoomComponent} from "../room/room.component";
+import {CreateRoomFormComponent} from "../room/create-room-form/create-room-form.component";
 
 const routes: Routes = [
 
@@ -35,6 +38,10 @@ const routes: Routes = [
     { path: 'create', component: CreateFloorFormComponent },
     { path: 'loadMap', component: LoadFloorMapComponent }
   ]},
+
+  { path: 'room', component: RoomComponent, children: [
+      { path: 'create', component: CreateRoomFormComponent },
+      ]},
 
   { path: 'passage', component: PassageComponent, children: [
     { path: 'create', component: CreatePassageFormComponent },

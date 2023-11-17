@@ -1,0 +1,72 @@
+<form (ngSubmit)="onSubmit()">
+  <p class="form-title">Create a new Room</p>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <label class="form-label" for="code">RoomCode:</label>
+      <input type="text" class="form-control" id="code" name="code" [(ngModel)]="code">
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label" for="name">Name:</label>
+      <input type="text" class="form-control" name="name" [(ngModel)]="name">
+    </div>
+
+    <div class="col-md-4">
+      <label for="description" class="form-label">Description</label>
+      <input type="text" class="form-control" name="description" [(ngModel)]="description">
+    </div>
+
+    <!-- Adicionando uma div para envolver os elementos de posição -->
+    <div class="col-md-12">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <label for="pos1" class="form-label">Position 1</label>
+          <input type="text" class="form-control" name="dimension" [(ngModel)]="pos1">
+        </div>
+
+        <div class="col-md-4">
+          <label for="pos2" class="form-label">Position 2</label>
+          <input type="text" class="form-control" name="dimension" [(ngModel)]="pos2">
+        </div>
+
+        <div class="col-md-4">
+          <label for="pos3" class="form-label">Position 3</label>
+          <input type="text" class="form-control" name="dimension" [(ngModel)]="pos3">
+        </div>
+
+        <div class="col-md-4">
+          <label for="pos4" class="form-label">Position 4</label>
+          <input type="text" class="form-control" name="dimension" [(ngModel)]="pos4">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <label for="PositionX" class="form-label">PositionX</label>
+      <input type="text" class="form-control" name="location" [(ngModel)]="positionX">
+    </div>
+
+    <div class="col-md-4">
+      <label for="positionY" class="form-label">PositionY</label>
+      <input type="text" class="form-control" name="location" [(ngModel)]="positionY">
+    </div>
+
+    <div class="col-md-4">
+      <label for="direction" class="form-label">Direction</label>
+      <select type="text" class="form-control" name="direction" [(ngModel)]="direction">
+        <option selected>north</option>
+        <option>south</option>
+        <option>east</option>
+        <option>west</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label for="floorId" class="form-label">FloorId</label>
+      <input class="form-control" name="floorId" [(ngModel)]="floorId">
+    </div>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Create</button>
+  </div>
+</form>
