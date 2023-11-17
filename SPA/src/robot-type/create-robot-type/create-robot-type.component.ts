@@ -31,9 +31,16 @@ export class CreateRobotTypeComponent {
       .pipe(
         tap((response) => {
           console.log('RobotType created successfully', response);
+          const message = `RobotType created successfully! | Code: ${response.code} | Brand: ${response.brand} | Model: ${response.model}`;
+          this.snackBar.open(message, 'Close', {
+            duration: 5000, // 5 seconds
+          });
         }),
         catchError((error) => {
           console.error('Error occurred while creating the RobotType', error);
+          this.snackBar.open('Failed to create RobotType, returned code:' + error.status, 'Close', {
+            duration: 5000, // 5 seconds
+          });
           throw error;
         })
       )

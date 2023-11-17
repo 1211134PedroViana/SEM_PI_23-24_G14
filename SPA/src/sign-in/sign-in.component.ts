@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent {
-
+  selectedRole: string = "";
 }

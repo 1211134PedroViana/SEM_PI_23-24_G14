@@ -1,7 +1,11 @@
-body {
+.temp {
     background-image: url("https://wallpaperaccess.com/full/4137610.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }
 
+body {
+    height: 100%;
+    margin: 0;
+}
 
