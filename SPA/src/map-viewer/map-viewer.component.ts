@@ -26,6 +26,7 @@ export class MapViewerComponent implements OnInit {
 
   private floorViewer: any;
   private container: any;
+  private isDefault: boolean = true;
 
   constructor(private buildingService: BuildingService, private floorService: FloorService, private floorMapService: FloorMapService) {}
 
@@ -245,7 +246,8 @@ export class MapViewerComponent implements OnInit {
         }, // Cube texture parameters
         {
           url: mapUrl,
-          helpersColor: new THREE.Color(0xff0077)
+          helpersColor: new THREE.Color(0xff0077),
+          isDefault: this.isDefault
         }, // Maze parameters
         {
           url: "assets/models/gltf/RobotExpressive/RobotExpressive.glb",
@@ -320,7 +322,9 @@ export class MapViewerComponent implements OnInit {
   ngOnInit() {
     this.buildingService.getAllBuildings().subscribe((buildings) => {
       this.buildings = buildings;
+      this.createFloorViewer("assets/mazes/default_floor.json");
     });
+    
   }
 
   onBuildingChange() {
@@ -331,6 +335,7 @@ export class MapViewerComponent implements OnInit {
   }
 
   onFloorChange() {
+    this.isDefault = false;
     if(this.floorViewer != undefined) {
         this.floorMapService.getFloorMap(this.selectedFloor).subscribe((floorMap: FloorMap) => {
             this.cleanup();

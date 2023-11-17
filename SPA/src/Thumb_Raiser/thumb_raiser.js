@@ -71,6 +71,7 @@ import UserInterface from "./user_interface.js";
  *  texturesCredits: String,
  *  scale: Vector3,
  *  helpersColor: Color
+ *  isDefault: boolean
  * }
  *
  * playerParameters = {
@@ -845,7 +846,7 @@ export default class ThumbRaiser {
         [this.fixedViewCamera, this.firstPersonViewCamera, this.thirdPersonViewCamera, this.topViewCamera, this.miniMapCamera].forEach(camera => {
             camera.setViewport();
         });
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setSize(this.containerWidth, this.containerHeight);
     }
 
     keyChange(event, state) {

@@ -1,0 +1,245 @@
+{
+    "maze": {
+        "size": {
+            "width": 10,
+            "depth": 10
+        },
+        "map": [
+            [3,2,2,2,2,0,2,2,2,2,1],
+            [1,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,1],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [1,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,1],
+            [2,2,2,2,2,0,2,2,2,2,0]
+        ],
+        "exitLocation": [
+            16,
+            9
+        ]
+    },
+    "room": [
+        {
+            "roomId": "e7d0582f-ec35-463c-be8e-5ebdf9ed60eb",
+            "dimension": {
+                "pos1": 0,
+                "pos2": 0,
+                "pos3": 4,
+                "pos4": 2
+            },
+            "location": {
+                "positionX": 10,
+                "positionY": 5,
+                "direction": "west"
+            }
+        },
+        {
+            "roomId": "dc75c56c-ca10-4208-8b00-8c82afb0c4a4",
+            "dimension": {
+                "pos1": 6,
+                "pos2": 2,
+                "pos3": 0,
+                "pos4": 0
+            },
+            "location": {
+                "positionX": 0,
+                "positionY": 5,
+                "direction": "west"
+            }
+        },
+        {
+            "roomId": "f3a0235c-14b0-466d-afe2-cd20e4b6b118",
+            "dimension": {
+                "pos1": 6,
+                "pos2": 2,
+                "pos3": 0,
+                "pos4": 0
+            },
+            "location": {
+                "positionX": 5,
+                "positionY": 0,
+                "direction": "north"
+            }
+        },
+        {
+            "roomId": "cff7a5ea-ae60-491d-b9bb-ff460dab22e8",
+            "dimension": {
+                "pos1": 6,
+                "pos2": 2,
+                "pos3": 0,
+                "pos4": 0
+            },
+            "location": {
+                "positionX": 5,
+                "positionY": 10,
+                "direction": "north"
+            }
+        }
+    ],
+    "passage": [],
+    "floorElevator": {
+        "elevatorId": "e03a4759-1bbf-4d33-a8de-26ef3759f736",
+        "location": {
+            "positionX": 0,
+            "positionY": 0,
+            "direction": "south"
+        }
+    },
+    "ground": {
+        "size": {
+            "width": 10.0,
+            "height": 0.0625,
+            "depth": 10.0
+        },
+        "segments": {
+            "width": 1,
+            "height": 1,
+            "depth": 1
+        },
+        "primaryColor": "0xffffff",
+        "maps": {
+            "color": {
+                "url": "assets/textures/ground_VennerWhiteOak/VeneerWhiteOakRandomMatched001_COL_2K_METALNESS.png"
+            },
+            "ao": {
+                "url": "assets/textures/ground_VennerWhiteOak/VeneerWhiteOakRandomMatched001_AO_2K_METALNESS.png",
+                "intensity": 1.0
+            },
+            "displacement": {
+                "url": "",
+                "scale": 1.0,
+                "bias": 0.0
+            },
+            "normal": {
+                "url": "assets/textures/ground_VennerWhiteOak/VeneerWhiteOakRandomMatched001_NRM_2K_METALNESS.png",
+                "type": 0,
+                "scale": {
+                    "x": 2.0,
+                    "y": 2.0
+                }
+            },
+            "bump": {
+                "url": "",
+                "scale": 1.0
+            },
+            "roughness": {
+                "url": "assets/textures/ground_VennerWhiteOak/VeneerWhiteOakRandomMatched001_ROUGHNESS_2K_METALNESS.png",
+                "rough": 1.0
+            }
+        },
+        "wrapS": 1,
+        "wrapT": 1,
+        "repeat": {
+            "u": 4.0,
+            "v": 4.0
+        },
+        "magFilter": 1,
+        "minFilter": 5,
+        "secondaryColor": "0x6b554b"
+    },
+    "wall": {
+        "segments": {
+            "width": 1,
+            "height": 1
+        },
+        "primaryColor": "0xffffff",
+        "maps": {
+            "color": {
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_COL_3K.jpg"
+            },
+            "ao": {
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_AO_3K.jpg",
+                "intensity": 1.0
+            },
+            "displacement": {
+                "url": "",
+                "scale": 1.0,
+                "bias": 0.0
+            },
+            "normal": {
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_NRM_3K.png",
+                "type": 0,
+                "scale": {
+                    "x": 2.0,
+                    "y": 2.0
+                }
+            },
+            "bump": {
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_BUMP_3K.jpg",
+                "scale": 1.0
+            },
+            "roughness": {
+                "url": "",
+                "rough": 1.0
+            },
+            "gloss": {
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_GLOSS_3K.jpg"
+            },
+            "reflection": {
+                "url": "assets/textures/WallStoneBrick/StoneBricksSplitface001_REFL_3K.jpg"
+            }
+        },
+        "wrapS": 1,
+        "wrapT": 0,
+        "repeat": {
+            "u": 2.0,
+            "v": 1.0
+        },
+        "magFilter": 1,
+        "minFilter": 5,
+        "secondaryColor": "0x6b554b"
+    },
+    "elevator": {
+        "segments": {
+            "width": 1,
+            "height": 1
+        },
+        "primaryColor": "0xffffff",
+        "maps": {
+            "map": {
+                "url": "assets/models/Elevator/3d-elevator.obj"
+            }
+        },
+        "wrapS": 1,
+        "wrapT": 0,
+        "repeat": {
+            "u": 1.0,
+            "v": 1.0
+        },
+        "magFilter": 1,
+        "minFilter": 5,
+        "secondaryColor": "0x6b554b"
+    },
+    "door": {
+        "segments": {
+            "width": 1,
+            "height": 1
+        },
+        "primaryColor": "0xffffff",
+        "maps": {
+            "map": {
+                "url": "assets/models/WoodDoubleDoor/WoodDoubleDoor.obj"
+            }
+        },
+        "wrapS": 1,
+        "wrapT": 0,
+        "repeat": {
+            "u": 1.0,
+            "v": 1.0
+        },
+        "magFilter": 1,
+        "minFilter": 5,
+        "secondaryColor": "0x6b554b"
+    },
+    "player": {
+        "initialPosition": [
+            5.0,
+            5.0
+        ],
+        "initialDirection": 0.0
+    }
+}
