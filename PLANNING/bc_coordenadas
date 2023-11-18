@@ -20,9 +20,39 @@ coordenadas(b108, b1, 19, 8).
 coordenadas(c201, c2, 2, 8).
 coordenadas(c202, c2, 4, 4).
 coordenadas(c203, c2, 5, 8).
-coordenadas(c204, c2, 6, 8).
+coordenadas(c204, c2, 14, 5).
 coordenadas(c205, c2, 10, 3).
 coordenadas(c206, c2, 12, 3).
 coordenadas(c207, c2, 11, 8).
-coordenadas(c208, c2, 19, 8).
-coordenadas(c209, c2, 19, 8).
+coordenadas(c209, c2, 16, 9).
+
+% BC - Coordenadas Salas Edificio D - Piso 2
+coordenadas(d201, d2, 4, 8).
+coordenadas(d202, d2, 9, 6).
+coordenadas(d203, d2, 9, 8).
+coordenadas(d204, d2, 13, 4).
+coordenadas(d205, d2, 13, 8).
+coordenadas(d206, d2, 16, 5).
+
+
+% BC - Coordenadas Elevadores
+coordenadas(a1, 21, 0).
+coordenadas(a2, 21, 0).
+coordenadas(b1, 21, 7).
+coordenadas(b2, 21, 7).
+coordenadas(b3, 21, 7).
+coordenadas(c1, 13, 11).
+coordenadas(c2, 13, 11).
+coordenadas(c3, 13, 11).
+coordenadas(c4, 13, 11).
+coordenadas(d1, 0, 11).
+coordenadas(d2, 0, 11).
+coordenadas(d3, 0, 11).
+
+% BC - Coordenadas Corredores
+coordenadas(a2,b2, 23, 11, 11, 23).
+coordenadas(b2,c3, 23, 11, 11, 23).
+coordenadas(b2,d3, 23, 11, 11, 23).
+coordenadas(b3,c4, 23, 11, 11, 23).
+coordenadas(c2,d2, 15, 10, 0, 11).
+coordenadas(c3,d3, 23, 11, 11, 23).
