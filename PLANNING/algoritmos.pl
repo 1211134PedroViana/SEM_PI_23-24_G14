@@ -9,7 +9,7 @@ caminho_edificios2(EdX,EdX,LEdInv,LEdCam):-!,
     reverse(LEdInv,LEdCam).
 
 caminho_edificios2(EdAct,EdDest,LEdPassou,LEdCam):-
-    (corredor(EdAct,EdInt,_,_);corredor(EdInt,EdAct,_,_)),
+    (liga(EdAct,EdInt); liga(EdInt,EdAct)),
     \+member(EdInt,LEdPassou),
     caminho_edificios2(EdInt,EdDest,[EdInt|LEdPassou],LEdCam).
 

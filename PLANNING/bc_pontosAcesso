@@ -1,3 +1,9 @@
+% BC - Ligações
+liga(a,b).
+liga(b,c).
+liga(b,d).
+liga(c,d).
+
 % BC - Pisos
 pisos(a,[a1,a2]).
 pisos(b,[b1,b2,b3]).
