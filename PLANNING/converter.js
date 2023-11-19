@@ -1,10 +1,46 @@
 let content ="";
 
+// Building A Floor 1
+console.log("% Building A Floor 1");
+content += "% Building A Floor 1\n";
+
+let array = [
+    [3,2,2,2,2,2,2,2,2,2,3,2,2,2,3,2,2,2,3,2,2,3,1],
+    [1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,1,1],
+    [1,0,0,0,0,0,0,0,0,0,3,2,0,2,2,2,0,2,2,0,2,0,1],
+    [1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,3,2,0,2,1,0,0,0,3,2,0,2,1],
+    [1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1],
+    [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0]
+];
+
+function arrayToProlog(array) {
+    let prologFacts = '';
+
+    for (let row = 0; row < array.length; row++) {
+        for (let col = 0; col < array[row].length; col++) {
+            const value = array[row][col];
+            prologFacts += `m(${col + 1},${row + 1},${value}).\n`;
+        }
+    }
+
+    return prologFacts;
+}
+
+// Convert the array to Prolog facts
+let prologFacts = arrayToProlog(array);
+content += prologFacts + "\n";
+// content += prologFacts + "\n";
+
 // Building A Floor 2
 console.log("% Building A Floor 2");
 content += "% Building A Floor 2\n";
 
-let array = [
+newArray = [
     [3, 2, 2, 3, 2, 2, 3, 2, 2, 3, 2, 2, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2, 1],
     [1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
     [1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 3, 0, 2, 2, 2, 2, 2, 0, 0, 0, 1],
@@ -32,14 +68,14 @@ function arrayToProlog(array) {
 }
 
 // Convert the array to Prolog facts
-let prologFacts = arrayToProlog(array);
+prologFacts = arrayToProlog(array);
 content += prologFacts + "\n";
 // content += prologFacts + "\n";
 
+// Building B Floor 1
+console.log("% Building B Floor 1");
+content += "% Building B Floor 1\n";
 
-// Building B Floor2
-console.log("% Building B Floor 2");
-content += "% Building B Floor 2\n";
 newArray = [
     [3, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 3, 2, 2, 2, 1],
     [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
@@ -51,7 +87,43 @@ newArray = [
     [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
     [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 3, 0, 2, 2, 1],
     [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
-    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0]
+    [3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+];
+
+function arrayToProlog(array) {
+    let prologFacts = '';
+
+    for (let row = 0; row < array.length; row++) {
+        for (let col = 0; col < array[row].length; col++) {
+            const value = array[row][col];
+            prologFacts += `m(${col + 1},${row + 1},${value}).\n`;
+        }
+    }
+
+    return prologFacts;
+}
+
+// Convert the array to Prolog facts
+prologFacts = arrayToProlog(array);
+content += prologFacts + "\n";
+// content += prologFacts + "\n";
+
+
+// Building B Floor2
+console.log("% Building B Floor 2");
+content += "% Building B Floor 2\n";
+newArray = [
+    [3, 2, 3, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 3, 2, 2, 2, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 3, 2, 2, 2, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+    [2, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 3, 0, 2, 2, 1],
+    [0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1, 0, 2, 2, 2, 2, 0, 0, 1, 0, 0, 0, 1, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0]
 ];
 
 function arrayToProlog(array) {
@@ -76,42 +148,6 @@ content += prologFacts + "\n\n";
 // Building B Floor 3
 console.log("% Building B Floor 3");
 content += "% Building B Floor 3\n";
-
-newArray = [
-    [3, 2, 3, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 3, 2, 2, 1],
-    [1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1],
-    [1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1],
-    [2, 2, 1, 0, 0, 1, 0, 0, 0, 3, 2, 2, 0, 0, 0, 0, 1, 0, 0, 3, 0, 2, 1],
-    [0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1],
-    [0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1],
-    [1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
-    [1, 0, 2, 2, 2, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 2, 2, 2, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0]
-];
-
-function arrayToProlog(array) {
-    let prologFacts = '';
-
-    for (let row = 0; row < array.length; row++) {
-        for (let col = 0; col < array[row].length; col++) {
-            const value = array[row][col];
-            prologFacts += `m(${col + 1},${row + 1},${value}).\n`;
-        }
-        prologFacts += '\n';
-    }
-
-    return prologFacts;
-}
-
-// Convert the new array to Prolog facts
-prologFacts = arrayToProlog(newArray);
-content += prologFacts + "\n";
-
-// Building B Floor 4 
-console.log("% Building B Floor 4");
-content +=  "% Building B Floor 4\n";
 
 newArray = [
     [3, 2, 2, 1, 0, 3, 2, 2, 1, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
