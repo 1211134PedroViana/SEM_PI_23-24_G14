@@ -315,7 +315,7 @@ export class MapViewerComponent implements OnInit {
   ngOnInit() {
     this.buildingService.getAllBuildings().subscribe((buildings) => {
       this.buildings = buildings;
-      this.createFloorViewer("assets/mazes/default_floor.json");
+      this.createFloorViewer("assets/mazes/buildingD_floor2.json");
     });
     
   }
