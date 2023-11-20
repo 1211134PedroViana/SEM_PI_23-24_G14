@@ -1,4 +1,5 @@
 :-consult('bc_pontosAcesso').
+:-consult('bc_floorMaps').
 
 
 % Algoritmo - Caminho entre edificios
