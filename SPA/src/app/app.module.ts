@@ -43,6 +43,7 @@ import {CreateRoomFormComponent} from "../room/create-room-form/create-room-form
 import {CreateRoomComponent} from "../room/create-room/create-room.component";
 import {RoomComponent} from "../room/room.component";
 import { DeactivateRobotComponent } from '../robot/deactivate-robot/deactivate-robot.component';
+import {ListRobotsComponent} from "../robot/list-robots/list-robots.component";
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { DeactivateRobotComponent } from '../robot/deactivate-robot/deactivate-r
     CreateRoomComponent,
     CreateRoomFormComponent,
     RoomComponent,
-    DeactivateRobotComponent
+    DeactivateRobotComponent,
+    ListRobotsComponent
   ],
   imports: [
     BrowserModule,

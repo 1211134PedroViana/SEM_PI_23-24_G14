@@ -35,4 +35,11 @@ export class ListRobotsComponent implements OnInit {
         )
         .subscribe()
     }
+
+  isFormOpen = false;
+  openForm(robot: Robot) {
+    // Pass building data to the form component (e.g., using a service)
+    this.robotService.openForm(robot);
+    this.isFormOpen = true;
+  }
 }

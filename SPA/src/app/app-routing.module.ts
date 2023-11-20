@@ -4,7 +4,6 @@ import { BuildingComponent } from 'src/building/building.component';
 import { CreateBuildingComponent } from 'src/building/create-building/create-building.component';
 import { CreateFloorFormComponent } from 'src/floor/create-floor-form/create-floor-form.component';
 import { CreatePassageFormComponent } from 'src/passage/create-passage-form/create-passage-form.component';
-import { FeaturesComponent } from 'src/features/features.component';
 import { FloorComponent } from 'src/floor/floor.component';
 import { ListBuildingsComponent } from 'src/building/list-buildings/list-buildings.component';
 import { PassageComponent } from 'src/passage/passage.component';
@@ -15,18 +14,17 @@ import { LoadFloorMapComponent } from 'src/load-floor-map/load-floor-map.compone
 import { MapViewerComponent } from 'src/map-viewer/map-viewer.component';
 import { CreateRobotComponent } from 'src/robot/create-robot/create-robot.component';
 import { RobotComponent } from 'src/robot/robot.component';
-import { CreateElevatorComponent } from 'src/elevator/create-elevator/create-elevator.component';
 import {ElevatorComponent} from "../elevator/elevator.component";
 import {CreateElevatorFormComponent} from "../elevator/create-elevator-form/create-elevator-form.component";
 import {UpdateElevatorComponent} from "../elevator/update-elevator/update-elevator.component";
 import {ListElevatorComponent} from "../elevator/list-elevators/list-elevator.component";
-import {UpdateElevatorFormComponent} from "../elevator/update-elevator-form/update-elevator-form.component";
 import {ListPassageComponent} from "../passage/list-passages/list-passage.component";
 import { AppCampusComponent } from 'src/app-campus/app-campus.component';
 import { AppFleetComponent } from 'src/app-fleet/app-fleet.component';
 import {RoomComponent} from "../room/room.component";
 import {CreateRoomFormComponent} from "../room/create-room-form/create-room-form.component";
 import { DeactivateRobotComponent } from 'src/robot/deactivate-robot/deactivate-robot.component';
+import {ListRobotsComponent} from "../robot/list-robots/list-robots.component";
 
 const routes: Routes = [
 
@@ -63,8 +61,9 @@ const routes: Routes = [
     ]},
     { path: 'robot', component: RobotComponent, children: [
       { path: 'create', component: CreateRobotComponent },
-      { path: 'deactivate', component: DeactivateRobotComponent }
-    ]},
+      { path: 'deactivate', component: DeactivateRobotComponent },
+      { path: 'list', component: ListRobotsComponent }
+      ]},
     { path: 'floor3DViewer', component: MapViewerComponent }
   ]},
 
