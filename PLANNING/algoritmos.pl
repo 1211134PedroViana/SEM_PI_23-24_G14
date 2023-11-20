@@ -66,3 +66,29 @@ conta([elev(_,_)|L],NElev,NCor):-
 conta([cor(_,_)|L],NElev,NCor):-
     conta(L,NElev,NCorL),
     NCor is NCorL+1.
+
+
+% Algoritmo - Gera grafo e ligações entre as celulas da matriz
+cria_grafo(_,0):-!.
+
+cria_grafo(Col,Lin):-
+   cria_grafo_lin(Col,Lin),
+   Lin1 is Lin1,
+   cria_grafo(Col,Lin1).
+
+cria_grafo_lin(0,_):-!.
+
+cria_grafo_lin(Col,Lin):-
+   m(Col,Lin,0),!,
+   ColS is Col+1, ColA is Col-1, 
+   LinS is Lin+1,LinA is Lin-1,
+   ((m(ColS,Lin,0),assertz(ligacel(cel(Col,Lin),cel(ColS,Lin)));true)),
+   ((m(ColA,Lin,0),assertz(ligacel(cel(Col,Lin),cel(ColA,Lin)));true)),
+   ((m(Col,LinS,0),assertz(ligacel(cel(Col,Lin),cel(Col,LinS)));true)),
+   ((m(Col,LinA,0),assertz(ligacel(cel(Col,Lin),cel(Col,LinA)));true)),
+   Col1 is Col-1,
+   cria_grafo_lin(Col1,Lin).
+
+cria_grafo_lin(Col,Lin):-
+   Col1 is Col-1,
+   cria_grafo_lin(Col1,Lin).
