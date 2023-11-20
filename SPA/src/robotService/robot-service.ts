@@ -53,12 +53,8 @@ export class RobotService {
         );
     }
 
-    deactivateRobot(robotId: string): Observable<Robot> {
-        const httpOptions = {
-          headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-        };
-    
-        return this.http.patch<Robot>(this.deactivateUrl, httpOptions)
+    deactivateRobot(robot: Robot): Observable<Robot> {
+        return this.http.patch<Robot>(this.deactivateUrl, robot)
           .pipe(
             //catchError(this.handleError('addRobot', robot))
         );

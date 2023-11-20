@@ -23,7 +23,12 @@ export class DeactivateRobotComponent {
   }
 
   onSubmit() { 
-    this.robotService.deactivateRobot(this.robotId)
+
+    const robotData = ({
+      id: this.robotId
+    }) as Robot;
+
+    this.robotService.deactivateRobot(robotData)
         .pipe(
             tap((response) => {
                 console.log('Robot deactivated', response);
