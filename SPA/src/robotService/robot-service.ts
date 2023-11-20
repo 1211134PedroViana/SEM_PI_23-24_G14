@@ -13,6 +13,7 @@ export class RobotService {
     private createUrl = 'http://localhost:4000/api/robots/create';
     private updateUrl = 'http://localhost:4000/api/robots/update';
     private listUrl = 'http://localhost:4000/api/robots/list';
+    private deactivateUrl = 'http://localhost:4000/api/robots/deactivate';
   
     private isVisible = new BehaviorSubject<boolean>(false);
     private robot = new BehaviorSubject<Robot>({} as Robot);
@@ -47,6 +48,17 @@ export class RobotService {
         };
     
         return this.http.get<Robot[]>(this.listUrl, httpOptions)
+          .pipe(
+            //catchError(this.handleError('addRobot', robot))
+        );
+    }
+
+    deactivateRobot(robotId: string): Observable<Robot> {
+        const httpOptions = {
+          headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        };
+    
+        return this.http.patch<Robot>(this.deactivateUrl, httpOptions)
           .pipe(
             //catchError(this.handleError('addRobot', robot))
         );

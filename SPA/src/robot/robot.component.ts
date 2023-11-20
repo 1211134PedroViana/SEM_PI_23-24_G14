@@ -8,10 +8,12 @@ import { Component } from '@angular/core';
 
 export class RobotComponent {
     titleText = 'Robots Management';
-    createButtonText = 'Create Robot';
-    updateButtonText = 'Update Robot';
-    listButtonText = 'List Robots';
-    createRoute = '/fleet/robot/create';
-    updateRoute = '/fleet/robot/update';
-    listRoute = '/fleet/robot/list';
+    feature1ButtonText = 'Create Robot';
+    feature2ButtonText = 'List Robots';
+    feature3ButtonText = 'Deactivate Robot';
+    feature4ButtonText = 'Search Robot';
+    feature1Route = '/fleet/robot/create';
+    feature2Route = '/fleet/robot/list';
+    feature3Route = '/fleet/robot/deactivate';
+    feature4Route = '/fleet/robot/list';
 }

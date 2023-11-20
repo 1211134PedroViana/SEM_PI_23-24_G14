@@ -9,14 +9,14 @@ import { Router } from '@angular/router';
 export class Featuresv4Component {
 
   @Input() titleText: string = ' ';
-  @Input() createButtonText: string = ' ';
-  @Input() updateButtonText: string = ' ';
-  @Input() listButtonText: string = ' ';
-  @Input() extraButtonText: string = ' ';
-  @Input() createRoute: string = ' ';
-  @Input() updateRoute: string = ' ';
-  @Input() listRoute: string = ' ';
-  @Input() extraRoute: string = ' ';
+  @Input() feature1ButtonText: string = ' ';
+  @Input() feature2ButtonText: string = ' ';
+  @Input() feature3ButtonText: string = ' ';
+  @Input() feature4ButtonText: string = ' ';
+  @Input() feature1Route: string = ' ';
+  @Input() feature2Route: string = ' ';
+  @Input() feature3Route: string = ' ';
+  @Input() feature4Route: string = ' ';
 
   constructor(private router: Router) {}
 

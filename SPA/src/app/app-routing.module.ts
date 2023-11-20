@@ -26,6 +26,7 @@ import { AppCampusComponent } from 'src/app-campus/app-campus.component';
 import { AppFleetComponent } from 'src/app-fleet/app-fleet.component';
 import {RoomComponent} from "../room/room.component";
 import {CreateRoomFormComponent} from "../room/create-room-form/create-room-form.component";
+import { DeactivateRobotComponent } from 'src/robot/deactivate-robot/deactivate-robot.component';
 
 const routes: Routes = [
 
@@ -61,7 +62,8 @@ const routes: Routes = [
       { path: 'create', component: CreateRobotTypeComponent }
     ]},
     { path: 'robot', component: RobotComponent, children: [
-      { path: 'create', component: CreateRobotComponent }
+      { path: 'create', component: CreateRobotComponent },
+      { path: 'deactivate', component: DeactivateRobotComponent }
     ]},
     { path: 'floor3DViewer', component: MapViewerComponent }
   ]},
