@@ -33,6 +33,17 @@ export class FloorService {
     );
   }
 
+  updateFloor(floor: Floor): Observable<Floor> {
+    const httpsOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+    };
+
+    return this.http.put<Floor>(this.listUrl, httpsOptions)
+      .pipe(
+        //catchError(this.handleError('addFloor', floor))
+      );
+  }
+
   getFloorsFromBuilding(buildingId: string): Observable<Floor[]> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -57,4 +68,16 @@ export class FloorService {
     this.floor.next(floor);
     this.isVisible.next(true);
   }
+  getFormVisibility() {
+    return this.isVisible.asObservable();
+  }
+
+  getFloor() {
+    return this.floor.asObservable();
+  }
+
+  closeForm() {
+    this.isVisible.next(false);
+  }
+
 }
