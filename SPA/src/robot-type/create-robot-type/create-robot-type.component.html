@@ -2,27 +2,27 @@
     <p class="form-title">Create a new RobotType</p>
     <div class="mb-3">
       <label for="code" class="form-label">RobotType Code</label>
-      <input type="text" class="form-control" name="code" [(ngModel)]="code">
+      <input type="text" class="form-control" [(ngModel)]="code" name="code">
     </div>
     <div class="mb-3">
       <label for="brand" class="form-label">RobotType Brand</label>
-      <input type="text" class="form-control" name="brand" [(ngModel)]="brand">
+      <input type="text" class="form-control" [(ngModel)]="brand" name="brand">
     </div>
     <div class="mb-3">
         <label for="model" class="form-label">RobotType Model</label>
-        <input type="text" class="form-control" name="model" [(ngModel)]="model">
+        <input type="text" class="form-control" [(ngModel)]="model" name="model">
     </div>
     <p class="taskType">Choose Task types:</p>
     
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="checkboxValues[0]">
-        <label class="form-check-label" for="flexCheckDefault">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" [(ngModel)]="checkboxValues[0]" name="checkboxValues">
+        <label class="form-check-label" for="flexCheckDefault1">
             Pick & Delivery
         </label>
     </div>
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="checkboxValues[1]">
-        <label class="form-check-label" for="flexCheckChecked">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" [(ngModel)]="checkboxValues[1]" name="checkboxValues">
+        <label class="form-check-label" for="flexCheckDefault2">
             Surveillance
         </label>
     </div>
