@@ -9,12 +9,12 @@ import { Component } from '@angular/core';
 export class FloorComponent {
 
   titleText = 'Floors Management';
-  createButtonText = 'Create Floor';
-  updateButtonText = 'Update Floor';
-  listButtonText = 'List Floors';
-  extraButtonText = 'Load Map';
-  createRoute = '/campus/floor/create';
-  updateRoute = '/campus/floor/update';
-  listRoute = '/campus/floor/list';
-  extraRoute = '/campus/floor/loadMap';
+  feature1ButtonText = 'Create Floor';
+  feature2ButtonText = 'Update Floor';
+  feature3ButtonText = 'List Floors';
+  feature4ButtonText = 'Load Map';
+  feature1Route = '/campus/floor/create';
+  feature2Route = '/campus/floor/update';
+  feature3Route = '/campus/floor/list';
+  feature4Route = '/campus/floor/loadMap';
 }

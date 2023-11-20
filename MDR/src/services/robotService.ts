@@ -23,7 +23,7 @@ export default class RobotService implements IRobotService {
             
             const robotCodeOrError = RobotCode.create(robotDTO.code);
             const descriptionOrError = Description.create(robotDTO.description);
-            const robotType = await this.robotTypeRepo.findByObjectId(robotDTO.robotType);
+            const robotType = await this.robotTypeRepo.findByDomainId(robotDTO.robotType);
 
             //verifies the code and description creation
             if(robotCodeOrError.isFailure) {

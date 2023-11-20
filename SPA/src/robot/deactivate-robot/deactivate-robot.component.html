@@ -1,0 +1,10 @@
+<form (ngSubmit)="onSubmit()">
+    <p class="form-title">Deactivate Robot</p>
+    <div class="mb-3">
+      <label for="robot" class="form-label">Robot</label>
+      <select class="form-select" id="robot" name="robotId" [(ngModel)]="robotId">
+        <option *ngFor="let robot of robots" [value]="robot.id">{{ robot.code }}</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Deactivate</button>
+</form>

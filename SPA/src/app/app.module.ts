@@ -42,6 +42,7 @@ import { AppFleetComponent } from '../app-fleet/app-fleet.component';
 import {CreateRoomFormComponent} from "../room/create-room-form/create-room-form.component";
 import {CreateRoomComponent} from "../room/create-room/create-room.component";
 import {RoomComponent} from "../room/room.component";
+import { DeactivateRobotComponent } from '../robot/deactivate-robot/deactivate-robot.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import {RoomComponent} from "../room/room.component";
     AppFleetComponent,
     CreateRoomComponent,
     CreateRoomFormComponent,
-    RoomComponent
+    RoomComponent,
+    DeactivateRobotComponent
   ],
   imports: [
     BrowserModule,
