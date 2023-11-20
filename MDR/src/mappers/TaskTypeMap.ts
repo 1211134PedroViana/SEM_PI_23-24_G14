@@ -18,10 +18,9 @@ export class TaskTypeMap extends Mapper<TaskType> {
     }
 
     public static toDomain( taskType: any | Model<ITaskTypePersistence & Document> ): TaskType {
-
         const taskTypeOrError = TaskType.create(
             taskType,
-            new UniqueEntityID(taskType._id)
+            new UniqueEntityID(taskType.domainId)
         );
 
         taskTypeOrError.isFailure ? console.log(taskTypeOrError.error): '';

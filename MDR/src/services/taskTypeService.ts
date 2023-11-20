@@ -53,4 +53,19 @@ export default class TaskTypeService implements ITaskTypeService {
             throw e;
         }
     }
+
+    public async getTaskType(name: string): Promise<Result<ITaskTypeDTO>> {
+      try {
+          const taskType = await this.taskTypeRepo.findByName(name);
+          
+          if (taskType === null) {
+              return Result.fail<ITaskTypeDTO>('TaskType with Name "' + name + '" not found');
+          }
+
+          const taskTypeDTOResult = TaskTypeMap.toDTO( taskType ) as ITaskTypeDTO;
+          return Result.ok<ITaskTypeDTO>( taskTypeDTOResult )
+      } catch (e) {
+          return Result.fail<ITaskTypeDTO>(e.message);
+      }
+  }
 }
