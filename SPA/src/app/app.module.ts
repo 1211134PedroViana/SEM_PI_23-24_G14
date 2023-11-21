@@ -47,6 +47,7 @@ import {ListRobotsComponent} from "../robot/list-robots/list-robots.component";
 import { UpdateFloorComponent } from 'src/floor/update-floor/update-floor.component';
 import { ListFloorsFromABuildingComponent } from 'src/floor/list-floorsFromBuilding/list-floorsFromABuilding.component';
 import { UpdateFloorFormComponent } from 'src/floor/update-floor-form/update-floor-form.component';
+import { ListFloorsWithPassagesComponent } from 'src/floor/list-floors-with-passages/list-floors-with-passages.component'
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { UpdateFloorFormComponent } from 'src/floor/update-floor-form/update-flo
     DeactivateRobotComponent,
     ListRobotsComponent,
     ListFloorsFromABuildingComponent,
-    UpdateFloorFormComponent
+    UpdateFloorFormComponent,
+    ListFloorsWithPassagesComponent
   ],
   imports: [
     BrowserModule,

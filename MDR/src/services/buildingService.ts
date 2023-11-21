@@ -2,17 +2,22 @@ import { Service, Inject } from 'typedi';
 import config from "../../config";
 import { Result } from "../core/logic/Result";
 import { Building } from '../domain/building';
+import { Floor } from '../domain/floor';
 import IBuildingDTO from '../dto/IBuildingDTO';
 import { BuildingMap } from '../mappers/BuildingMap';
 import IBuildingRepo from './IRepos/IBuildingRepo';
+import IFloorRepo from './IRepos/IFloorRepo';
 import IBuildingService from './IServices/IBuildingService';
+import IFloorService from './IServices/IFloorService';
 import { BuildingCode } from "../domain/valueObjects/buildingCode";
 import { Description } from "../domain/valueObjects/description";
+import IFloorDTO from '../dto/IFloorDTO';
 
 @Service()
 export default class BuildingService implements IBuildingService {
     constructor(
-        @Inject(config.repos.building.name) private buildingRepo : IBuildingRepo
+        @Inject(config.repos.building.name) private buildingRepo : IBuildingRepo,
+        @Inject(config.repos.floor.name) private floorRepo : IFloorRepo
     ) {}
 
     public async createBuilding(buildingDTO: IBuildingDTO): Promise<Result<IBuildingDTO>> {
@@ -99,5 +104,34 @@ export default class BuildingService implements IBuildingService {
       }
     }
 
-    
+    public async getAllBuildingsWithMinAndMaxFloors(min: number, max: number): Promise<Result<IBuildingDTO[]>> {
+        try {
+          const buildingList: Building[] = await this.buildingRepo.findAll();
+          let buildingListDto: IBuildingDTO[] = []; 
+          let buildingListDtoWithMinAndMaxFloors: IBuildingDTO[] = [];
+          let tempBuildingFloorList: Floor[] = [];
+
+          if (buildingList != null){
+            for (let i = 0; i < buildingList.length; i++)
+            buildingListDto.push(BuildingMap.toDTO(buildingList[i]));
+          }
+
+          if (buildingListDto != null) {
+            for (let i = 0; i < buildingListDto.length; i++) {
+              
+              tempBuildingFloorList = await this.floorRepo.findByBuilding(buildingListDto[i].id);
+              if (tempBuildingFloorList != null) {
+                if (tempBuildingFloorList.length > min && tempBuildingFloorList.length < max) {
+                  buildingListDtoWithMinAndMaxFloors.push(buildingListDto[i]);
+                }
+              }
+              tempBuildingFloorList = null;
+            }
+            return Result.ok<IBuildingDTO[]>(buildingListDtoWithMinAndMaxFloors);
+          }
+          return Result.fail<IBuildingDTO[]>("There are no buildings to return.");
+        } catch (e) {
+          return Result.fail<IBuildingDTO[]>(e.message);
+        }
+    }
 }
