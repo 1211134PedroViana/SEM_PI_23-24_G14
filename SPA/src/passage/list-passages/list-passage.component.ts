@@ -6,7 +6,7 @@ import {PassageService} from "../../passageService/passage-service";
 
 
 @Component({
-  selector: 'app-list-elevators',
+  selector: 'app-list-passage',
   templateUrl: './list-passage.component.html',
   styleUrls: ['./list-passage.component.css']
 })
