@@ -15,14 +15,14 @@
               <option *ngFor="let building of buildings" [value]="building.id">{{ building.code }}</option>
             </select>
         </div>
-        
+
         <div *ngIf="selectedFromBuilding" class="col-md-2">
             <label class="form-label" for="floor">FromFloor:</label>
             <select class="form-select" id="floor" name="selectedFloor1" [(ngModel)]="selectedFloor1">
               <option *ngFor="let floor of floors1" [value]="floor.id">{{ floor.floorNumber }}</option>
             </select>
         </div>
-        
+
         <div *ngIf="selectedToBuilding" class="col-md-2">
             <label class="form-label" for="floor">ToFloor:</label>
             <select class="form-select" id="floor" name="selectedFloor2" [(ngModel)]="selectedFloor2">
@@ -45,14 +45,14 @@
         <div class="col-md-4">
             <label for="direction" class="form-label">Direction</label>
             <select class="form-select" name="direction" [(ngModel)]="direction">
-                <option selected>north</option>
-                <option>west</option>
+                <option selected>North</option>
+                <option>South</option>
+              <option>West</option>
+              <option>East</option>
             </select>
         </div>
 
-    </div>
-    <div class="col-12">
+    </div>class="col-12">
         <button type="submit" class="btn btn-primary">Create</button>
-    </div>
-    
+
 </form>
