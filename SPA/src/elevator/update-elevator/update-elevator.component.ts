@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ElevatorService} from "../../elevatorService/elevator.service";
+import { ElevatorService } from "../../elevatorService/elevator.service";
 
 @Component({
   selector: 'app-update-elevator',
@@ -17,5 +17,4 @@ export class UpdateElevatorComponent {
       this.isVisible = isVisible;
     });
   }
-
 }
