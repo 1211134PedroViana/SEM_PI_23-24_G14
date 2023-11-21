@@ -16,8 +16,9 @@ import Elevator from "./elevator.js";
  *  designCredits: String,
  *  texturesCredits: String,
  *  scale: Vector3,
- *  helpersColor: Color
- *  isDefault: boolean
+ *  helpersColor: Color,
+ *  isDefault: boolean,
+ *  doors: Door[]
  * }
  */
 
@@ -140,11 +141,13 @@ export default class Maze extends THREE.Group {
             this.add(elevator);
 
             // Create Rooms of the floor and add it to the scene
+            this.doors = [];
             description.room.forEach(d => {
                 const door = new Door({
                     door: d.location,
                     halfSize: this.halfSize,
-                });
+                });      
+                this.doors.push(door);
                 this.add(door);
             });
 
@@ -409,6 +412,65 @@ export default class Maze extends THREE.Group {
             // No collision
             return false;
         }
+    }
+
+    doorCollision(position, halfSize) {
+        const indices = this.cartesianToCell(position);
+ 
+        if (
+            this.doorColli(indices, [0, 0], 0, position, { x: 0.0, z: -0.475 }, halfSize, 'north door') || // Collision with north door)
+            this.doorColli(indices, [0, 0], 1, position, { x: -0.475, z: 0.0 }, halfSize, 'west door')     // Collision with west door
+        ) {
+            return true;
+        }
+        return false;
+    }
+ 
+    doorColli(indices, offsets, orientation, position, delta, radius, name) {
+        const row = indices[0] + offsets[0];
+        const column = indices[1] + offsets[1];
+ 
+        for (let i = 0; i < this.doors.length; i++) {
+            if (
+                this.doors[i].door.positionX === column &&
+                this.doors[i].door.positionY === row
+            ) {
+                if (orientation != 0) {
+                    if (
+                        Math.abs(position.x - (this.cellToCartesian([row, column]).x + delta.x * this.scale.x)) < radius
+                    ) {
+                        console.log('Collision with ' + name + '.');  
+                        this.changeDoor(this.doors[i]);
+                        this.doors.splice(i, 1); // remove from array
+                        return true;
+                    }
+                } else {
+                    if (
+                        Math.abs(position.z - (this.cellToCartesian([row, column]).z + delta.z * this.scale.z)) < radius
+                    ) {
+                        console.log('Collision with ' + name + '.');
+                        this.changeDoor(this.doors[i]); 
+                        this.doors.splice(i, 1); // remove from array
+                        return true;
+                    }
+                }
+ 
+            }
+        }
+        return false;
+    }
+ 
+    changeDoor(currentDoor) {
+ 
+        const door = new Door({
+            door: currentDoor.door,
+            halfSize: this.halfSize,
+            isOpen: true,
+            url: '',
+        });
+ 
+        this.remove(currentDoor); // remove current door
+        this.add(door); // add new door
     }
 
     foundExit(position) {
