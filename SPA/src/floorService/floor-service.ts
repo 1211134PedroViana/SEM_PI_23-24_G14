@@ -16,6 +16,7 @@ export class FloorService {
   private listUrl = 'http://localhost:4000/api/floors/list';
   private listFromBuildingUrl = 'http://localhost:4000/api/floors/fromBuilding/';
   private listFloorsWithPassages = 'http://localhost:4000/api/floors/withPassages/';
+  private listFloorsWithElevator = 'http://localhost:4000/api/floors/withElevator/';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private floor = new BehaviorSubject<Floor>({} as Floor);
@@ -64,6 +65,18 @@ export class FloorService {
       //catchError(this.handleError('addFloor', floor))
     );
   }
+
+  getAllFloorsWithElevator(): Observable<Floor[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.http.get<Floor[]>(this.listFloorsWithElevator, httpOptions)
+      .pipe(
+      //catchError(this.handleError('addFloor', floor))
+    );
+  }
+  
   openForm(floor: Floor) {
     this.floor.next(floor);
     this.isVisible.next(true);

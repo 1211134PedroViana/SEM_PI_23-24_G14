@@ -6,6 +6,7 @@ import { FloorService } from 'src/floorService/floor-service';
     templateUrl: './update-floor.component.html',
     styleUrls: ['./update-floor.component.css']
 })
+
 export class UpdateFloorComponent {
 
     isVisible: boolean = false;

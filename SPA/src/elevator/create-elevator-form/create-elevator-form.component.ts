@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, tap } from 'rxjs/operators';
 import { ElevatorService } from '../../elevatorService/elevator.service';
-import Elevator from '../../elevatorService/elevator'; // Adjust the path accordingly
+import Elevator from '../../elevatorService/elevator';
+import Building from "../../buildingService/building";
+import {BuildingService} from "../../buildingService/building.service"; // Adjust the path accordingly
 
 @Component({
   selector: 'app-create-elevator-form',
@@ -22,8 +24,9 @@ export class CreateElevatorFormComponent {
   model: string = '';
   serialNumber: string = '';
   description: string = '';
+  buildings: Building[] = [];
 
-  constructor(private elevatorService: ElevatorService, private snackBar: MatSnackBar) { }
+  constructor(private elevatorService: ElevatorService, private buildingService: BuildingService, private snackBar: MatSnackBar) { }
 
   closeForm() {
     this.elevatorService.closeForm();
@@ -65,5 +68,13 @@ export class CreateElevatorFormComponent {
       )
       .subscribe();
   }
+
+  ngOnInit() {
+    this.buildingService.getAllBuildings().subscribe((buildings) => {
+      this.buildings = buildings;
+    });
+  }
+
+
 }
 
