@@ -30,7 +30,7 @@ jobs:
         run: npm run build --prod
 
       - name: Copy files to server
-        uses: appleboy/scp-action
+        uses: appleboy/scp-action@v0.1.4
         with:
           host: 10.9.24.69
           username: root
@@ -38,7 +38,7 @@ jobs:
           target: /var/www/html
 
       - name: SSH into server and restart web server
-        uses: appleboy/ssh-action
+        uses: appleboy/ssh-action@v1.0.0
         with:
           host: 10.9.24.69
           username: root
