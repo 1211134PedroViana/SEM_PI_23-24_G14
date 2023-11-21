@@ -13,10 +13,12 @@ export class Featuresv4Component {
   @Input() feature2ButtonText: string = ' ';
   @Input() feature3ButtonText: string = ' ';
   @Input() feature4ButtonText: string = ' ';
+  @Input() feature5ButtonText: string = ' ';
   @Input() feature1Route: string = ' ';
   @Input() feature2Route: string = ' ';
   @Input() feature3Route: string = ' ';
   @Input() feature4Route: string = ' ';
+  @Input() feature5Route: string = ' ';
 
   constructor(private router: Router) {}
 
