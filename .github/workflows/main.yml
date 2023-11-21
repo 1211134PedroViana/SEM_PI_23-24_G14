@@ -38,6 +38,7 @@ jobs:
           host: vsgate-ssh.dei.isep.ipp.pt
           port: 11093
           username: root
+          password: 123Lmaopass.
           source: dist/spa/
           target: /var/www/html
 
@@ -47,6 +48,7 @@ jobs:
           host: vsgate-ssh.dei.isep.ipp.pt
           port: 11093
           username: root
+          password: 123Lmaopass.
           script: |
             sudo systemctl restart apache2 
 
