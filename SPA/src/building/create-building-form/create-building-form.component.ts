@@ -13,8 +13,8 @@ import Building from 'src/buildingService/building';
 
 export class CreateBuildingFormComponent {
 
-  code: string = " "; 
-  name: string = " "; 
+  code: string = " ";
+  name: string = " ";
   description: string = " ";
 
   constructor(private buildingService: BuildingService, private snackBar: MatSnackBar) { }

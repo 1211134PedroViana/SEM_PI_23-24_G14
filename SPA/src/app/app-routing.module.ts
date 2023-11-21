@@ -45,7 +45,7 @@ const routes: Routes = [
       { path: 'update', component: UpdateFloorComponent },
       { path: 'listFromABuilding', component: ListFloorsFromABuildingComponent },
       { path: 'loadMap', component: LoadFloorMapComponent },
-      { path: 'listFloorsWithPassage', component: ListFloorsWithPassagesComponent },
+      { path: 'listFloorsWithPassages', component: ListFloorsWithPassagesComponent },
     ]},
     { path: 'room', component: RoomComponent, children: [
       { path: 'create', component: CreateRoomFormComponent },
