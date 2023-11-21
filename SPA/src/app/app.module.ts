@@ -44,6 +44,9 @@ import {CreateRoomComponent} from "../room/create-room/create-room.component";
 import {RoomComponent} from "../room/room.component";
 import { DeactivateRobotComponent } from '../robot/deactivate-robot/deactivate-robot.component';
 import {ListRobotsComponent} from "../robot/list-robots/list-robots.component";
+import { UpdateFloorComponent } from 'src/floor/update-floor/update-floor.component';
+import { ListFloorsFromABuildingComponent } from 'src/floor/list-floorsFromBuilding/list-floorsFromABuilding.component';
+import { UpdateFloorFormComponent } from 'src/floor/update-floor-form/update-floor-form.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +63,7 @@ import {ListRobotsComponent} from "../robot/list-robots/list-robots.component";
     FeaturesComponent,
     UpdateBuildingFormComponent,
     CreateFloorFormComponent,
+    UpdateFloorComponent,
     CreatePassageFormComponent,
     FleetSideBarComponent,
     RobotTypeComponent,
@@ -84,7 +88,9 @@ import {ListRobotsComponent} from "../robot/list-robots/list-robots.component";
     CreateRoomFormComponent,
     RoomComponent,
     DeactivateRobotComponent,
-    ListRobotsComponent
+    ListRobotsComponent,
+    ListFloorsFromABuildingComponent,
+    UpdateFloorFormComponent
   ],
   imports: [
     BrowserModule,

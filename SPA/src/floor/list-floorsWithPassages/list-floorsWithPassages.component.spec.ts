@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListFloorsWithPassagesComponent } from './list-floorsWithPassages.componet';
+import { ListFloorsWithPassagesComponent } from './list-floorsWithPassages.component';
 
 describe('ListFloorsWithPassagesComponent', () => {
   let component: ListFloorsWithPassagesComponent;

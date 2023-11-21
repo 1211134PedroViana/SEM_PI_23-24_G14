@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import Building from './building';
+import Floor from 'src/floorService/floor';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,17 @@ export class BuildingService {
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
+  }
+
+  getAllFloors(): Observable<Floor[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+    };
+
+    return this.http.get<Floor[]>(this.listUrl, httpOptions)
+    .pipe(
+      //catchError(this.handleError('listFloors', floor))
+    );
   }
 
   openForm(building: Building) {

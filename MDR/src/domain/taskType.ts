@@ -49,7 +49,7 @@ export class TaskType extends AggregateRoot<TaskTypeProps> {
       if (!guardResult.succeeded) {
         return Result.fail<TaskType>('Must provide a TaskType name and a description');
       } else {
-        const taskType = new TaskType({ ...props }, id);
+        const taskType = new TaskType({ name: props.name, description: props.description }, id);
         return Result.ok<TaskType>( taskType );
       }
     }

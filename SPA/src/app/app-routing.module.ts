@@ -8,6 +8,7 @@ import { FloorComponent } from 'src/floor/floor.component';
 import { ListBuildingsComponent } from 'src/building/list-buildings/list-buildings.component';
 import { PassageComponent } from 'src/passage/passage.component';
 import { UpdateBuildingComponent } from 'src/building/update-building/update-building.component';
+import { UpdateFloorComponent } from 'src/floor/update-floor/update-floor.component';
 import { RobotTypeComponent } from 'src/robot-type/robot-type.component';
 import { CreateRobotTypeComponent } from 'src/robot-type/create-robot-type/create-robot-type.component';
 import { LoadFloorMapComponent } from 'src/load-floor-map/load-floor-map.component';
@@ -25,6 +26,7 @@ import {RoomComponent} from "../room/room.component";
 import {CreateRoomFormComponent} from "../room/create-room-form/create-room-form.component";
 import { DeactivateRobotComponent } from 'src/robot/deactivate-robot/deactivate-robot.component';
 import {ListRobotsComponent} from "../robot/list-robots/list-robots.component";
+import { ListFloorsFromABuildingComponent } from 'src/floor/list-floorsFromBuilding/list-floorsFromABuilding.component';
 
 const routes: Routes = [
 
@@ -37,6 +39,8 @@ const routes: Routes = [
     ]},
     { path: 'floor', component: FloorComponent, children: [
       { path: 'create', component: CreateFloorFormComponent },
+      { path: 'update', component: UpdateFloorComponent },
+      { path: 'listFromABuilding', component: ListFloorsFromABuildingComponent },
       { path: 'loadMap', component: LoadFloorMapComponent }
     ]},
     { path: 'room', component: RoomComponent, children: [
