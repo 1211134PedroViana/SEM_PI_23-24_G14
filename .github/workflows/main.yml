@@ -39,7 +39,7 @@ jobs:
           port: 11093
           username: root
           password: 123Lmaopass.
-          source: dist/spa/
+          source: SPA/dist/spa/
           target: /var/www/html
 
       - name: SSH into server and restart web server
