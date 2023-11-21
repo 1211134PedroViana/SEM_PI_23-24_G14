@@ -5,7 +5,7 @@ import Building from 'src/buildingService/building';
 
 @Component({
     selector: 'app-list-buildingsWithMinAndMaxFloors',
-    templateUrl: './list-buildingsWithMinAndMaxFloors.component.html',
+    templateUrl: './list-buildingsWithMinAndMaxFloors.html',
     styleUrls: ['./list-buildingsWithMinAndMaxFloors.component.css']
 })
 
