@@ -14,9 +14,11 @@ export class FloorComponent {
   feature3ButtonText = 'List Floors';
   feature4ButtonText = 'Load Map';
   feature5ButtonText = 'List Floors With Passages';
+  feature6ButtonText = 'put button text here';
   feature1Route = '/campus/floor/create';
   feature2Route = '/campus/floor/update';
   feature3Route = '/campus/floor/list';
   feature4Route = '/campus/floor/loadMap';
-  feature5Route = '/campus/floor/list';
+  feature5Route = '/campus/floor/listFloorsWithPassages';
+  feature6Route = '/campus/floor/put router here';
 }
