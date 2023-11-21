@@ -63,6 +63,17 @@ export class BuildingService {
       );
   }
 
+  getAllBuildingsWithMinAndMaxFloors(min: number, max: number): Observable<Building[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-type': 'application/json'})
+    };
+
+    return this.http.get<Building[]>(this.listUrl, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
   getAllFloors(): Observable<Floor[]> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -72,6 +83,7 @@ export class BuildingService {
     .pipe(
       //catchError(this.handleError('listFloors', floor))
     );
+
   }
 
   openForm(building: Building) {

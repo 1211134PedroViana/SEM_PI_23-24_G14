@@ -6,6 +6,7 @@ import { CreateFloorFormComponent } from 'src/floor/create-floor-form/create-flo
 import { CreatePassageFormComponent } from 'src/passage/create-passage-form/create-passage-form.component';
 import { FloorComponent } from 'src/floor/floor.component';
 import { ListBuildingsComponent } from 'src/building/list-buildings/list-buildings.component';
+import { ListBuildingsWithMinAndMaxFloorsComponent } from 'src/building/list-buildingsWithMinAndMaxFloors/list-buildingsWithMinAndMaxFloors';
 import { PassageComponent } from 'src/passage/passage.component';
 import { UpdateBuildingComponent } from 'src/building/update-building/update-building.component';
 import { UpdateFloorComponent } from 'src/floor/update-floor/update-floor.component';
@@ -35,7 +36,8 @@ const routes: Routes = [
     { path: 'building', component: BuildingComponent, children: [
       { path: 'create', component: CreateBuildingComponent },
       { path: 'update', component: UpdateBuildingComponent },
-      { path: 'list', component: ListBuildingsComponent }
+      { path: 'list', component: ListBuildingsComponent },
+      { path: 'listBuildingsWithMinAndMaxFloors', component: ListBuildingsWithMinAndMaxFloorsComponent }
     ]},
     { path: 'floor', component: FloorComponent, children: [
       { path: 'create', component: CreateFloorFormComponent },
