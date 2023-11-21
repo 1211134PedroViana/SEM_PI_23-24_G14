@@ -32,7 +32,8 @@ jobs:
       - name: Copy files to server
         uses: appleboy/scp-action@v0.1.4
         with:
-          host: 10.9.24.69
+          host: vsgate-ssh.dei.isep.ipp.pt
+          port: 11093
           username: root
           source: dist/spa/
           target: /var/www/html
@@ -40,7 +41,8 @@ jobs:
       - name: SSH into server and restart web server
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: 10.9.24.69
+          host: vsgate-ssh.dei.isep.ipp.pt
+          port: 11093
           username: root
           script: |
             sudo systemctl restart apache2 
