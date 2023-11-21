@@ -20,14 +20,13 @@ jobs:
         with:
           node-version: 18 
 
-      - name: Change to SPA module directory
-        run: cd SPA/src
-
       - name: Install dependencies
         run: npm install
+        working-directory: SEM_PI_23-24_G14/SPA
 
       - name: Build Angular application
         run: npm run build
+        working-directory: SEM_PI_23-24_G14/SPA
 
       - name: Copy files to server
         uses: appleboy/scp-action@v0.1.4
