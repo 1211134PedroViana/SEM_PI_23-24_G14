@@ -1,6 +1,6 @@
 # .github/workflows/deploy.yml
 
-name: Deploy to Linux VM
+name: Deploy to DEI VM
 
 on:
   push:
@@ -18,7 +18,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 14  # Adjust version as needed
+          node-version: 18  
+
+      - name: Change to SPA module directory
+        run: cd SPA/src
 
       - name: Install dependencies
         run: npm install
