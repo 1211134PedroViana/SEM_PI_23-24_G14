@@ -28,6 +28,7 @@ import { DeactivateRobotComponent } from 'src/robot/deactivate-robot/deactivate-
 import {ListRobotsComponent} from "../robot/list-robots/list-robots.component";
 import { ListFloorsFromABuildingComponent } from 'src/floor/list-floorsFromBuilding/list-floorsFromABuilding.component';
 import { ListFloorsWithPassagesComponent} from 'src/floor/list-floors-with-passages/list-floors-with-passages.component'
+import {CreateElevatorComponent} from "../elevator/create-elevator/create-elevator.component";
 const routes: Routes = [
 
   //Campus Manager App
@@ -52,7 +53,7 @@ const routes: Routes = [
       { path: 'list', component: ListPassageComponent}
     ]},
     { path: 'elevator', component: ElevatorComponent, children: [
-      { path: 'create', component: CreateElevatorFormComponent},
+      { path: 'create', component: CreateElevatorComponent},
       { path: 'update', component: UpdateElevatorComponent},
       { path: 'list', component: ListElevatorComponent}
     ]},
