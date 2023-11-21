@@ -5,7 +5,7 @@ import Building from 'src/buildingService/building';
 
 @Component({
     selector: 'app-list-buildingsWithMinAndMaxFloors',
-    templateUrl: './list-buildingsWithMinAndMaxFloors.html',
+    templateUrl: './list-buildingsWithMinAndMaxFloors.component.html',
     styleUrls: ['./list-buildingsWithMinAndMaxFloors.component.css']
 })
 
@@ -34,7 +34,7 @@ export class ListBuildingsWithMinAndMaxFloorsComponent implements OnInit {
                 catchError((error) => {
                     console.error('Error occurred while listing the buildings', error);
                     throw error;
-                }) 
+                })
             )
             .subscribe()
     }
@@ -45,4 +45,4 @@ export class ListBuildingsWithMinAndMaxFloorsComponent implements OnInit {
       this.buildingService.openForm(building);
       this.isFormOpen = true;
     }
-} 
+}
