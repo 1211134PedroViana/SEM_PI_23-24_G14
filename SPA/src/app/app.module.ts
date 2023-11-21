@@ -53,6 +53,7 @@ import { ListFloorsFromABuildingComponent } from 'src/floor/list-floors-with-pas
 
 @NgModule({
   declarations: [
+    AppComponent,
     CampusSideBarComponent,
     NavbarComponent,
     BuildingComponent,
