@@ -1,0 +1,28 @@
+@startuml
+autonumber
+
+Actor "Fleet Manager" as User
+activate User
+User -> SPA : Asks to create a robot
+activate SPA
+
+SPA --> User : requests data (robotId, code, nickname, robotType, serialNumber, description, isActive)
+deactivate SPA
+
+User -> SPA : types requested data (robotId, code, nickname, robotType, serialNumber, description, isActive)
+activate SPA
+
+SPA -> Robot : POST/robot(robotId, code, nickname, robotType, serialNumber, description, isActive)
+activate Robot
+
+Robot --> SPA : status code
+deactivate Robot
+
+alt successfull case
+    SPA -> User: robot created successfully
+else failure
+    SPA -> User: robot not created
+end
+
+
+@enduml
