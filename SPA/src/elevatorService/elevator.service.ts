@@ -10,9 +10,9 @@ import Elevator from './elevator';
 
 export class ElevatorService {
 
-  private createUrl = 'http://localhost:4200/api/elevator/create';
-  private updateUrl = 'http://localhost:4200/api/elevator/update';
-  private listUrl = 'http://localhost:4200/api/elevator/list';
+  private createUrl = 'http://localhost:4000/api/elevators/create';
+  private updateUrl = 'http://localhost:4000/api/elevators/update';
+  private listUrl = 'http://localhost:4000/api/elevators/list';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private elevator = new BehaviorSubject<Elevator>({} as Elevator);
