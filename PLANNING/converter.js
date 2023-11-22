@@ -1,8 +1,10 @@
-let content ="";
+let content = "";
+let floor = "";
 
 // Building A Floor 1
 console.log("% Building A Floor 1");
 content += "% Building A Floor 1\n";
+floor = "a1";
 
 let array = [
     [3,2,2,2,2,2,2,2,2,2,3,2,2,2,3,2,2,2,3,2,2,3,1],
@@ -24,7 +26,7 @@ function arrayToProlog(array) {
     for (let row = 0; row < array.length; row++) {
         for (let col = 0; col < array[row].length; col++) {
             const value = array[row][col];
-            prologFacts += `m(${col + 1},${row + 1},${value}).\n`;
+            prologFacts += `m(${floor},${col + 1},${row + 1},${value}).\n`;
         }
     }
 
@@ -39,6 +41,7 @@ content += prologFacts + "\n";
 // Building A Floor 2
 console.log("% Building A Floor 2");
 content += "% Building A Floor 2\n";
+floor = "a2";
 
 newArray = [
     [3, 2, 2, 3, 2, 2, 3, 2, 2, 3, 2, 2, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2, 1],
@@ -60,7 +63,7 @@ function arrayToProlog(array) {
     for (let row = 0; row < array.length; row++) {
         for (let col = 0; col < array[row].length; col++) {
             const value = array[row][col];
-            prologFacts += `m(${col + 1},${row + 1},${value}).\n`;
+            prologFacts += `m(${floor},${col + 1},${row + 1},${value}).\n`;
         }
     }
 
@@ -75,6 +78,7 @@ content += prologFacts + "\n";
 // Building B Floor 1
 console.log("% Building B Floor 1");
 content += "% Building B Floor 1\n";
+floor = "b1";
 
 newArray = [
     [3, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 3, 2, 2, 2, 1],
@@ -96,7 +100,7 @@ function arrayToProlog(array) {
     for (let row = 0; row < array.length; row++) {
         for (let col = 0; col < array[row].length; col++) {
             const value = array[row][col];
-            prologFacts += `m(${col + 1},${row + 1},${value}).\n`;
+            prologFacts += `m(${floor},${col + 1},${row + 1},${value}).\n`;
         }
     }
 
@@ -106,6 +110,7 @@ function arrayToProlog(array) {
 // Convert the array to Prolog facts
 prologFacts = arrayToProlog(array);
 content += prologFacts + "\n";
+floor = "b2";
 // content += prologFacts + "\n";
 
 
@@ -132,7 +137,7 @@ function arrayToProlog(array) {
     for (let row = 0; row < array.length; row++) {
         for (let col = 0; col < array[row].length; col++) {
             const value = array[row][col];
-            prologFacts += `m(${col + 1},${row + 1},${value}).\n`;
+            prologFacts += `m(${floor},${col + 1},${row + 1},${value}).\n`;
         }
         prologFacts += '\n';
     }
@@ -148,6 +153,7 @@ content += prologFacts + "\n\n";
 // Building B Floor 3
 console.log("% Building B Floor 3");
 content += "% Building B Floor 3\n";
+floor = "b3";
 
 newArray = [
     [3, 2, 2, 1, 0, 3, 2, 2, 1, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
@@ -169,7 +175,7 @@ function arrayToProlog(array) {
     for (let row = 0; row < array.length; row++) {
         for (let col = 0; col < array[row].length; col++) {
             const value = array[row][col];
-            prologFacts += `m(${col + 1},${row + 1},${value}).\n`;
+            prologFacts += `m(${floor},${col + 1},${row + 1},${value}).\n`;
         }
         prologFacts += '\n';
     }
@@ -185,6 +191,7 @@ content += prologFacts + "\n";
 // Building C Floor 2
 console.log("% Building C Floor 2");
 content +=  "% Building C Floor 2\n";
+floor = "c2";
 
 array = [
     [3, 2, 2, 2, 3, 2, 3, 2, 2, 2, 2, 2, 1],
@@ -216,7 +223,7 @@ function arrayToProlog(array) {
     for (let row = 0; row < array.length; row++) {
         for (let col = 0; col < array[row].length; col++) {
             const value = array[row][col];
-            prologFacts += `m(${col + 1},${row + 1},${value}).\n`;
+            prologFacts += `m(${floor},${col + 1},${row + 1},${value}).\n`;
         }
         prologFacts += '\n';
     }
@@ -231,6 +238,7 @@ content += prologFacts + "\n";
 // Building C Floor 3
 console.log("% Building C Floor 3");
 content +=  "% Building C Floor 3\n";
+floor = "c3";
 
 array = [
     [3, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 1],
@@ -262,7 +270,7 @@ function arrayToProlog(array) {
     for (let row = 0; row < array.length; row++) {
         for (let col = 0; col < array[row].length; col++) {
             const value = array[row][col];
-            prologFacts += `m(${col + 1},${row + 1},${value}).\n`;
+            prologFacts += `m(${floor},${col + 1},${row + 1},${value}).\n`;
         }
         prologFacts += '\n';
     }
@@ -276,6 +284,7 @@ content += prologFacts + "\n";
 // Building C Floor 4
 console.log("% Building C Floor 4");
 content +=  "% Building C Floor 4\n";
+floor = "c4";
 
 array = [
     [3, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 1],
@@ -307,7 +316,7 @@ function arrayToProlog(array) {
     for (let row = 0; row < array.length; row++) {
         for (let col = 0; col < array[row].length; col++) {
             const value = array[row][col];
-            prologFacts += `m(${row + 1},${col + 1},${value}).\n`;
+            prologFacts += `m(${floor},${row + 1},${col + 1},${value}).\n`;
         }
     }
 
@@ -321,6 +330,7 @@ content += prologFacts + "\n";
 // Building D Floor 1
 console.log("% Building D Floor 1");
 content +=  "% Building D Floor 1\n";
+floor = "d1";
 
 array = [
     [3, 2, 2, 2, 2, 3, 2, 2, 3, 2, 2, 2, 1],
@@ -352,7 +362,7 @@ function arrayToProlog(array) {
     for (let row = 0; row < array.length; row++) {
         for (let col = 0; col < array[row].length; col++) {
             const value = array[row][col];
-            prologFacts += `m(${row + 1},${col + 1},${value}).\n`;
+            prologFacts += `m(${floor},${row + 1},${col + 1},${value}).\n`;
         }
     }
 
@@ -365,6 +375,7 @@ content += prologFacts + "\n";
 // Building D Floor 2
 console.log("% Building D Floor 2");
 content +=  "% Building D Floor 2\n";
+floor = "d2";
 
 array = [
     [3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
@@ -396,7 +407,7 @@ function arrayToProlog(array) {
     for (let row = 0; row < array.length; row++) {
         for (let col = 0; col < array[row].length; col++) {
             const value = array[row][col];
-            prologFacts += `m(${row + 1},${col + 1},${value}).\n`;
+            prologFacts += `m(${floor},${row + 1},${col + 1},${value}).\n`;
         }
     }
 
@@ -410,6 +421,7 @@ content += prologFacts + "\n";
 // Building D Floor 3
 console.log("% Building D Floor 3");
 content +=  "% Building D Floor 3\n";
+floor = "d3";
 
 
 array = [
@@ -442,7 +454,7 @@ function arrayToProlog(array) {
     for (let row = 0; row < array.length; row++) {
         for (let col = 0; col < array[row].length; col++) {
             const value = array[row][col];
-            prologFacts += `m(${row + 1},${col + 1},${value}).\n`;
+            prologFacts += `m(${floor},${row + 1},${col + 1},${value}).\n`;
         }
     }
 
