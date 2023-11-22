@@ -12,9 +12,9 @@ export class BuildingComponent {
   feature1ButtonText = 'Create Building';
   feature2ButtonText = 'Update Building';
   feature3ButtonText = 'List Buildings';
-  feature4ButtonText = 'Button Text here';
+  feature4ButtonText = 'List Buildings with Min and Max Floors';
   feature1Route = '/campus/building/create';
   feature2Route = '/campus/building/update';
   feature3Route = '/campus/building/list';
-  feature4Route = '/campus/building/router here';
+  feature4Route = '/campus/building/listBuildingsWithMinAndMaxFloors';
 }
