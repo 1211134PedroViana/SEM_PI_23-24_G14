@@ -1,0 +1,5 @@
+    DOR - Definition of Ready (Definição de Pronto):
+        O "Definition of Ready" é uma lista de critérios que uma história de usuário ou uma tarefa deve atender antes de ser considerada pronta para ser incluída em uma iteração (sprint) do desenvolvimento. Esses critérios podem incluir especificações claras, recursos disponíveis, e qualquer outra condição necessária para que a equipe de desenvolvimento possa começar a trabalhar na tarefa.
+
+    DOD - Definition of Done (Definição de Concluído):
+        O "Definition of Done" é uma lista de critérios que uma história de usuário, uma tarefa ou uma funcionalidade deve atender para ser considerada concluída. Esses critérios podem incluir testes completos, revisões de código realizadas, documentação atualizada e outros requisitos específicos da equipe ou do projeto.
