@@ -11,7 +11,7 @@
 
     <div class="col-md-4">
       <label class="form-label" for="building">ToBuilding:</label>
-      <select class="form-select" id="building" name="selectedToBuilding" [(ngModel)]="selectedToBuilding" (change)="onToBuildingChange()">
+      <select class="form-select" id="building2" name="selectedToBuilding" [(ngModel)]="selectedToBuilding" (change)="onToBuildingChange()">
         <option *ngFor="let building of buildings" [value]="building.id">{{ building.code }}</option>
       </select>
     </div>
@@ -19,14 +19,14 @@
     <div *ngIf="selectedFromBuilding" class="col-md-2">
       <label class="form-label" for="floor">FromFloor:</label>
       <select class="form-select" id="floor" name="selectedFloor1" [(ngModel)]="selectedFloor1">
-        <option *ngFor="let floor of floors1" [value]="floor.id">{{ floor.floorNumber }}</option>
+        <option *ngFor="let floor of floors1" [value]="floor.id">{{ floor.id }}</option>
       </select>
     </div>
 
     <div *ngIf="selectedToBuilding" class="col-md-2">
       <label class="form-label" for="floor">ToFloor:</label>
-      <select class="form-select" id="floor" name="selectedFloor2" [(ngModel)]="selectedFloor2">
-        <option *ngFor="let floor of floors2" [value]="floor.id">{{ floor.floorNumber }}</option>
+      <select class="form-select" id="floor2" name="selectedFloor2" [(ngModel)]="selectedFloor2">
+        <option *ngFor="let floor of floors2" [value]="floor.id">{{ floor.id }}</option>
       </select>
     </div>
 
