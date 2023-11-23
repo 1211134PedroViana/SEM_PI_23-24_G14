@@ -1,0 +1,28 @@
+@startuml
+autonumber
+
+Actor CampusManager
+activate CampusManager
+CampusManager -> SPA : Create a building floor
+activate SPA
+
+SPA --> CampusManager : requests data (floorId, buildingId, floorNumber, description)
+deactivate SPA
+
+CampusManager -> SPA : types requested data (floorId, buildingId, floorNumber, description)
+activate SPA
+
+SPA -> Floor : POST/floor/{floorId, buildingId, floorNumber, description}
+activate Floor
+
+Floor --> SPA : status code
+deactivate Floor
+
+alt successfull case
+    SPA --> CampusManager : floor created successfully
+else failure
+    SPA --> CampusManager : floor not created
+end
+
+
+@enduml

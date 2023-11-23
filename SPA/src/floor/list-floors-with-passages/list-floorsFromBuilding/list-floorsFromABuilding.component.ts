@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FloorService } from '../../floorService/floor-service';
+import { FloorService } from 'src/floorService/floor-service';
 import { catchError, tap } from 'rxjs/operators';
-import Floor from '../../floorService/floor';
+import Floor from 'src/floorService/floor'
 
 @Component({
     selector: 'app-list-floorsFromABuilding',

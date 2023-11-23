@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Component, Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -18,11 +18,21 @@ export class BuildingService {
   private isVisible = new BehaviorSubject<boolean>(false);
   private building = new BehaviorSubject<Building>({} as Building);
 
-  constructor(private http: HttpClient) { }
+  // @ts-ignore
+  @Component({
+    selector: 'app-create-elevator-form',
+    templateUrl: './create-elevator-form.component.html',
+    styleUrls: ['./create-elevator-form.component.css']
+  })
+
+  constructor(private http: HttpClient) {
+  }
+
+  buildings: Building[] = [];
 
   addBuilding(building: Building): Observable<Building> {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
 
     return this.http.post<Building>(this.createUrl, building, httpOptions)
@@ -33,7 +43,7 @@ export class BuildingService {
 
   updateBuilding(building: Building): Observable<Building> {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
 
     return this.http.put<Building>(this.updateUrl, building, httpOptions)
@@ -44,7 +54,18 @@ export class BuildingService {
 
   getAllBuildings(): Observable<Building[]> {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
+
+    return this.http.get<Building[]>(this.listUrl, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
+  getAllBuildingsWithMinAndMaxFloors(min: number, max: number): Observable<Building[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-type': 'application/json'})
     };
 
     return this.http.get<Building[]>(this.listUrl, httpOptions)
@@ -62,6 +83,7 @@ export class BuildingService {
     .pipe(
       //catchError(this.handleError('listFloors', floor))
     );
+
   }
 
   openForm(building: Building) {

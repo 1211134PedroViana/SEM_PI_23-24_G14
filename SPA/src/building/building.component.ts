@@ -9,10 +9,12 @@ import { Component } from '@angular/core';
 export class BuildingComponent {
 
   titleText = 'Buildings Management';
-  createButtonText = 'Create Building';
-  updateButtonText = 'Update Building';
-  listButtonText = 'List Buildings';
-  createRoute = '/campus/building/create';
-  updateRoute = '/campus/building/update';
-  listRoute = '/campus/building/list';
+  feature1ButtonText = 'Create Building';
+  feature2ButtonText = 'Update Building';
+  feature3ButtonText = 'List Buildings';
+  feature4ButtonText = 'List Buildings with Min and Max Floors';
+  feature1Route = '/campus/building/create';
+  feature2Route = '/campus/building/update';
+  feature3Route = '/campus/building/list';
+  feature4Route = '/campus/building/listBuildingsWithMinAndMaxFloors';
 }

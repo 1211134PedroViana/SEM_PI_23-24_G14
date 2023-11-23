@@ -50,9 +50,23 @@ coordenadas(d2, 1, 0).
 coordenadas(d3, 1, 0).
 
 % BC - Coordenadas Corredores
-coordenadas(a2,b2, 23, 11, 11, 23).
-coordenadas(b2,c3, 23, 11, 11, 23).
-coordenadas(b2,d3, 23, 11, 11, 23).
-coordenadas(b3,c4, 23, 11, 11, 23).
-coordenadas(c2,d2, 0, 14, 12, 20).
-coordenadas(c3,d3, 23, 11, 11, 23).
+coordenadas(c2,d2, 0, 14, 12, 0).
+coordenadas(a2,b2, 22, 5, 0, 5).
+coordenadas(b2,c3, 22, 8, 0, 8).
+coordenadas(b2,d3, 21, 10, 10, 0).
+coordenadas(d3,c3, 12, 1, 0, 14).
+coordenadas(b3,c4, 22, 8, 0, 8).
+
+% BC - Dimensões Pisos
+dimensoes(a1, 22, 10).
+dimensoes(a2, 22, 10).
+dimensoes(b1, 22, 10).
+dimensoes(b2, 22, 10).
+dimensoes(b3, 22, 10).
+dimensoes(c1, 12, 20).
+dimensoes(c2, 12, 20).
+dimensoes(c3, 12, 20).
+dimensoes(c4, 12, 20).
+dimensoes(d1, 12, 20).
+dimensoes(d2, 12, 20).
+dimensoes(d3, 12, 20).

@@ -6,7 +6,7 @@ import { BuildingService } from 'src/buildingService/building.service';
 import Floor from 'src/floorService/floor';
 import { FloorService } from 'src/floorService/floor-service';
 import Passage from 'src/passageService/passage';
-import { PassageService } from 'src/passageService/passage-service';
+import { PassageService } from 'src/passageService/passage.service';
 
 @Component({
   selector: 'app-create-passage-form',
@@ -32,7 +32,6 @@ export class CreatePassageFormComponent implements OnInit {
     private floorService: FloorService, private snackBar: MatSnackBar) { }
 
   onSubmit() {
-    console.log("id:" + this.selectedFloor1)
     const passageData = ({
       fromFloorId: this.selectedFloor1,
       toFloorId: this.selectedFloor2,

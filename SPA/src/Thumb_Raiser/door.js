@@ -2,12 +2,14 @@ import * as THREE from "three";
 import { merge } from "./merge.js";
 import { OBJLoader } from "three/examples/jsm/Addons.js";
 import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 
 /*
  * parameters = {
  *  url: String,
  *  door: {positionX: Number, positionY: Number, direction: String},
  *  halfSize: {width: Number, depth: Number},
+ *  isOpen: boolean
  * }
  */
 export default class Door extends THREE.Group {
@@ -18,7 +20,13 @@ export default class Door extends THREE.Group {
     this.loaded = false;
 
     this.onLoad = function (object) {
+  
+      if(this.isOpen) {
+        object.scale.set(0.006, 0.003, 0.005);
+      }else{
         object.scale.set(0.16, 0.1, 0.1);
+      }
+
       if (this.door.direction === "north") {
         object.position.set(
             this.door.positionX - this.halfSize.width + 0.5, 
@@ -53,27 +61,52 @@ export default class Door extends THREE.Group {
 
     // Create a resource .fbx file loader
     const loader = new OBJLoader();
+    const secDoorLoader = new FBXLoader();
     const mtlLoader = new MTLLoader();
 
-    // Load a model description resource file
-    this.url = "assets/models/WoodDoubleDoor/WoodDoubleDoor.obj";
+    if(this.isOpen) {
+      console.log("-> fuck oof")
+      this.url = "assets/models/DoubleDoor.fbx";
 
-    mtlLoader.load('assets/models/WoodDoubleDoor/WoodDoubleDoor.mtl', (materials) => {
+      secDoorLoader.load(
+        //Resource URL
+        this.url,
+    
+        // onLoad callback
+        (object) => this.onLoad(object),
+    
+        // onProgress callback
+        (xhr) => onProgress(this.url, xhr),
+    
+        // onError callback
+        (error) => onError(this.url, error)
+      );
+
+    }else {
+
+      // Load a model description resource file
+      this.url = "assets/models/WoodDoubleDoor/WoodDoubleDoor.obj";
+
+      mtlLoader.load('assets/models/WoodDoubleDoor/WoodDoubleDoor.mtl', (materials) => {
         materials.preload();
         loader.setMaterials(materials);
         loader.load(
-            //Resource URL
-            this.url,
+          //Resource URL
+          this.url,
       
-            // onLoad callback
-            (object) => this.onLoad(object),
+          // onLoad callback
+          (object) => this.onLoad(object),
       
-            // onProgress callback
-            (xhr) => onProgress(this.url, xhr),
+          // onProgress callback
+          (xhr) => onProgress(this.url, xhr),
       
-            // onError callback
-            (error) => onError(this.url, error)
-        );
-    });
+          // onError callback
+          (error) => onError(this.url, error)
+        ); 
+      });
+
+    }
+
+    
   }
 }

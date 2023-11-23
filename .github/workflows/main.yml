@@ -1,0 +1,54 @@
+# .github/workflows/deploy.yml
+
+name: Deploy to DEI VM
+
+on:
+  push:
+    branches:
+      - main  # Replace with your branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu image
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18 
+
+      - name: Install dependencies
+        
+        run: |
+          cd SPA/src
+          npm install
+
+      - name: Build Angular application
+        run: |
+          cd SPA/src
+          npm run build
+        
+
+      - name: Copy files to server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: vsgate-ssh.dei.isep.ipp.pt
+          port: 11093
+          username: root
+          password: 123Lmaopass.
+          source: SPA/dist/spa/
+          target: /var/www/html
+
+      - name: SSH into server and restart web server
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: vsgate-ssh.dei.isep.ipp.pt
+          port: 11093
+          username: root
+          password: 123Lmaopass.
+          script: |
+            sudo systemctl restart apache2 
+

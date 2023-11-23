@@ -45,8 +45,12 @@ import {RoomComponent} from "../room/room.component";
 import { DeactivateRobotComponent } from '../robot/deactivate-robot/deactivate-robot.component';
 import {ListRobotsComponent} from "../robot/list-robots/list-robots.component";
 import { UpdateFloorComponent } from 'src/floor/update-floor/update-floor.component';
-import { ListFloorsFromABuildingComponent } from 'src/floor/list-floorsFromBuilding/list-floorsFromABuilding.component';
 import { UpdateFloorFormComponent } from 'src/floor/update-floor-form/update-floor-form.component';
+import { ListFloorsWithPassagesComponent } from 'src/floor/list-floors-with-passages/list-floors-with-passages.component';
+import { Featuresv6Component } from '../featuresv6/featuresv6.component';
+import { ListBuildingsWithMinAndMaxFloorsComponent } from 'src/building/list-buildingsWithMinAndMaxFloors/list-buildingsWithMinAndMaxFloors';
+import { ListFloorsFromABuildingComponent } from 'src/floor/list-floors-with-passages/list-floorsFromBuilding/list-floorsFromABuilding.component';
+import {CreatePassageComponent} from "../passage/create-passage/create-passage.component";
 
 @NgModule({
   declarations: [
@@ -90,7 +94,11 @@ import { UpdateFloorFormComponent } from 'src/floor/update-floor-form/update-flo
     DeactivateRobotComponent,
     ListRobotsComponent,
     ListFloorsFromABuildingComponent,
-    UpdateFloorFormComponent
+    UpdateFloorFormComponent,
+    ListFloorsWithPassagesComponent,
+    ListBuildingsWithMinAndMaxFloorsComponent,
+    Featuresv6Component,
+    CreatePassageComponent
   ],
   imports: [
     BrowserModule,

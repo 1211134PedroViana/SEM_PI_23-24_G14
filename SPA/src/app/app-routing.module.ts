@@ -6,6 +6,7 @@ import { CreateFloorFormComponent } from 'src/floor/create-floor-form/create-flo
 import { CreatePassageFormComponent } from 'src/passage/create-passage-form/create-passage-form.component';
 import { FloorComponent } from 'src/floor/floor.component';
 import { ListBuildingsComponent } from 'src/building/list-buildings/list-buildings.component';
+import { ListBuildingsWithMinAndMaxFloorsComponent } from 'src/building/list-buildingsWithMinAndMaxFloors/list-buildingsWithMinAndMaxFloors';
 import { PassageComponent } from 'src/passage/passage.component';
 import { UpdateBuildingComponent } from 'src/building/update-building/update-building.component';
 import { UpdateFloorComponent } from 'src/floor/update-floor/update-floor.component';
@@ -26,8 +27,11 @@ import {RoomComponent} from "../room/room.component";
 import {CreateRoomFormComponent} from "../room/create-room-form/create-room-form.component";
 import { DeactivateRobotComponent } from 'src/robot/deactivate-robot/deactivate-robot.component';
 import {ListRobotsComponent} from "../robot/list-robots/list-robots.component";
-import { ListFloorsFromABuildingComponent } from 'src/floor/list-floorsFromBuilding/list-floorsFromABuilding.component';
 import { ListFloorsWithElevatorComponent } from 'src/floor/list-floorsWithElevators/list-floorsWithElevator.component';
+import { ListFloorsWithPassagesComponent} from 'src/floor/list-floors-with-passages/list-floors-with-passages.component'
+import {CreateElevatorComponent} from "../elevator/create-elevator/create-elevator.component";
+import { ListFloorsFromABuildingComponent } from 'src/floor/list-floors-with-passages/list-floorsFromBuilding/list-floorsFromABuilding.component';
+import {CreatePassageComponent} from "../passage/create-passage/create-passage.component";
 
 const routes: Routes = [
 
@@ -36,7 +40,8 @@ const routes: Routes = [
     { path: 'building', component: BuildingComponent, children: [
       { path: 'create', component: CreateBuildingComponent },
       { path: 'update', component: UpdateBuildingComponent },
-      { path: 'list', component: ListBuildingsComponent }
+      { path: 'list', component: ListBuildingsComponent },
+      { path: 'listBuildingsWithMinAndMaxFloors', component: ListBuildingsWithMinAndMaxFloorsComponent }
     ]},
     { path: 'floor', component: FloorComponent, children: [
       { path: 'create', component: CreateFloorFormComponent },
@@ -44,16 +49,17 @@ const routes: Routes = [
       { path: 'listFromABuilding', component: ListFloorsFromABuildingComponent },
       { path: 'loadMap', component: LoadFloorMapComponent },
       { path: 'listFloorsWithElevator', component: ListFloorsWithElevatorComponent}
+      { path: 'listFloorsWithPassages', component: ListFloorsWithPassagesComponent },
     ]},
     { path: 'room', component: RoomComponent, children: [
       { path: 'create', component: CreateRoomFormComponent },
     ]},
     { path: 'passage', component: PassageComponent, children: [
-      { path: 'create', component: CreatePassageFormComponent },
+      { path: 'create', component: CreatePassageComponent },
       { path: 'list', component: ListPassageComponent}
     ]},
     { path: 'elevator', component: ElevatorComponent, children: [
-      { path: 'create', component: CreateElevatorFormComponent},
+      { path: 'create', component: CreateElevatorComponent},
       { path: 'update', component: UpdateElevatorComponent},
       { path: 'list', component: ListElevatorComponent}
     ]},

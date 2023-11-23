@@ -1,14 +1,21 @@
 <form (ngSubmit)="onSubmit()">
   <p class="form-title">Create a new Elevator</p>
+
   <div class="row g-4">
+    <div class="col-md-4">
+      <label class="form-label" for="code">Code:</label>
+      <input type="text" class="form-control" name="code" [(ngModel)]="code">
+    </div>
+
     <div class="col-md-4">
       <label class="form-label" for="building">Building:</label>
       <select class="form-select" id="building" name="buildingId" [(ngModel)]="buildingId">
+        <option *ngFor="let building of buildings" [value]="building.id">{{ building.name }}</option>
       </select>
     </div>
 
     <div class="col-md-4">
-      <label class="form-label" for="floor">Floor List:</label>
+      <label for="floorList" class="form-label">Floor List:</label>
       <input type="text" class="form-control" name="floorList" [(ngModel)]="floorList">
     </div>
 
@@ -16,9 +23,7 @@
       <label for="brand" class="form-label">Brand</label>
       <input type="text" class="form-control" name="brand" [(ngModel)]="brand">
     </div>
-  </div>
 
-  <div class="row g-3">
     <div class="col-md-4">
       <label for="positionX" class="form-label">Position X</label>
       <input type="text" class="form-control" name="positionX" [(ngModel)]="positionX">
@@ -32,13 +37,13 @@
     <div class="col-md-4">
       <label for="direction" class="form-label">Direction</label>
       <select class="form-select" name="direction" [(ngModel)]="direction">
-        <option selected>north</option>
-        <option>west</option>
+        <option selected>North</option>
+        <option>South</option>
+        <option>West</option>
+        <option>East</option>
       </select>
     </div>
-  </div>
 
-  <div class="row g-3">
     <div class="col-md-4">
       <label for="model" class="form-label">Model</label>
       <input type="text" class="form-control" name="model" [(ngModel)]="model">
@@ -53,9 +58,9 @@
       <label for="description" class="form-label">Description</label>
       <textarea class="form-control" name="description" [(ngModel)]="description" rows="3"></textarea>
     </div>
-  </div>
 
-  <div class="col-12">
-    <button type="submit" class="btn btn-primary">Create</button>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
   </div>
 </form>

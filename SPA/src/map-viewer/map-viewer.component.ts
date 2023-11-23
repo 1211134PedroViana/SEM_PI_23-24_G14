@@ -70,7 +70,7 @@ export class MapViewerComponent implements OnInit {
                     position: "initial", // Global (non-positional) audio object: ""; positional audio object: "scene x y z" (scene specific position in cartesian coordinates), "maze line column" (maze specific position in cell coordinates), "exit" (maze exit location), "initial" (player initial position), "player" (player current position), "spotlight" (spotlight current position)
                     referenceDistance: 1.0,
                     loop: true,
-                    volume: 0.3
+                    volume: 0.0
                 }
             ],
             idleClips: [
