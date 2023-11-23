@@ -50,6 +50,7 @@ import { ListFloorsWithPassagesComponent } from 'src/floor/list-floors-with-pass
 import { Featuresv6Component } from '../featuresv6/featuresv6.component';
 import { ListBuildingsWithMinAndMaxFloorsComponent } from 'src/building/list-buildingsWithMinAndMaxFloors/list-buildingsWithMinAndMaxFloors';
 import { ListFloorsFromABuildingComponent } from 'src/floor/list-floors-with-passages/list-floorsFromBuilding/list-floorsFromABuilding.component';
+import {CreatePassageComponent} from "../passage/create-passage/create-passage.component";
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { ListFloorsFromABuildingComponent } from 'src/floor/list-floors-with-pas
     UpdateFloorFormComponent,
     ListFloorsWithPassagesComponent,
     ListBuildingsWithMinAndMaxFloorsComponent,
-    Featuresv6Component
+    Featuresv6Component,
+    CreatePassageComponent
   ],
   imports: [
     BrowserModule,

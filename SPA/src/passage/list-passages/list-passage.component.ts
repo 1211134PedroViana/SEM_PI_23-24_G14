@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
 import Elevator from "src/elevatorService/elevator";
 import Passage from "../../passageService/passage";
-import {PassageService} from "../../passageService/passage-service";
+import {PassageService} from "../../passageService/passage.service";
 
 
 @Component({

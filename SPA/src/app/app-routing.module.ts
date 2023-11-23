@@ -30,6 +30,7 @@ import {ListRobotsComponent} from "../robot/list-robots/list-robots.component";
 import { ListFloorsWithPassagesComponent} from 'src/floor/list-floors-with-passages/list-floors-with-passages.component'
 import {CreateElevatorComponent} from "../elevator/create-elevator/create-elevator.component";
 import { ListFloorsFromABuildingComponent } from 'src/floor/list-floors-with-passages/list-floorsFromBuilding/list-floorsFromABuilding.component';
+import {CreatePassageComponent} from "../passage/create-passage/create-passage.component";
 
 const routes: Routes = [
 
@@ -52,7 +53,7 @@ const routes: Routes = [
       { path: 'create', component: CreateRoomFormComponent },
     ]},
     { path: 'passage', component: PassageComponent, children: [
-      { path: 'create', component: CreatePassageFormComponent },
+      { path: 'create', component: CreatePassageComponent },
       { path: 'list', component: ListPassageComponent}
     ]},
     { path: 'elevator', component: ElevatorComponent, children: [

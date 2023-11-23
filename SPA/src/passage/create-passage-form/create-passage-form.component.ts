@@ -6,7 +6,7 @@ import { BuildingService } from 'src/buildingService/building.service';
 import Floor from 'src/floorService/floor';
 import { FloorService } from 'src/floorService/floor-service';
 import Passage from 'src/passageService/passage';
-import { PassageService } from 'src/passageService/passage-service';
+import { PassageService } from 'src/passageService/passage.service';
 
 @Component({
   selector: 'app-create-passage-form',

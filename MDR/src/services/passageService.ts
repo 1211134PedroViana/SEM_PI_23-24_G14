@@ -1,6 +1,6 @@
 import { Service, Inject } from 'typedi';
-import config from "../../config";
-import { Result } from "../core/logic/Result";
+import config from '../../config';
+import { Result } from '../core/logic/Result';
 import IPassageService from './IServices/IPassageService';
 import IPassageRepo from './IRepos/IPassageRepo';
 import IPassageDTO from '../dto/IPassageDTO';
@@ -8,120 +8,123 @@ import IFloorRepo from './IRepos/IFloorRepo';
 import { Location } from '../domain/valueObjects/location';
 import { Passage } from '../domain/passage';
 import { PassageMap } from '../mappers/PassageMap';
-import e from 'express';
 
 @Service()
 export default class PassageService implements IPassageService {
-    constructor(
-        @Inject(config.repos.passage.name) private passageRepo : IPassageRepo,
-        @Inject(config.repos.floor.name) private floorRepo : IFloorRepo
-    ) {}
+  constructor(
+    @Inject(config.repos.passage.name) private passageRepo: IPassageRepo,
+    @Inject(config.repos.floor.name) private floorRepo: IFloorRepo,
+  ) {}
 
-    public async createPassage(passageDTO: IPassageDTO): Promise<Result<IPassageDTO>> {
-        try {          
-        
-          const fromFloor = await this.floorRepo.findByObjectId(passageDTO.fromFloorId);
-          const toFloor = await this.floorRepo.findByObjectId(passageDTO.toFloorId);
-          
-          const locationOrError = Location.create({
-            positionX: passageDTO.location.positionX,
-            positionY: passageDTO.location.positionY,
-            direction: passageDTO.location.direction,
-          });
-          
-          if (fromFloor === null || fromFloor === undefined) {
-            return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.fromFloorId + '" not found');
-          }
+  public async createPassage(passageDTO: IPassageDTO): Promise<Result<IPassageDTO>> {
+    try {
+      const fromFloor = await this.floorRepo.findByObjectId(passageDTO.fromFloorId);
+      const toFloor = await this.floorRepo.findByObjectId(passageDTO.toFloorId);
 
-          if (toFloor === null || toFloor === undefined) {
-            return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.toFloorId + '" not found');
-          }
+      const locationOrError = Location.create({
+        positionX: passageDTO.location.positionX,
+        positionY: passageDTO.location.positionY,
+        direction: passageDTO.location.direction,
+      });
 
-          if (locationOrError.isFailure) {
-            return Result.fail<IPassageDTO>('Invalid Location');
-          }
-
-          const passageOrError = await Passage.create(passageDTO);
-
-          if (passageOrError.isFailure) {
-            return Result.fail<IPassageDTO>(passageOrError.errorValue());
-          }
-      
-          const passageResult = passageOrError.getValue();
-      
-          await this.passageRepo.save(passageResult);
-      
-          const passageDTOResult = PassageMap.toDTO( passageResult ) as IPassageDTO;
-            return Result.ok<IPassageDTO>( passageDTOResult )
-          } catch (e) {
-            throw e;
-        }
-    }
-
-    public async getAllPassages(): Promise<Result<IPassageDTO[]>> {
-      try {
-        const passageList: Passage[] = await this.passageRepo.findAll();
-        let passageListDto: IPassageDTO[] = [];
-  
-        if (passageList != null){
-          for (let i = 0; i < passageList.length; i++)
-          passageListDto.push(PassageMap.toDTO(passageList[i]));
-          return Result.ok<IPassageDTO[]>(passageListDto);
-        }
-        return Result.fail<IPassageDTO[]>("There are no passages to return.");
-      } catch (e) {
-        return Result.fail<IPassageDTO[]>(e.message);
+      if (fromFloor === null || fromFloor === undefined) {
+        return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.fromFloorId + '" not found');
       }
-    }
-    
-    public async updatePassage(passageDTO: IPassageDTO): Promise<Result<IPassageDTO>> {
-      try {
-        const passage = await this.passageRepo.findByDomainId(passageDTO.id);
-        const fromFloor = await this.floorRepo.findByObjectId(passageDTO.fromFloorId);
-        const toFloor = await this.floorRepo.findByObjectId(passageDTO.toFloorId);
-        const location = Location.create({
-          positionX: passageDTO.location.positionX,
-          positionY: passageDTO.location.positionY,
-          direction: passageDTO.location.direction,
-        });
 
-        if (passage === null) {
-          return Result.fail<IPassageDTO>('Passage not found with id:' + passageDTO.id);
+      if (toFloor === null || toFloor === undefined) {
+        return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.toFloorId + '" not found');
+      }
+
+      if (locationOrError.isFailure) {
+        return Result.fail<IPassageDTO>('Invalid Location');
+      }
+
+      const passageOrError = await Passage.create(passageDTO);
+
+      if (passageOrError.isFailure) {
+        return Result.fail<IPassageDTO>(passageOrError.errorValue());
+      }
+
+      const passageResult = passageOrError.getValue();
+
+      await this.passageRepo.save(passageResult);
+
+      const passageDTOResult = PassageMap.toDTO(passageResult) as IPassageDTO;
+      return Result.ok<IPassageDTO>(passageDTOResult);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  public async getAllPassages(): Promise<Result<IPassageDTO[]>> {
+    try {
+      const passageList: Passage[] = await this.passageRepo.findAll();
+      const passageListDto: IPassageDTO[] = [];
+
+      if (passageList != null) {
+        for (let i = 0; i < passageList.length; i++) passageListDto.push(PassageMap.toDTO(passageList[i]));
+        return Result.ok<IPassageDTO[]>(passageListDto);
+      }
+      return Result.fail<IPassageDTO[]>('There are no passages to return.');
+    } catch (e) {
+      return Result.fail<IPassageDTO[]>(e.message);
+    }
+  }
+
+  public async updatePassage(passageDTO: IPassageDTO): Promise<Result<IPassageDTO>> {
+    try {
+      const passage = await this.passageRepo.findByDomainId(passageDTO.id);
+      const fromFloor = await this.floorRepo.findByObjectId(passageDTO.fromFloorId);
+      const toFloor = await this.floorRepo.findByObjectId(passageDTO.toFloorId);
+      const location = Location.create({
+        positionX: passageDTO.location.positionX,
+        positionY: passageDTO.location.positionY,
+        direction: passageDTO.location.direction,
+      });
+
+      if (passage === null) {
+        return Result.fail<IPassageDTO>('Passage not found with id:' + passageDTO.id);
+      } else {
+        if (fromFloor === null || fromFloor === undefined) {
+          return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.fromFloorId + '" not found');
+        } else if (toFloor === null || toFloor === undefined) {
+          return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.toFloorId + '" not found');
         } else {
-          if (fromFloor === null || fromFloor === undefined) {
-            return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.fromFloorId + '" not found');
-          } else if (toFloor === null || toFloor === undefined) {
-            return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.toFloorId + '" not found');
-          } else {
-            passage.fromFloorId = passageDTO.fromFloorId;
-            passage.toFloorId = passageDTO.toFloorId;
-            passage.location = location.getValue();
-            
-            await this.passageRepo.save(passage);
-            const passageDTOResult = PassageMap.toDTO(passage) as IPassageDTO;
-            return Result.ok<IPassageDTO>(passageDTOResult);
-          }
+          passage.fromFloorId = passageDTO.fromFloorId;
+          passage.toFloorId = passageDTO.toFloorId;
+          passage.location = location.getValue();
+
+          await this.passageRepo.save(passage);
+          const passageDTOResult = PassageMap.toDTO(passage) as IPassageDTO;
+          return Result.ok<IPassageDTO>(passageDTOResult);
         }
-      } catch (e) {
-        throw e;
       }
+    } catch (e) {
+      throw e;
     }
-  
-  public async allPassagesBetweenBuildings(fromBuildingID: string, toBuildingID:string, passageDTO: IPassageDTO[]): Promise<Result<IPassageDTO[]>>{
+  }
+
+  public async allPassagesBetweenBuildings(
+    fromBuildingID: string,
+    toBuildingID: string,
+    passageDTO: IPassageDTO[],
+  ): Promise<Result<IPassageDTO[]>> {
     try {
       const passageListDto: IPassageDTO[] = [];
       if (passageDTO != null) {
         for (let index = 0; index < passageDTO.length; index++) {
           const fromFloor = await this.floorRepo.findByDomainId(passageDTO[index].fromFloorId);
           const toFloor = await this.floorRepo.findByDomainId(passageDTO[index].toFloorId);
-          if ((fromFloor.buildingId == fromBuildingID && toFloor.buildingId == toBuildingID) ||
-              (fromFloor.buildingId == toBuildingID && toFloor.buildingId == fromBuildingID)) {
+          if (
+            (fromFloor.buildingId == fromBuildingID && toFloor.buildingId == toBuildingID) ||
+            (fromFloor.buildingId == toBuildingID && toFloor.buildingId == fromBuildingID)
+          ) {
             passageListDto.push(passageDTO[index]);
           }
         }
         return Result.ok<IPassageDTO[]>(passageListDto);
       }
-      return Result.fail<IPassageDTO[]>("There are no passages to return.");
+      return Result.fail<IPassageDTO[]>('There are no passages to return.');
     } catch (error) {
       return Result.fail<IPassageDTO[]>(error.message);
     }
