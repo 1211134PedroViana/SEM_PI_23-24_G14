@@ -2,7 +2,7 @@
 :-consult('bc_floorMaps').
 :-consult('bc_coordenadas').
 
-:-dynamic ligacel/2.
+:-dynamic ligacel/3.
 
 
 % Algoritmo - Caminho entre edificios
@@ -94,19 +94,18 @@ cria_grafo(Piso,Col,Lin):-
 
 cria_grafo_lin(_,0,_):-!.
 
-cria_grafo_lin(Piso,Col,Lin):-
-   m(Piso,Col,Lin,0),!,
+cria_grafo_lin(Piso,Col,Lin):- 
+   m(Piso,Lin,Col,0),!,
    ColS is Col+1, ColA is Col-1, 
    LinS is Lin+1,LinA is Lin-1,
-   ((m(Piso,ColS,Lin,0),assertz(ligacel(Piso,cel(Col,Lin),cel(ColS,Lin)));true)),
-   write('Ligacel: '),write(ligacel(Piso,cel(Col,Lin),cel(ColS,Lin))),nl,
-   ((m(Piso,ColA,Lin,0),assertz(ligacel(Piso,cel(Col,Lin),cel(ColA,Lin)));true)),
-   ((m(Piso,Col,LinS,0),assertz(ligacel(Piso,cel(Col,Lin),cel(Col,LinS)));true)),
-   ((m(Piso,Col,LinA,0),assertz(ligacel(Piso,cel(Col,Lin),cel(Col,LinA)));true)),
-   ((m(Piso,ColS,LinS,0), m(Piso,Col,LinS,0), m(Piso,ColS,Lin,0), assertz(ligacel(Piso,cel(Col,Lin),cel(ColS,LinS)));true)),
-   ((m(Piso,ColA,LinA,0), m(Piso,Col,LinA,0), m(Piso,ColA,Lin,0), assertz(ligacel(Piso,cel(Col,Lin),cel(ColA,LinA)));true)),
-   ((m(Piso,ColS,LinA,0), m(Piso,Col,LinA,0), m(Piso,ColS,Lin,0), assertz(ligacel(Piso,cel(Col,Lin),cel(ColS,LinA)));true)),
-   ((m(Piso,ColA,LinS,0), m(Piso,ColA,Lin,0), m(Piso,Col,LinS,0), assertz(ligacel(Piso,cel(Col,Lin),cel(ColA,LinS)));true)),
+   ((m(Piso,Lin,ColS,0),assertz(ligacel(Piso,cel(Col,Lin),cel(ColS,Lin)));true)),
+   ((m(Piso,Lin,ColA,0),assertz(ligacel(Piso,cel(Col,Lin),cel(ColA,Lin)));true)),
+   ((m(Piso,LinS,Col,0),assertz(ligacel(Piso,cel(Col,Lin),cel(Col,LinS)));true)),
+   ((m(Piso,LinA,Col,0),assertz(ligacel(Piso,cel(Col,Lin),cel(Col,LinA)));true)),
+   ((m(Piso,LinS,ColS,0), m(Piso,LinS,Col,0), m(Piso,Lin,ColS,0), assertz(ligacel(Piso,cel(Col,Lin),cel(ColS,LinS)));true)),
+   ((m(Piso,LinA,ColA,0), m(Piso,LinA,Col,0), m(Piso,Lin,ColA,0), assertz(ligacel(Piso,cel(Col,Lin),cel(ColA,LinA)));true)),
+   ((m(Piso,LinA,ColS,0), m(Piso,LinA,Col,0), m(Piso,Lin,ColS,0), assertz(ligacel(Piso,cel(Col,Lin),cel(ColS,LinA)));true)),
+   ((m(Piso,LinS,ColA,0), m(Piso,Lin,ColA,0), m(Piso,LinS,Col,0), assertz(ligacel(Piso,cel(Col,Lin),cel(ColA,LinS)));true)),
    Col1 is Col-1,
    cria_grafo_lin(Piso,Col1,Lin).
 
@@ -139,7 +138,8 @@ processar_pares_elemento(elev(_, ElevDestino), pass(PassOrigem, PassDestino)) :-
     coordenadas(ElevDestino, ElevPosX, ElevPosY),
     coordenadas(ElevDestino, PassDestino, PassPosX, PassPosY, _, _),
     dimensoes(ElevDestino, Col, Lin),
-    cria_grafo(ElevDestino, Col, Lin).       % chama o cria_grafo/3 para o piso de origem
+    cria_grafo(ElevDestino, Col, Lin),      % chama o cria_grafo/3 para o piso de origem
+    better_dfs(ElevDestino,cel(ElevPosX,ElevPosY),cel(PassPosX,PassPosY),Cam).
 
 processar_pares_elemento(pass(PassOrigem, PassDestino), elev(ElevOrigem, _)) :-
     coordenadas(PassOrigem, PassDestino, _, _, PassPosX, PassPosY),
@@ -161,14 +161,14 @@ dfs2(_,Dest,Dest,LA,Cam):-
    reverse(LA,Cam).
 
 dfs2(Piso,Act,Dest,LA,Cam):-
-   ligacel(Piso,Act,X), \+ member(X,LA),
+  ( ligacel(Piso,Act,X); ligacel(Piso,X,Act)), \+ member(X,LA),
    dfs2(Piso,X,Dest,[X|LA],Cam).
 
 all_dfs(Piso,Orig,Dest,LCam):-
    findall(Cam,dfs(Piso,Orig,Dest,Cam),LCam).
 
-better_dfs(Piso,Orig,Dest,Cam):-
-   all_dfs(Piso,Orig,Dest,LCam), shortlist(LCam,Cam,_), write('List:'), write(Cam).
+better_dfs(Piso,Orig,Dest,Cam):-  
+   all_dfs(Piso,Orig,Dest,LCam), shortlist(LCam,Cam,_).
 
 shortlist([L],L,N):-!,length(L,N).
 
