@@ -49,7 +49,7 @@ const routes: Routes = [
       { path: 'listFromABuilding', component: ListFloorsFromABuildingComponent },
       { path: 'loadMap', component: LoadFloorMapComponent },
       { path: 'listFloorsWithElevator', component: ListFloorsWithElevatorComponent},
-      { path: 'listFloorsWithPassages', component: ListFloorsWithPassagesComponent }
+      { path: 'listFloorsWithPassages', component: ListFloorsWithPassagesComponent },
     ]},
     { path: 'room', component: RoomComponent, children: [
       { path: 'create', component: CreateRoomFormComponent },
