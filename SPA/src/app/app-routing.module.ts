@@ -48,8 +48,8 @@ const routes: Routes = [
       { path: 'update', component: UpdateFloorComponent },
       { path: 'listFromABuilding', component: ListFloorsFromABuildingComponent },
       { path: 'loadMap', component: LoadFloorMapComponent },
-      { path: 'listFloorsWithElevator', component: ListFloorsWithElevatorComponent}
-      { path: 'listFloorsWithPassages', component: ListFloorsWithPassagesComponent },
+      { path: 'listFloorsWithElevator', component: ListFloorsWithElevatorComponent},
+      { path: 'listFloorsWithPassages', component: ListFloorsWithPassagesComponent }
     ]},
     { path: 'room', component: RoomComponent, children: [
       { path: 'create', component: CreateRoomFormComponent },
