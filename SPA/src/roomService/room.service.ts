@@ -10,9 +10,9 @@ import Room from './room';
 
 export class RoomService {
 
-  private createUrl = 'http://localhost:4200/api/room/create';
-  private updateUrl = 'http://localhost:4200/api/room/update';
-  private listUrl = 'http://localhost:4200/api/room/list';
+  private createUrl = 'http://localhost:4000/api/rooms/create';
+  private updateUrl = 'http://localhost:4000/api/rooms/update';
+  private listUrl = 'http://localhost:4000/api/rooms/list';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private elevator = new BehaviorSubject<Room>({} as Room);

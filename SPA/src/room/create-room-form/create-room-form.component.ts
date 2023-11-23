@@ -3,6 +3,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, tap } from 'rxjs/operators';
 import {RoomService} from "../../roomService/room.service";
 import Room from "../../roomService/room";
+import Building from "../../buildingService/building";
+import Floor from "../../floorService/floor";
+import {BuildingService} from "../../buildingService/building.service";
+import {FloorService} from "../../floorService/floor-service";
 
 @Component({
   selector: 'app-create-room-form',
@@ -22,8 +26,9 @@ export class CreateRoomFormComponent {
   positionY: number = 0;
   direction: string = "";
   floorId: string = "";
+  floors: Floor[] = [];
 
-  constructor(private roomService: RoomService, private snackBar: MatSnackBar) { }
+  constructor(private roomService: RoomService,  private floorService: FloorService, private snackBar: MatSnackBar) { }
 
   closeForm() {
     this.roomService.closeForm();
@@ -66,6 +71,11 @@ export class CreateRoomFormComponent {
         })
       )
       .subscribe();
+  }
+  ngOnInit() {
+    this.floorService.getAllFloors().subscribe((floors) => {
+      this.floors = floors;
+    });
   }
 }
 

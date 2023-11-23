@@ -62,11 +62,13 @@
     </div>
 
     <div class="col-md-4">
-      <label for="floorId" class="form-label">FloorId</label>
-      <input class="form-control" name="floorId" [(ngModel)]="floorId">
+      <label class="form-label" for="floor">Floor:</label>
+      <select class="form-select" id="floor" name="FloorId" [(ngModel)]="floorId">
+        <option *ngFor="let floor of floors" [value]="floor.id">{{ floor.floorNumber }}</option>
+      </select>
     </div>
   </div>
   <div class="col-12">
-    <button type="submit" class="btn btn-primary">Create</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
   </div>
 </form>
