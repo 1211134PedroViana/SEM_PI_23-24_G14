@@ -14,11 +14,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let floor of floor; let i = index" (click)="openForm(floor)">
+      <tr *ngFor="let floor of floor; let i = index" (click)="openForm(floors)">
         <th scope="row">{{ i + 1 }}</th>
-        <td>{{ floor.buildingId }}</td>
-        <td>{{ floor.floorNumber }}</td>
-        <td>{{ floor.description }}</td>
+        <td>{{ floors.buildingId }}</td>
+        <td>{{ floors.floorNumber }}</td>
+        <td>{{ floors.description }}</td>
       </tr>
     </tbody>
 </table>

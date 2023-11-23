@@ -13,8 +13,10 @@ export class FloorComponent {
   feature2ButtonText = 'Update Floor';
   feature3ButtonText = 'List Floors';
   feature4ButtonText = 'Load Map';
+  feature5ButtonText = 'List Floors With Elevator';
   feature1Route = '/campus/floor/create';
   feature2Route = '/campus/floor/update';
   feature3Route = '/campus/floor/list';
   feature4Route = '/campus/floor/loadMap';
+  feature5Route = '/campus/floor/listFloorsWithElevator';
 }

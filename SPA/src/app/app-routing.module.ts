@@ -27,6 +27,7 @@ import {CreateRoomFormComponent} from "../room/create-room-form/create-room-form
 import { DeactivateRobotComponent } from 'src/robot/deactivate-robot/deactivate-robot.component';
 import {ListRobotsComponent} from "../robot/list-robots/list-robots.component";
 import { ListFloorsFromABuildingComponent } from 'src/floor/list-floorsFromBuilding/list-floorsFromABuilding.component';
+import { ListFloorsWithElevatorComponent } from 'src/floor/list-floorsWithElevators/list-floorsWithElevator.component';
 
 const routes: Routes = [
 
@@ -41,7 +42,8 @@ const routes: Routes = [
       { path: 'create', component: CreateFloorFormComponent },
       { path: 'update', component: UpdateFloorComponent },
       { path: 'listFromABuilding', component: ListFloorsFromABuildingComponent },
-      { path: 'loadMap', component: LoadFloorMapComponent }
+      { path: 'loadMap', component: LoadFloorMapComponent },
+      { path: 'listFloorsWithElevator', component: ListFloorsWithElevatorComponent}
     ]},
     { path: 'room', component: RoomComponent, children: [
       { path: 'create', component: CreateRoomFormComponent },
