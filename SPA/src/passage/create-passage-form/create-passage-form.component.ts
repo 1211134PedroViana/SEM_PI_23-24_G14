@@ -32,7 +32,6 @@ export class CreatePassageFormComponent implements OnInit {
     private floorService: FloorService, private snackBar: MatSnackBar) { }
 
   onSubmit() {
-    console.log("id:" + this.selectedFloor1)
     const passageData = ({
       fromFloorId: this.selectedFloor1,
       toFloorId: this.selectedFloor2,

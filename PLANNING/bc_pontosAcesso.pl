@@ -48,7 +48,5 @@ salas(c202, c2, 7, 4).
 salas(c203, c2, 4, 5).
 salas(c204, c2, 7, 14).
 salas(c205, c2, 9, 10).
-coordenadas(c206, c2, 9, 12).
-coordenadas(c207, c2, 4, 11).
-coordenadas(c209, c2, 3, 16).
+
 
