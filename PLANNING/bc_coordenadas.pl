@@ -117,9 +117,10 @@ coordenadas(d3, 1, 1).
 
 % BC - Coordenadas Corredores
 coordenadas(c2,d2, 0, 14, 12, 0).
-coordenadas(a2,b2, 22, 5, 1, 5).
-coordenadas(b2,c3, 21, 8, 0, 8).
-coordenadas(b2,d3, 20, 9, 10, 0).
+coordenadas(a2,b2, 22, 5, 1, 9).
+coordenadas(b2,c3, 22, 8, 0, 8).
+coordenadas(b2,d3, 21, 10, 10, 0).
+coordenadas(d3,b2, 10, 0, 21, 10).
 coordenadas(d3,c3, 12, 1, 0, 14).
 coordenadas(c3,d3, 0, 14, 12, 1).
 coordenadas(b3,c4, 22, 8, 0, 8).

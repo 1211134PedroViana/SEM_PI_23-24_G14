@@ -70,20 +70,6 @@ conta([pass(_,_)|L],NElev,NCor):-
    conta(L,NElev,NCorL), NCor is NCorL+1.
 
 
-% Predicado para extrair o piso de um elemento do caminho
-extrair_piso_origem(elev(Origem, _), Piso) :-
-    Piso = Origem.
-
-extrair_piso_origem(pass(Origem, _), Piso) :-
-    Piso = Origem. 
-
-extrair_piso_destino(elev(_, Destino), Piso) :-
-    Piso = Destino. 
-
-extrair_piso_destino(pass(_, Destino), Piso) :-
-    Piso = Destino. 
-
-
 % Algoritmo - Gera grafo e ligações entre as celulas da matriz 
 cria_grafo(_,_,0):-!.
 
@@ -133,12 +119,29 @@ processar_caminho([Elemento1, Elemento2|Resto]):-
     processar_pares_elemento(Elemento1, Elemento2),    % processa os pisos do elemento atual
     processar_caminho([Elemento2 | Resto]).
 
-% processa os pisos de um elemento do caminho
+% processa pares de elementos da lista retornada pelo predicado melhor_caminho_pisos/3
 processar_pares_elemento(elev(_, ElevDestino), pass(PassOrigem, PassDestino)) :-
+    gera_grafo(ElevDestino),
+    encontra_caminho(elev(_, ElevDestino), pass(PassOrigem, PassDestino)).
+
+processar_pares_elemento(pass(PassOrigem, PassDestino), elev(ElevOrigem, _)) :-
+    gera_grafo(PassDestino),
+    encontra_caminho(pass(PassOrigem, PassDestino), elev(ElevOrigem, _)).
+
+processar_pares_elemento(pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino)) :-
+    gera_grafo(PassDestino),
+    encontra_caminho(pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino)).
+
+% Gera o grafo do piso e constroi as ligações (ligacel/4)
+gera_grafo(Piso) :-
+    dimensoes(Piso, NrCol, NrLin),
+    cria_grafo(Piso, NrCol, NrLin).
+
+
+% Encontra o caminho entre um elevador e uma passagem através do algoritmo DFS ou ASTAR
+encontra_caminho(elev(_, ElevDestino), pass(PassOrigem, PassDestino)) :-
     coordenadas(ElevDestino, ElevPosX, ElevPosY),
     coordenadas(ElevDestino, PassDestino, PassPosX, PassPosY, _, _),
-    dimensoes(ElevDestino, Col, Lin),
-    cria_grafo(ElevDestino, Col, Lin),      % chama o cria_grafo/3 para o piso de origem
     aStar(cel(ElevPosX,ElevPosY), cel(PassPosX,PassPosY), Cam, Custo, ElevDestino),
     %dfs(ElevDestino, cel(ElevPosX,ElevPosY), cel(PassPosX,PassPosY), Cam),
     write('Piso:'),write(ElevDestino),nl,
@@ -146,11 +149,10 @@ processar_pares_elemento(elev(_, ElevDestino), pass(PassOrigem, PassDestino)) :-
     write('Destino:'),write(pass(PassOrigem, PassDestino)),write(' | '),write('Coordenadas:'),write(PassPosX),write(' '),write(PassPosY),nl,
     write('Caminho:'),write(Cam),nl,nl.
 
-processar_pares_elemento(pass(PassOrigem, PassDestino), elev(ElevOrigem, _)) :-
+% Encontra o caminho entre uma passagem e um elevador através do algoritmo DFS ou ASTAR
+encontra_caminho(pass(PassOrigem, PassDestino), elev(ElevOrigem, _)) :-
     coordenadas(PassOrigem, PassDestino, _, _, PassPosX, PassPosY),
     coordenadas(ElevOrigem, ElevPosX, ElevPosY),
-    dimensoes(PassDestino, Col, Lin),
-    cria_grafo(PassDestino, Col, Lin),
     aStar(cel(PassPosX,PassPosY), cel(ElevPosX,ElevPosY), Cam, Custo, PassDestino),
     %dfs(PassDestino,cel(PassPosX,PassPosY), cel(ElevPosX,ElevPosY), Cam),
     write('Piso:'),write(PassDestino),nl,
@@ -158,17 +160,17 @@ processar_pares_elemento(pass(PassOrigem, PassDestino), elev(ElevOrigem, _)) :-
     write('Destino:'),write(elev(ElevOrigem)),write(' | '),write('Coordenadas:'),write(ElevPosX),write(' '),write(ElevPosY),nl,
     write('Caminho '),write(Cam),nl,nl.
 
-processar_pares_elemento(pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino)) :-
+% Encontra o caminho entre duas passagens através do algoritmo DFS ou ASTAR
+encontra_caminho(pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino)) :-
     coordenadas(PassOrigem, PassDestino, _, _, PassPosX, PassPosY),
     coordenadas(Pass2Origem, Pass2Destino, Pass2PosX, Pass2PosY, _,_),
-    dimensoes(PassDestino, Col, Lin),
-    cria_grafo(PassDestino, Col, Lin),
     %aStar(cel(PassPosX,PassPosY), cel(Pass2PosX,Pass2PosY), Cam, Custo, PassDestino),
     dfs(PassDestino,cel(PassPosX,PassPosY), cel(Pass2PosX,Pass2PosY), Cam),
     write('Piso:'),write(PassDestino),nl,
     write('Origem:'),write(pass(PassOrigem, PassDestino)),write(' | '),write('Coordenadas:'),write(PassPosX),write(' '),write(PassPosY),nl,
     write('Destino:'),write(pass(Pass2Origem, Pass2Destino)),write(' | '),write('Coordenadas:'),write(Pass2PosX),write(' '),write(Pass2PosY),nl,
     write('Caminho '),write(Cam),nl,nl.
+    
 
 % Algoritmo DFS
 dfs(Piso,Orig,Dest,Cam):-
