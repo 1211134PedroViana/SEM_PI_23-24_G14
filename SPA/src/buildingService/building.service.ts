@@ -68,7 +68,9 @@ export class BuildingService {
       headers: new HttpHeaders({'Content-type': 'application/json'})
     };
 
-    return this.http.get<Building[]>(this.listUrl, httpOptions)
+    const urlWithParams = `${this.listUrl}?min=${min}&max=${max}`;
+
+    return this.http.get<Building[]>(urlWithParams, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
