@@ -51,6 +51,8 @@ import { Featuresv6Component } from '../featuresv6/featuresv6.component';
 import { ListBuildingsWithMinAndMaxFloorsComponent } from 'src/building/list-buildingsWithMinAndMaxFloors/list-buildingsWithMinAndMaxFloors';
 import { ListFloorsFromABuildingComponent } from 'src/floor/list-floors-with-passages/list-floorsFromBuilding/list-floorsFromABuilding.component';
 import {CreatePassageComponent} from "../passage/create-passage/create-passage.component";
+import { UpdatePassageComponent} from "../passage/update-passage/update-passage.component";
+import { UpdatePassageFormComponent} from "../passage/update-passage-form/update-passage-form.component";
 
 @NgModule({
   declarations: [
@@ -98,7 +100,9 @@ import {CreatePassageComponent} from "../passage/create-passage/create-passage.c
     ListFloorsWithPassagesComponent,
     ListBuildingsWithMinAndMaxFloorsComponent,
     Featuresv6Component,
-    CreatePassageComponent
+    CreatePassageComponent,
+    UpdatePassageComponent,
+    UpdatePassageFormComponent
   ],
   imports: [
     BrowserModule,
