@@ -32,6 +32,7 @@ import { ListFloorsWithPassagesComponent} from 'src/floor/list-floors-with-passa
 import {CreateElevatorComponent} from "../elevator/create-elevator/create-elevator.component";
 import { ListFloorsFromABuildingComponent } from 'src/floor/list-floors-with-passages/list-floorsFromBuilding/list-floorsFromABuilding.component';
 import {CreatePassageComponent} from "../passage/create-passage/create-passage.component";
+import {UpdatePassageComponent} from "../passage/update-passage/update-passage.component";
 
 const routes: Routes = [
 
@@ -56,6 +57,7 @@ const routes: Routes = [
     ]},
     { path: 'passage', component: PassageComponent, children: [
       { path: 'create', component: CreatePassageComponent },
+      { path: 'update', component: UpdatePassageComponent},
       { path: 'list', component: ListPassageComponent}
     ]},
     { path: 'elevator', component: ElevatorComponent, children: [
