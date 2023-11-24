@@ -2,7 +2,7 @@
 :-consult('bc_floorMaps').
 :-consult('bc_coordenadas').
 
-:-dynamic ligacel/3.
+:-dynamic ligacel/4.
 
 
 % Algoritmo - Caminho entre edificios
@@ -98,14 +98,14 @@ cria_grafo_lin(Piso,Col,Lin):-
    m(Piso,Lin,Col,0),!,
    ColS is Col+1, ColA is Col-1, 
    LinS is Lin+1,LinA is Lin-1,
-   ((m(Piso,Lin,ColS,0),assertz(ligacel(Piso,cel(Col,Lin),cel(ColS,Lin)));true)),
-   ((m(Piso,Lin,ColA,0),assertz(ligacel(Piso,cel(Col,Lin),cel(ColA,Lin)));true)),
-   ((m(Piso,LinS,Col,0),assertz(ligacel(Piso,cel(Col,Lin),cel(Col,LinS)));true)),
-   ((m(Piso,LinA,Col,0),assertz(ligacel(Piso,cel(Col,Lin),cel(Col,LinA)));true)),
-   ((m(Piso,LinS,ColS,0), m(Piso,LinS,Col,0), m(Piso,Lin,ColS,0), assertz(ligacel(Piso,cel(Col,Lin),cel(ColS,LinS)));true)),
-   ((m(Piso,LinA,ColA,0), m(Piso,LinA,Col,0), m(Piso,Lin,ColA,0), assertz(ligacel(Piso,cel(Col,Lin),cel(ColA,LinA)));true)),
-   ((m(Piso,LinA,ColS,0), m(Piso,LinA,Col,0), m(Piso,Lin,ColS,0), assertz(ligacel(Piso,cel(Col,Lin),cel(ColS,LinA)));true)),
-   ((m(Piso,LinS,ColA,0), m(Piso,Lin,ColA,0), m(Piso,LinS,Col,0), assertz(ligacel(Piso,cel(Col,Lin),cel(ColA,LinS)));true)),
+   ((m(Piso,Lin,ColS,0),assertz(ligacel(Piso,cel(Col,Lin),cel(ColS,Lin),1));true)),
+   ((m(Piso,Lin,ColA,0),assertz(ligacel(Piso,cel(Col,Lin),cel(ColA,Lin),1));true)),
+   ((m(Piso,LinS,Col,0),assertz(ligacel(Piso,cel(Col,Lin),cel(Col,LinS),1));true)),
+   ((m(Piso,LinA,Col,0),assertz(ligacel(Piso,cel(Col,Lin),cel(Col,LinA),1));true)),
+   ((m(Piso,LinS,ColS,0), m(Piso,LinS,Col,0), m(Piso,Lin,ColS,0), assertz(ligacel(Piso,cel(Col,Lin),cel(ColS,LinS),sqrt(2)));true)),
+   ((m(Piso,LinA,ColA,0), m(Piso,LinA,Col,0), m(Piso,Lin,ColA,0), assertz(ligacel(Piso,cel(Col,Lin),cel(ColA,LinA),sqrt(2)));true)),
+   ((m(Piso,LinA,ColS,0), m(Piso,LinA,Col,0), m(Piso,Lin,ColS,0), assertz(ligacel(Piso,cel(Col,Lin),cel(ColS,LinA),sqrt(2)));true)),
+   ((m(Piso,LinS,ColA,0), m(Piso,Lin,ColA,0), m(Piso,LinS,Col,0), assertz(ligacel(Piso,cel(Col,Lin),cel(ColA,LinS),sqrt(2)));true)),
    Col1 is Col-1,
    cria_grafo_lin(Piso,Col1,Lin).
 
@@ -122,7 +122,7 @@ find_caminho_salas(SalaOr, SalaDest):-
 % predicado para o user (integração do algoritmo do mlhr caminho e do algoritmo do robot)
 find_caminho(PisoOr, PisoDest):-
     melhor_caminho_pisos(PisoOr,PisoDest,Caminho),      % obter o melhor caminho entre os pisos
-    write('Melhor Caminho: '),write(Caminho),nl,        
+    write('Melhor Caminho: '),write(Caminho),nl,nl,        
     processar_caminho(Caminho).
 
 
@@ -139,19 +139,36 @@ processar_pares_elemento(elev(_, ElevDestino), pass(PassOrigem, PassDestino)) :-
     coordenadas(ElevDestino, PassDestino, PassPosX, PassPosY, _, _),
     dimensoes(ElevDestino, Col, Lin),
     cria_grafo(ElevDestino, Col, Lin),      % chama o cria_grafo/3 para o piso de origem
-    better_dfs(ElevDestino,cel(ElevPosX,ElevPosY),cel(PassPosX,PassPosY),Cam).
+    aStar(cel(ElevPosX,ElevPosY), cel(PassPosX,PassPosY), Cam, Custo, ElevDestino),
+    %dfs(ElevDestino, cel(ElevPosX,ElevPosY), cel(PassPosX,PassPosY), Cam),
+    write('Piso:'),write(ElevDestino),nl,
+    write('Origem:'),write(elev(ElevDestino)),write(' | '),write('Coordenadas:'),write(ElevPosX),write(' '),write(ElevPosY),nl,
+    write('Destino:'),write(pass(PassOrigem, PassDestino)),write(' | '),write('Coordenadas:'),write(PassPosX),write(' '),write(PassPosY),nl,
+    write('Caminho:'),write(Cam),nl,nl.
 
 processar_pares_elemento(pass(PassOrigem, PassDestino), elev(ElevOrigem, _)) :-
     coordenadas(PassOrigem, PassDestino, _, _, PassPosX, PassPosY),
     coordenadas(ElevOrigem, ElevPosX, ElevPosY),
     dimensoes(PassDestino, Col, Lin),
-    cria_grafo(PassDestino, Col, Lin).
+    cria_grafo(PassDestino, Col, Lin),
+    aStar(cel(PassPosX,PassPosY), cel(ElevPosX,ElevPosY), Cam, Custo, PassDestino),
+    %dfs(PassDestino,cel(PassPosX,PassPosY), cel(ElevPosX,ElevPosY), Cam),
+    write('Piso:'),write(PassDestino),nl,
+    write('Origem:'),write(pass(PassOrigem, PassDestino)),write(' | '),write('Coordenadas:'),write(PassPosX),write(' '),write(PassPosY),nl,
+    write('Destino:'),write(elev(ElevOrigem)),write(' | '),write('Coordenadas:'),write(ElevPosX),write(' '),write(ElevPosY),nl,
+    write('Caminho '),write(Cam),nl,nl.
 
 processar_pares_elemento(pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino)) :-
     coordenadas(PassOrigem, PassDestino, _, _, PassPosX, PassPosY),
     coordenadas(Pass2Origem, Pass2Destino, Pass2PosX, Pass2PosY, _,_),
     dimensoes(PassDestino, Col, Lin),
-    cria_grafo(PassDestino, Col, Lin).
+    cria_grafo(PassDestino, Col, Lin),
+    %aStar(cel(PassPosX,PassPosY), cel(Pass2PosX,Pass2PosY), Cam, Custo, PassDestino),
+    dfs(PassDestino,cel(PassPosX,PassPosY), cel(Pass2PosX,Pass2PosY), Cam),
+    write('Piso:'),write(PassDestino),nl,
+    write('Origem:'),write(pass(PassOrigem, PassDestino)),write(' | '),write('Coordenadas:'),write(PassPosX),write(' '),write(PassPosY),nl,
+    write('Destino:'),write(pass(Pass2Origem, Pass2Destino)),write(' | '),write('Coordenadas:'),write(Pass2PosX),write(' '),write(Pass2PosY),nl,
+    write('Caminho '),write(Cam),nl,nl.
 
 % Algoritmo DFS
 dfs(Piso,Orig,Dest,Cam):-
@@ -161,13 +178,13 @@ dfs2(_,Dest,Dest,LA,Cam):-
    reverse(LA,Cam).
 
 dfs2(Piso,Act,Dest,LA,Cam):-
-  ( ligacel(Piso,Act,X); ligacel(Piso,X,Act)), \+ member(X,LA),
+   (ligacel(Piso,Act,X,_); ligacel(Piso,X,Act,_)), \+ member(X,LA),
    dfs2(Piso,X,Dest,[X|LA],Cam).
 
 all_dfs(Piso,Orig,Dest,LCam):-
    findall(Cam,dfs(Piso,Orig,Dest,Cam),LCam).
 
-better_dfs(Piso,Orig,Dest,Cam):-  
+better_dfs(Piso,Orig,Dest,Cam):- 
    all_dfs(Piso,Orig,Dest,LCam), shortlist(LCam,Cam,_).
 
 shortlist([L],L,N):-!,length(L,N).
@@ -175,3 +192,31 @@ shortlist([L],L,N):-!,length(L,N).
 shortlist([L|LL],Lm,Nm):-
    shortlist(LL,Lm1,Nm1), length(L,NL),
    ((NL<Nm1,!,Lm=L,Nm is NL); (Lm=Lm1,Nm is Nm1)).
+
+
+% A STAR
+
+estimativa(cel(X1, Y1), cel(X2, Y2), Distancia) :-
+    Distancia is sqrt((X1 - X2)^2 + (Y1 - Y2)^2).
+
+% predicado principal do A*
+aStar(Orig, Dest, Cam, Custo, Piso) :-
+    aStar2(Piso, Dest, [(_, 0, [Orig])], Cam, Custo).
+
+% predicado auxiliar para o A*
+aStar2(_, Dest, [(_, Custo, [Dest|T])|_], Cam, Custo) :-
+    reverse([Dest|T], Cam).
+
+aStar2(Piso, Dest, [(_, Ca, LA)|Outros], Cam, Custo) :-
+    LA = [Act|_],
+    findall((CEX, CaX, [X|LA]),
+            (Dest \== Act, 
+                (ligacel(Piso, Act, X,CustoX);ligacel(Piso, X, Act,CustoX)), \+ member(X, LA), 
+                CaX is CustoX + Ca, estimativa(X, Dest, EstX),
+            CEX is CaX + EstX), 
+        Novos),
+    append(Outros, Novos, Todos),
+    % write('Novos='),write(Novos),nl,
+    sort(Todos, TodosOrd),
+    % write('TodosOrd='),write(TodosOrd),nl,
+    aStar2(Piso, Dest, TodosOrd, Cam, Custo).

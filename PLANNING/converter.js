@@ -188,6 +188,53 @@ let prologFacts5 = arrayToProlog(array5);
 content += prologFacts5 + "\n";
 
 
+// Building C Floor 1
+console.log("% Building C Floor 1");
+content +=  "% Building C Floor 1\n";
+floor = "c1";
+
+let array66 = [
+    [3, 2, 2, 2, 2, 3, 2, 2, 3, 2, 2, 2, 1],
+    [1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [3, 2, 2, 2, 2, 1, 0, 0, 1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 1, 0, 0, 3, 2, 2, 2, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+    [3, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+    [3, 2, 2, 2, 2, 1, 0, 0, 3, 2, 2, 2, 1],
+    [1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1],
+    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1]
+];
+
+function arrayToProlog(array) {
+    let prologFacts = '';
+
+    for (let row = 0; row < array.length; row++) {
+        for (let col = 0; col < array[row].length; col++) {
+            const value = array[row][col];
+            prologFacts += `m(${floor},${row},${col},${value}).\n`;
+        }
+        prologFacts += '\n';
+    }
+
+    return prologFacts;
+}
+
+let prologFacts66 = arrayToProlog(array66);
+content += prologFacts66 + "\n";
+
+
 // Building C Floor 2
 console.log("% Building C Floor 2");
 content +=  "% Building C Floor 2\n";

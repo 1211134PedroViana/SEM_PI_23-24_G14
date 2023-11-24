@@ -18,8 +18,8 @@ export default class PassageService implements IPassageService {
 
   public async createPassage(passageDTO: IPassageDTO): Promise<Result<IPassageDTO>> {
     try {
-      const fromFloor = await this.floorRepo.findByObjectId(passageDTO.fromFloorId);
-      const toFloor = await this.floorRepo.findByObjectId(passageDTO.toFloorId);
+      const fromFloor = await this.floorRepo.findByDomainId(passageDTO.fromFloorId);
+      const toFloor = await this.floorRepo.findByDomainId(passageDTO.toFloorId);
 
       const locationOrError = Location.create({
         positionX: passageDTO.location.positionX,

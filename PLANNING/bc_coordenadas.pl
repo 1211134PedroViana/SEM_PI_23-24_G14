@@ -6,6 +6,17 @@ coordenadas(k2, a1, 19, 2).
 coordenadas(r1, a1, 12, 8).
 coordenadas(r2, a1, 20, 8).
 
+% Coordenadas Salas Edificio A - Piso 2
+coordenadas(a201, a2, 3, 5).
+coordenadas(a202, a2, 5, 6).
+coordenadas(a203, a2, 5, 3).
+coordenadas(a204, a2, 8, 6).
+coordenadas(a205, a2, 7, 3).
+coordenadas(a206, a2, 12, 6).
+coordenadas(a207, a2, 10, 3).
+coordenadas(a208, a2, 16, 8).
+coordenadas(a209, a2, 13, 2).
+
 % BC - Coordenadas Salas Edificio B - Piso 1
 coordenadas(b101, b1, 2, 4).
 coordenadas(b102, b1, 2, 6).
@@ -15,6 +26,29 @@ coordenadas(b105, b1, 13, 4).
 coordenadas(b106, b1, 16, 6).
 coordenadas(b107, b1, 19, 4).
 coordenadas(b108, b1, 19, 8).
+
+% Coordenadas Salas Edificio B - Piso 2
+coordenadas(b201, b2, 1, 3).
+coordenadas(b202, b2, 12, 3).
+coordenadas(b203, b2, 5, 6).
+coordenadas(b205, b2, 19, 6).
+coordenadas(b207, b2, 20, 3).
+
+% Coordenadas Salas Edificio B - Piso 3
+coordenadas(b301, b3, 3, 2).
+coordenadas(b302, b3, 12, 8).
+coordenadas(b303, b3, 5, 2).
+coordenadas(b305, b3, 10, 2).
+
+% Coordenadas Salas Edificio C - Piso 1
+coordenadas(c101, c1, 5, 2).
+coordenadas(c102, c1, 5, 5).
+coordenadas(c103, c1, 5, 18).
+coordenadas(c104, c1, 8, 2).
+coordenadas(c105, c1, 8, 6).
+coordenadas(c106, c1, 8, 10).
+coordenadas(c108, c1, 8, 14).
+coordenadas(c110, c1, 8, 18).
 
 % BC - Coordenadas Salas Edificio C - Piso 2
 coordenadas(c201, c2, 4, 2).
@@ -26,6 +60,31 @@ coordenadas(c206, c2, 9, 12).
 coordenadas(c207, c2, 4, 11).
 coordenadas(c209, c2, 3, 16).
 
+% Coordenadas Salas Edificio C - Piso 3
+coordenadas(c301, c3, 5, 6).
+coordenadas(c302, c3, 6, 3).
+coordenadas(c303, c3, 5, 16).
+coordenadas(c304, c3, 8, 5).
+coordenadas(c305, c3, 3, 16).
+coordenadas(c306, c3, 11, 9).
+coordenadas(c308, c3, 11, 13).
+coordenadas(c310, c3, 9, 16).
+
+% Coordenadas Salas Edificio C - Piso 4
+coordenadas(c401, c4, 6, 6).
+coordenadas(c402, c4, 11, 5).
+coordenadas(c403, c4, 6, 14).
+coordenadas(c404, c4, 11, 11).
+
+% Coordenadas Salas Edificio D - Piso 1
+coordenadas(d101, d1, 2, 6).
+coordenadas(d102, d1, 4, 10).
+coordenadas(d103, d1, 4, 16).
+coordenadas(d104, d1, 7, 5).
+coordenadas(d105, d1, 7, 9).
+coordenadas(d106, d1, 7, 13).
+coordenadas(d108, d1, 7, 18).
+
 % BC - Coordenadas Salas Edificio D - Piso 2
 coordenadas(d201, d2, 4, 4).
 coordenadas(d202, d2, 6, 9).
@@ -34,39 +93,47 @@ coordenadas(d204, d2, 7, 14).
 coordenadas(d205, d2, 4, 14).
 coordenadas(d206, d2, 5, 16).
 
+% Coordenadas Salas Edificio D - Piso 3
+coordenadas(d301, d3, 4, 8).
+coordenadas(d302, d3, 8, 8).
+coordenadas(d303, d3, 4, 10).
+coordenadas(d304, d3, 8, 10).
+coordenadas(d305, d3, 6, 15).
+
 
 % BC - Coordenadas Elevadores
-coordenadas(a1, 21, 0).
-coordenadas(a2, 21, 0).
+coordenadas(a1, 21, 1).
+coordenadas(a2, 21, 2).
 coordenadas(b1, 21, 7).
 coordenadas(b2, 21, 7).
 coordenadas(b3, 21, 7).
 coordenadas(c1, 1, 12).
-coordenadas(c2, 1, 12).
+coordenadas(c2, 1, 11).
 coordenadas(c3, 1, 12).
 coordenadas(c4, 1, 12).
-coordenadas(d1, 1, 0).
-coordenadas(d2, 1, 0).
-coordenadas(d3, 1, 0).
+coordenadas(d1, 1, 1).
+coordenadas(d2, 1, 1).
+coordenadas(d3, 1, 1).
 
 % BC - Coordenadas Corredores
 coordenadas(c2,d2, 0, 14, 12, 0).
-coordenadas(a2,b2, 22, 5, 0, 5).
-coordenadas(b2,c3, 22, 8, 0, 8).
-coordenadas(b2,d3, 21, 10, 10, 0).
+coordenadas(a2,b2, 22, 5, 1, 5).
+coordenadas(b2,c3, 21, 8, 0, 8).
+coordenadas(b2,d3, 20, 9, 10, 0).
 coordenadas(d3,c3, 12, 1, 0, 14).
+coordenadas(c3,d3, 0, 14, 12, 1).
 coordenadas(b3,c4, 22, 8, 0, 8).
 
 % BC - Dimensões Pisos
-dimensoes(a1, 22, 10).
-dimensoes(a2, 22, 10).
-dimensoes(b1, 22, 10).
-dimensoes(b2, 22, 10).
-dimensoes(b3, 22, 10).
-dimensoes(c1, 12, 20).
-dimensoes(c2, 12, 20).
-dimensoes(c3, 12, 20).
-dimensoes(c4, 12, 20).
-dimensoes(d1, 12, 20).
-dimensoes(d2, 12, 20).
-dimensoes(d3, 12, 20).
+dimensoes(a1, 23, 11).
+dimensoes(a2, 23, 11).
+dimensoes(b1, 23, 11).
+dimensoes(b2, 23, 11).
+dimensoes(b3, 23, 11).
+dimensoes(c1, 13, 21).
+dimensoes(c2, 13, 21).
+dimensoes(c3, 13, 21).
+dimensoes(c4, 13, 21).
+dimensoes(d1, 13, 21).
+dimensoes(d2, 13, 21).
+dimensoes(d3, 13, 21).
