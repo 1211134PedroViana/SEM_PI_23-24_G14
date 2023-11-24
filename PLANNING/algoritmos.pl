@@ -118,7 +118,8 @@ caminho_pisos(ElementoOrigem, ElementoDestino, CaminhoCompleto) :-
     write('Melhor Caminho: '),write(CaminhoCompleto),nl,nl.
 
  
-% predicado para colocar o elemento de origem e de destino na lista do melhor caminho
+% Recebo Elemento de partida e de destino e executo os predicados de encontrar
+% o melhor caminho entre pisos e o melhor caminho entre elementos do mesmo piso
 find_caminho(ElementoOrigem, ElementoDestino):-
     caminho_pisos(ElementoOrigem, ElementoDestino, CaminhoCompleto), 
     processar_caminho(CaminhoCompleto).
@@ -128,7 +129,7 @@ find_caminho(ElementoOrigem, ElementoDestino):-
 processar_caminho([_]).     
 
 processar_caminho([Elemento1, Elemento2|Resto]):-
-    processar_par(Elemento1, Elemento2),    % processa os pisos do elemento atual
+    processar_par(Elemento1, Elemento2),    
     processar_caminho([Elemento2 | Resto]).
 
 % processa pares de elementos da lista retornada pelo predicado melhor_caminho_pisos/3
