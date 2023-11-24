@@ -1,22 +1,54 @@
-.table {
-    width: 65%;
-    margin: auto;
-    margin-top: 2%;
-    font-family: 'Playpen Sans', cursive;
-}
-
-.header {
-    background-color: #090430 !important;
-}
-
-.title {
+h3.title {
     text-align: center;
-    font-family: 'Playpen Sans', cursive;
     color: #fff;
-    margin-top: 2%;
-}
-
-tr:hover {
+    font-family: 'Playpen Sans', cursive;
+    margin-top: 20px;
+  }
+  
+  h3.title svg {
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+  
+  label {
+    color: #fff;
+    font-family: 'Playpen Sans', cursive;
+    display: block;
+    margin-top: 10px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+  }
+  
+  button {
+    background-color: #090430;
+    color: #fff;
+    font-family: 'Playpen Sans', cursive;
+    padding: 10px;
+    margin-top: 10px;
     cursor: pointer;
-}
-
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .table th.header {
+    color: #fff;
+    font-family: 'Playpen Sans', cursive;
+    background-color: #090430;
+  }
+  
+  .table tbody tr {
+    cursor: pointer;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #1a1a1a;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #383838;
+  }
+  
