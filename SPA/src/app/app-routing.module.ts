@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { BuildingComponent } from 'src/building/building.component';
 import { CreateBuildingComponent } from 'src/building/create-building/create-building.component';
 import { CreateFloorFormComponent } from 'src/floor/create-floor-form/create-floor-form.component';
-import { CreatePassageFormComponent } from 'src/passage/create-passage-form/create-passage-form.component';
 import { FloorComponent } from 'src/floor/floor.component';
 import { ListBuildingsComponent } from 'src/building/list-buildings/list-buildings.component';
 import { ListBuildingsWithMinAndMaxFloorsComponent } from 'src/building/list-buildingsWithMinAndMaxFloors/list-buildingsWithMinAndMaxFloors';
@@ -35,6 +34,7 @@ import {CreatePassageComponent} from "../passage/create-passage/create-passage.c
 import {UpdatePassageComponent} from "../passage/update-passage/update-passage.component";
 import {ListFloorComponent} from "../floor/list-floors/list-floor.component";
 import {UpdateElevatorFormComponent} from "../elevator/update-elevator-form/update-elevator-form.component";
+import {CreateFloorComponent} from "../floor/create-floor/create-floor.component";
 
 const routes: Routes = [
 
@@ -47,7 +47,7 @@ const routes: Routes = [
       { path: 'listBuildingsWithMinAndMaxFloors', component: ListBuildingsWithMinAndMaxFloorsComponent }
     ]},
     { path: 'floor', component: FloorComponent, children: [
-      { path: 'create', component: CreateFloorFormComponent },
+      { path: 'create', component: CreateFloorComponent },
       { path: 'update', component: UpdateFloorComponent },
       { path: 'list', component: ListFloorComponent },
       { path: 'listFromABuilding', component: ListFloorsFromABuildingComponent },
