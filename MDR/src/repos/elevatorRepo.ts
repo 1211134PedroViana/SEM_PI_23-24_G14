@@ -39,11 +39,17 @@ export default class ElevatorRepo implements IElevatorRepo {
 
         return ElevatorMap.toDomain(elevatorCreated);
       } else {
-        elevatorDocument.location.positionX = elevator.location.positionX;
-        elevatorDocument.location.positionY = elevator.location.positionY;
-        elevatorDocument.location.direction = elevator.location.direction;
-        await elevatorDocument.save();
+        if (elevator.description && elevator.description.value !== undefined && elevator.description.value !== '') {
+          elevatorDocument.description = elevator.description.value;
+        }
 
+        if (elevator.serialNumber) {
+          elevatorDocument.description = elevator.serialNumber;
+        }
+
+        if (elevator.code && elevator.code.value !== undefined) {
+          elevatorDocument.code = elevator.code.value;
+        }
         return elevator;
       }
     } catch (err) {
@@ -60,7 +66,6 @@ export default class ElevatorRepo implements IElevatorRepo {
     } else return null;
   }
 
-  // @ts-ignore
   public async findByDomainId(elevatorCode: ElevatorCode | string): Promise<Elevator> {
     const query = { domainId: elevatorCode };
     const elevatorRecord = await this.elevatorSchema.findOne(query as FilterQuery<IElevatorPersistence & Document>);

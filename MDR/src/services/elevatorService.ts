@@ -79,7 +79,7 @@ export default class ElevatorService implements IElevatorService {
 
   public async updateElevator(elevatorDTO: IElevatorDTO): Promise<Result<IElevatorDTO>> {
     try {
-      const elevator = await this.elevatorRepo.findByObjectId(elevatorDTO.id);
+      const elevator = await this.elevatorRepo.findByDomainId(elevatorDTO.id);
 
       const descriptionOrError = Description.create(elevatorDTO.description);
 
