@@ -69,8 +69,10 @@ export class BuildingService {
       headers: new HttpHeaders({'Content-type': 'application/json'})
     };
   
-    const urlWithParams = `${this.listUrlBuildingsWithMinAndMaxFloors}?min=${min}&max=${max}`;
-  
+    //const urlWithParams = `${this.listUrlBuildingsWithMinAndMaxFloors}?min=${min}&max=${max}`;
+    const urlWithParams = 'http://localhost:4000/api/buildings/listAllBuildignsWithMinAndMaxFloors/Min/'+min+'/Max/'+max;
+
+
     return this.http.get<Building[]>(urlWithParams, httpOptions)
       .pipe(
         catchError((error) => {

@@ -19,7 +19,7 @@ export class ListBuildingsWithMinAndMaxFloorsComponent implements OnInit {
   constructor(private buildingService: BuildingService) { }
 
   ngOnInit(): void {
-
+    this.submitForm();
   }
 
   loadBuildings() {
@@ -47,7 +47,9 @@ export class ListBuildingsWithMinAndMaxFloorsComponent implements OnInit {
   }
 
   submitForm() {
-    if (this.min !== undefined && this.max !== undefined) {
+    if (this.min != undefined && this.max != undefined) {
+      console.log(this.min);
+      console.log(this.max);
       this.loadBuildings();
       this.formSubmitted = true; 
     } else {
