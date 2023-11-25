@@ -3,11 +3,12 @@ body {
     background-size: cover;
 }
 
-h2 {
+.app-campus {
+    width: 100%;
     font-family: 'Playpen Sans', cursive;
-    font-size: 35px;
+    font-size: 15px;
     text-align: center;
-    margin: auto;
     color: #fff;
-    margin-top: 20%;
+    padding: 10px;
+    background-color: rgb(188, 183, 177, 0.3);
 }
