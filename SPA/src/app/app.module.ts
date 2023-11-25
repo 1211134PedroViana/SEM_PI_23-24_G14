@@ -54,6 +54,7 @@ import {CreatePassageComponent} from "../passage/create-passage/create-passage.c
 import { UpdatePassageComponent} from "../passage/update-passage/update-passage.component";
 import { UpdatePassageFormComponent} from "../passage/update-passage-form/update-passage-form.component";
 import {ListFloorComponent} from "../floor/list-floors/list-floor.component";
+import {ListFloorsWithElevatorComponent} from "../floor/list-floorsWithElevators/list-floorsWithElevator.component";
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import {ListFloorComponent} from "../floor/list-floors/list-floor.component";
     CreatePassageComponent,
     UpdatePassageComponent,
     UpdatePassageFormComponent,
-    ListFloorComponent
+    ListFloorComponent,
+    ListFloorsWithElevatorComponent
   ],
   imports: [
     BrowserModule,

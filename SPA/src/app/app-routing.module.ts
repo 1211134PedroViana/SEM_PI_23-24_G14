@@ -34,6 +34,7 @@ import { ListFloorsFromABuildingComponent } from 'src/floor/list-floors-with-pas
 import {CreatePassageComponent} from "../passage/create-passage/create-passage.component";
 import {UpdatePassageComponent} from "../passage/update-passage/update-passage.component";
 import {ListFloorComponent} from "../floor/list-floors/list-floor.component";
+import {UpdateElevatorFormComponent} from "../elevator/update-elevator-form/update-elevator-form.component";
 
 const routes: Routes = [
 

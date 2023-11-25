@@ -7,7 +7,7 @@ import {FloorService} from "../../floorService/floor-service";
 
 
 @Component({
-  selector: 'app-list-elevators',
+  selector: 'app-list-floors',
   templateUrl: './list-floor.component.html',
   styleUrls: ['./list-floor.component.css']
 })
