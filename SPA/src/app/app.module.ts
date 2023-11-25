@@ -53,6 +53,7 @@ import { ListFloorsFromABuildingComponent } from 'src/floor/list-floors-with-pas
 import {CreatePassageComponent} from "../passage/create-passage/create-passage.component";
 import { UpdatePassageComponent} from "../passage/update-passage/update-passage.component";
 import { UpdatePassageFormComponent} from "../passage/update-passage-form/update-passage-form.component";
+import {ListFloorComponent} from "../floor/list-floors/list-floor.component";
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { UpdatePassageFormComponent} from "../passage/update-passage-form/update
     Featuresv6Component,
     CreatePassageComponent,
     UpdatePassageComponent,
-    UpdatePassageFormComponent
+    UpdatePassageFormComponent,
+    ListFloorComponent
   ],
   imports: [
     BrowserModule,
