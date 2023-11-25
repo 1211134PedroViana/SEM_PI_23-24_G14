@@ -38,7 +38,7 @@ export class ListBuildingsWithMinAndMaxFloorsComponent implements OnInit {
         })
       )
       .subscribe();
-  }
+  }  
   
   isFormOpen = false;
   openForm(building: Building) {
