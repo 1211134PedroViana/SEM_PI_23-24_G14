@@ -18,6 +18,7 @@
     background-color: rgba(217, 221, 220, 0.1);
     padding: 15px;
     border-radius: 25px;
+    border: 1px solid rgb(194, 200, 199);;
     font-family: 'Playpen Sans', cursive;
     width: 25%;
     height: 80px;

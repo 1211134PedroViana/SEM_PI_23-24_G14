@@ -17,6 +17,7 @@
     margin: 20px;
     background-color: rgba(217, 221, 220, 0.1);
     padding: 15px;
+    border: 1px solid rgb(194, 200, 199);;
     border-radius: 25px;
     font-family: 'Playpen Sans', cursive;
 }

@@ -2,3 +2,12 @@ body {
     background-image: url("/assets/images/moon_background.png");
     background-size: cover;
 }
+
+h2 {
+    font-family: 'Playpen Sans', cursive;
+    font-size: 35px;
+    text-align: center;
+    margin: auto;
+    color: #fff;
+    margin-top: 20%;
+}

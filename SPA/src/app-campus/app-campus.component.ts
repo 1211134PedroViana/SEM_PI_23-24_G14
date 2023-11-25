@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
 })
 
 export class AppCampusComponent {
+  isVisible: boolean = true;
 
+  ngOnDestroy() {
+    this.isVisible = false;
+  }
 }
