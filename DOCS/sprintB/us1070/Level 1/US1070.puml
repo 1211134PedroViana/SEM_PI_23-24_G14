@@ -1,0 +1,15 @@
+@startuml
+
+actor CampusManager
+activate CampusManager
+CampusManager -> UI : Requests to edit a building floor information
+activate UI
+UI --> CampusManager : requests data (buildingId, floorNumber)
+deactivate UI
+CampusManager -> UI : types requested data (buildingId, floorNumber)
+activate UI
+UI --> CampusManager : Informs operation result
+deactivate UI
+
+
+@enduml
