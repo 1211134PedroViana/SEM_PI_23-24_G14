@@ -120,19 +120,21 @@ export default class ElevatorService implements IElevatorService {
     }
   }
 
-  public async getFloorsServedByElevatorInBuilding(buildingId: string): Promise<Result<string[]>> {
+  public async getAllFloorsServedByElevator(): Promise<Result<{ buildingId: string, floors: string[] }[]>> {
     try {
-      const elevator = await this.elevatorRepo.findByBuildingId(buildingId);
-
-      if (!elevator) {
-        return Result.fail<string[]>(`Elevator for building ${buildingId} not found`);
-      }
-
-      const floorsServed = elevator.floorList || [];
-
-      return Result.ok<string[]>(floorsServed);
+      // Retrieve all elevators
+      const elevators = await this.elevatorRepo.findAll();
+  
+      // Map elevators to buildingId and floors served
+      const floorsServedByElevator = elevators.map(elevator => ({
+        buildingId: elevator.buildingId,
+        floors: elevator.floorList || []
+      }));
+  
+      return Result.ok(floorsServedByElevator);
     } catch (error) {
-      return Result.fail<string[]>(error.message);
+      return Result.fail<{ buildingId: string, floors: string[] }[]>(error.message);
     }
   }
+  
 }
