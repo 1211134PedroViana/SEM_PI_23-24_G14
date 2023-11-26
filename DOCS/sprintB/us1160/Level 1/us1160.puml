@@ -10,7 +10,7 @@ participant "UI" as UI
 
 activate User
 
-User -> UI : 1 : requests building floors served by elevator
+User -> UI : 1 : requests all building floors served by elevator
 activate UI
 
 UI --> User : returns json with floors served by elevator
