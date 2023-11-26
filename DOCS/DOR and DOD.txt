@@ -1,5 +1,30 @@
-    DOR - Definition of Ready (Definição de Pronto):
-        O "Definition of Ready" é uma lista de critérios que uma história de usuário ou uma tarefa deve atender antes de ser considerada pronta para ser incluída em uma iteração (sprint) do desenvolvimento. Esses critérios podem incluir especificações claras, recursos disponíveis, e qualquer outra condição necessária para que a equipe de desenvolvimento possa começar a trabalhar na tarefa.
+Definição de Pronto (DOR):
 
-    DOD - Definition of Done (Definição de Concluído):
-        O "Definition of Done" é uma lista de critérios que uma história de usuário, uma tarefa ou uma funcionalidade deve atender para ser considerada concluída. Esses critérios podem incluir testes completos, revisões de código realizadas, documentação atualizada e outros requisitos específicos da equipe ou do projeto.
+A Definição de Pronto (DOR) estabelece os critérios necessários para que uma User Story ou uma tarefa seja considerada pronta para ser incluída num sprint. Estes critérios são essenciais para garantir que a equipa possa iniciar o trabalho de forma eficiente e produtiva. Os critérios podem incluir, mas não se limitam a:
+
+Especificação Clara: A User Story deve ter uma descrição clara e compreensível, abrangendo os requisitos e objetivos.
+
+Recursos Disponíveis: Todos os recursos necessários para iniciar a tarefa, como dados, ferramentas e acesso a ambientes, devem estar disponíveis.
+
+Condições Necessárias: Qualquer condição específica que seja necessária para iniciar o desenvolvimento deve ser atendida, como aprovações ou confirmações.
+
+Priorização: A tarefa deve estar devidamente priorizada em relação às demais, para garantir a ordem adequada de execução.
+
+A equipa compromete-se a garantir que todas as User Stories ou tarefas atendam a estes critérios antes de serem consideradas prontas para desenvolvimento.
+
+
+
+
+Definição de Feito (DOD):
+
+A Definição de Feito (DOD) estabelece os critérios que uma User Story, tarefa ou funcionalidade deve atender para ser considerada concluída. Estes critérios são cruciais para garantir a qualidade do trabalho entregue. Os critérios podem incluir, mas não se limitam a:
+
+Testes Completos: Todos os testes unitários, de integração e de aceitação devem ser concluídos com sucesso.
+
+Revisões de Código: O código relacionado à tarefa deve ser revisto e aprovado pelos membros da equipa.
+
+Documentação Atualizada: Toda a documentação associada à tarefa deve ser atualizada de acordo.
+
+Integração: A funcionalidade deve ser integrada com sucesso ao sistema, sem conflitos ou problemas.
+
+Revisão de Pares: Quando aplicável, a tarefa deve passar por uma revisão de pares para garantir a qualidade e a conformidade com padrões estabelecidos.
