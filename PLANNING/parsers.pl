@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%% MOVIMENTOS ROBO %%%%%%%%%%%%%%%%%%%%%%
 
 % Predicate to convert cel/2 term to JSON object
-cel_to_json(cel(X, Y), json(['x'-X, 'y'-Y])).
+cel_to_json(cel(X, Y), json(['col'-X, 'lin'-Y])).
 
 % Predicate to convert list of cel/2 terms to JSON array
 cel_list_to_json([], []).

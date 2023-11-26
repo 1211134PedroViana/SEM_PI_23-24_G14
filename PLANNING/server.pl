@@ -28,16 +28,10 @@ stopServer:-
 find_path_handler(Request) :-
     cors_enable(Request, [methods([get])]),
     % Extract parameters from the request
-    http_parameters(Request, [origem(O,[]),destino(D,[])]),
+    http_parameters(Request, [origem(Origem,[]),destino(Destino,[])]),
 
-    parse_ponto_acesso(O, ParsedOrigem),
-    parse_ponto_acesso(D, ParsedDestino),
-
-    % phrase(parse_ponto_acesso(Origem), [O]),
-    % % For testing, use fixed values
-    % Algoritmo = dfs,
-    % Origem = pass(a2,b2),
-    % Destino = pass(b2,c3),
+    parse_ponto_acesso(Origem, ParsedOrigem),
+    parse_ponto_acesso(Destino, ParsedDestino),
 
     % Calling the predicate with the fixed values
     find_caminho(ParsedOrigem, ParsedDestino, ListaCaminho, ListaMovimentos),
