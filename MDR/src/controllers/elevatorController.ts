@@ -61,20 +61,19 @@ export default class ElevatorController implements IElevatorController {
     }
   }
 
-  public async listFloorsServedByElevatorInBuilding(req: Request, res: Response, next: NextFunction) {
+  public async listAllFloorsServedByElevator(req: Request, res: Response, next: NextFunction) {
     try {
-      const buildingId = req.params.buildingId;
-
-      const floorsServedOrError = await this.elevatorServiceInstance.getFloorsServedByElevatorInBuilding(buildingId);
-
+      const floorsServedOrError = await this.elevatorServiceInstance.getAllFloorsServedByElevator();
+  
       if (floorsServedOrError.isFailure) {
         return res.status(404).send(floorsServedOrError.errorValue());
       }
-
+  
       const floorsServed = floorsServedOrError.getValue();
       return res.json(floorsServed).status(200);
     } catch (e) {
       return next(e);
     }
   }
+  
 }

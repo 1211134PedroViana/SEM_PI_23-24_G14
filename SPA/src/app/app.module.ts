@@ -54,7 +54,7 @@ import {CreatePassageComponent} from "../passage/create-passage/create-passage.c
 import { UpdatePassageComponent} from "../passage/update-passage/update-passage.component";
 import { UpdatePassageFormComponent} from "../passage/update-passage-form/update-passage-form.component";
 import {ListFloorComponent} from "../floor/list-floors/list-floor.component";
-import {ListFloorsWithElevatorComponent} from "../floor/list-floorsWithElevators/list-floorsWithElevator.component";
+import {ListFloorsWithElevatorComponent} from "../floor/list-floors-with-elevator/list-floors-with-elevator.component";
 import {CreateFloorComponent} from "../floor/create-floor/create-floor.component";
 import {ListRobotDesignationComponent} from "../robot/list-robotsDesignation/list-robotsDesignation";
 

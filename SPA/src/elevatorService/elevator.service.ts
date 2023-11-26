@@ -53,6 +53,17 @@ export class ElevatorService {
       );
   }
 
+  getAllFloorsServedByElevator(): Observable<string[]> {
+    const httpOptions = {
+      headers : new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.http.get<string[]>(this.listUrl, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
   openForm(elevator: Elevator) {
     this.elevator.next(elevator);
     this.isVisible.next(true);

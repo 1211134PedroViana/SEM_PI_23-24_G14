@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListFloorsWithElevatorComponent } from './list-floorsWithElevator.component';
+import { ListFloorsWithElevatorComponent } from './list-floors-with-elevator.component';
 
 describe('ListFloorsWithElevatorComponent', () => {
   let component: ListFloorsWithElevatorComponent;
