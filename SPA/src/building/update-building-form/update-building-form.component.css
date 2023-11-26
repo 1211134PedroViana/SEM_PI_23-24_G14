@@ -5,7 +5,7 @@ form {
     top: 50%;
     left: 60%;
     transform: translate(-50%, -50%);
-    background-color: rgb(9, 4, 48, 0.9);
+    background-color: rgb(97, 98, 98, 0.8);
     border-radius: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
@@ -53,4 +53,14 @@ form {
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
     color: #090430;
+}
+
+.btn-primary {
+    background-color: rgb(162, 174, 174);
+    width: 20%;
+    border: 1px solid rgb(162, 174, 174);
+}
+
+.btn-primary:hover {
+    background-color: rgb(86, 101, 101);
 }
