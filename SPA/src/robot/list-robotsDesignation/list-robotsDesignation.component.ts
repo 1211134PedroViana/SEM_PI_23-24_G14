@@ -5,12 +5,12 @@ import Robot from 'src/robotService/robot';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-list-robotDesignation',
+  selector: 'app-list-robotsDesignation',
   templateUrl: './list-robotsDesignation.component.html',
   styleUrls: ['./list-robotsDesignation.component.css']
 })
 
-export class ListRobotDesignationComponent implements OnInit {
+export class ListRobotsDesignationComponent implements OnInit {
 
   robots: Robot[] = [];
   name: string = '';
