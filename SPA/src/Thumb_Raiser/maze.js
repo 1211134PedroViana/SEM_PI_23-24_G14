@@ -460,17 +460,33 @@ export default class Maze extends THREE.Group {
         return false;
     }
  
-    changeDoor(currentDoor) {
- 
-        const door = new Door({
-            door: currentDoor.door,
-            halfSize: this.halfSize,
-            isOpen: true,
-            url: '',
-        });
+    async changeDoor(currentDoor) {
+        let door;
+
+        if(!currentDoor.isOpen) {
+            door = new Door({
+                door: currentDoor.door,
+                halfSize: this.halfSize,
+                isOpen: true,
+                url: '',
+            });
+        }else{
+            door = new Door({
+                door: currentDoor.door,
+                halfSize: this.halfSize,
+                isOpen: false,
+                url: '',
+            });
+        }
  
         this.remove(currentDoor); // remove current door
-        this.add(door); // add new door
+        this.add(door);
+        await this.sleep(5000);
+        this.doors.push(door); // add new door
+    }
+
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     foundExit(position) {
