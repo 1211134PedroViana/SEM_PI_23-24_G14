@@ -102,7 +102,7 @@ coordenadas(d305, d3, 6, 15).
 
 
 % BC - Coordenadas Elevadores
-coordenadas(a1, 21, 2).
+coordenadas(a1, 21, 3).
 coordenadas(a2, 21, 2).
 coordenadas(b1, 21, 7).
 coordenadas(b2, 21, 7).
@@ -117,7 +117,7 @@ coordenadas(d3, 1, 1).
 
 % BC - Coordenadas Corredores
 coordenadas(c2,d2, 0, 14, 12, 0).
-coordenadas(a2,b2, 22, 5, 0, 4).
+coordenadas(a2,b2, 22, 5, 1, 4).
 coordenadas(b2,c3, 22, 8, 0, 8).
 coordenadas(b2,d3, 21, 10, 10, 0).
 coordenadas(d3,b2, 10, 0, 21, 10).

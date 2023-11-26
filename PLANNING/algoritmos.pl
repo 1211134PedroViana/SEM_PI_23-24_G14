@@ -120,46 +120,46 @@ caminho_pisos(ElementoOrigem, ElementoDestino, CaminhoCompleto) :-
  
 % Recebo Elemento de partida e de destino e executo os predicados de encontrar
 % o melhor caminho entre pisos e o melhor caminho entre elementos do mesmo piso
-find_caminho(ElementoOrigem, ElementoDestino):-
-    caminho_pisos(ElementoOrigem, ElementoDestino, CaminhoCompleto), 
-    processar_caminho(CaminhoCompleto).
+find_caminho(ElementoOrigem, ElementoDestino, CaminhoPisos, CaminhosRobot):-
+    caminho_pisos(ElementoOrigem, ElementoDestino, CaminhoPisos), 
+    processar_caminho(CaminhoPisos, CaminhosRobot).
 
 
 % processa cada par da lista do melhor caminho
-processar_caminho([_]).     
+processar_caminho([_], _).     
 
-processar_caminho([Elemento1, Elemento2|Resto]):-
-    processar_par(Elemento1, Elemento2),    
-    processar_caminho([Elemento2 | Resto]).
+processar_caminho([Elemento1, Elemento2|Resto], [Cam | CamResto]):-
+    processar_par(Elemento1, Elemento2, Cam),    
+    processar_caminho([Elemento2 | Resto], CamResto).
 
 % processa pares de elementos da lista retornada pelo predicado melhor_caminho_pisos/3
-processar_par(elev(_, ElevDestino), pass(PassOrigem, PassDestino)) :-
+processar_par(elev(_, ElevDestino), pass(PassOrigem, PassDestino), Cam) :-
     gera_grafo(ElevDestino),
-    encontra_caminho(elev(_, ElevDestino), pass(PassOrigem, PassDestino)).
+    encontra_caminho(elev(_, ElevDestino), pass(PassOrigem, PassDestino), Cam).
 
-processar_par(pass(PassOrigem, PassDestino), elev(ElevOrigem, _)) :-
+processar_par(pass(PassOrigem, PassDestino), elev(ElevOrigem, _), Cam) :-
     gera_grafo(PassDestino),
-    encontra_caminho(pass(PassOrigem, PassDestino), elev(ElevOrigem, _)).
+    encontra_caminho(pass(PassOrigem, PassDestino), elev(ElevOrigem, _), Cam).
 
-processar_par(pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino)) :-
+processar_par(pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino), Cam) :-
     gera_grafo(PassDestino),
-    encontra_caminho(pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino)).
+    encontra_caminho(pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino), Cam).
 
-processar_par(sala(SalaOrig), elev(Piso, _)) :-
+processar_par(sala(SalaOrig), elev(Piso, _), Cam) :-
     gera_grafo(Piso),
-    encontra_caminho(sala(SalaOrig), elev(Piso, _)).
+    encontra_caminho(sala(SalaOrig), elev(Piso, _), Cam).
 
-processar_par(elev(_, Piso), sala(SalaOrig)) :-
+processar_par(elev(_, Piso), sala(SalaOrig), Cam) :-
     gera_grafo(Piso),
-    encontra_caminho(elev(_, Piso), sala(SalaOrig)).
+    encontra_caminho(elev(_, Piso), sala(SalaOrig), Cam).
 
-processar_par(sala(SalaOrig), pass(PassOrigem, PassDestino)) :-
+processar_par(sala(SalaOrig), pass(PassOrigem, PassDestino), Cam) :-
     gera_grafo(PassOrigem),
-    encontra_caminho(sala(SalaOrig), pass(PassOrigem, PassDestino)).
+    encontra_caminho(sala(SalaOrig), pass(PassOrigem, PassDestino), Cam).
 
-processar_par(pass(PassOrigem, PassDestino), sala(SalaOrig)) :-
+processar_par(pass(PassOrigem, PassDestino), sala(SalaOrig), Cam) :-
     gera_grafo(PassDestino),
-    encontra_caminho(pass(PassOrigem, PassDestino), sala(SalaOrig)).
+    encontra_caminho(pass(PassOrigem, PassDestino), sala(SalaOrig), Cam).
 
 
 % Gera o grafo do piso e constroi as ligações (ligacel/4)
@@ -169,7 +169,7 @@ gera_grafo(Piso) :-
 
 
 % Encontra o caminho entre um elevador e uma passagem através do algoritmo DFS ou ASTAR
-encontra_caminho(elev(_, ElevDestino), pass(PassOrigem, PassDestino)) :-
+encontra_caminho(elev(_, ElevDestino), pass(PassOrigem, PassDestino), Cam) :-
     coordenadas(ElevDestino, ElevPosX, ElevPosY),
     coordenadas(ElevDestino, PassDestino, PassPosX, PassPosY, _, _),
     %aStar(cel(ElevPosX,ElevPosY), cel(PassPosX,PassPosY), Cam, Custo, ElevDestino),
@@ -180,7 +180,7 @@ encontra_caminho(elev(_, ElevDestino), pass(PassOrigem, PassDestino)) :-
     write('Caminho:'),write(Cam),nl,nl.
 
 % Encontra o caminho entre uma passagem e um elevador através do algoritmo DFS ou ASTAR
-encontra_caminho(pass(PassOrigem, PassDestino), elev(ElevOrigem, _)) :-
+encontra_caminho(pass(PassOrigem, PassDestino), elev(ElevOrigem, _), Cam) :-
     coordenadas(PassOrigem, PassDestino, _, _, PassPosX, PassPosY),
     coordenadas(ElevOrigem, ElevPosX, ElevPosY),
     %aStar(cel(PassPosX,PassPosY), cel(ElevPosX,ElevPosY), Cam, Custo, PassDestino),
@@ -191,7 +191,7 @@ encontra_caminho(pass(PassOrigem, PassDestino), elev(ElevOrigem, _)) :-
     write('Caminho '),write(Cam),nl,nl.
 
 % Encontra o caminho entre duas passagens através do algoritmo DFS ou ASTAR
-encontra_caminho(pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino)) :-
+encontra_caminho(pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino), Cam) :-
     coordenadas(PassOrigem, PassDestino, _, _, PassPosX, PassPosY),
     coordenadas(Pass2Origem, Pass2Destino, Pass2PosX, Pass2PosY, _,_),
     %aStar(cel(PassPosX,PassPosY), cel(Pass2PosX,Pass2PosY), Cam, Custo, PassDestino),
@@ -202,7 +202,7 @@ encontra_caminho(pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino))
     write('Caminho '),write(Cam),nl,nl.
 
 % Encontra o caminho entre uma sala e um elevador através do algoritmo DFS ou ASTAR
-encontra_caminho(sala(SalaOrig), elev(Piso, _)) :-
+encontra_caminho(sala(SalaOrig), elev(Piso, _), Cam) :-
     coordenadas(SalaOrig, Piso, SalaCol, SalaLin),
     coordenadas(Piso, ElevCol, ElevLin),   
     %aStar(cel(SalaCol,SalaLin), cel(ElevCol,ElevLin), Cam, Custo, Piso),
@@ -213,7 +213,7 @@ encontra_caminho(sala(SalaOrig), elev(Piso, _)) :-
     write('Caminho '),write(Cam),nl,nl.
 
 % Encontra o caminho entre um elevador e uma sala através do algoritmo DFS ou ASTAR
-encontra_caminho(elev(_, Piso), sala(SalaOrig)) :-
+encontra_caminho(elev(_, Piso), sala(SalaOrig), Cam) :-
     coordenadas(SalaOrig, Piso, SalaCol, SalaLin),
     coordenadas(Piso, ElevCol, ElevLin),   
     %aStar(cel(ElevCol,ElevLin), cel(SalaCol,SalaLin), Cam, Custo, Piso),
@@ -224,7 +224,7 @@ encontra_caminho(elev(_, Piso), sala(SalaOrig)) :-
     write('Caminho '),write(Cam),nl,nl.
 
 % Encontra o caminho entre uma sala e uma passagem através do algoritmo DFS ou ASTAR
-encontra_caminho(sala(SalaOrig), pass(PassOrigem, PassDestino)) :-
+encontra_caminho(sala(SalaOrig), pass(PassOrigem, PassDestino), Cam) :-
     coordenadas(SalaOrig, PassOrigem, SalaCol, SalaLin),
     coordenadas(PassOrigem, PassDestino, PassCol, PassLin, _, _),  
     %aStar(cel(SalaCol,SalaLin), cel(PassCol,PassLin), Cam, Custo, PassOrigem), 
@@ -235,7 +235,7 @@ encontra_caminho(sala(SalaOrig), pass(PassOrigem, PassDestino)) :-
     write('Caminho '),write(Cam),nl,nl.
 
 % Encontra o caminho entre uma passagem e uma sala através do algoritmo DFS ou ASTAR
-encontra_caminho(pass(PassOrigem, PassDestino), sala(SalaOrig)) :-
+encontra_caminho(pass(PassOrigem, PassDestino), sala(SalaOrig), Cam) :-
     coordenadas(SalaOrig, PassDestino, SalaCol, SalaLin),
     coordenadas(PassOrigem, PassDestino, _, _, PassCol, PassLin),
     %aStar(cel(PassCol,PassLin), cel(SalaCol,SalaLin), Cam, Custo, PassDestino),  

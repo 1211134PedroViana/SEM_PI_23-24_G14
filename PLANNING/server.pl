@@ -1,26 +1,17 @@
-% Bibliotecas HTTP
+% Bibliotecas
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_parameters)).
 :- use_module(library(http/http_client)).
-% Bibliotecas JSON
 :- use_module(library(http/json_convert)).
-%:- use_module(library(http/http_json)).
 :- use_module(library(http/json)).
 
-:- json_object student(name:string, number:integer).
+% Algoritmos
+:- consult('caminhos.pl').
+:- consult('parsers.pl').
 
-% Rela��o entre pedidos HTTP e predicados que os processam
-:- http_handler('/processa_json', p_json, []).
 
-:- http_handler('/rooms',get_all_divisions,[]).
-get_all_divisions(Request):-
-    cors_enable(Request, [methods([get])]),
-    findall(D, sistema_pericial:facto(_,fazer_divisao(D)), R),
-    prolog_to_json(R, JSONObject),
-    reply_json(JSONObject, [json_object(dict)]).
-
-% Cria��o de servidor HTTP em 'Port' que trata pedidos em JSON
+% Start Prolog Server on Port: 5000
 startServer(Port) :-
     http_server(http_dispatch, [port(Port)]),
     asserta(port(Port)).
@@ -30,18 +21,26 @@ stopServer:-
     http_stop_server(Port,_).
 
 
-p_json(Request) :-
-        http_read_json(Request, JSON, [json_object(dict)]),
-%       R = json([name=joao,number=3000]),
-        R = student("joao",JSON.set_user),
-        prolog_to_json(R, JSONObject),
-        reply_json(JSONObject, [json_object(dict)]).
+:- http_handler('/findPath', find_path_handler, []).
 
+find_path_handler(Request) :-
+    cors_enable(Request, [methods([get])]),
+    % Extract parameters from the request
+    http_parameters(Request, [algoritmo(A, []),origem(O,[]),destino(D,[])]),
 
-% Cliente consumidor de json
+    parse_ponto_acesso(O, ParsedOrigem),
+    parse_ponto_acesso(D, ParsedDestino),
 
-client(Number):-
-        Term = json([set_user = Number]),
-        http_post('http://localhost:5000/processa_json', json(Term), Reply, [json_object(dict)]),
-        write('Client: '),write(Reply.name),nl,
-        write('Client: '),write(Reply.number),nl.
+    % phrase(parse_ponto_acesso(Origem), [O]),
+    % % For testing, use fixed values
+    % Algoritmo = dfs,
+    % Origem = pass(a2,b2),
+    % Destino = pass(b2,c3),
+
+    % Calling the predicate with the fixed values
+    find_caminho(A, ParsedOrigem, ParsedDestino, ListaCaminho, ListaMovimentos, Custo),
+    % find_caminho_entidades(Algoritmo, Origem, Destino, ListaCaminho, ListaMovimentos, Custo),
+
+    convert_lista_caminho(ListaCaminho, CaminhoJson),
+    convert_lista_movimentos(ListaMovimentos, MovimentosJson),
+    reply_json(json{caminho: CaminhoJson, movimentos: MovimentosJson, variavel: Custo },[json_object(dict)]).
