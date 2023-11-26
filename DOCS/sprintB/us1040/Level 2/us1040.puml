@@ -1,0 +1,37 @@
+@startuml
+autonumber
+
+Actor User
+activate User
+User -> SPA : Request to list robots by task type or designation
+activate SPA
+
+opt if user sorts robots by designation
+User -> SPA : Sorts robots by designation
+
+SPA -> RobotRepo : GET/robots/{robotId, code, nickname, robotType, serialNumber, description, isActive}
+activate RobotRepo
+
+RobotRepo --> SPA : status code
+deactivate RobotRepo
+end 
+
+opt if user sorts robots by task 
+User -> SPA : Sorts robots by task
+activate SPA
+
+SPA -> RobotRepo : GET/robots/{robotId, code, nickname, robotType, serialNumber, description, isActive}
+activate RobotRepo
+
+RobotRepo --> SPA : status code
+deactivate RobotRepo
+end
+
+
+alt successfull case
+    SPA --> User : list successfully returned
+else failure
+    SPA --> User : list wasn't returned with success
+end
+
+@enduml

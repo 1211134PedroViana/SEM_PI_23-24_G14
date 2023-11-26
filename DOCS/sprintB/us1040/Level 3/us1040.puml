@@ -1,0 +1,54 @@
+@startuml
+
+activate SPA
+SPA -> GestaoInfoAPI : get(/api/robots)
+activate GestaoInfoAPI
+
+GestaoInfoAPI -> RobotController : get
+activate RobotController
+
+opt if user sorts robots by designation
+
+    RobotController -> RobotService : findRobotsByNicknameOrTaskType(designation)
+    activate RobotService
+
+    RobotService -> RobotRepo : getRobotsByNicknameOrTaskType(designation)
+    activate RobotRepo
+
+    RobotRepo --> RobotService : robot
+    deactivate RobotRepo
+end
+    
+opt if user sorts robots by task
+
+RobotController -> RobotService : findRobotsByNicknameOrTaskType(task)
+activate RobotService
+
+    RobotService -> RobotRepo : getRobotsByNicknameOrTaskType(task)
+    activate RobotRepo
+    
+    RobotRepo --> RobotService : robot
+    deactivate RobotRepo
+end
+loop
+    RobotService -> RobotMapper : toDTO(building)
+    activate RobotMapper
+
+    RobotMapper --> RobotService : robotDTO
+    deactivate RobotMapper
+
+    RobotService -> RobotService : list.push(robotDTO)
+end
+
+RobotService --> RobotController : robotDTO[ ]
+deactivate RobotService
+
+RobotController --> GestaoInfoAPI : status code 201
+deactivate RobotController
+
+GestaoInfoAPI --> SPA : success
+deactivate GestaoInfoAPI
+
+deactivate SPA
+
+@enduml
