@@ -27,16 +27,13 @@ export default class ElevatorRepo implements IElevatorRepo {
   }
 
   public async save(elevator: Elevator): Promise<Elevator> {
-    const query = { domainId: elevator.id.toString() };
-
-    const elevatorDocument = await this.elevatorSchema.findOne(query);
-
     try {
-      if (elevatorDocument === null) {
+      const query = { domainId: elevator.id.toString() };
+      const elevatorDocument = await this.elevatorSchema.findOne(query);
+
+      if (!elevatorDocument) {
         const rawElevator: any = ElevatorMap.toPersistence(elevator);
-
         const elevatorCreated = await this.elevatorSchema.create(rawElevator);
-
         return ElevatorMap.toDomain(elevatorCreated);
       } else {
         if (elevator.description && elevator.description.value !== undefined && elevator.description.value !== '') {
@@ -44,13 +41,24 @@ export default class ElevatorRepo implements IElevatorRepo {
         }
 
         if (elevator.serialNumber) {
-          elevatorDocument.description = elevator.serialNumber;
+          elevatorDocument.serialNumber = elevator.serialNumber;
+        }
+        if (elevator.model) {
+          elevatorDocument.model = elevator.model;
+        }
+        if (elevator.brand) {
+          elevatorDocument.brand = elevator.brand;
+        }
+        if (elevator.buildingId) {
+          elevatorDocument.buildingId = elevator.buildingId;
         }
 
         if (elevator.code && elevator.code.value !== undefined) {
           elevatorDocument.code = elevator.code.value;
         }
-        return elevator;
+
+        await elevatorDocument.save();
+        return ElevatorMap.toDomain(elevatorDocument);
       }
     } catch (err) {
       throw err;
