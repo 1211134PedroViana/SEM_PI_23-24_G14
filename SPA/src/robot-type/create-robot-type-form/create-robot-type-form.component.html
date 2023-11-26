@@ -1,0 +1,29 @@
+<form (ngSubmit)="onSubmit()">
+  <p class="form-title">Create a new Robot Type</p>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <label class="form-label" for="code">Code:</label>
+      <input type="text" class="form-control" name="code" [(ngModel)]="code">
+    </div>
+
+    <div class="col-md-4">
+      <label for="brand" class="form-label">Brand</label>
+      <input type="text" class="form-control" name="brand" [(ngModel)]="brand">
+    </div>
+
+    <div class="col-md-4">
+      <label for="model" class="form-label">Model</label>
+      <input type="text" class="form-control" name="model" [(ngModel)]="model">
+    </div>
+
+    <div class="col-md-4">
+      <label for="taskTypes" class="form-label">Task Types:</label>
+      <input type="text" class="form-control" name="taskTypes" [(ngModel)]="taskTypes">
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+</form>

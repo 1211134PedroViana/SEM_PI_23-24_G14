@@ -1,0 +1,33 @@
+form {
+    padding: 20px;
+    width: 45%;
+    margin: auto;
+    margin-top: 20px;
+    background-color: rgb(97, 98, 98, 0.7);
+    border-radius: 30px;
+}
+
+.form-label {
+    color: #fff;
+    font-family: 'Playpen Sans', cursive;
+}
+
+.form-control {
+    width: 100%;
+}
+
+.form-title {
+    text-align: center;
+    color: #fff;
+    font-family: 'Playpen Sans', cursive;
+}
+
+.btn-primary {
+    background-color: rgb(162, 174, 174);
+    width: 20%;
+    border: 1px solid rgb(162, 174, 174);
+}
+
+.btn-primary:hover {
+    background-color: rgb(86, 101, 101);
+}
