@@ -43,7 +43,7 @@ describe('ListBuildingsWithMinAndMaxFloorsComponent', () => {
         { id: '219a9eb4-c2a7-49ff-ac36-828c0ad09693', buildingId: '654e0f685a1f07a43fc69f14', floorNumber: 4, description: '"Building 4 - Floor 4'},
         { id: '219a9eb4-c2a7-49ff-ac36-828c0ad09694', buildingId: '654e0f685a1f07a43fc69f14', floorNumber: 5, description: '"Building 4 - Floor 5'},
         { id: '219a9eb4-c2a7-49ff-ac36-828c0ad09695', buildingId: '654e0f685a1f07a43fc69f14', floorNumber: 6, description: '"Building 4 - Floor 6'},
-    ]
+    ];
     
     
       const mockBuildings: Building[] = [
