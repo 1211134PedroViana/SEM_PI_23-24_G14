@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-building',
+    selector: 'app-robot',
     templateUrl: './robot.component.html',
     styleUrls: ['./robot.component.css']
 })
