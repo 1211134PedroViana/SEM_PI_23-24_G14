@@ -65,7 +65,6 @@ export default class Door extends THREE.Group {
     const mtlLoader = new MTLLoader();
 
     if(this.isOpen) {
-      console.log("-> fuck oof")
       this.url = "assets/models/DoubleDoor.fbx";
 
       secDoorLoader.load(
