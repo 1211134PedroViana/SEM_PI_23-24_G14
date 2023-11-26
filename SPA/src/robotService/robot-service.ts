@@ -9,12 +9,14 @@ import Robot from './robot';
 })
 
 export class RobotService {
-    
+
     private createUrl = 'http://localhost:4000/api/robots/create';
     private updateUrl = 'http://localhost:4000/api/robots/update';
     private listUrl = 'http://localhost:4000/api/robots/list';
     private deactivateUrl = 'http://localhost:4000/api/robots/deactivate';
-  
+    private retrieveURL = 'http://localhost:4000/api/robots/retrieve';
+
+
     private isVisible = new BehaviorSubject<boolean>(false);
     private robot = new BehaviorSubject<Robot>({} as Robot);
 
@@ -27,7 +29,7 @@ export class RobotService {
 
         return this.http.post<Robot>(this.createUrl, robot, httpOptions)
             .pipe(
-              //catchError(this.handleError('addRobot', robot))  
+              //catchError(this.handleError('addRobot', robot))
             );
     }
 
@@ -46,7 +48,7 @@ export class RobotService {
         const httpOptions = {
           headers: new HttpHeaders({ 'Content-Type': 'application/json' })
         };
-    
+
         return this.http.get<Robot[]>(this.listUrl, httpOptions)
           .pipe(
             //catchError(this.handleError('addRobot', robot))
@@ -59,22 +61,37 @@ export class RobotService {
             //catchError(this.handleError('addRobot', robot))
         );
     }
-    
+
     openForm(robot: Robot) {
         this.robot.next(robot);
         this.isVisible.next(true);
     }
-    
+
     closeForm() {
         this.isVisible.next(false);
     }
-    
+
     getFormVisibility() {
         return this.isVisible.asObservable();
     }
-    
+
     getRobot() {
         return this.robot.asObservable();
     }
-    
+
+    findRobotsByNicknameOrTaskType(nickname: string, taskType: string): Observable<Robot[]> {
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        };
+
+        // Adjust the API endpoint and parameters based on your API
+        const urlWithParams = `${this.retrieveURL}?nickname=${nickname}&taskType=${taskType}`;
+
+        return this.http.get<Robot[]>(urlWithParams, httpOptions)
+            .pipe(
+                // catchError(this.handleError('findRobotsByNicknameOrTaskType', { nickname, taskType }))
+            );
+    }
+
+
 }

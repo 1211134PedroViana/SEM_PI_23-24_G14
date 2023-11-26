@@ -42,7 +42,7 @@ export default (app: Router) => {
   //API GET request - list all Buildings
   route.get('/list', (req, res, next) => ctrl.listFloors(req, res, next));
 
-  route.get('/list', (req, res, next) => ctrl.listFloorsWithPassage(req, res, next));
+  route.get('/withPassages', (req, res, next) => ctrl.listFloorsWithPassage(req, res, next));
 
   route.get('/fromBuilding/:buildingId', (req, res, next) => ctrl.listFloorsFromBuilding(req, res, next));
 };

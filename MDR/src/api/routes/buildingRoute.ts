@@ -44,13 +44,8 @@ export default (app: Router) => {
 
   //API GET request - list all Buildings with min and max floors
   route.get(
-    '/list',
-    celebrate({
-      body: Joi.object({
-        min: Joi.number().required(),
-        max: Joi.number().required(),
-      }),
-    }),
+    '/listAllBuildignsWithMinAndMaxFloors/Min/:min/Max/:max',
     (req, res, next) => ctrl.listBuildingsWithMinAndMaxFloors(req, res, next),
   );
+  
 };

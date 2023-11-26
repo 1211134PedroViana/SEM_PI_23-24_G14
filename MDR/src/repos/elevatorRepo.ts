@@ -27,24 +27,38 @@ export default class ElevatorRepo implements IElevatorRepo {
   }
 
   public async save(elevator: Elevator): Promise<Elevator> {
-    const query = { domainId: elevator.id.toString() };
-
-    const elevatorDocument = await this.elevatorSchema.findOne(query);
-
     try {
-      if (elevatorDocument === null) {
+      const query = { domainId: elevator.id.toString() };
+      const elevatorDocument = await this.elevatorSchema.findOne(query);
+
+      if (!elevatorDocument) {
         const rawElevator: any = ElevatorMap.toPersistence(elevator);
-
         const elevatorCreated = await this.elevatorSchema.create(rawElevator);
-
         return ElevatorMap.toDomain(elevatorCreated);
       } else {
-        elevatorDocument.location.positionX = elevator.location.positionX;
-        elevatorDocument.location.positionY = elevator.location.positionY;
-        elevatorDocument.location.direction = elevator.location.direction;
-        await elevatorDocument.save();
+        if (elevator.description && elevator.description.value !== undefined && elevator.description.value !== '') {
+          elevatorDocument.description = elevator.description.value;
+        }
 
-        return elevator;
+        if (elevator.serialNumber) {
+          elevatorDocument.serialNumber = elevator.serialNumber;
+        }
+        if (elevator.model) {
+          elevatorDocument.model = elevator.model;
+        }
+        if (elevator.brand) {
+          elevatorDocument.brand = elevator.brand;
+        }
+        if (elevator.buildingId) {
+          elevatorDocument.buildingId = elevator.buildingId;
+        }
+
+        if (elevator.code && elevator.code.value !== undefined) {
+          elevatorDocument.code = elevator.code.value;
+        }
+
+        await elevatorDocument.save();
+        return ElevatorMap.toDomain(elevatorDocument);
       }
     } catch (err) {
       throw err;
@@ -60,7 +74,6 @@ export default class ElevatorRepo implements IElevatorRepo {
     } else return null;
   }
 
-  // @ts-ignore
   public async findByDomainId(elevatorCode: ElevatorCode | string): Promise<Elevator> {
     const query = { domainId: elevatorCode };
     const elevatorRecord = await this.elevatorSchema.findOne(query as FilterQuery<IElevatorPersistence & Document>);

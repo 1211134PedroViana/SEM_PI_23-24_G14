@@ -35,6 +35,7 @@ import {UpdatePassageComponent} from "../passage/update-passage/update-passage.c
 import {ListFloorComponent} from "../floor/list-floors/list-floor.component";
 import {UpdateElevatorFormComponent} from "../elevator/update-elevator-form/update-elevator-form.component";
 import {CreateFloorComponent} from "../floor/create-floor/create-floor.component";
+import {ListRobotDesignationComponent} from "../robot/list-robotsDesignation/list-robotsDesignation";
 
 const routes: Routes = [
 
@@ -79,7 +80,8 @@ const routes: Routes = [
     { path: 'robot', component: RobotComponent, children: [
       { path: 'create', component: CreateRobotComponent },
       { path: 'deactivate', component: DeactivateRobotComponent },
-      { path: 'list', component: ListRobotsComponent }
+      { path: 'list', component: ListRobotsComponent },
+      { path: 'retrieve', component: ListRobotDesignationComponent }
       ]},
     { path: 'floor3DViewer', component: MapViewerComponent }
   ]},

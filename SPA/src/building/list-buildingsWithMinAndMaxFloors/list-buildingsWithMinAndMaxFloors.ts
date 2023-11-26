@@ -19,10 +19,13 @@ export class ListBuildingsWithMinAndMaxFloorsComponent implements OnInit {
   constructor(private buildingService: BuildingService) { }
 
   ngOnInit(): void {
-
+    this.submitForm();
   }
 
   loadBuildings() {
+    console.log('Min:', this.min);
+    console.log('Max:', this.max);
+  
     this.buildingService.getAllBuildingsWithMinAndMaxFloors(this.min, this.max)
       .pipe(
         tap((response) => {
@@ -30,13 +33,13 @@ export class ListBuildingsWithMinAndMaxFloorsComponent implements OnInit {
           console.log('Buildings listed successfully', response);
         }),
         catchError((error) => {
-          console.error('Error occurred while listing the buildings', error);
+          console.error('Error listing the buildings', error);
           throw error;
         })
       )
       .subscribe();
-  }
-
+  }  
+  
   isFormOpen = false;
   openForm(building: Building) {
     this.buildingService.openForm(building);
@@ -44,11 +47,13 @@ export class ListBuildingsWithMinAndMaxFloorsComponent implements OnInit {
   }
 
   submitForm() {
-    if (this.min !== undefined && this.max !== undefined) {
+    if (this.min != undefined && this.max != undefined) {
+      console.log(this.min);
+      console.log(this.max);
       this.loadBuildings();
       this.formSubmitted = true; 
     } else {
-      console.warn('Por favor, insira valores mínimos e máximos.');
+      console.warn('Please, write min and max values.');
     }
   }
 }

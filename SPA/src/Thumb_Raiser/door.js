@@ -22,9 +22,9 @@ export default class Door extends THREE.Group {
     this.onLoad = function (object) {
   
       if(this.isOpen) {
-        object.scale.set(0.006, 0.003, 0.005);
+        object.scale.set(0.006, 0.004, 0.005);
       }else{
-        object.scale.set(0.16, 0.1, 0.1);
+        object.scale.set(0.16, 0.15, 0.1);
       }
 
       if (this.door.direction === "north") {

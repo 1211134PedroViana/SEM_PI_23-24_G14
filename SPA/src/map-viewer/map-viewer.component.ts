@@ -235,7 +235,7 @@ export class MapViewerComponent implements OnInit {
                     credits: "Skybox created by <a href='https://opengameart.org/content/xonotic-skyboxes' target='_blank' rel='noopener'>Xonotic</a>."
                 }
             ],
-            selected: 2
+            selected: 1
         }, // Cube texture parameters
         {
           url: mapUrl,

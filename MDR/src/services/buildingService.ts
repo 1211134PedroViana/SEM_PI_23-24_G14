@@ -111,6 +111,11 @@ export default class BuildingService implements IBuildingService {
           let buildingListDtoWithMinAndMaxFloors: IBuildingDTO[] = [];
           let tempBuildingFloorList: Floor[] = [];
 
+          if (isNaN(min) || isNaN(max)) {
+            console.error('Invalid min or max values. Please provide valid numbers.');
+            return Result.fail<IBuildingDTO[]>("Invalid min or max values. Please provide valid numbers.");
+          }
+          
           if (buildingList != null){
             for (let i = 0; i < buildingList.length; i++)
             buildingListDto.push(BuildingMap.toDTO(buildingList[i]));
@@ -121,11 +126,11 @@ export default class BuildingService implements IBuildingService {
               
               tempBuildingFloorList = await this.floorRepo.findByBuilding(buildingListDto[i].id);
               if (tempBuildingFloorList != null) {
-                if (tempBuildingFloorList.length > min && tempBuildingFloorList.length < max) {
+                if (tempBuildingFloorList.length >= min && tempBuildingFloorList.length <= max) {
                   buildingListDtoWithMinAndMaxFloors.push(buildingListDto[i]);
                 }
               }
-              tempBuildingFloorList = null;
+              tempBuildingFloorList = [];
             }
             return Result.ok<IBuildingDTO[]>(buildingListDtoWithMinAndMaxFloors);
           }

@@ -14,6 +14,7 @@ export class BuildingService {
   private createUrl = 'http://localhost:4000/api/buildings/create';
   private updateUrl = 'http://localhost:4000/api/buildings/update';
   private listUrl = 'http://localhost:4000/api/buildings/list';
+  private listUrlBuildingsWithMinAndMaxFloors = 'http://localhost:4000/api/buildings/listAllBuildignsWithMinAndMaxFloors/Min/:min/Max/:max';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private building = new BehaviorSubject<Building>({} as Building);
@@ -67,14 +68,20 @@ export class BuildingService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-type': 'application/json'})
     };
+  
+    //const urlWithParams = `${this.listUrlBuildingsWithMinAndMaxFloors}?min=${min}&max=${max}`;
+    const urlWithParams = 'http://localhost:4000/api/buildings/listAllBuildignsWithMinAndMaxFloors/Min/'+min+'/Max/'+max;
 
-    const urlWithParams = `${this.listUrl}?min=${min}&max=${max}`;
 
     return this.http.get<Building[]>(urlWithParams, httpOptions)
       .pipe(
-        //catchError(this.handleError('addBuilding', building))
+        catchError((error) => {
+          console.error('Error in the HTTP request:', error);
+          throw error;
+        })
       );
   }
+  
 
   getAllFloors(): Observable<Floor[]> {
     const httpOptions = {

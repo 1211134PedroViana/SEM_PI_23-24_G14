@@ -51,4 +51,14 @@ h3.title {
   .table tbody tr:hover {
     background-color: #383838;
   }
+
+.btn-primary {
+    background-color: rgb(162, 174, 174);
+    width: 20%;
+    border: 1px solid rgb(162, 174, 174);
+}
+
+.btn-primary:hover {
+    background-color: rgb(86, 101, 101);
+}
   

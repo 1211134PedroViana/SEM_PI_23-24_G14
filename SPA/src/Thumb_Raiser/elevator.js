@@ -18,14 +18,14 @@ export default class Elevator extends THREE.Group {
     this.loaded = false;
 
     this.onLoad = function (object) {
-        object.scale.set(0.0054, 0.0028, 0.005);
+        object.scale.set(0.0054, 0.0032, 0.005);
         switch(this.elevator.direction) {
             
             case "north":
                 object.rotateY(Math.PI);
                 object.position.set(
                     this.elevator.positionX - this.halfSize.width + 0.5, 
-                    0.59, 
+                    0.55, 
                     this.elevator.positionY - this.halfSize.depth);
                 break;
 
@@ -33,14 +33,14 @@ export default class Elevator extends THREE.Group {
                 object.rotateY(Math.PI / 2);
                 object.position.set(
                     this.elevator.positionX - this.halfSize.width, 
-                    0.59, 
+                    0.68, 
                     this.elevator.positionY - this.halfSize.depth + 0.5);
                 break;
 
             case "south":
                 object.position.set(
                     this.elevator.positionX - this.halfSize.width + 0.5, 
-                    0.59, 
+                    0.68, 
                     this.elevator.positionY - this.halfSize.depth + 1);
             
         }

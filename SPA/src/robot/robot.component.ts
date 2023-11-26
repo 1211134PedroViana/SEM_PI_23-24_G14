@@ -15,5 +15,5 @@ export class RobotComponent {
     feature1Route = '/fleet/robot/create';
     feature2Route = '/fleet/robot/list';
     feature3Route = '/fleet/robot/deactivate';
-    feature4Route = '/fleet/robot/list';
+    feature4Route = '/fleet/robot/retrieve';
 }

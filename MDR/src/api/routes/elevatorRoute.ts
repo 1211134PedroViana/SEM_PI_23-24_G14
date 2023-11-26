@@ -42,16 +42,15 @@ export default (app: Router) => {
     '/update',
     celebrate({
       body: Joi.object({
-        code: Joi.string().required(),
+        id: Joi.string().required(),
+        code: Joi.string(),
         location: {
-          positionX: Joi.number().required(),
-          positionY: Joi.number().required(),
-          direction: Joi.string().required(),
+          positionX: Joi.number(),
+          positionY: Joi.number(),
+          direction: Joi.string(),
         },
-        buildingId: Joi.string().required(),
-        floorList: Joi.array()
-          .items(Joi.string().required())
-          .required(),
+        buildingId: Joi.string(),
+        floorList: Joi.array().items(Joi.string()),
         brand: Joi.string(),
         model: Joi.string(),
         serialNumber: Joi.string(),
