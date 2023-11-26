@@ -1,0 +1,30 @@
+@startuml
+
+activate SPA
+
+SPA -> GestaoInfoAPI: get(/api/floorsServed)
+activate GestaoInfoAPI
+
+GestaoInfoAPI -> ElevatorController: get
+activate ElevatorController
+
+ElevatorController -> ElevatorService: listfloorsServedByElevator()
+activate ElevatorService
+
+ElevatorService -> ElevatorRepo: getAllFloorsServedByElevator()
+activate ElevatorRepo
+
+ElevatorRepo --> ElevatorService: floorsServed
+deactivate ElevatorRepo
+
+ElevatorService --> ElevatorController: floorsServed
+deactivate ElevatorService
+
+ElevatorController -> GestaoInfoAPI: status code 201
+deactivate ElevatorController
+
+GestaoInfoAPI --> SPA : success
+deactivate GestaoInfoAPI
+
+deactivate SPA
+@enduml

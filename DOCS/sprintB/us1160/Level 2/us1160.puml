@@ -1,0 +1,23 @@
+@startuml
+actor "Campus Manager" as User
+participant "SPA" as SPA
+participant "ElevatorRepo" as ElevatorRepo
+
+activate User
+
+User -> SPA: Requests building floors served by elevator
+activate SPA
+
+SPA -> ElevatorRepo: GET /elevators/floors (floorsServed, buildingId, floorId)
+activate ElevatorRepo
+
+ElevatorRepo --> SPA: Status code
+deactivate ElevatorRepo
+
+alt successfull case
+    SPA --> User : list successfully returned
+else failure
+    SPA --> User : list wasn't returned with success
+end
+
+@enduml
