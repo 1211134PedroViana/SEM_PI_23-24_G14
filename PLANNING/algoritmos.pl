@@ -161,6 +161,27 @@ processar_par(pass(PassOrigem, PassDestino), sala(SalaOrig), Cam) :-
     gera_grafo(PassDestino),
     encontra_caminho(pass(PassOrigem, PassDestino), sala(SalaOrig), Cam).
 
+processar_par(sala(SalaOrig), sala(SalaDest), Cam) :-
+    sala(SalaOrig, Piso),
+    gera_grafo(Piso),
+    encontra_caminho(sala(SalaOrig), sala(SalaDest), Cam).
+
+processar_par(sala(SalaOrig), elev(Piso), Cam) :-
+    gera_grafo(Piso),
+    encontra_caminho(sala(SalaOrig), elev(Piso), Cam).
+
+processar_par(pass(PassOrigem, PassDestino), elev(Piso), Cam) :-
+    gera_grafo(Piso),
+    encontra_caminho(pass(PassOrigem, PassDestino), elev(Piso), Cam).
+
+processar_par(elev(Piso), sala(SalaDest), Cam) :-
+    gera_grafo(Piso),
+    encontra_caminho(elev(Piso), sala(SalaDest), Cam).
+
+processar_par(elev(Piso), pass(PassOrigem, PassDestino), Cam) :-
+    gera_grafo(Piso),
+    encontra_caminho(elev(Piso), pass(PassOrigem, PassDestino), Cam).
+
 
 % Gera o grafo do piso e constroi as ligações (ligacel/4)
 gera_grafo(Piso) :-
@@ -173,33 +194,24 @@ encontra_caminho(elev(_, ElevDestino), pass(PassOrigem, PassDestino), Cam) :-
     coordenadas(ElevDestino, ElevPosX, ElevPosY),
     coordenadas(PassOrigem, PassDestino, PassPosX, PassPosY, _, _),
     %aStar(cel(ElevPosX,ElevPosY), cel(PassPosX,PassPosY), Cam, Custo, ElevDestino),
-    dfs(ElevDestino, cel(ElevPosX,ElevPosY), cel(PassPosX,PassPosY), Cam).
-    %write('Piso:'),write(ElevDestino),nl,
-    %write('Origem:'),write(elev(ElevDestino)),write(' | '),write('Coordenadas:'),write(ElevPosX),write(' '),write(ElevPosY),nl,
-    %write('Destino:'),write(pass(PassOrigem, PassDestino)),write(' | '),write('Coordenadas:'),write(PassPosX),write(' '),write(PassPosY),nl,
-    %write('Caminho:'),write(Cam),nl,nl.
+    dfs(ElevDestino, cel(ElevPosX,ElevPosY), cel(PassPosX,PassPosY), Cam),
+    write_piso(ElevDestino, elev(ElevDestino), pass(PassOrigem, PassDestino), Cam).
 
 % Encontra o caminho entre uma passagem e um elevador através do algoritmo DFS ou ASTAR
 encontra_caminho(pass(PassOrigem, PassDestino), elev(ElevOrigem, _), Cam) :-
     coordenadas(PassOrigem, PassDestino, _, _, PassPosX, PassPosY),
     coordenadas(ElevOrigem, ElevPosX, ElevPosY),
     %aStar(cel(PassPosX,PassPosY), cel(ElevPosX,ElevPosY), Cam, Custo, PassDestino),
-    dfs(PassDestino, cel(PassPosX,PassPosY), cel(ElevPosX,ElevPosY), Cam).
-    %write('Piso:'),write(PassDestino),nl,
-    %write('Origem:'),write(pass(PassOrigem, PassDestino)),write(' | '),write('Coordenadas:'),write(PassPosX),write(' '),write(PassPosY),nl,
-    %write('Destino:'),write(elev(ElevOrigem)),write(' | '),write('Coordenadas:'),write(ElevPosX),write(' '),write(ElevPosY),nl,
-    %write('Caminho '),write(Cam),nl,nl.
+    dfs(PassDestino, cel(PassPosX,PassPosY), cel(ElevPosX,ElevPosY), Cam),
+    write_piso(PassDestino, pass(PassOrigem, PassDestino), elev(ElevOrigem), Cam).
 
 % Encontra o caminho entre duas passagens através do algoritmo DFS ou ASTAR
 encontra_caminho(pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino), Cam) :-
     coordenadas(PassOrigem, PassDestino, _, _, PassPosX, PassPosY),
     coordenadas(Pass2Origem, Pass2Destino, Pass2PosX, Pass2PosY, _,_),
     %aStar(cel(PassPosX,PassPosY), cel(Pass2PosX,Pass2PosY), Cam, Custo, PassDestino),
-    dfs(PassDestino, cel(PassPosX,PassPosY), cel(Pass2PosX,Pass2PosY), Cam).
-    %write('Piso:'),write(PassDestino),nl,
-    %write('Origem:'),write(pass(PassOrigem, PassDestino)),write(' | '),write('Coordenadas:'),write(PassPosX),write(' '),write(PassPosY),nl,
-    %write('Destino:'),write(pass(Pass2Origem, Pass2Destino)),write(' | '),write('Coordenadas:'),write(Pass2PosX),write(' '),write(Pass2PosY),nl,
-    %write('Caminho '),write(Cam),nl,nl.
+    dfs(PassDestino, cel(PassPosX,PassPosY), cel(Pass2PosX,Pass2PosY), Cam),
+    write_piso(PassDestino, pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino), Cam).
 
 % Encontra o caminho entre uma sala e um elevador através do algoritmo DFS ou ASTAR
 encontra_caminho(sala(SalaOrig), elev(Piso, _), Cam) :-
@@ -207,10 +219,7 @@ encontra_caminho(sala(SalaOrig), elev(Piso, _), Cam) :-
     coordenadas(Piso, ElevCol, ElevLin),   
     %aStar(cel(SalaCol,SalaLin), cel(ElevCol,ElevLin), Cam, Custo, Piso),
     dfs(Piso, cel(SalaCol,SalaLin), cel(ElevCol,ElevLin), Cam).
-    %write('Piso:'),write(Piso),nl,
-    %write('Origem:'),write(sala(SalaOrig)),write(' | '),write('Coordenadas:'),write(SalaCol),write(' '),write(SalaLin),nl,
-    %write('Destino:'),write(elev(Piso)),write(' | '),write('Coordenadas:'),write(ElevCol),write(' '),write(ElevLin),nl,
-    %write('Caminho '),write(Cam),nl,nl.
+    write_piso(Piso, sala(SalaOrig), elev(Piso), Cam).
 
 % Encontra o caminho entre um elevador e uma sala através do algoritmo DFS ou ASTAR
 encontra_caminho(elev(_, Piso), sala(SalaOrig), Cam) :-
@@ -218,32 +227,64 @@ encontra_caminho(elev(_, Piso), sala(SalaOrig), Cam) :-
     coordenadas(Piso, ElevCol, ElevLin),   
     %aStar(cel(ElevCol,ElevLin), cel(SalaCol,SalaLin), Cam, Custo, Piso),
     dfs(Piso, cel(ElevCol,ElevLin), cel(SalaCol,SalaLin), Cam).
-    %write('Piso:'),write(Piso),nl,
-    %write('Origem:'),write(elev(Piso)),write(' | '),write('Coordenadas:'),write(ElevCol),write(' '),write(ElevLin),nl,
-    %write('Destino:'),write(sala(SalaOrig)),write(' | '),write('Coordenadas:'),write(SalaCol),write(' '),write(SalaLin),nl,
-    %write('Caminho '),write(Cam),nl,nl.
+    write_piso(Piso, elev(Piso), sala(SalaOrig), Cam).
 
 % Encontra o caminho entre uma sala e uma passagem através do algoritmo DFS ou ASTAR
 encontra_caminho(sala(SalaOrig), pass(PassOrigem, PassDestino), Cam) :-
     coordenadas(SalaOrig, PassOrigem, SalaCol, SalaLin),
     coordenadas(PassOrigem, PassDestino, PassCol, PassLin, _, _),  
     %aStar(cel(SalaCol,SalaLin), cel(PassCol,PassLin), Cam, Custo, PassOrigem), 
-    dfs(PassOrigem, cel(SalaCol,SalaLin), cel(PassCol,PassLin), Cam).
-    %write('Piso:'),write(PassOrigem),nl,
-    %write('Origem:'),write(sala(SalaOrig)),write(' | '),write('Coordenadas:'),write(SalaCol),write(' '),write(SalaLin),nl,
-    %write('Destino:'),write(pass(PassOrigem, PassDestino)),write(' | '),write('Coordenadas:'),write(PassCol),write(' '),write(PassLin),nl,
-    %write('Caminho '),write(Cam),nl,nl.
+    dfs(PassOrigem, cel(SalaCol,SalaLin), cel(PassCol,PassLin), Cam),
+    write_piso(PassOrigem, sala(SalaOrig), pass(PassOrigem, PassDestino), Cam).
 
 % Encontra o caminho entre uma passagem e uma sala através do algoritmo DFS ou ASTAR
 encontra_caminho(pass(PassOrigem, PassDestino), sala(SalaOrig), Cam) :-
     coordenadas(SalaOrig, PassDestino, SalaCol, SalaLin),
     coordenadas(PassOrigem, PassDestino, _, _, PassCol, PassLin),
     %aStar(cel(PassCol,PassLin), cel(SalaCol,SalaLin), Cam, Custo, PassDestino),  
-    dfs(PassDestino, cel(PassCol,PassLin), cel(SalaCol,SalaLin), Cam).
-    %write('Piso:'),write(PassDestino),nl,
-    %write('Origem:'),write(pass(PassOrigem, PassDestino)),write(' | '),write('Coordenadas:'),write(PassCol),write(' '),write(PassLin),nl,
-    %write('Destino:'),write(sala(SalaOrig)),write(' | '),write('Coordenadas:'),write(SalaCol),write(' '),write(SalaLin),nl,
-    %write('Caminho '),write(Cam),nl,nl.
+    dfs(PassDestino, cel(PassCol,PassLin), cel(SalaCol,SalaLin), Cam),
+    write_piso(PassDestino, pass(PassOrigem, PassDestino), sala(SalaOrig), Cam).
+
+% Encontra o caminho entre duas salas através do algoritmo DFS ou ASTAR
+encontra_caminho(sala(SalaOrig), sala(SalaDest), Cam) :-
+    sala(SalaOrig, Piso),
+    coordenadas(SalaOrig, Piso, SalaOrigCol, SalaOrigLin),
+    coordenadas(SalaDest, Piso, SalaDestCol, SalaDestLin),
+    %aStar(cel(PassCol,PassLin), cel(SalaCol,SalaLin), Cam, Custo, PassDestino),  
+    dfs(PassDestino, cel(SalaOrigCol,SalaOrigLin), cel(SalaDestCol,SalaDestLin), Cam),
+    write_piso(PassDestino, sala(SalaOrig), sala(SalaDest), Cam).
+
+% Encontra o caminho entre uma sala e um elevador se for destino através do algoritmo DFS ou ASTAR
+encontra_caminho(sala(SalaOrig), elev(Piso), Cam) :-
+    coordenadas(SalaOrig, Piso, SalaCol, SalaLin),
+    coordenadas(Piso, ElevCol, ElevLin), 
+    %aStar(cel(SalaCol,SalaLin), cel(ElevCol,ElevLin), Cam, Custo, Piso),  
+    dfs(Piso, cel(SalaCol,SalaLin), cel(ElevCol,ElevLin), Cam),
+    write_piso(Piso, sala(SalaOrig), elev(Piso), Cam).
+
+% Encontra o caminho entre uma passagem e um elevador se for destino através do algoritmo DFS ou ASTAR
+encontra_caminho(pass(PassOrigem, PassDestino), elev(Piso), Cam) :-
+    coordenadas(PassOrigem, PassDestino, _, _, PassCol, PassLin),
+    coordenadas(Piso, ElevCol, ElevLin), 
+    %aStar(cel(PassCol,PassLin), cel(ElevCol,ElevLin), Cam, Custo, Piso),  
+    dfs(Piso, cel(PassCol,PassLin), cel(ElevCol,ElevLin), Cam),
+    write_piso(Piso, pass(PassOrigem, PassDestino), elev(Piso), Cam).
+
+% Encontra o caminho entre um elevador se for origem e uma sala através do algoritmo DFS ou ASTAR
+encontra_caminho(elev(Piso), sala(SalaDest), Cam) :-
+    coordenadas(SalaDest, Piso, SalaCol, SalaLin),
+    coordenadas(Piso, ElevCol, ElevLin), 
+    %aStar(cel(ElevCol,ElevLin), cel(SalaCol,SalaLin), Cam, Custo, Piso),  
+    dfs(Piso, cel(ElevCol,ElevLin), cel(SalaCol,SalaLin), Cam),
+    write_piso(Piso, elev(Piso), sala(SalaDest), Cam).
+
+% Encontra o caminho entre um elevador se for origem e uma passagem através do algoritmo DFS ou ASTAR
+encontra_caminho(elev(Piso), pass(PassOrigem, PassDestino), Cam) :-
+    coordenadas(PassOrigem, PassDestino, PassCol, PassLin, _, _),
+    coordenadas(Piso, ElevCol, ElevLin), 
+    %aStar(cel(ElevCol,ElevLin), cel(PassCol,PassLin), Cam, Custo, Piso),  
+    dfs(Piso, cel(ElevCol,ElevLin), cel(PassCol,PassLin), Cam),
+    write_piso(Piso, elev(Piso), pass(PassOrigem, PassDestino), Cam).
     
 
 % Algoritmo DFS
@@ -296,3 +337,10 @@ aStar2(Piso, Dest, [(_, Ca, LA)|Outros], Cam, Custo) :-
     sort(Todos, TodosOrd),
     % write('TodosOrd='),write(TodosOrd),nl,
     aStar2(Piso, Dest, TodosOrd, Cam, Custo).
+
+% Debugging predicate with format/2
+write_piso(Piso, Origem, Destino, Caminho) :-
+    format("Piso: ~w~n", [Piso]),
+    format("Origem: ~w~n", [Origem]),
+    format("Destino: ~w~n", [Destino]),
+    format("Caminho: ~w~n", [Caminho]).
