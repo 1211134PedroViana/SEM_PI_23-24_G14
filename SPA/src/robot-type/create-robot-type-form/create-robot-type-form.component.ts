@@ -22,31 +22,7 @@ export class CreateRobotTypeFormComponent {
   }
 
   onSubmit() {
-    const robotTypeData = {
-      code: this.code,
-      brand: this.brand,
-      model: this.model,
-      taskTypes: this.taskTypes
-    } as RobotType;
-
-    this.robotTypeService.addRobotType(robotTypeData)
-      .pipe(
-        tap((response) => {
-          console.log('Robot Type created successfully', response);
-          const message = `Robot Type created successfully! | Code: ${response.code} | Brand: ${response.brand}}`;
-          this.snackBar.open(message, 'Close', {
-            duration: 5000, // 5 seconds
-          });
-        }),
-        catchError((error) => {
-          console.error('Error occurred while creating the Robot Type', error);
-          this.snackBar.open('Failed to create Robot Type, returned code:' + error.status, 'Close', {
-            duration: 5000, // 5 seconds
-          });
-          throw error;
-        })
-      )
-      .subscribe();
+    
   }
 
 }

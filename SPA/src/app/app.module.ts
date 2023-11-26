@@ -57,7 +57,6 @@ import {ListFloorComponent} from "../floor/list-floors/list-floor.component";
 import {ListFloorsWithElevatorComponent} from "../floor/list-floors-with-elevator/list-floors-with-elevator.component";
 import {CreateFloorComponent} from "../floor/create-floor/create-floor.component";
 import {ListRobotDesignationComponent} from "../robot/list-robotsDesignation/list-robotsDesignation";
-import {CreateRobotTypeFormComponent} from "../robot-type/create-robot-type-form/create-robot-type-form.component";
 
 @NgModule({
   declarations: [
@@ -111,8 +110,7 @@ import {CreateRobotTypeFormComponent} from "../robot-type/create-robot-type-form
     ListFloorComponent,
     ListFloorsWithElevatorComponent,
     CreateFloorComponent,
-    ListRobotDesignationComponent,
-    CreateRobotTypeFormComponent
+    ListRobotDesignationComponent
   ],
   imports: [
     BrowserModule,
