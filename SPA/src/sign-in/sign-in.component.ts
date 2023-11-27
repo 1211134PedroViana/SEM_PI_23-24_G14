@@ -19,7 +19,7 @@ export class SignInComponent {
     } else if(this.selectedRole === "Fleet"){
       this.router.navigate(["/fleet"]);
     } else {
-      //ignore
+      this.router.navigate(["/task"]);
     }
   }
 }

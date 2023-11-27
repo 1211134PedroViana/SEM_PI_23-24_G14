@@ -36,6 +36,8 @@ import {ListFloorComponent} from "../floor/list-floors/list-floor.component";
 import {UpdateElevatorFormComponent} from "../elevator/update-elevator-form/update-elevator-form.component";
 import {CreateFloorComponent} from "../floor/create-floor/create-floor.component";
 import {ListRobotsDesignationComponent} from "../robot/list-robotsDesignation/list-robotsDesignation.component";
+import { AppTaskComponent } from 'src/app-task/app-task.component';
+import { ComputePathComponent } from 'src/compute-path/compute-path.component';
 
 const routes: Routes = [
 
@@ -85,6 +87,11 @@ const routes: Routes = [
       ]},
     { path: 'floor3DViewer', component: MapViewerComponent }
   ]},
+
+  //Task Manager App
+  { path: 'task', component: AppTaskComponent, children: [
+    { path: 'findPath', component: ComputePathComponent }
+  ]}
 
 ];
 

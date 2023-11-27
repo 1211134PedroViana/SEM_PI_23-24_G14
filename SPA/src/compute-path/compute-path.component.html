@@ -1,0 +1,70 @@
+<form (ngSubmit)="onSubmit()">
+    <p class="form-title">Compute Path</p>
+
+    <div class="row g-4">
+  
+        <div class="col-md-4">
+            <label class="form-label" for="acessPoint">Type</label>
+            <select class="form-select" id="acessPoint" name="selectedTypeOrig" [(ngModel)]="selectedTypeOrig">
+                <option value="sala">Sala</option>
+                <option value="elev">Elevador</option>
+                <option value="pass">Passagem</option>
+            </select>
+        </div>
+  
+      <div class="col-md-4">
+        <label class="form-label" for="building">From Building</label>
+        <select class="form-select" id="building1" name="selectedBuildingOrig" [(ngModel)]="selectedBuildingOrig" (change)="onBuildingOrigChange()">
+          <option *ngFor="let building of buildings" [value]="building.id">{{ building.code }}</option>
+        </select>
+      </div>
+
+      <div *ngIf="selectedTypeOrig && selectedBuildingOrig" class="col-md-4">
+        <label class="form-label" for="floor">From Floor</label>
+        <select class="form-select" id="floor1" name="selectedFloorOrig" [(ngModel)]="selectedFloorOrig" (change)="onFloorOrigChange()">
+          <option *ngFor="let floor of floorsOrig" [value]="floor.id">{{ floor.floorNumber }}</option>
+        </select>
+      </div>
+
+      <div *ngIf="selectedTypeOrig && selectedBuildingOrig" class="col-md-4">
+        <label class="form-label" for="building">Acess point</label>
+        <select class="form-select" id="element1" name="selectedOrig" [(ngModel)]="selectedOrig">
+          <option *ngFor="let orig of elementsOrig" [value]="orig">{{ orig }}</option>
+        </select>
+      </div>
+
+    </div>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <label class="form-label" for="acessPoint">Type</label>
+            <select class="form-select" id="acessPoint2" name="selectedTypeDest" [(ngModel)]="selectedTypeDest">
+                <option value="sala">Sala</option>
+                <option value="elev">Elevador</option>
+                <option value="pass">Passagem</option>
+            </select>
+        </div>   
+        <div class="col-md-4">
+            <label class="form-label" for="building">To Building</label>
+            <select class="form-select" id="building2" name="selectedBuildingDest" [(ngModel)]="selectedBuildingDest" (change)="onBuildingDestChange()">
+                <option *ngFor="let building of buildings" [value]="building.id">{{ building.code }}</option>
+            </select>
+        </div>
+        <div *ngIf="selectedTypeDest && selectedBuildingDest" class="col-md-4">
+            <label class="form-label" for="floor">To Floor</label>
+            <select class="form-select" id="floor2" name="selectedFloorDest" [(ngModel)]="selectedFloorDest" (change)="onFloorDestChange()">
+              <option *ngFor="let floor of floorsDest" [value]="floor.id">{{ floor.floorNumber }}</option>
+            </select>
+          </div>
+        <div *ngIf="selectedTypeDest && selectedBuildingDest" class="col-md-4">
+            <label class="form-label" for="element2">Acess point</label>
+            <select class="form-select" id="element2" name="selectedTypeOrig" [(ngModel)]="selectedTypeOrig">
+              <option *ngFor="let dest of selectedDest" [value]="dest">{{ dest }}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+  

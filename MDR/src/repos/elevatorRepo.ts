@@ -99,9 +99,14 @@ export default class ElevatorRepo implements IElevatorRepo {
     }
   }
 
-  public async findByBuildingId(elevatorId: string): Promise<Elevator> {
-    
-    return null;
-    
+  public async findByBuildingId(buildingId: string): Promise<Elevator> {
+    const query = { domainId: buildingId };
+    const elevatorRecord = await this.elevatorSchema.findOne(query as FilterQuery<IElevatorPersistence & Document>);
+
+    if (elevatorRecord != null) {
+      return ElevatorMap.toDomain(elevatorRecord);
+    } else {
+      return null;
+    }
   }
 }

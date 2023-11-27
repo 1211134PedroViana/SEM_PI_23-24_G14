@@ -11,4 +11,5 @@ export default interface IElevatorService {
   updateElevator(elevatorDTO: IElevatorDTO): Promise<Result<IElevatorDTO>>;
   getAllElevators(): Promise<Result<IElevatorDTO[]>>;
   getAllFloorsServedByElevator(): Promise<Result<FloorsServedResponse[]>>;
+  getElevatorByBuilding(buildingId: string): Promise<Result<IElevatorDTO>>;
 }

@@ -59,6 +59,7 @@ import {CreateFloorComponent} from "../floor/create-floor/create-floor.component
 import {ListRobotsDesignationComponent} from "../robot/list-robotsDesignation/list-robotsDesignation.component";
 import { AppTaskComponent } from '../app-task/app-task.component';
 import { TaskSideBarComponent } from '../task-side-bar/task-side-bar.component';
+import { ComputePathComponent } from '../compute-path/compute-path.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import { TaskSideBarComponent } from '../task-side-bar/task-side-bar.component';
     CreateFloorComponent,
     ListRobotsDesignationComponent,
     AppTaskComponent,
-    TaskSideBarComponent
+    TaskSideBarComponent,
+    ComputePathComponent
   ],
   imports: [
     BrowserModule,
