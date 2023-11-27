@@ -57,6 +57,8 @@ import {ListFloorComponent} from "../floor/list-floors/list-floor.component";
 import {ListFloorsWithElevatorComponent} from "../floor/list-floors-with-elevator/list-floors-with-elevator.component";
 import {CreateFloorComponent} from "../floor/create-floor/create-floor.component";
 import {ListRobotsDesignationComponent} from "../robot/list-robotsDesignation/list-robotsDesignation.component";
+import { AppTaskComponent } from '../app-task/app-task.component';
+import { TaskSideBarComponent } from '../task-side-bar/task-side-bar.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +112,9 @@ import {ListRobotsDesignationComponent} from "../robot/list-robotsDesignation/li
     ListFloorComponent,
     ListFloorsWithElevatorComponent,
     CreateFloorComponent,
-    ListRobotsDesignationComponent
+    ListRobotsDesignationComponent,
+    AppTaskComponent,
+    TaskSideBarComponent
   ],
   imports: [
     BrowserModule,

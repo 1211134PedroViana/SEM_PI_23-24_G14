@@ -2,15 +2,15 @@
     <p class="form-title">Create a new Building</p>
     <div class="mb-3">
       <label for="code" class="form-label">Code</label>
-      <input type="code" class="form-control" name="code" [(ngModel)]="code">
+      <input id="code" type="code" class="form-control" name="code" [(ngModel)]="code">
     </div>
     <div class="mb-3">
       <label for="name" class="form-label">Name</label>
-      <input type="name" class="form-control" name="name" [(ngModel)]="name">
+      <input id="name" type="name" class="form-control" name="name" [(ngModel)]="name">
     </div>
     <div class="mb-3">
         <label for="description" class="form-label">Description</label>
-        <textarea type="description" class="form-control" name="description" [(ngModel)]="description"></textarea>
+        <textarea id="description" type="description" class="form-control" name="description" [(ngModel)]="description"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Create</button>
+    <button id="create" type="submit" class="btn btn-primary">Create</button>
 </form>

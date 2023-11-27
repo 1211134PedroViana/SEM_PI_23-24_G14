@@ -16,6 +16,6 @@ describe('CreateBuildingFormComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    cy.url().should('include', '/create');
   });
 });
