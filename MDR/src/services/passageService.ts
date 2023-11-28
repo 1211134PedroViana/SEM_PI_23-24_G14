@@ -129,4 +129,20 @@ export default class PassageService implements IPassageService {
       return Result.fail<IPassageDTO[]>(error.message);
     }
   }
+
+  public async getPassageByFloorId(floorId: string): Promise<Result<IPassageDTO[]>> {
+    try {
+      const passageList: Passage[] = await this.passageRepo.findByFloorId(floorId);
+      const passageListDto: IPassageDTO[] = [];
+
+      if (passageList != null) {
+        for (let i = 0; i < passageList.length; i++) passageListDto.push(PassageMap.toDTO(passageList[i]));
+        return Result.ok<IPassageDTO[]>(passageListDto);
+      }
+      return Result.fail<IPassageDTO[]>('There are no passages to return.');
+      
+    } catch (error) {
+      return Result.fail<IPassageDTO[]>(error.message);
+    }
+  }
 }

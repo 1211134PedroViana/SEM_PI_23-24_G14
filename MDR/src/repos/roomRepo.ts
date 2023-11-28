@@ -90,4 +90,21 @@ export default class RoomRepo implements IRoomRepo {
         const roomList = await this.roomSchema.find()
         return RoomMap.toDomainBulk(roomList);
     }
+
+    public async findByFloorId(floorId: string): Promise<Room[]> {
+        const rooms: Room[] = [];
+        const query: FilterQuery<IRoomPersistence & Document> = { floorId };
+    
+        const roomRecords = await this.roomSchema.find(query);
+    
+        if (roomRecords.length > 0) {
+            roomRecords.forEach(roomRecord => {
+            const room = RoomMap.toDomain(roomRecord);
+            rooms.push(room);
+          });
+          return rooms;
+        } else {
+          return null;
+        }
+    }
 }

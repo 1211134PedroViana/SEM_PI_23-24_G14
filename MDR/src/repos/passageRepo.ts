@@ -83,4 +83,21 @@ export default class PassageRepo implements IPassageRepo {
         const passageList = await this.passageSchema.find()
         return PassageMap.toDomainBulk(passageList);
     }
+
+    public async findByFloorId(floorId: string): Promise<Passage[]> {
+        const passages: Passage[] = [];
+        const query: FilterQuery<IPassagePersistence & Document> = { floorId };
+    
+        const passageRecords = await this.passageSchema.find(query);
+    
+        if (passageRecords.length > 0) {
+            passageRecords.forEach(passageRecord => {
+            const passage = PassageMap.toDomain(passageRecord);
+            passages.push(passage);
+          });
+          return passages;
+        } else {
+          return null;
+        }
+    }
 }
