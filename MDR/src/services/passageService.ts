@@ -8,6 +8,7 @@ import IFloorRepo from './IRepos/IFloorRepo';
 import { Location } from '../domain/valueObjects/location';
 import { Passage } from '../domain/passage';
 import { PassageMap } from '../mappers/PassageMap';
+import { Description } from '../domain/valueObjects/description';
 
 @Service()
 export default class PassageService implements IPassageService {
@@ -26,6 +27,8 @@ export default class PassageService implements IPassageService {
         positionY: passageDTO.location.positionY,
         direction: passageDTO.location.direction,
       });
+
+      const description = Description.create(passageDTO.description);
 
       if (fromFloor === null || fromFloor === undefined) {
         return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.fromFloorId + '" not found');

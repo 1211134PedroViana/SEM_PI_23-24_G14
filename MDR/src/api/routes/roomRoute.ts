@@ -63,4 +63,6 @@ export default (app: Router) => {
 
   //API GET request - list all Passages
   route.get('/list', (req, res, next) => ctrl.listRoom(req, res, next));
+
+  route.get('/roomsFromFloor/:floorId', (req, res, next) => ctrl.getRoomsByFloor(req, res, next));
 };

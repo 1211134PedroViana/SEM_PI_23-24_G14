@@ -34,6 +34,10 @@ const PassageSchema = new mongoose.Schema(
         required: true,
       },
     },
+
+    description: {
+      type: String
+    }
   },
   {
     timestamps: true,

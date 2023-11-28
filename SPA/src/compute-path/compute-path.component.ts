@@ -7,6 +7,11 @@ import { FloorService } from 'src/floorService/floor-service';
 import { PassageService } from 'src/passageService/passage.service';
 import { PathService } from 'src/pathService/path.service';
 import { catchError, tap } from 'rxjs/operators';
+import { RoomService } from 'src/roomService/room.service';
+import Room from 'src/roomService/room';
+import { ElevatorService } from 'src/elevatorService/elevator.service';
+import Elevator from 'src/Thumb_Raiser/elevator';
+import Passage from 'src/passageService/passage';
 
 @Component({
   selector: 'app-compute-path',
@@ -30,7 +35,7 @@ export class ComputePathComponent {
   selectedDest = '';
 
   constructor(private pathService: PathService, private passageService: PassageService, private buildingService: BuildingService,
-    private floorService: FloorService, private snackBar: MatSnackBar) { }
+    private floorService: FloorService, private roomService: RoomService, private elevatorService: ElevatorService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.buildingService.getAllBuildings().subscribe((buildings) => {
@@ -56,12 +61,12 @@ export class ComputePathComponent {
 
   onFloorOrigChange() {
     this.elementsOrig = [];
-    this.getElementsFromType(this.selectedOrig);
+    this.getElementsFromType1(this.selectedTypeOrig);
   }
 
   onFloorDestChange() {
     this.elementsDest = [];
-    this.getElementsFromType(this.selectedDest);
+    this.getElementsFromType2(this.selectedTypeDest);
   }
 
   onSubmit() {
@@ -86,23 +91,59 @@ export class ComputePathComponent {
       .subscribe();
   }
 
-  getElementsFromType(type: string): string {
+  getElementsFromType1(type: string): void {
     let mensagem: string;
 
     switch (type) {
         case "sala":
-            mensagem = "Segunda-feira";
-            break;
+          this.roomService.getRoomsByFloor(this.selectedFloorOrig).subscribe((rooms: Room[]) => {
+            rooms.forEach(room => {
+              this.elementsOrig.push(room.description);
+            });
+          });
+          break;
         case "elev":
-            mensagem = "Terça-feira";
-            break;
+          this.elevatorService.getElevatorByBuilding(this.selectedBuildingOrig).subscribe((elevator) => {
+            this.elementsOrig.push(elevator.description);
+          });
+          break;
         case "pass":
-            mensagem = "Quarta-feira";
-            break;
+          this.passageService.getPassagesByFloor(this.selectedFloorOrig).subscribe((passages: Passage[]) => {
+            passages.forEach(passage => {
+              this.elementsOrig.push(passage.description);
+            });
+          });
+          break;
         default:
             mensagem = "Dia inválido";
     }
+  }
 
-    return mensagem;
+  getElementsFromType2(type: string): void {
+    let mensagem: string;
+
+    switch (type) {
+        case "sala":
+          this.roomService.getRoomsByFloor(this.selectedFloorDest).subscribe((rooms: Room[]) => {
+            rooms.forEach(room => {
+              this.elementsDest.push(room.description);
+            });
+          });
+          break;
+        case "elev":
+          this.elevatorService.getElevatorByBuilding(this.selectedBuildingDest).subscribe((elevator) => {
+            this.elementsDest.push(elevator.description);
+          });
+          break;
+        case "pass":
+          this.passageService.getPassagesByFloor(this.selectedFloorDest).subscribe((passages: Passage[]) => {
+            passages.forEach(passage => {
+              this.elementsDest.push(passage.description);
+            });
+          });
+          break;
+        default:
+            mensagem = "Dia inválido";
+    }
   }
 }

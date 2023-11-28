@@ -7,4 +7,5 @@ export interface IPassagePersistence {
         positionY: number;
         direction: string;
     }
+    description: string;
 }

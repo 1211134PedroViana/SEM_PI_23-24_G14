@@ -1,5 +1,5 @@
 form {
-    width: 35%;
+    width: 45%;
     padding: 20px;
     position: fixed;
     top: 50%;
@@ -14,6 +14,7 @@ form {
 .form-label {
     color: #fff;
     font-family: 'Playpen Sans', cursive;
+    margin-top: 15px;
 }
 
 .form-control {
@@ -59,8 +60,13 @@ form {
     background-color: rgb(162, 174, 174);
     width: 20%;
     border: 1px solid rgb(162, 174, 174);
+    margin-top: 15px;
 }
 
 .btn-primary:hover {
     background-color: rgb(86, 101, 101);
+}
+
+.col-md-2 {
+    width: 25%;
 }

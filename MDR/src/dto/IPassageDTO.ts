@@ -7,4 +7,5 @@ export default interface IPassageDTO {
     positionY: number;
     direction: string;
   };
+  description: string;
 }

@@ -69,4 +69,20 @@ export default class RoomController implements IRoomController {
             return next(e);
         }
     }
+
+    public async getRoomsByFloor(req: Request, res: Response, next: NextFunction) {
+        try {
+          let floorId = req.params.floorId;
+          const roomsOrError = await this.roomServiceInstance.getRoomsByFloorId(floorId) as Result<IRoomDTO[]>;
+      
+          if (roomsOrError.isFailure) {
+            return res.status(404).send(roomsOrError.errorValue());
+          }
+      
+          const rooms = roomsOrError.getValue();
+          return res.json(rooms).status(200);
+        } catch (e) {
+          return next(e);
+        }
+    }
 }

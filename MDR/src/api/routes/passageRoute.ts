@@ -62,4 +62,6 @@ export default (app: Router) => {
     }),
     (req, res, next) => ctrl.updatePassage(req, res, next),
   );
+
+  route.get('/passagesFromFloor/:floorId', (req, res, next) => ctrl.getPassagesByFloor(req, res, next));
 };

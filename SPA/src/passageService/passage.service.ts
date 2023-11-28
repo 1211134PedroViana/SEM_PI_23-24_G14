@@ -15,6 +15,7 @@ export class PassageService {
   private createUrl = 'http://localhost:4000/api/passages/create';
   private updateUrl = 'http://localhost:4000/api/passages/update';
   private listUrl = 'http://localhost:4000/api/passages/list';
+  private floorPassagesUrl = 'http://localhost:4000/api/passages/passagesFromFloor/';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private passage = new BehaviorSubject<Passage>({} as Passage);
@@ -48,6 +49,17 @@ export class PassageService {
     };
 
     return this.http.get<Passage[]>(this.listUrl, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
+  getPassagesByFloor(floorId: string): Observable<Passage[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.http.get<Passage[]>(this.floorPassagesUrl + floorId, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
