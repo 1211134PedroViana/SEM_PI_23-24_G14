@@ -114,8 +114,8 @@ caminho_pisos(ElementoOrigem, ElementoDestino, CaminhoCompleto) :-
     determinar_tipo_entidade(ElementoOrigem, PisoOr),                         
     determinar_tipo_entidade(ElementoDestino, PisoDest),
     melhor_caminho_pisos(PisoOr,PisoDest,Caminho),      
-    append([ElementoOrigem|Caminho], [ElementoDestino], CaminhoCompleto),
-    write('Melhor Caminho: '),write(CaminhoCompleto),nl,nl.
+    append([ElementoOrigem|Caminho], [ElementoDestino], CaminhoCompleto).
+    %write('Melhor Caminho: '),write(CaminhoCompleto),nl,nl.
 
  
 % Recebo Elemento de partida e de destino e executo os predicados de encontrar
@@ -209,8 +209,8 @@ encontra_caminho(pass(PassOrigem, PassDestino), elev(ElevOrigem, _), Cam) :-
 encontra_caminho(pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino), Cam) :-
     coordenadas(PassOrigem, PassDestino, _, _, PassPosX, PassPosY),
     coordenadas(Pass2Origem, Pass2Destino, Pass2PosX, Pass2PosY, _,_),
-    aStar(cel(PassPosX,PassPosY), cel(Pass2PosX,Pass2PosY), Cam, Custo, PassDestino),
-    %dfs(PassDestino, cel(PassPosX,PassPosY), cel(Pass2PosX,Pass2PosY), Cam),
+    %aStar(cel(PassPosX,PassPosY), cel(Pass2PosX,Pass2PosY), Cam, Custo, PassDestino),
+    dfs(PassDestino, cel(PassPosX,PassPosY), cel(Pass2PosX,Pass2PosY), Cam),
     write_piso(PassDestino, pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino), Cam).
 
 % Encontra o caminho entre uma sala e um elevador através do algoritmo DFS ou ASTAR
@@ -343,5 +343,5 @@ write_piso(Piso, Origem, Destino, Caminho) :-
     format("Piso: ~w~n", [Piso]),
     format("Origem: ~w~n", [Origem]),
     format("Destino: ~w~n", [Destino]),
-    format("Caminho: ~w~n", [Caminho]),
-    format("--------------//------------").
+    format("Caminho: ~w~n", [Caminho]).
+    %format("--------------//------------").
