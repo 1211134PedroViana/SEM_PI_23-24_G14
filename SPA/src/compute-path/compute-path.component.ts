@@ -12,6 +12,7 @@ import Room from 'src/roomService/room';
 import { ElevatorService } from 'src/elevatorService/elevator.service';
 import Elevator from 'src/Thumb_Raiser/elevator';
 import Passage from 'src/passageService/passage';
+import axios, { AxiosResponse } from 'axios';
 
 @Component({
   selector: 'app-compute-path',
@@ -72,23 +73,20 @@ export class ComputePathComponent {
   onSubmit() {
 
     this.pathService.computePath(this.selectedOrig, this.selectedDest)
-      .pipe(
-        tap((response) => {
-          console.log('Path found sucessfully!', response);
-          const message = `Path found successfully!`;
-          this.snackBar.open(message, 'Close', {
-            duration: 5000, // 5 seconds
-          });
-        }),
-        catchError((error) => {
-          console.error('Error occurred while creating the Passage', error);
-          this.snackBar.open('Failed to create passage, returned code:' + error.status, 'Close', {
-            duration: 5000, // 5 seconds
-          });
-          throw error;
-        })
-      )
-      .subscribe();
+      .then((response: AxiosResponse) => {
+        console.log('Path found successfully!', response.data);
+        const message = 'Path found successfully!';
+        this.snackBar.open(message, 'Close', {
+          duration: 5000, // 5 seconds
+        });
+      })
+      .catch((error) => {
+        console.error('Error occurred while creating the Passage', error);
+        this.snackBar.open('Failed to create passage, returned code:' + error.response?.status, 'Close', {
+          duration: 5000, // 5 seconds
+        });
+        throw error; // Optionally rethrow the error for further handling
+      });
   }
 
   getElementsFromType1(type: string): void {

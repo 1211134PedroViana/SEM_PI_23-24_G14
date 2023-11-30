@@ -26,7 +26,11 @@ stopServer:-
 :- http_handler('/findPath', find_path_handler, []).
 
 find_path_handler(Request) :-
-    cors_enable(Request, [methods([get])]),
+    cors_enable(Request,
+                [ methods([get]),
+                  origin('http://localhost:4200'),
+                  headers([ 'Content-Type' ])
+                ]), 
     % Extract parameters from the request
     http_parameters(Request, [origem(Origem,[]),destino(Destino,[])]),
 
@@ -38,4 +42,9 @@ find_path_handler(Request) :-
 
     convert_lista_caminho(ListaCaminho, CaminhoJson),
     convert_lista_movimentos(ListaMovimentos, MovimentosJson),
+
+    % Set CORS headers in the response
+    format('Access-Control-Allow-Origin: *\r\n'),
+    format('Content-type: application/json\r\n\r\n'),
+    
     reply_json(json{caminho: CaminhoJson, movimentos: MovimentosJson},[json_object(dict)]).
