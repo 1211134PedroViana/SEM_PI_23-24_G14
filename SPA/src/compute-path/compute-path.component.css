@@ -14,7 +14,7 @@ form {
 .form-label {
     color: #fff;
     font-family: 'Playpen Sans', cursive;
-    margin-top: 15px;
+    
 }
 
 .form-control {
@@ -60,7 +60,7 @@ form {
     background-color: rgb(162, 174, 174);
     width: 20%;
     border: 1px solid rgb(162, 174, 174);
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .btn-primary:hover {
