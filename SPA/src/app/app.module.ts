@@ -26,7 +26,7 @@ import { Featuresv4Component } from '../featuresv4/featuresv4.component';
 import { LoadFloorMapComponent } from '../load-floor-map/load-floor-map.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignInComponent } from '../sign-in/sign-in.component';
-import { MapViewerComponent } from '../map-viewer/map-viewer.component';
+import { MapViewerComponent } from '../map3-dviewer/map-viewer/map-viewer.component';
 import { RobotComponent } from 'src/robot/robot.component';
 import { CreateRobotComponent } from 'src/robot/create-robot/create-robot.component';
 import { CreateRobotFormComponent } from 'src/robot/create-robot-form/create-robot-form.component';
@@ -60,6 +60,10 @@ import {ListRobotsDesignationComponent} from "../robot/list-robotsDesignation/li
 import { AppTaskComponent } from '../app-task/app-task.component';
 import { TaskSideBarComponent } from '../task-side-bar/task-side-bar.component';
 import { ComputePathComponent } from '../compute-path/compute-path.component';
+import { MapViewerFeaturesComponent } from '../map3-dviewer/map-viewer-features/map-viewer-features.component';
+import { Map3DViewerComponent } from '../map3-dviewer/map3-dviewer.component';
+import { AutomaticPathViewerComponent } from '../map3-dviewer/automatic-path-viewer/automatic-path-viewer.component';
+import { PathFormComponent } from '../map3-dviewer/path-form/path-form.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +120,11 @@ import { ComputePathComponent } from '../compute-path/compute-path.component';
     ListRobotsDesignationComponent,
     AppTaskComponent,
     TaskSideBarComponent,
-    ComputePathComponent
+    ComputePathComponent,
+    MapViewerFeaturesComponent,
+    Map3DViewerComponent,
+    AutomaticPathViewerComponent,
+    PathFormComponent
   ],
   imports: [
     BrowserModule,

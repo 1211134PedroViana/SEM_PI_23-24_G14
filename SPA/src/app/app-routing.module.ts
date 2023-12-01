@@ -12,7 +12,7 @@ import { UpdateFloorComponent } from 'src/floor/update-floor/update-floor.compon
 import { RobotTypeComponent } from 'src/robot-type/robot-type.component';
 import { CreateRobotTypeComponent } from 'src/robot-type/create-robot-type/create-robot-type.component';
 import { LoadFloorMapComponent } from 'src/load-floor-map/load-floor-map.component';
-import { MapViewerComponent } from 'src/map-viewer/map-viewer.component';
+import { MapViewerComponent } from 'src/map3-dviewer/map-viewer/map-viewer.component';
 import { CreateRobotComponent } from 'src/robot/create-robot/create-robot.component';
 import { RobotComponent } from 'src/robot/robot.component';
 import {ElevatorComponent} from "../elevator/elevator.component";
@@ -38,6 +38,9 @@ import {CreateFloorComponent} from "../floor/create-floor/create-floor.component
 import {ListRobotsDesignationComponent} from "../robot/list-robotsDesignation/list-robotsDesignation.component";
 import { AppTaskComponent } from 'src/app-task/app-task.component';
 import { ComputePathComponent } from 'src/compute-path/compute-path.component';
+import { Map3DViewerComponent } from 'src/map3-dviewer/map3-dviewer.component';
+import { PathFormComponent } from 'src/map3-dviewer/path-form/path-form.component';
+import { MapViewerFeaturesComponent } from 'src/map3-dviewer/map-viewer-features/map-viewer-features.component';
 
 const routes: Routes = [
 
@@ -71,7 +74,10 @@ const routes: Routes = [
       { path: 'update', component: UpdateElevatorComponent},
       { path: 'list', component: ListElevatorComponent}
     ]},
-    { path: 'floor3DViewer', component: MapViewerComponent }
+    { path: 'floor3DViewer', component: MapViewerFeaturesComponent, children: [
+      { path: 'freeViewer', component: MapViewerComponent},
+      { path: 'automaticPathing', component: PathFormComponent}
+    ]}
   ]},
 
   //Fleet Manager App
@@ -85,7 +91,7 @@ const routes: Routes = [
       { path: 'list', component: ListRobotsComponent },
       { path: 'retrieve', component: ListRobotsDesignationComponent }
       ]},
-    { path: 'floor3DViewer', component: MapViewerComponent }
+    { path: 'floor3DViewer', component: Map3DViewerComponent }
   ]},
 
   //Task Manager App
