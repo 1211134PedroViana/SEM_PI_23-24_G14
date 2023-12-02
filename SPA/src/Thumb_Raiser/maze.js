@@ -18,7 +18,8 @@ import Elevator from "./elevator.js";
  *  scale: Vector3,
  *  helpersColor: Color,
  *  isDefault: boolean,
- *  doors: Door[]
+ *  doors: Door[],
+ *  cell: [number]
  * }
  */
 
@@ -39,6 +40,7 @@ export default class Maze extends THREE.Group {
             this.halfSize = { width: this.size.width / 2.0, depth: this.size.depth / 2.0 };
             this.map = description.maze.map;
             this.exitLocation = this.cellToCartesian(description.maze.exitLocation);
+            //this.destinyLocation = this.cellToCartesian(this.cell);
 
             // Create the helpers
             this.helper = new THREE.Group();
@@ -492,4 +494,9 @@ export default class Maze extends THREE.Group {
     foundExit(position) {
         return Math.abs(position.x - this.exitLocation.x) < 0.5 * this.scale.x && Math.abs(position.z - this.exitLocation.z) < 0.5 * this.scale.z
     };
+
+    foundDestiny(position) {
+        return Math.abs(position.x - this.destinyLocation.x) < 0.5 * this.scale.x && Math.abs(position.z - this.destinyLocation.z) < 0.5 * this.scale.z
+    };
+
 }

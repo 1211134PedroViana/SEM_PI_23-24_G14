@@ -60,7 +60,8 @@ export class MapViewerComponent implements OnInit {
     this.floorViewer = new ThumbRaiser(
         {
             containerWidth: this.container.clientWidth,
-            containerHeight: this.container.clientHeight
+            containerHeight: this.container.clientHeight,
+            isAutomaticPathing: false
         }, // General Parameters
         {
             enabled: true,
@@ -303,7 +304,7 @@ export class MapViewerComponent implements OnInit {
         { view: "third-person", initialViewport: new THREE.Vector4(0.0, 0.0, 0.55, 0.5), initialOrientation: new Orientation(0.0, -20.0), initialDistance: 2.0, distanceMin: 1.0, distanceMax: 4.0, initialFogDensity: 0.3, containerWidth: this.container.clientWidth, containerHeight: this.container.clientHeight }, // Third-person view camera parameters
         { view: "top", initialViewport: new THREE.Vector4(1.0, 0.0, 0.45, 0.5), initialOrientation: new Orientation(0.0, -90.0), initialDistance: 4.0, distanceMin: 1.0, distanceMax: 16.0, initialFogDensity: 0.2, containerWidth: this.container.clientWidth, containerHeight: this.container.clientHeight }, // Top view camera parameters
         { view: "mini-map", initialViewport: new THREE.Vector4(0.5, 0.5, 0.3, 0.3), initialOrientation: new Orientation(180.0, -90.0), initialZoom: 0.64, zoomMin: 0.64, zoomMax: 5.12, containerWidth: this.container.clientWidth, containerHeight: this.container.clientHeight  }, // Mini-map view camera parameters
-
+        {},
     );
     this.render(this.floorViewer);
   }

@@ -16,7 +16,7 @@
 import * as THREE from "three";
 import Stats from "three/addons/libs/stats.module.js";
 import Orientation from "./orientation.js";
-import { generalData, audioData, cubeTextureData, mazeData, playerData, ambientLightData, directionalLightData, spotLightData, flashLightData, shadowsData, fogData, collisionDetectionData, cameraData } from "./default_data.js";
+import { generalData, audioData, cubeTextureData, mazeData, playerData, ambientLightData, directionalLightData, spotLightData, flashLightData, shadowsData, fogData, collisionDetectionData, cameraData, pathData } from "./default_data.js";
 import { merge } from "./merge.js";
 import Audio from "./audio.js";
 import CubeTexture from "./cubetexture.js";
@@ -360,7 +360,7 @@ import UserInterface from "./user_interface.js";
  * 
  * automaticPathingParameters = {
  *   location: [{ positionX: number, positionY: number, direction: String}],
- *   cels: [String]
+ *   cells: [String]
  * }
  */
 
@@ -1307,13 +1307,124 @@ export default class ThumbRaiser {
         else {
 
             if(this.isAutomaticPathing) {
+
+                for(let i = 1; i < this.cells.length; i++) {
+                    let arr1 = this.extractNumbersFromString(this.cells[i-1]);
+                    let arr2 = this.extractNumbersFromString(this.cells[i]);
+
+                    if(arr2[0] === arr1[0] + 1 && arr2[1] === arr1[1]) {
+
+                    }
+
+                    if(arr2[0] === arr1[0] - 1 && arr2[1] === arr1[1]) {
+
+                    }
+
+                    if(arr2[0] === arr1[0] && arr2[1] === arr1[1] + 1) {
+
+                    }
+
+                    if(arr2[0] === arr1[0] && arr2[1] === arr1[1] - 1) {
+
+                    }
+                }
+            
+                // Update the model animations
+                const deltaT = this.clock.getDelta();
+                this.animations.update(deltaT);
+
+                // Update the player            
+                if (!this.animations.actionInProgress) {
+                    
+
+                // Check if the player found the next acess point
+                if (this.maze.foundDestiny(this.player.position)) {
+                    this.finalSequence();
+                    this.gameRunning = false;
+                }
+                else {
+                    let coveredDistance = this.player.walkingSpeed * deltaT;
+                    let directionIncrement = this.player.turningSpeed * deltaT;
+                    if (this.player.shiftKey) {
+                        coveredDistance *= this.player.runningFactor;
+                        directionIncrement *= this.player.runningFactor;
+                    }
+                    let playerTurned = false;
+                    let directionDeg = this.player.direction;
+                    if (this.player.keyStates.left) {
+                        playerTurned = true;
+                        directionDeg += directionIncrement;
+                    }
+                    else if (this.player.keyStates.right) {
+                        playerTurned = true;
+                        directionDeg -= directionIncrement;
+                    }
+                    const directionRad = THREE.MathUtils.degToRad(directionDeg);
+                    let playerMoved = false;
+                    const position = this.player.position.clone();
+                    if (this.player.keyStates.backward) {
+                        playerMoved = true;
+                        position.sub(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                    }
+                    else if (this.player.keyStates.forward) {
+                        playerMoved = true;
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                    }
+                    if (this.maze.collision(this.collisionDetectionParameters.method, position, this.collisionDetectionParameters.method != "obb-aabb" ? this.player.radius : this.player.halfSize, directionRad - this.player.defaultDirection)) {
+                        this.audio.play(this.audio.deathClips, false);
+                        this.animations.fadeToAction("Death", 0.2);
+                    }else if (
+                        this.maze.doorCollision(
+                            position,
+                            this.collisionDetectionParameters.method != 'obb-aabb'
+                                ? this.player.radius
+                                : this.player.halfSize
+                        )
+                    ){}
+                    else if (this.player.keyStates.jump) {
+                        this.audio.play(this.audio.jumpClips, true);
+                        this.animations.fadeToAction("Jump", 0.2);
+                    }
+                    else if (this.player.keyStates.yes) {
+                        this.animations.fadeToAction("Yes", 0.2);
+                    }
+                    else if (this.player.keyStates.no) {
+                        this.animations.fadeToAction("No", 0.2);
+                    }
+                    else if (this.player.keyStates.wave) {
+                        this.animations.fadeToAction("Wave", 0.2);
+                    }
+                    else if (this.player.keyStates.punch) {
+                        this.animations.fadeToAction("Punch", 0.2);
+                    }
+                    else if (this.player.keyStates.thumbsUp) {
+                        this.animations.fadeToAction("ThumbsUp", 0.2);
+                    }
+                    else {
+                        if (playerTurned) {
+                            this.player.direction = directionDeg;
+                        }
+                        if (playerMoved) {
+                            this.animations.fadeToAction(this.player.shiftKey ? "Running" : "Walking", 0.2);
+                            this.player.position.set(position.x, position.y, position.z);
+                        }
+                        else {
+                            if (this.animations.idleTimeOut()) {
+                                this.animations.resetIdleTime();
+                                this.audio.play(this.audio.idleClips, false);
+                            }
+                            this.animations.fadeToAction("Idle", this.animations.activeName != "Death" ? 0.2 : 0.6);
+                        }
+                    }
+
+                    this.player.rotation.y = directionRad - this.player.defaultDirection;
+                }
+            }
                 
                 
             }else{
-                
-            }
 
-            // Update the model animations
+                // Update the model animations
             const deltaT = this.clock.getDelta();
             this.animations.update(deltaT);
 
@@ -1400,6 +1511,8 @@ export default class ThumbRaiser {
 
                     this.player.rotation.y = directionRad - this.player.defaultDirection;
                 }
+            }
+                
             }
 
             // Update the flashlight, first-person view, third-person view and top view camera parameters (player orientation and target)
@@ -1536,5 +1649,21 @@ export default class ThumbRaiser {
         // Remove the canvas
         this.renderer.domElement.remove();
 
-      }
+    }
+
+    extractNumbersFromString(inputString) {
+        // Use a regular expression to match the numbers within the parentheses
+        const regex = /cel\((\d+),(\d+)\)/;
+        
+        // Use exec to extract matches from the inputString
+        const match = regex.exec(inputString);
+    
+        // Extract the two numbers from the match result
+        const number1 = parseInt(match[1], 10);
+        const number2 = parseInt(match[2], 10);
+          
+        // Store the numbers in an array and return it
+        const resultArray = [number1, number2];
+        return resultArray;
+    }
 }
