@@ -1306,6 +1306,14 @@ export default class ThumbRaiser {
             }
         }
         else {
+
+            if(this.isAutomaticPathing) {
+                
+                
+            }else{
+                
+            }
+
             // Update the model animations
             const deltaT = this.clock.getDelta();
             this.animations.update(deltaT);

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-automatic-path-viewer',
@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AutomaticPathViewerComponent {
 
+  @Input() path: string[] = [];
+  @Input() cellsPath: string[][] = [];
+
+  ngOnInit() {
+    console.log("path:" + this.path);
+  }
 }

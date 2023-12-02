@@ -23,6 +23,9 @@ export class PathFormComponent {
   isFormVisible: boolean = true;
   isViewerVisible: boolean = false;
 
+  path: string[] = [];
+  cellsPath: string[][] = [];
+
   buildings: Building[] = [];
   floorsOrig: Floor[] = [];
   floorsDest: Floor[] = [];
@@ -82,6 +85,15 @@ export class PathFormComponent {
           this.snackBar.open(message, 'Close', {
             duration: 5000, // 5 seconds
           });
+
+          this.path = response.caminho;
+          this.cellsPath = response.movimentos;
+
+          this.isFormVisible = false;
+          this.isViewerVisible = true;
+
+          console.log("val:" + this.isFormVisible)
+
         }),
         catchError((error) => {
           console.error('Error occurred while find the Path', error);
