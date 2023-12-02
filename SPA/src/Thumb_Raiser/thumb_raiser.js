@@ -33,6 +33,7 @@ import UserInterface from "./user_interface.js";
  *  setDevicePixelRatio: Boolean
  *  containerWidth: number
  *  containerHeight: number
+ *  isAutomaticPathing: Boolean
  * }
  *
  * audioParameters = {
@@ -356,10 +357,16 @@ import UserInterface from "./user_interface.js";
  *  containerWidth: number,
  *  containerHeight: number
  * }
+ * 
+ * automaticPathingParameters = {
+ *   path: [String],
+ *   location: [{ positionX: number, positionY: number, direction: String}],
+ *   cels: [[String]]
+ * }
  */
 
 export default class ThumbRaiser {
-    constructor(generalParameters, audioParameters, cubeTexturesParameters, mazeParameters, playerParameters, ambientLightParameters, directionalLightParameters, spotLightParameters, flashLightParameters, shadowsParameters, fogParameters, collisionDetectionParameters, fixedViewCameraParameters, firstPersonViewCameraParameters, thirdPersonViewCameraParameters, topViewCameraParameters, miniMapCameraParameters) {
+    constructor(generalParameters, audioParameters, cubeTexturesParameters, mazeParameters, playerParameters, ambientLightParameters, directionalLightParameters, spotLightParameters, flashLightParameters, shadowsParameters, fogParameters, collisionDetectionParameters, fixedViewCameraParameters, firstPersonViewCameraParameters, thirdPersonViewCameraParameters, topViewCameraParameters, miniMapCameraParameters, automaticPathingParameters) {
         this.generalParameters = merge({}, generalData, generalParameters);
         this.audioParameters = merge({}, audioData, audioParameters);
         this.cubeTexturesParameters = merge({}, cubeTextureData, cubeTexturesParameters);
@@ -377,6 +384,7 @@ export default class ThumbRaiser {
         this.thirdPersonViewCameraParameters = merge({}, cameraData, thirdPersonViewCameraParameters);
         this.topViewCameraParameters = merge({}, cameraData, topViewCameraParameters);
         this.miniMapCameraParameters = merge({}, cameraData, miniMapCameraParameters);
+        this.automaticPathingParameters = merge({}, pathData, automaticPathingParameters);
         // Set the game state
         this.gameRunning = false;
 
@@ -1218,7 +1226,12 @@ export default class ThumbRaiser {
                 this.animations = new Animations(this.player);
 
                 // Set the player's position and direction
-                this.player.position.set(this.maze.initialPosition.x, this.maze.initialPosition.y, this.maze.initialPosition.z);
+                if(this.isAutomaticPathing) {
+                    this.player.position.set(this.location[0].positionX, this.maze.initialPosition.y, this.location[0].positionY);
+                }else{
+                    this.player.position.set(this.maze.initialPosition.x, this.maze.initialPosition.y, this.maze.initialPosition.z);
+                }
+                
                 this.player.direction = this.maze.initialDirection;
 
                 // Set the spotlight target
