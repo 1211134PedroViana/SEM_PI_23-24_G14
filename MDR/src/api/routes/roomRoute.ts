@@ -65,4 +65,6 @@ export default (app: Router) => {
   route.get('/list', (req, res, next) => ctrl.listRoom(req, res, next));
 
   route.get('/roomsFromFloor/:floorId', (req, res, next) => ctrl.getRoomsByFloor(req, res, next));
+
+  route.get('/roomFromDescription/:description', (req, res, next) => ctrl.getRoomByDescription(req, res, next));
 };

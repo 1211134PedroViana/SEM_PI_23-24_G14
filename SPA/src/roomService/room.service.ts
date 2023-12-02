@@ -14,6 +14,7 @@ export class RoomService {
   private updateUrl = 'http://localhost:4000/api/rooms/update';
   private listUrl = 'http://localhost:4000/api/rooms/list';
   private floorRoomsUrl = 'http://localhost:4000/api/rooms/roomsFromFloor/';
+  private roomByDescriptionUrl = 'http://localhost:4000/api/rooms/roomFromDescription/';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private elevator = new BehaviorSubject<Room>({} as Room);
@@ -59,6 +60,17 @@ export class RoomService {
     };
 
     return this.http.get<Room[]>(this.floorRoomsUrl + floorId, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
+  getRoomByDescription(description: string): Observable<Room> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.http.get<Room>(this.roomByDescriptionUrl + description, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

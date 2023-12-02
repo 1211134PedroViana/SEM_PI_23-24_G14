@@ -359,9 +359,8 @@ import UserInterface from "./user_interface.js";
  * }
  * 
  * automaticPathingParameters = {
- *   path: [String],
  *   location: [{ positionX: number, positionY: number, direction: String}],
- *   cels: [[String]]
+ *   cels: [String]
  * }
  */
 

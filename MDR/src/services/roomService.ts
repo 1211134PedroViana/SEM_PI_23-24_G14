@@ -130,5 +130,20 @@ export default class RoomService implements IRoomService {
         } catch (error) {
           return Result.fail<IRoomDTO[]>(error.message);
         }
-      }
+    }
+
+    public async getRoomByDescription(description: string): Promise<Result<IRoomDTO>> {
+        try {
+          const room: Room = await this.roomRepo.findByDescription(description);
+    
+          if (room === null) {
+            return Result.fail<IRoomDTO>("Room not found with description:" + description);
+          }
+          const roomDTO = RoomMap.toDTO(room);
+          return Result.ok<IRoomDTO>(roomDTO);
+          
+        } catch (error) {
+          return Result.fail<IRoomDTO>(error.message);
+        }
+    }
 }

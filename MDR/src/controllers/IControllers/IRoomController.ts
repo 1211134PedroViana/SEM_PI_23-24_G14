@@ -5,4 +5,5 @@ export default interface IRoomController  {
     updateRoom(req: Request, res: Response, next: NextFunction);
     listRoom(req: Request, res: Response, next: NextFunction);
     getRoomsByFloor(req: Request, res: Response, next: NextFunction);
+    getRoomByDescription(req: Request, res: Response, next: NextFunction);
 }

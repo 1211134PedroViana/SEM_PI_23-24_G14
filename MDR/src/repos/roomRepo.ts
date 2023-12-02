@@ -107,4 +107,15 @@ export default class RoomRepo implements IRoomRepo {
           return null;
         }
     }
+
+    public async findByDescription(description: string): Promise<Room> {
+        const query = { description: description};
+        const roomRecord = await this.roomSchema.findOne( query as FilterQuery<IRoomPersistence & Document> );
+
+        if( roomRecord != null) {
+            return RoomMap.toDomain(roomRecord);
+        }
+        else
+            return null;
+    }
 }
