@@ -64,6 +64,8 @@ import { MapViewerFeaturesComponent } from '../map3-dviewer/map-viewer-features/
 import { Map3DViewerComponent } from '../map3-dviewer/map3-dviewer.component';
 import { AutomaticPathViewerComponent } from '../map3-dviewer/automatic-path-viewer/automatic-path-viewer.component';
 import { PathFormComponent } from '../map3-dviewer/path-form/path-form.component';
+import {AppAdminComponent} from "../app-admin/app-admin.component";
+import {AdminSideBarComponent} from "../admin-side-bar/admin-side-bar.component";
 
 @NgModule({
   declarations: [
@@ -124,7 +126,9 @@ import { PathFormComponent } from '../map3-dviewer/path-form/path-form.component
     MapViewerFeaturesComponent,
     Map3DViewerComponent,
     AutomaticPathViewerComponent,
-    PathFormComponent
+    PathFormComponent,
+    AppAdminComponent,
+    AdminSideBarComponent
   ],
   imports: [
     BrowserModule,

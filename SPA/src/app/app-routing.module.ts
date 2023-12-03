@@ -41,6 +41,7 @@ import { ComputePathComponent } from 'src/compute-path/compute-path.component';
 import { Map3DViewerComponent } from 'src/map3-dviewer/map3-dviewer.component';
 import { PathFormComponent } from 'src/map3-dviewer/path-form/path-form.component';
 import { MapViewerFeaturesComponent } from 'src/map3-dviewer/map-viewer-features/map-viewer-features.component';
+import {AppAdminComponent} from "../app-admin/app-admin.component";
 
 const routes: Routes = [
 
@@ -97,7 +98,12 @@ const routes: Routes = [
   //Task Manager App
   { path: 'task', component: AppTaskComponent, children: [
     { path: 'findPath', component: ComputePathComponent }
-  ]}
+  ]},
+
+  //Admin App
+  { path: 'admin', component: AppAdminComponent, children: [
+      { path: 'createUser', component: ComputePathComponent }
+    ]}
 
 ];
 
