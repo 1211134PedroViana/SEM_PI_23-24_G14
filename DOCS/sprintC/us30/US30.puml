@@ -1,0 +1,22 @@
+@startuml
+!define RECTANGLE class #LightSkyBlue
+!define ARROW -[#000000]->
+
+class Usuario #LightSkyBlue
+class ServicoDeConsentimento #LightSkyBlue
+
+Usuario --|> ServicoDeConsentimento: Requisição de Consentimento
+Usuario : darConsentimento()
+ServicoDeConsentimento : Registro de Consentimento
+ServicoDeConsentimento : Confirmação
+
+Usuario --|> ServicoDeConsentimento: Requisição de Retirada de Consentimento
+Usuario : retirarConsentimento()
+ServicoDeConsentimento : Retirada de Consentimento
+ServicoDeConsentimento : Confirmação
+
+Usuario --|> ServicoDeConsentimento: Requisição de Histórico de Consentimento
+Usuario : obterHistoricoConsentimento()
+ServicoDeConsentimento : Consulta de Histórico
+ServicoDeConsentimento : Histórico de Consentimento
+@enduml
