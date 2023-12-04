@@ -360,7 +360,7 @@ import UserInterface from "./user_interface.js";
  * 
  * automaticPathingParameters = {
  *   location: [{ positionX: number, positionY: number, direction: String}],
- *   cells: string[]
+ *   cells: [{ col: number, lin: number}]
  * }
  */
 
@@ -1333,8 +1333,14 @@ export default class ThumbRaiser {
                 this.animations.update(deltaT);
 
                 const position = this.player.position.clone();
-                let arr1 = this.extractNumbersFromString(this.automaticPathingParameters.cells[0]);
-                let arr2 = this.extractNumbersFromString(this.automaticPathingParameters.cells[1]);
+    
+                let arr1 = [];
+                arr1.push(this.automaticPathingParameters.cells[0].lin);
+                arr1.push(this.automaticPathingParameters.cells[0].col);
+                
+                let arr2 = [];
+                arr2.push(this.automaticPathingParameters.cells[1].lin);
+                arr2.push(this.automaticPathingParameters.cells[1].col);
 
                 let fPosition = this.maze.cellToCartesian(arr2);
 
@@ -1344,35 +1350,35 @@ export default class ThumbRaiser {
                 coveredDistance *= this.player.runningFactor;
                 directionIncrement *= this.player.runningFactor;
                     
-                if(arr2[0] === arr1[0] + 1 && arr2[1] === arr1[1]) {
+                if(arr2[1] === arr1[1] && arr2[0] === arr1[0] + 1) {
 
                     if(this.player.direction != 90) {
                          this.player.direction = 90;
                     }
                 }
 
-                if(arr2[0] === arr1[0] - 1 && arr2[1] === arr1[1]) {
+                if(arr2[1] === arr1[1] && arr2[0] === arr1[0] - 1 ) {
 
                     if(this.player.direction != 270) {
                         this.player.direction = 270;
                     }
                 }
 
-                if(arr2[0] === arr1[0] && arr2[1] === arr1[1] + 1) {
+                if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0]) {
 
                     if(this.player.direction != 0) {
                          this.player.direction = 0;
                     }
                 }
 
-                if(arr2[0] === arr1[0] && arr2[1] === arr1[1] - 1) {
+                if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0]) {
 
                     if(this.player.direction != 180) {
                         this.player.direction = 180;
                     }
                 }
 
-                if(arr2[0] === arr1[0] + 1 && arr2[1] === arr1[1] + 1) {
+                if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0] + 1) {
 
                     if(this.player.direction != 45) {
                         this.player.direction = 45;
@@ -1380,21 +1386,21 @@ export default class ThumbRaiser {
 
                 }
 
-                if(arr2[0] === arr1[0] + 1 && arr2[1] === arr1[1] - 1) {
+                if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0] + 1) {
 
                     if(this.player.direction != 135) {
                         this.player.direction = 135;
                     }
                 }
 
-                if(arr2[0] === arr1[0] - 1 && arr2[1] === arr1[1] - 1) {
+                if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0] - 1) {
 
                     if(this.player.direction != 225) {
                         this.player.direction = 225;
                     }
                 }
 
-                if(arr2[0] === arr1[0] - 1 && arr2[1] === arr1[1] + 1) {
+                if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0] - 1) {
 
                     if(this.player.direction != 315) {
                         this.player.direction = 315;
@@ -1670,7 +1676,7 @@ export default class ThumbRaiser {
         const number2 = parseInt(number2Str, 10);
     
         // Store the numbers in an array and return it
-        const resultArray = [number1, number2];
+        const resultArray = [number2, number1];
         return resultArray;
     }
 }
