@@ -1,0 +1,16 @@
+<form (ngSubmit)="onSubmit()">
+  <p class="form-title">Create a new System User</p>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input id="email" type="email" class="form-control" name="email" [(ngModel)]="email">
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input id="password" type="password" class="form-control" name="password" [(ngModel)]="password">
+  </div>
+  <div class="mb-3">
+    <label for="role" class="form-label">Role</label>
+    <input id="role" type="text" class="form-control" name="role" [(ngModel)]="role">
+  </div>
+  <button id="create" type="submit" class="btn btn-primary">Create</button>
+</form>

@@ -42,6 +42,8 @@ import { Map3DViewerComponent } from 'src/map3-dviewer/map3-dviewer.component';
 import { PathFormComponent } from 'src/map3-dviewer/path-form/path-form.component';
 import { MapViewerFeaturesComponent } from 'src/map3-dviewer/map-viewer-features/map-viewer-features.component';
 import {AppAdminComponent} from "../app-admin/app-admin.component";
+import {SystemUserComponent} from "../systemUser/systemUser.component";
+import {CreateSystemUserComponent} from "../systemUser/create-systemUser/create-systemUser.component";
 
 const routes: Routes = [
 
@@ -102,9 +104,10 @@ const routes: Routes = [
 
   //Admin App
   { path: 'admin', component: AppAdminComponent, children: [
-      { path: 'createUser', component: ComputePathComponent }
+      { path: 'user', component: SystemUserComponent, children:[
+          { path: 'create', component: CreateSystemUserComponent}
+      ]}
     ]}
-
 ];
 
 @NgModule({

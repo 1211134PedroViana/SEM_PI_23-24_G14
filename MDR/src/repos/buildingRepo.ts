@@ -9,94 +9,84 @@ import { BuildingId } from '../domain/buildingId';
 
 @Service()
 export default class BuildingRepo implements IBuildingRepo {
-    private models: any;
+  private models: any;
 
-    constructor(
-        @Inject('buildingSchema') private buildingSchema : Model<IBuildingPersistence & Document>,
-    ) {}
+  constructor(@Inject('buildingSchema') private buildingSchema: Model<IBuildingPersistence & Document>) {}
 
-    private createBaseQuery (): any {
-        return {
-          where: {},
+  private createBaseQuery(): any {
+    return {
+      where: {},
+    };
+  }
+
+  public async exists(building: Building): Promise<boolean> {
+    const idX = building.id instanceof BuildingId ? (<BuildingId>building.id).toValue() : building.id;
+
+    const query = { domainId: idX };
+    const buildingDocument = await this.buildingSchema.findOne(query as FilterQuery<IBuildingPersistence & Document>);
+    return !!buildingDocument === true;
+  }
+
+  public async save(building: Building): Promise<Building> {
+    const query = { domainId: building.id };
+
+    const buildingDocument = await this.buildingSchema.findOne(query);
+
+    try {
+      if (buildingDocument === null) {
+        const rawBuilding: any = BuildingMap.toPersistence(building);
+
+        const buildingCreated = await this.buildingSchema.create(rawBuilding);
+
+        return BuildingMap.toDomain(buildingCreated);
+      } else {
+        if (building.description.value === undefined || building.description.value === '') {
+          buildingDocument.name = building.name;
+        } else if (building.name === undefined || building.name === '') {
+          buildingDocument.description = building.description.value;
+        } else {
+          buildingDocument.description = building.description.value;
+          buildingDocument.name = building.name;
         }
+
+        await buildingDocument.save();
+
+        return building;
+      }
+    } catch (err) {
+      throw err;
     }
+  }
 
-    public async exists(building: Building): Promise<boolean> {
-        const idX = building.id instanceof BuildingId ? (<BuildingId>building.id).toValue() : building.id;
+  public async findByDomainId(buildingId: BuildingId | string): Promise<Building> {
+    const query = { domainId: buildingId };
+    const buildingRecord = await this.buildingSchema.findOne(query as FilterQuery<IBuildingPersistence & Document>);
 
-        const query = { domainId: idX}; 
-        const buildingDocument = await this.buildingSchema.findOne( query as FilterQuery<IBuildingPersistence & Document>);
-        return !!buildingDocument === true;
-    }
+    if (buildingRecord != null) {
+      return BuildingMap.toDomain(buildingRecord);
+    } else return null;
+  }
 
-    public async save(building: Building): Promise<Building> {
-        const query = { domainId: building.id}; 
+  public async findByObjectId(buildingId: string | string): Promise<Building> {
+    const query = { _id: buildingId };
+    const buildingRecord = await this.buildingSchema.findOne(query as FilterQuery<IBuildingPersistence & Document>);
 
-        const buildingDocument = await this.buildingSchema.findOne( query );
+    if (buildingRecord != null) {
+      return BuildingMap.toDomain(buildingRecord);
+    } else return null;
+  }
 
-        try {
-            if(buildingDocument === null) {
-                const rawBuilding: any = BuildingMap.toPersistence(building);
+  public async findByCode(code: BuildingCode | string): Promise<Building> {
+    const query = { code: code };
+    const buildingRecord = await this.buildingSchema.findOne(query as FilterQuery<IBuildingPersistence & Document>);
 
-                const buildingCreated = await this.buildingSchema.create(rawBuilding);
+    if (buildingRecord != null) {
+      return BuildingMap.toDomain(buildingRecord);
+    } else return null;
+  }
 
-                return BuildingMap.toDomain(buildingCreated);
-            }else{
-                if(building.description.value === undefined || building.description.value === "") {
-                    buildingDocument.name = building.name;
-                } else if(building.name === undefined || building.name === "") {
-                    buildingDocument.description = building.description.value;
-                } else {
-                    buildingDocument.description = building.description.value;
-                    buildingDocument.name = building.name;
-                }
-            
-                await buildingDocument.save();
-
-                return building;
-            }
-
-        } catch (err) {
-            throw err;
-        }
-    }
-
-    public async findByDomainId (buildingId: BuildingId | string): Promise<Building> {
-        const query = { domainId: buildingId};
-        const buildingRecord = await this.buildingSchema.findOne( query as FilterQuery<IBuildingPersistence & Document> );
-
-        if( buildingRecord != null) {
-          return BuildingMap.toDomain(buildingRecord);
-        }
-        else
-          return null;
-    }
-
-    public async findByObjectId (buildingId: string | string): Promise<Building> {
-        const query = { _id: buildingId};
-        const buildingRecord = await this.buildingSchema.findOne( query as FilterQuery<IBuildingPersistence & Document> );
-    
-        if( buildingRecord != null) {
-          return BuildingMap.toDomain(buildingRecord);
-        }
-        else
-          return null;
-    }
-
-    public async findByCode (code: BuildingCode | string): Promise<Building> {
-        const query = { code: code };
-        const buildingRecord = await this.buildingSchema.findOne( query as FilterQuery<IBuildingPersistence & Document> );
-
-        if( buildingRecord != null) {
-          return BuildingMap.toDomain(buildingRecord);
-        }
-        else
-          return null;
-    }
-
-    public async findAll(): Promise<Building[]> {
-        const buildingsList = await this.buildingSchema.find()
-        return BuildingMap.toDomainBulk(buildingsList);
-    }
-    
+  public async findAll(): Promise<Building[]> {
+    const buildingsList = await this.buildingSchema.find();
+    return BuildingMap.toDomainBulk(buildingsList);
+  }
 }

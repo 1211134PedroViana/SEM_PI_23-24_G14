@@ -66,6 +66,9 @@ import { AutomaticPathViewerComponent } from '../map3-dviewer/automatic-path-vie
 import { PathFormComponent } from '../map3-dviewer/path-form/path-form.component';
 import {AppAdminComponent} from "../app-admin/app-admin.component";
 import {AdminSideBarComponent} from "../admin-side-bar/admin-side-bar.component";
+import {SystemUserComponent} from "../systemUser/systemUser.component";
+import {CreateSystemUserComponent} from "../systemUser/create-systemUser/create-systemUser.component";
+import {CreateSystemUserFormComponent} from "../systemUser/create-systemUser-form/create-systemUser-form.component";
 
 @NgModule({
   declarations: [
@@ -128,7 +131,10 @@ import {AdminSideBarComponent} from "../admin-side-bar/admin-side-bar.component"
     AutomaticPathViewerComponent,
     PathFormComponent,
     AppAdminComponent,
-    AdminSideBarComponent
+    AdminSideBarComponent,
+    SystemUserComponent,
+    CreateSystemUserComponent,
+    CreateSystemUserFormComponent
   ],
   imports: [
     BrowserModule,
