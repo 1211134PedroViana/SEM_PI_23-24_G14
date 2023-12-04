@@ -360,7 +360,7 @@ import UserInterface from "./user_interface.js";
  * 
  * automaticPathingParameters = {
  *   location: [{ positionX: number, positionY: number, direction: String}],
- *   cells: [String]
+ *   cells: string[]
  * }
  */
 
@@ -1225,8 +1225,12 @@ export default class ThumbRaiser {
                 this.animations = new Animations(this.player);
 
                 // Set the player's position and direction
-                if(this.isAutomaticPathing) {
-                    this.player.position.set(this.location[0].positionX, this.maze.initialPosition.y, this.location[0].positionY);
+                if(this.generalParameters.isAutomaticPathing) {
+                    let initialCell = [];
+                    initialCell.push(this.automaticPathingParameters.location[0].positionY)
+                    initialCell.push(this.automaticPathingParameters.location[0].positionX)
+                    let coords = this.maze.cellToCartesian(initialCell);
+                    this.player.position.set(coords.x, coords.y, coords.z);
                 }else{
                     this.player.position.set(this.maze.initialPosition.x, this.maze.initialPosition.y, this.maze.initialPosition.z);
                 }
@@ -1321,87 +1325,94 @@ export default class ThumbRaiser {
             */
             
             
-            if(this.isAutomaticPathing) {
+            if(this.generalParameters.isAutomaticPathing) {
 
-                for(let i = 1; i < this.cells.length; i++) {
-                    // Update the model animations
-                    const deltaT = this.clock.getDelta();
-                    this.animations.update(deltaT);
+                
+                // Update the model animations
+                const deltaT = this.clock.getDelta();
+                this.animations.update(deltaT);
 
-                    const position = this.player.position.clone();
-                    let arr1 = this.extractNumbersFromString(this.cells[i-1]);
-                    let arr2 = this.extractNumbersFromString(this.cells[i]);
+                const position = this.player.position.clone();
+                let arr1 = this.extractNumbersFromString(this.automaticPathingParameters.cells[0]);
+                let arr2 = this.extractNumbersFromString(this.automaticPathingParameters.cells[1]);
 
-                    let fPosition = this.maze.cellToCartesian(arr2);
+                let fPosition = this.maze.cellToCartesian(arr2);
 
-                    let coveredDistance = this.player.walkingSpeed * deltaT;
-                    let directionIncrement = this.player.turningSpeed * deltaT;
+                let coveredDistance = this.player.walkingSpeed * deltaT;
+                let directionIncrement = this.player.turningSpeed * deltaT;
                    
-                    coveredDistance *= this.player.runningFactor;
-                    directionIncrement *= this.player.runningFactor;
+                coveredDistance *= this.player.runningFactor;
+                directionIncrement *= this.player.runningFactor;
                     
-                    if(arr2[0] === arr1[0] + 1 && arr2[1] === arr1[1]) {
+                if(arr2[0] === arr1[0] + 1 && arr2[1] === arr1[1]) {
 
-                        if(this.player.direction != 90) {
-                            this.player.direction = 90;
-                        }
-
-                        const directionRad = THREE.MathUtils.degToRad(this.player.direction);
-                        while(position.x != fPosition.x && position.z != fPosition.z) {
-                            position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
-                            this.animations.fadeToAction("Walking", 0.2);
-                            this.player.position.set(position.x, position.y, position.z);
-                        }
+                    if(this.player.direction != 90) {
+                         this.player.direction = 90;
                     }
+                }
 
-                    if(arr2[0] === arr1[0] - 1 && arr2[1] === arr1[1]) {
+                if(arr2[0] === arr1[0] - 1 && arr2[1] === arr1[1]) {
 
-                        if(this.player.direction != 270) {
-                            this.player.direction = 270;
-                        }
-
-                        const directionRad = THREE.MathUtils.degToRad(this.player.direction);
-                        while(position.x != fPosition.x && position.z != fPosition.z) {
-                            position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
-                            this.animations.fadeToAction("Walking", 0.2);
-                            this.player.position.set(position.x, position.y, position.z);
-                        }
-
+                    if(this.player.direction != 270) {
+                        this.player.direction = 270;
                     }
+                }
 
-                    if(arr2[0] === arr1[0] && arr2[1] === arr1[1] + 1) {
+                if(arr2[0] === arr1[0] && arr2[1] === arr1[1] + 1) {
 
-                        if(this.player.direction != 0) {
-                            this.player.direction = 0;
-                        }
-
-                        const directionRad = THREE.MathUtils.degToRad(this.player.direction);
-                        while(position.x != fPosition.x && position.z != fPosition.z) {
-                            position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
-                            this.animations.fadeToAction("Walking", 0.2);
-                            this.player.position.set(position.x, position.y, position.z);
-                        }
-
+                    if(this.player.direction != 0) {
+                         this.player.direction = 0;
                     }
+                }
 
-                    if(arr2[0] === arr1[0] && arr2[1] === arr1[1] - 1) {
+                if(arr2[0] === arr1[0] && arr2[1] === arr1[1] - 1) {
 
-                        if(this.player.direction != 180) {
-                            this.player.direction = 180;
-                        }
-
-                        const directionRad = THREE.MathUtils.degToRad(this.player.direction);
-                        while(position.x != fPosition.x && position.z != fPosition.z) {
-                            position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
-                            this.animations.fadeToAction("Walking", 0.2);
-                            this.player.position.set(position.x, position.y, position.z);
-                        }
-
+                    if(this.player.direction != 180) {
+                        this.player.direction = 180;
                     }
+                }
 
-                    this.player.rotation.y = directionRad - this.player.defaultDirection;
+                if(arr2[0] === arr1[0] + 1 && arr2[1] === arr1[1] + 1) {
+
+                    if(this.player.direction != 45) {
+                        this.player.direction = 45;
+                    }
 
                 }
+
+                if(arr2[0] === arr1[0] + 1 && arr2[1] === arr1[1] - 1) {
+
+                    if(this.player.direction != 135) {
+                        this.player.direction = 135;
+                    }
+                }
+
+                if(arr2[0] === arr1[0] - 1 && arr2[1] === arr1[1] - 1) {
+
+                    if(this.player.direction != 225) {
+                        this.player.direction = 225;
+                    }
+                }
+
+                if(arr2[0] === arr1[0] - 1 && arr2[1] === arr1[1] + 1) {
+
+                    if(this.player.direction != 315) {
+                        this.player.direction = 315;
+                    }
+
+                }
+
+                const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                if(this.maze.foundCell(position, fPosition)) {
+                    this.automaticPathingParameters.cells.shift();
+                } else {
+                    position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                    this.animations.fadeToAction("Walking", 0.2);
+                    this.player.position.set(position.x, position.y, position.z);
+                }
+
+                this.player.rotation.y = directionRad - this.player.defaultDirection;  
 
             } else {
 
@@ -1634,16 +1645,30 @@ export default class ThumbRaiser {
     }
 
     extractNumbersFromString(inputString) {
-        // Use a regular expression to match the numbers within the parentheses
-        const regex = /cel\((\d+),(\d+)\)/;
-        
-        // Use exec to extract matches from the inputString
-        const match = regex.exec(inputString);
+
+        if (typeof inputString !== 'string') {
+            return [];
+        }
+        // Find the index of "cel("
+        const startIndex = inputString.indexOf("cel(");
     
-        // Extract the two numbers from the match result
-        const number1 = parseInt(match[1], 10);
-        const number2 = parseInt(match[2], 10);
-          
+        // If "cel(" is not found, return an empty array
+        if (startIndex === -1) {
+            return [];
+        }
+    
+        // Find the indices of the commas and closing parenthesis
+        const comma1Index = inputString.indexOf(",", startIndex);
+        const comma2Index = inputString.indexOf(")", startIndex);
+    
+        // Extract the substrings containing the numbers
+        const number1Str = inputString.substring(startIndex + 4, comma1Index);
+        const number2Str = inputString.substring(comma1Index + 1, comma2Index);
+    
+        // Parse the extracted strings into integers
+        const number1 = parseInt(number1Str, 10);
+        const number2 = parseInt(number2Str, 10);
+    
         // Store the numbers in an array and return it
         const resultArray = [number1, number2];
         return resultArray;

@@ -499,4 +499,8 @@ export default class Maze extends THREE.Group {
         return Math.abs(position.x - this.destinyLocation.x) < 0.5 * this.scale.x && Math.abs(position.z - this.destinyLocation.z) < 0.5 * this.scale.z
     };
 
+    foundCell(actual, destiny) {
+        return Math.abs(actual.x - destiny.x) < 0.5 * this.scale.x && Math.abs(actual.z - destiny.z) < 0.5 * this.scale.z
+    };
+
 }
