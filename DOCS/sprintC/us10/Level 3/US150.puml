@@ -1,0 +1,46 @@
+@startuml
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US150
+
+participant "SPA" as SPA
+participant "GestaoInfoAPI" as API
+participant "SystemUserController" as Controller
+participant "SystemUserService" as Service
+participant "SystemUserRepo" as Repo
+participant "SystemUserMap" as Map
+participant "SystemUser" as SystemUser
+
+
+
+
+activate SPA
+SPA -> API: post(api/room)
+activate API
+API -> Controller: post
+activate Controller
+Controller -> Service: createSystemUser()
+activate Service
+Service -> SystemUser: create
+
+Service -> Repo: save(systemUser)
+activate Repo
+Repo -> Service: systemUser
+deactivate Repo
+
+
+Service -> Map: toDTO(systemUser)
+activate Map
+Map -> Service: systemUserDTO
+deactivate
+
+
+Service -> Controller: systemUserDTO()
+Controller -> API: status code 201
+API -> SPA: Success
+
+
+@enduml

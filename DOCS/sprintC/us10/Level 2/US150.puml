@@ -1,0 +1,31 @@
+@startuml
+
+skinparam Monochrome true
+skinparam PackageStyle rectangle
+skinparam Shadowing false
+
+title Sequence Diagram: US10
+
+actor "Admin" as User
+participant "SPA" as SPA
+participant "SystemUser" as SystemUser
+
+activate User
+
+User -> SPA : Asks to create a SystemUser
+activate SPA
+SPA -> User: requests data to SystemUser
+User -> SPA: put data about SystemUser(email, password, role)
+
+SPA -> SystemUser: POST/ systemUser{email, password, role}
+activate SystemUser
+SystemUser -> SPA: status code
+deactivate
+
+alt successfull case
+SPA -> User: systemUser created successfully
+else failure
+SPA -> User: systemUser not created
+end
+
+@enduml
