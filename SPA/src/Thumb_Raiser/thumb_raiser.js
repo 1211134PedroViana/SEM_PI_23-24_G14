@@ -1305,124 +1305,105 @@ export default class ThumbRaiser {
             }
         }
         else {
+            /*
+            const deltaT = this.clock.getDelta();
+            this.animations.update(deltaT);
 
+            let coveredDistance = this.player.walkingSpeed * deltaT;
+            const position = this.player.position.clone();
+            const test = THREE.MathUtils.degToRad(this.player.direction);
+            
+            position.add(new THREE.Vector3(coveredDistance * Math.sin(test), 0.0, coveredDistance * Math.cos(test)));
+            this.animations.fadeToAction("Walking", 0.2);
+            this.player.position.set(position.x, position.y, position.z);
+            this.player.direction = 90;
+            this.player.rotation.y = test - this.player.defaultDirection;
+            */
+            
+            
             if(this.isAutomaticPathing) {
 
                 for(let i = 1; i < this.cells.length; i++) {
+                    // Update the model animations
+                    const deltaT = this.clock.getDelta();
+                    this.animations.update(deltaT);
+
+                    const position = this.player.position.clone();
                     let arr1 = this.extractNumbersFromString(this.cells[i-1]);
                     let arr2 = this.extractNumbersFromString(this.cells[i]);
 
+                    let fPosition = this.maze.cellToCartesian(arr2);
+
+                    let coveredDistance = this.player.walkingSpeed * deltaT;
+                    let directionIncrement = this.player.turningSpeed * deltaT;
+                   
+                    coveredDistance *= this.player.runningFactor;
+                    directionIncrement *= this.player.runningFactor;
+                    
                     if(arr2[0] === arr1[0] + 1 && arr2[1] === arr1[1]) {
 
+                        if(this.player.direction != 90) {
+                            this.player.direction = 90;
+                        }
+
+                        const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+                        while(position.x != fPosition.x && position.z != fPosition.z) {
+                            position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                            this.animations.fadeToAction("Walking", 0.2);
+                            this.player.position.set(position.x, position.y, position.z);
+                        }
                     }
 
                     if(arr2[0] === arr1[0] - 1 && arr2[1] === arr1[1]) {
+
+                        if(this.player.direction != 270) {
+                            this.player.direction = 270;
+                        }
+
+                        const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+                        while(position.x != fPosition.x && position.z != fPosition.z) {
+                            position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                            this.animations.fadeToAction("Walking", 0.2);
+                            this.player.position.set(position.x, position.y, position.z);
+                        }
 
                     }
 
                     if(arr2[0] === arr1[0] && arr2[1] === arr1[1] + 1) {
 
+                        if(this.player.direction != 0) {
+                            this.player.direction = 0;
+                        }
+
+                        const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+                        while(position.x != fPosition.x && position.z != fPosition.z) {
+                            position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                            this.animations.fadeToAction("Walking", 0.2);
+                            this.player.position.set(position.x, position.y, position.z);
+                        }
+
                     }
 
                     if(arr2[0] === arr1[0] && arr2[1] === arr1[1] - 1) {
 
-                    }
-                }
-            
-                // Update the model animations
-                const deltaT = this.clock.getDelta();
-                this.animations.update(deltaT);
-
-                // Update the player            
-                if (!this.animations.actionInProgress) {
-                    
-
-                // Check if the player found the next acess point
-                if (this.maze.foundDestiny(this.player.position)) {
-                    this.finalSequence();
-                    this.gameRunning = false;
-                }
-                else {
-                    let coveredDistance = this.player.walkingSpeed * deltaT;
-                    let directionIncrement = this.player.turningSpeed * deltaT;
-                    if (this.player.shiftKey) {
-                        coveredDistance *= this.player.runningFactor;
-                        directionIncrement *= this.player.runningFactor;
-                    }
-                    let playerTurned = false;
-                    let directionDeg = this.player.direction;
-                    if (this.player.keyStates.left) {
-                        playerTurned = true;
-                        directionDeg += directionIncrement;
-                    }
-                    else if (this.player.keyStates.right) {
-                        playerTurned = true;
-                        directionDeg -= directionIncrement;
-                    }
-                    const directionRad = THREE.MathUtils.degToRad(directionDeg);
-                    let playerMoved = false;
-                    const position = this.player.position.clone();
-                    if (this.player.keyStates.backward) {
-                        playerMoved = true;
-                        position.sub(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
-                    }
-                    else if (this.player.keyStates.forward) {
-                        playerMoved = true;
-                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
-                    }
-                    if (this.maze.collision(this.collisionDetectionParameters.method, position, this.collisionDetectionParameters.method != "obb-aabb" ? this.player.radius : this.player.halfSize, directionRad - this.player.defaultDirection)) {
-                        this.audio.play(this.audio.deathClips, false);
-                        this.animations.fadeToAction("Death", 0.2);
-                    }else if (
-                        this.maze.doorCollision(
-                            position,
-                            this.collisionDetectionParameters.method != 'obb-aabb'
-                                ? this.player.radius
-                                : this.player.halfSize
-                        )
-                    ){}
-                    else if (this.player.keyStates.jump) {
-                        this.audio.play(this.audio.jumpClips, true);
-                        this.animations.fadeToAction("Jump", 0.2);
-                    }
-                    else if (this.player.keyStates.yes) {
-                        this.animations.fadeToAction("Yes", 0.2);
-                    }
-                    else if (this.player.keyStates.no) {
-                        this.animations.fadeToAction("No", 0.2);
-                    }
-                    else if (this.player.keyStates.wave) {
-                        this.animations.fadeToAction("Wave", 0.2);
-                    }
-                    else if (this.player.keyStates.punch) {
-                        this.animations.fadeToAction("Punch", 0.2);
-                    }
-                    else if (this.player.keyStates.thumbsUp) {
-                        this.animations.fadeToAction("ThumbsUp", 0.2);
-                    }
-                    else {
-                        if (playerTurned) {
-                            this.player.direction = directionDeg;
+                        if(this.player.direction != 180) {
+                            this.player.direction = 180;
                         }
-                        if (playerMoved) {
-                            this.animations.fadeToAction(this.player.shiftKey ? "Running" : "Walking", 0.2);
+
+                        const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+                        while(position.x != fPosition.x && position.z != fPosition.z) {
+                            position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                            this.animations.fadeToAction("Walking", 0.2);
                             this.player.position.set(position.x, position.y, position.z);
                         }
-                        else {
-                            if (this.animations.idleTimeOut()) {
-                                this.animations.resetIdleTime();
-                                this.audio.play(this.audio.idleClips, false);
-                            }
-                            this.animations.fadeToAction("Idle", this.animations.activeName != "Death" ? 0.2 : 0.6);
-                        }
+
                     }
 
                     this.player.rotation.y = directionRad - this.player.defaultDirection;
+
                 }
-            }
-                
-                
-            }else{
+
+            } else {
 
                 // Update the model animations
             const deltaT = this.clock.getDelta();
@@ -1514,6 +1495,7 @@ export default class ThumbRaiser {
             }
                 
             }
+            
 
             // Update the flashlight, first-person view, third-person view and top view camera parameters (player orientation and target)
             let orientation = new THREE.Quaternion();
