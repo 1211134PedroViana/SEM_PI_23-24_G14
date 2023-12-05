@@ -1343,7 +1343,8 @@ export default class ThumbRaiser {
                 arr2.push(this.automaticPathingParameters.cells[1].col);
 
                 let fPosition = this.maze.cellToCartesian(arr2);
-
+                console.log("pos:"+ fPosition.z)
+            
                 let coveredDistance = this.player.walkingSpeed * deltaT;
                 let directionIncrement = this.player.turningSpeed * deltaT;
                    
@@ -1352,30 +1353,82 @@ export default class ThumbRaiser {
                     
                 if(arr2[1] === arr1[1] && arr2[0] === arr1[0] + 1) {
 
-                    if(this.player.direction != 90) {
-                         this.player.direction = 90;
+                    if(this.player.direction != 0) {
+                         this.player.direction = 0;
                     }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x === fPosition.x && position.z > fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
                 }
 
                 if(arr2[1] === arr1[1] && arr2[0] === arr1[0] - 1 ) {
 
-                    if(this.player.direction != 270) {
-                        this.player.direction = 270;
+                    if(this.player.direction != 180) {
+                        this.player.direction = 180;
                     }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x === fPosition.x && position.z < fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
                 }
 
                 if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0]) {
 
-                    if(this.player.direction != 0) {
-                         this.player.direction = 0;
+                    if(this.player.direction != 90) {
+                         this.player.direction = 90;
                     }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x > fPosition.x && position.z === fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
                 }
 
                 if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0]) {
 
-                    if(this.player.direction != 180) {
-                        this.player.direction = 180;
+                    if(this.player.direction != 270) {
+                        this.player.direction = 270;
                     }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x < fPosition.x && position.z === fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
                 }
 
                 if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0] + 1) {
@@ -1384,13 +1437,39 @@ export default class ThumbRaiser {
                         this.player.direction = 45;
                     }
 
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x > fPosition.x && position.z > fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+
                 }
 
                 if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0] + 1) {
 
-                    if(this.player.direction != 135) {
-                        this.player.direction = 135;
+                    if(this.player.direction != 315) {
+                        this.player.direction = 315;
                     }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x < fPosition.x && position.z > fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
                 }
 
                 if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0] - 1) {
@@ -1398,27 +1477,41 @@ export default class ThumbRaiser {
                     if(this.player.direction != 225) {
                         this.player.direction = 225;
                     }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x < fPosition.x && position.z < fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
                 }
 
                 if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0] - 1) {
 
-                    if(this.player.direction != 315) {
-                        this.player.direction = 315;
+                    if(this.player.direction != 135) {
+                        this.player.direction = 135;
                     }
 
-                }
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
 
-                const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+                    if(position.x > fPosition.x && position.z < fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
 
-                if(this.maze.foundCell(position, fPosition)) {
-                    this.automaticPathingParameters.cells.shift();
-                } else {
-                    position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
-                    this.animations.fadeToAction("Walking", 0.2);
-                    this.player.position.set(position.x, position.y, position.z);
-                }
-
-                this.player.rotation.y = directionRad - this.player.defaultDirection;  
+                } 
 
             } else {
 
