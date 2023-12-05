@@ -63,7 +63,7 @@ export class AutomaticPathViewerComponent {
     this.floorViewer.dispose(); // Dispose of any Three.js resources
   }
 
-  loadFloorMap(mapUrl: string, locations: Location[], cells: Cell[]) {
+  async loadFloorMap(mapUrl: string, locations: Location[], cells: Cell[]) {
     this.container = document.getElementById('container');
 
     this.floorViewer = new ThumbRaiser(
@@ -316,6 +316,7 @@ export class AutomaticPathViewerComponent {
         { location: locations, cells: cells },
 
     );
+
     this.render(this.floorViewer);
   }
 }

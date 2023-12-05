@@ -1172,7 +1172,7 @@ export default class ThumbRaiser {
         this.audio.play(this.audio.endClips, false);
     }
 
-    update() {
+    async update() {
         if (!this.gameRunning) {
             if (this.audio.loaded() && this.maze.loaded && this.player.loaded) { // If all resources have been loaded
                 // Add positional audio sources to objects
@@ -1309,31 +1309,25 @@ export default class ThumbRaiser {
             }
         }
         else {
-            /*
-            const deltaT = this.clock.getDelta();
-            this.animations.update(deltaT);
-
-            let coveredDistance = this.player.walkingSpeed * deltaT;
-            const position = this.player.position.clone();
-            const test = THREE.MathUtils.degToRad(this.player.direction);
             
-            position.add(new THREE.Vector3(coveredDistance * Math.sin(test), 0.0, coveredDistance * Math.cos(test)));
-            this.animations.fadeToAction("Walking", 0.2);
-            this.player.position.set(position.x, position.y, position.z);
-            this.player.direction = 90;
-            this.player.rotation.y = test - this.player.defaultDirection;
-            */
-            
+            const destiny = [];
+            let len = this.automaticPathingParameters.cells.length;
+            destiny.push(this.automaticPathingParameters.cells[len-1].lin);
+            destiny.push(this.automaticPathingParameters.cells[len-1].col);
+            const dPosition = this.maze.cellToCartesian(destiny);
             
             if(this.generalParameters.isAutomaticPathing) {
-
                 
                 // Update the model animations
                 const deltaT = this.clock.getDelta();
                 this.animations.update(deltaT);
 
                 const position = this.player.position.clone();
-    
+
+                if (position.x >= dPosition.x && position.z > dPosition.z) {
+                    this.finalSequence();
+                } else {
+
                 let arr1 = [];
                 arr1.push(this.automaticPathingParameters.cells[0].lin);
                 arr1.push(this.automaticPathingParameters.cells[0].col);
@@ -1343,7 +1337,6 @@ export default class ThumbRaiser {
                 arr2.push(this.automaticPathingParameters.cells[1].col);
 
                 let fPosition = this.maze.cellToCartesian(arr2);
-                console.log("pos:"+ fPosition.z)
             
                 let coveredDistance = this.player.walkingSpeed * deltaT;
                 let directionIncrement = this.player.turningSpeed * deltaT;
@@ -1352,6 +1345,7 @@ export default class ThumbRaiser {
                 directionIncrement *= this.player.runningFactor;
                     
                 if(arr2[1] === arr1[1] && arr2[0] === arr1[0] + 1) {
+                    await this.sleep(10);
 
                     if(this.player.direction != 0) {
                          this.player.direction = 0;
@@ -1502,6 +1496,7 @@ export default class ThumbRaiser {
 
                     if(position.x > fPosition.x && position.z < fPosition.z) {
                         this.automaticPathingParameters.cells.shift();
+                        
                     } else {
                         position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
                         this.animations.fadeToAction("Walking", 0.2);
@@ -1510,8 +1505,11 @@ export default class ThumbRaiser {
                     }
     
                     this.player.rotation.y = directionRad - this.player.defaultDirection; 
-
+                
                 } 
+                    
+                }
+            
 
             } else {
 
@@ -1605,7 +1603,6 @@ export default class ThumbRaiser {
             }
                 
             }
-            
 
             // Update the flashlight, first-person view, third-person view and top view camera parameters (player orientation and target)
             let orientation = new THREE.Quaternion();
@@ -1671,6 +1668,9 @@ export default class ThumbRaiser {
                 this.frame.children[0].material.color.set(this.miniMapCamera.frameColor);
                 this.renderer.render(this.frame, this.camera2D); // Render the frame
             }
+
+            
+        
         }
     }
     dispose() {
@@ -1743,33 +1743,8 @@ export default class ThumbRaiser {
 
     }
 
-    extractNumbersFromString(inputString) {
-
-        if (typeof inputString !== 'string') {
-            return [];
-        }
-        // Find the index of "cel("
-        const startIndex = inputString.indexOf("cel(");
-    
-        // If "cel(" is not found, return an empty array
-        if (startIndex === -1) {
-            return [];
-        }
-    
-        // Find the indices of the commas and closing parenthesis
-        const comma1Index = inputString.indexOf(",", startIndex);
-        const comma2Index = inputString.indexOf(")", startIndex);
-    
-        // Extract the substrings containing the numbers
-        const number1Str = inputString.substring(startIndex + 4, comma1Index);
-        const number2Str = inputString.substring(comma1Index + 1, comma2Index);
-    
-        // Parse the extracted strings into integers
-        const number1 = parseInt(number1Str, 10);
-        const number2 = parseInt(number2Str, 10);
-    
-        // Store the numbers in an array and return it
-        const resultArray = [number2, number1];
-        return resultArray;
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
+
 }
