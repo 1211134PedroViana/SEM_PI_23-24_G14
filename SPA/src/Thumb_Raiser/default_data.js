@@ -2,7 +2,8 @@ import * as THREE from "three";
 import Orientation from "./orientation.js";
 
 export const generalData = {
-    setDevicePixelRatio: false
+    setDevicePixelRatio: false,
+    isAutomaticPathing: false
 }
 
 export const audioData = {
@@ -205,4 +206,8 @@ export const cameraData = {
     near: 0.01, // Front clipping plane
     far: 100.0, // Back clipping plane
     initialFogDensity: 0.00025 // Doesn't apply to mini-map camera
+}
+
+export const pathData = {
+
 }

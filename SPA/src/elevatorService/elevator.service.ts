@@ -13,6 +13,7 @@ export class ElevatorService {
   private createUrl = 'http://localhost:4000/api/elevators/create';
   private updateUrl = 'http://localhost:4000/api/elevators/update';
   private listUrl = 'http://localhost:4000/api/elevators/list';
+  private buildingElevatorUrl = 'http://localhost:4000/api/elevators/elevatorFromBuilding/';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private elevator = new BehaviorSubject<Elevator>({} as Elevator);
@@ -59,6 +60,17 @@ export class ElevatorService {
     };
 
     return this.http.get<string[]>(this.listUrl, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
+  getElevatorByBuilding(buildingId: string): Observable<Elevator> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.http.get<Elevator>(this.buildingElevatorUrl + buildingId, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

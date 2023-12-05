@@ -12,6 +12,7 @@ export class RoomMap extends Mapper<Room> {
         return {
             id: room.id.toString(),
             code: room.code.value,
+            description: room.description.value,
             dimension: {
                 pos1: room.dimension.pos1,
                 pos2: room.dimension.pos2,

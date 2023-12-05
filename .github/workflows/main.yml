@@ -30,7 +30,16 @@ jobs:
         run: |
           cd SPA/src
           npm run build
-        
+
+      - name: SSH into server and delete content
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: vsgate-ssh.dei.isep.ipp.pt
+          port: 11093
+          username: root
+          password: 123Lmaopass.
+          script: |
+            rm -r /var/www/html/*
 
       - name: Copy files to server
         uses: appleboy/scp-action@v0.1.4

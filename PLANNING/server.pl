@@ -12,6 +12,7 @@
 :- consult('algoritmos.pl').
 :- consult('parsers.pl').
 
+:- set_setting(http:cors, [*]).
 
 % Start Prolog Server on Port: 5000
 startServer(Port) :-
@@ -26,7 +27,10 @@ stopServer:-
 :- http_handler('/findPath', find_path_handler, []).
 
 find_path_handler(Request) :-
-    cors_enable(Request, [methods([get])]),
+    cors_enable(Request,
+                [ methods([get]),
+                  origin('http://localhost:4200')
+                ]), 
     % Extract parameters from the request
     http_parameters(Request, [origem(Origem,[]),destino(Destino,[])]),
 
@@ -38,4 +42,5 @@ find_path_handler(Request) :-
 
     convert_lista_caminho(ListaCaminho, CaminhoJson),
     convert_lista_movimentos(ListaMovimentos, MovimentosJson),
+
     reply_json(json{caminho: CaminhoJson, movimentos: MovimentosJson},[json_object(dict)]).

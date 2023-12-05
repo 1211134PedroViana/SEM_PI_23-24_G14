@@ -17,6 +17,7 @@ export class PassageMap extends Mapper<Passage> {
                 positionY: passage.location.positionY,
                 direction: passage.location.direction,
             },
+            description: passage.description.value
         } as IPassageDTO;
     }
 
@@ -65,7 +66,8 @@ export class PassageMap extends Mapper<Passage> {
                  positionX: passage.location.positionX,
                  positionY: passage.location.positionY,
                  direction: passage.location.direction,
-            }
+            },
+            description: passage.description.value
         }
     }
 }

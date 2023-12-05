@@ -6,5 +6,6 @@ export default interface IRoomRepo extends Repo<Room> {
     findByDomainId(roomId: string): Promise<Room>;
     findByObjectId(roomId: string): Promise<Room>;
     findAll(): Promise<Room[]>;
-
+    findByFloorId(floorId: string): Promise<Room[]>;
+    findByDescription(description: string): Promise<Room>;
 }

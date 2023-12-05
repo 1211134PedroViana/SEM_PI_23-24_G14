@@ -71,6 +71,8 @@ export default (app: Router) => {
         elevatorId: Joi.string().required(),
       }),
     }),
-    (req, res, next) => ctrl.listFloorsServedByElevatorInBuilding(req, res, next),
+    (req, res, next) => ctrl.listAllFloorsServedByElevator(req, res, next),
   );
+
+  route.get('/elevatorFromBuilding/:buildingId', (req, res, next) => ctrl.getElevatorByBuilding(req, res, next));
 };

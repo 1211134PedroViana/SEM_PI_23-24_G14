@@ -2,7 +2,7 @@
 coordenadas(apn, a1, 10, 5).
 coordenadas(beng, a1, 12, 2).
 coordenadas(k1, a1, 16, 2).
-coordenadas(k2, a1, 19, 2).
+coordenadas(k2, a1, 18, 4).
 coordenadas(r1, a1, 12, 8).
 coordenadas(r2, a1, 20, 8).
 
@@ -117,13 +117,17 @@ coordenadas(d3, 1, 1).
 
 % BC - Coordenadas Corredores
 coordenadas(c2,d2, 0, 14, 12, 0).
+coordenadas(d2,c2, 12, 0, 0, 14).
 coordenadas(a2,b2, 22, 5, 1, 4).
-coordenadas(b2,c3, 22, 8, 0, 8).
+coordenadas(b2,a2, 1, 4, 22, 5).
+coordenadas(b2,c3, 22, 9, 0, 8).
+coordenadas(c3,b2, 0, 8, 22, 8).
 coordenadas(b2,d3, 21, 10, 10, 0).
 coordenadas(d3,b2, 10, 0, 21, 10).
 coordenadas(d3,c3, 12, 1, 0, 14).
 coordenadas(c3,d3, 0, 14, 12, 1).
-coordenadas(b3,c4, 22, 8, 0, 8).
+coordenadas(b3,c4, 22, 9, 0, 8).
+coordenadas(c4,b3, 22, 8, 0, 8).
 
 % BC - Dimensões Pisos
 dimensoes(a1, 23, 11).

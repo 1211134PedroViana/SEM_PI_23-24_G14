@@ -10,16 +10,19 @@ export class SignInComponent {
   selectedRole: string = "";
   isVisible: boolean = true;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+  }
 
   onSubmit(): void {
     this.isVisible = false;
-    if(this.selectedRole === "Campus") {
+    if (this.selectedRole === "Campus") {
       this.router.navigate(["/campus"]);
-    } else if(this.selectedRole === "Fleet"){
+    } else if (this.selectedRole === "Fleet") {
       this.router.navigate(["/fleet"]);
+    } else if (this.selectedRole === "Task") {
+      this.router.navigate(["/task"]);
     } else {
-      //ignore
+      this.router.navigate(["/admin"]);
     }
   }
 }

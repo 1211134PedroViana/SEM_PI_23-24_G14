@@ -16,7 +16,7 @@
 import * as THREE from "three";
 import Stats from "three/addons/libs/stats.module.js";
 import Orientation from "./orientation.js";
-import { generalData, audioData, cubeTextureData, mazeData, playerData, ambientLightData, directionalLightData, spotLightData, flashLightData, shadowsData, fogData, collisionDetectionData, cameraData } from "./default_data.js";
+import { generalData, audioData, cubeTextureData, mazeData, playerData, ambientLightData, directionalLightData, spotLightData, flashLightData, shadowsData, fogData, collisionDetectionData, cameraData, pathData } from "./default_data.js";
 import { merge } from "./merge.js";
 import Audio from "./audio.js";
 import CubeTexture from "./cubetexture.js";
@@ -33,6 +33,7 @@ import UserInterface from "./user_interface.js";
  *  setDevicePixelRatio: Boolean
  *  containerWidth: number
  *  containerHeight: number
+ *  isAutomaticPathing: Boolean
  * }
  *
  * audioParameters = {
@@ -356,10 +357,15 @@ import UserInterface from "./user_interface.js";
  *  containerWidth: number,
  *  containerHeight: number
  * }
+ * 
+ * automaticPathingParameters = {
+ *   location: [{ positionX: number, positionY: number, direction: String}],
+ *   cells: [{ col: number, lin: number}]
+ * }
  */
 
 export default class ThumbRaiser {
-    constructor(generalParameters, audioParameters, cubeTexturesParameters, mazeParameters, playerParameters, ambientLightParameters, directionalLightParameters, spotLightParameters, flashLightParameters, shadowsParameters, fogParameters, collisionDetectionParameters, fixedViewCameraParameters, firstPersonViewCameraParameters, thirdPersonViewCameraParameters, topViewCameraParameters, miniMapCameraParameters) {
+    constructor(generalParameters, audioParameters, cubeTexturesParameters, mazeParameters, playerParameters, ambientLightParameters, directionalLightParameters, spotLightParameters, flashLightParameters, shadowsParameters, fogParameters, collisionDetectionParameters, fixedViewCameraParameters, firstPersonViewCameraParameters, thirdPersonViewCameraParameters, topViewCameraParameters, miniMapCameraParameters, automaticPathingParameters) {
         this.generalParameters = merge({}, generalData, generalParameters);
         this.audioParameters = merge({}, audioData, audioParameters);
         this.cubeTexturesParameters = merge({}, cubeTextureData, cubeTexturesParameters);
@@ -377,6 +383,7 @@ export default class ThumbRaiser {
         this.thirdPersonViewCameraParameters = merge({}, cameraData, thirdPersonViewCameraParameters);
         this.topViewCameraParameters = merge({}, cameraData, topViewCameraParameters);
         this.miniMapCameraParameters = merge({}, cameraData, miniMapCameraParameters);
+        this.automaticPathingParameters = merge({}, pathData, automaticPathingParameters);
         // Set the game state
         this.gameRunning = false;
 
@@ -1218,7 +1225,16 @@ export default class ThumbRaiser {
                 this.animations = new Animations(this.player);
 
                 // Set the player's position and direction
-                this.player.position.set(this.maze.initialPosition.x, this.maze.initialPosition.y, this.maze.initialPosition.z);
+                if(this.generalParameters.isAutomaticPathing) {
+                    let initialCell = [];
+                    initialCell.push(this.automaticPathingParameters.location[0].positionY)
+                    initialCell.push(this.automaticPathingParameters.location[0].positionX)
+                    let coords = this.maze.cellToCartesian(initialCell);
+                    this.player.position.set(coords.x, coords.y, coords.z);
+                }else{
+                    this.player.position.set(this.maze.initialPosition.x, this.maze.initialPosition.y, this.maze.initialPosition.z);
+                }
+                
                 this.player.direction = this.maze.initialDirection;
 
                 // Set the spotlight target
@@ -1293,7 +1309,213 @@ export default class ThumbRaiser {
             }
         }
         else {
-            // Update the model animations
+            /*
+            const deltaT = this.clock.getDelta();
+            this.animations.update(deltaT);
+
+            let coveredDistance = this.player.walkingSpeed * deltaT;
+            const position = this.player.position.clone();
+            const test = THREE.MathUtils.degToRad(this.player.direction);
+            
+            position.add(new THREE.Vector3(coveredDistance * Math.sin(test), 0.0, coveredDistance * Math.cos(test)));
+            this.animations.fadeToAction("Walking", 0.2);
+            this.player.position.set(position.x, position.y, position.z);
+            this.player.direction = 90;
+            this.player.rotation.y = test - this.player.defaultDirection;
+            */
+            
+            
+            if(this.generalParameters.isAutomaticPathing) {
+
+                
+                // Update the model animations
+                const deltaT = this.clock.getDelta();
+                this.animations.update(deltaT);
+
+                const position = this.player.position.clone();
+    
+                let arr1 = [];
+                arr1.push(this.automaticPathingParameters.cells[0].lin);
+                arr1.push(this.automaticPathingParameters.cells[0].col);
+                
+                let arr2 = [];
+                arr2.push(this.automaticPathingParameters.cells[1].lin);
+                arr2.push(this.automaticPathingParameters.cells[1].col);
+
+                let fPosition = this.maze.cellToCartesian(arr2);
+                console.log("pos:"+ fPosition.z)
+            
+                let coveredDistance = this.player.walkingSpeed * deltaT;
+                let directionIncrement = this.player.turningSpeed * deltaT;
+                   
+                coveredDistance *= this.player.runningFactor;
+                directionIncrement *= this.player.runningFactor;
+                    
+                if(arr2[1] === arr1[1] && arr2[0] === arr1[0] + 1) {
+
+                    if(this.player.direction != 0) {
+                         this.player.direction = 0;
+                    }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x === fPosition.x && position.z > fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+                }
+
+                if(arr2[1] === arr1[1] && arr2[0] === arr1[0] - 1 ) {
+
+                    if(this.player.direction != 180) {
+                        this.player.direction = 180;
+                    }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x === fPosition.x && position.z < fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+                }
+
+                if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0]) {
+
+                    if(this.player.direction != 90) {
+                         this.player.direction = 90;
+                    }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x > fPosition.x && position.z === fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+                }
+
+                if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0]) {
+
+                    if(this.player.direction != 270) {
+                        this.player.direction = 270;
+                    }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x < fPosition.x && position.z === fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+                }
+
+                if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0] + 1) {
+
+                    if(this.player.direction != 45) {
+                        this.player.direction = 45;
+                    }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x > fPosition.x && position.z > fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+
+                }
+
+                if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0] + 1) {
+
+                    if(this.player.direction != 315) {
+                        this.player.direction = 315;
+                    }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x < fPosition.x && position.z > fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+                }
+
+                if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0] - 1) {
+
+                    if(this.player.direction != 225) {
+                        this.player.direction = 225;
+                    }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x < fPosition.x && position.z < fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+                }
+
+                if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0] - 1) {
+
+                    if(this.player.direction != 135) {
+                        this.player.direction = 135;
+                    }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x > fPosition.x && position.z < fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+
+                } 
+
+            } else {
+
+                // Update the model animations
             const deltaT = this.clock.getDelta();
             this.animations.update(deltaT);
 
@@ -1381,6 +1603,9 @@ export default class ThumbRaiser {
                     this.player.rotation.y = directionRad - this.player.defaultDirection;
                 }
             }
+                
+            }
+            
 
             // Update the flashlight, first-person view, third-person view and top view camera parameters (player orientation and target)
             let orientation = new THREE.Quaternion();
@@ -1516,5 +1741,35 @@ export default class ThumbRaiser {
         // Remove the canvas
         this.renderer.domElement.remove();
 
-      }
+    }
+
+    extractNumbersFromString(inputString) {
+
+        if (typeof inputString !== 'string') {
+            return [];
+        }
+        // Find the index of "cel("
+        const startIndex = inputString.indexOf("cel(");
+    
+        // If "cel(" is not found, return an empty array
+        if (startIndex === -1) {
+            return [];
+        }
+    
+        // Find the indices of the commas and closing parenthesis
+        const comma1Index = inputString.indexOf(",", startIndex);
+        const comma2Index = inputString.indexOf(")", startIndex);
+    
+        // Extract the substrings containing the numbers
+        const number1Str = inputString.substring(startIndex + 4, comma1Index);
+        const number2Str = inputString.substring(comma1Index + 1, comma2Index);
+    
+        // Parse the extracted strings into integers
+        const number1 = parseInt(number1Str, 10);
+        const number2 = parseInt(number2Str, 10);
+    
+        // Store the numbers in an array and return it
+        const resultArray = [number2, number1];
+        return resultArray;
+    }
 }

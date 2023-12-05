@@ -11,22 +11,24 @@ import robotType from './routes/robotTypeRoute';
 import taskType from './routes/taskTypeRoute';
 import elevator from './routes/elevatorRoute';
 import floorMapperz from './routes/floorMapperzRoute';
+import systemUserRoute from './routes/systemUserRoute';
 
 export default () => {
-	const app = Router();
+  const app = Router();
 
-	auth(app);
-	user(app);
-	role(app);
-	building(app);
-	floor(app);
-	passage(app);
-	room(app);
-	robot(app);
-	robotType(app);
-	taskType(app);
-	elevator(app);
-	floorMapperz(app);
+  auth(app);
+  user(app);
+  role(app);
+  building(app);
+  floor(app);
+  passage(app);
+  room(app);
+  robot(app);
+  robotType(app);
+  taskType(app);
+  elevator(app);
+  floorMapperz(app);
+  systemUserRoute(app);
 
-	return app
-}
+  return app;
+};

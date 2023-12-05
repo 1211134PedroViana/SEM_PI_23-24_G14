@@ -5,4 +5,5 @@ export default interface IElevatorController {
   updateElevator(req: Request, res: Response, next: NextFunction);
   listElevators(req: Request, res: Response, next: NextFunction);
   listAllFloorsServedByElevator(req: Request, res: Response, next: NextFunction);
+  getElevatorByBuilding(req: Request, res: Response, next: NextFunction);
 }

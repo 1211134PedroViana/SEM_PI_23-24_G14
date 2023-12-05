@@ -18,11 +18,13 @@ elevador(d,[d1,d2,d3]).
 
 % BC - Corredor
 corredor(a,b,a2,b2).
+corredor(b,a,b2,a2).
 corredor(b,c,b2,c3).
 corredor(b,d,b2,d3).
 corredor(b,c,b3,c4).
 corredor(c,d,c2,d2).
 corredor(c,d,c3,d3).
+corredor(d,c,d3,c3).
 
 % Salas Edificio A - Piso 1
 sala(apn, a1).

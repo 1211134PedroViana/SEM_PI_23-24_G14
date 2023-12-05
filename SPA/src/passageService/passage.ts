@@ -6,5 +6,6 @@ export default interface Passage {
         positionX: number;
         positionY: number;
         direction: string;
-    }
+    },
+    description: string;
 }

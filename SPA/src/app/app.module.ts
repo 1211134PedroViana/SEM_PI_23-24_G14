@@ -26,7 +26,7 @@ import { Featuresv4Component } from '../featuresv4/featuresv4.component';
 import { LoadFloorMapComponent } from '../load-floor-map/load-floor-map.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignInComponent } from '../sign-in/sign-in.component';
-import { MapViewerComponent } from '../map-viewer/map-viewer.component';
+import { MapViewerComponent } from '../map3-dviewer/map-viewer/map-viewer.component';
 import { RobotComponent } from 'src/robot/robot.component';
 import { CreateRobotComponent } from 'src/robot/create-robot/create-robot.component';
 import { CreateRobotFormComponent } from 'src/robot/create-robot-form/create-robot-form.component';
@@ -57,6 +57,18 @@ import {ListFloorComponent} from "../floor/list-floors/list-floor.component";
 import {ListFloorsWithElevatorComponent} from "../floor/list-floors-with-elevator/list-floors-with-elevator.component";
 import {CreateFloorComponent} from "../floor/create-floor/create-floor.component";
 import {ListRobotsDesignationComponent} from "../robot/list-robotsDesignation/list-robotsDesignation.component";
+import { AppTaskComponent } from '../app-task/app-task.component';
+import { TaskSideBarComponent } from '../task-side-bar/task-side-bar.component';
+import { ComputePathComponent } from '../compute-path/compute-path.component';
+import { MapViewerFeaturesComponent } from '../map3-dviewer/map-viewer-features/map-viewer-features.component';
+import { Map3DViewerComponent } from '../map3-dviewer/map3-dviewer.component';
+import { AutomaticPathViewerComponent } from '../map3-dviewer/automatic-path-viewer/automatic-path-viewer.component';
+import { PathFormComponent } from '../map3-dviewer/path-form/path-form.component';
+import {AppAdminComponent} from "../app-admin/app-admin.component";
+import {AdminSideBarComponent} from "../admin-side-bar/admin-side-bar.component";
+import {SystemUserComponent} from "../systemUser/systemUser.component";
+import {CreateSystemUserComponent} from "../systemUser/create-systemUser/create-systemUser.component";
+import {CreateSystemUserFormComponent} from "../systemUser/create-systemUser-form/create-systemUser-form.component";
 
 @NgModule({
   declarations: [
@@ -110,7 +122,19 @@ import {ListRobotsDesignationComponent} from "../robot/list-robotsDesignation/li
     ListFloorComponent,
     ListFloorsWithElevatorComponent,
     CreateFloorComponent,
-    ListRobotsDesignationComponent
+    ListRobotsDesignationComponent,
+    AppTaskComponent,
+    TaskSideBarComponent,
+    ComputePathComponent,
+    MapViewerFeaturesComponent,
+    Map3DViewerComponent,
+    AutomaticPathViewerComponent,
+    PathFormComponent,
+    AppAdminComponent,
+    AdminSideBarComponent,
+    SystemUserComponent,
+    CreateSystemUserComponent,
+    CreateSystemUserFormComponent
   ],
   imports: [
     BrowserModule,

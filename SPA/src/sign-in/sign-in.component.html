@@ -39,7 +39,7 @@
     </div>
     <form (ngSubmit)="onSubmit()">
       <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-  
+
       <div class="form-floating">
         <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
         <label for="floatingInput">Email address</label>
@@ -48,7 +48,7 @@
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
         <label for="floatingPassword">Password</label>
       </div>
-  
+
       <div class="row g-2">
 
         <div class="checkbox col-md-6">
@@ -61,11 +61,13 @@
           <select class="form-select" id="role" name="selectedRole" [(ngModel)]="selectedRole">
             <option value="Campus">Campus Manager</option>
             <option value="Fleet">Fleet Manager</option>
+            <option value="Task">Task Manager</option>
+            <option value="Admin">Admin</option>
           </select>
         </div>
 
       </div>
-      
+
       <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2023–2023</p>
     </form>

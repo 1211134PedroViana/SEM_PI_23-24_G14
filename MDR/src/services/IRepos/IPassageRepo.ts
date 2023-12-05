@@ -7,5 +7,5 @@ export default interface IPassageRepo extends Repo<Passage> {
     findByDomainId(passageId: PassageId | string): Promise<Passage>;
     findByObjectId(passageId: string): Promise<Passage>;
     findAll(): Promise<Passage[]>;
-    
+    findByFloorId (floorId: string): Promise<Passage[]>;
 }

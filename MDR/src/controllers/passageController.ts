@@ -80,4 +80,20 @@ export default class PassageController implements IPassageController {
             return next(e);
         }
     }
+
+    public async getPassagesByFloor(req: Request, res: Response, next: NextFunction) {
+        try {
+          let floorId = req.params.floorId;
+          const passagesOrError = await this.passageServiceInstance.getPassageByFloorId(floorId) as Result<IPassageDTO[]>;
+      
+          if (passagesOrError.isFailure) {
+            return res.status(404).send(passagesOrError.errorValue());
+          }
+      
+          const passages = passagesOrError.getValue();
+          return res.json(passages).status(200);
+        } catch (e) {
+          return next(e);
+        }
+    }
 }
