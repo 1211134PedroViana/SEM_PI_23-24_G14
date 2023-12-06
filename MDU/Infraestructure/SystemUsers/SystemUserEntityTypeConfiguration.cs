@@ -21,7 +21,7 @@ namespace Mpt.Infrastructure.SystemUsers
             builder.Property(b => b.Contribuinte).IsRequired().HasMaxLength(9);
 
             // Configuração de relacionamentos, se aplicável
-            // builder.HasMany(b => b.Roles).WithMany(r => r.Users).UsingEntity(j => j.ToTable("UserRole"));
+            builder.HasMany(b => b.Role).WithMany(r => r.Users).UsingEntity(j => j.ToTable("Role"));
         }
     }
 }

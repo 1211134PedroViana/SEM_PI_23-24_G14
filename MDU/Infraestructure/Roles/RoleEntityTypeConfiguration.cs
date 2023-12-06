@@ -10,9 +10,11 @@ namespace Mpt.Infrastructure.Roles
         {
             // cf. https://www.entityframeworktutorial.net/efcore/fluent-api-in-entity-framework-core.aspx
             
-            //builder.ToTable("Categories", SchemaNames.Mpt);
+            builder.ToTable("Role", SchemaNames.Mpt);
             builder.HasKey(b => b.Id);
-            //builder.Property<bool>("_active").HasColumnName("Active");
+            builder.Property(b => b.Name).IsRequired().HasMaxLength(30);
+            builder.Property(b => b.Description).IsRequired().HasMaxLength(100);
+            
         }
     }
 }

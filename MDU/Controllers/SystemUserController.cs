@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
-using DDDSample1.Domain.Shared;
-using DDDSample1.Domain.SystemUsers;
+using Mpt.Domain.Shared;
+using Mpt.Domain.SystemUsers;
 
-namespace DDDSample1.Controllers
+namespace Mpt.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -20,14 +20,14 @@ namespace DDDSample1.Controllers
 
         // GET: api/SystemUsers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SystemUserDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<SystemUserDTO>>> GetAll()
         {
             return await _service.GetAllAsync();
         }
 
         // GET: api/SystemUsers/U1
         [HttpGet("{id}")]
-        public async Task<ActionResult<SystemUserDto>> GetGetById(String id)
+        public async Task<ActionResult<SystemUserDTO>> GetGetById(String id)
         {
             var user = await _service.GetByIdAsync(new SystemUserId(id));
 
@@ -41,7 +41,7 @@ namespace DDDSample1.Controllers
 
         // POST: api/SystemUsers
         [HttpPost]
-        public async Task<ActionResult<SystemUserDto>> Create(SystemUserDto dto)
+        public async Task<ActionResult<SystemUserDTO>> Create(SystemUserDTO dto)
         {
             var user = await _service.AddAsync(dto);
 
@@ -50,7 +50,7 @@ namespace DDDSample1.Controllers
 
         // PUT: api/SystemUsers/U1
         [HttpPut("{id}")]
-        public async Task<ActionResult<SystemUserDto>> Update(String id, SystemUserDto dto)
+        public async Task<ActionResult<SystemUserDTO>> Update(String id, SystemUserDTO dto)
         {
             if (id != dto.Id)
             {
@@ -75,7 +75,7 @@ namespace DDDSample1.Controllers
 
         // Inactivate: api/SystemUsers/U1
         [HttpDelete("{id}")]
-        public async Task<ActionResult<SystemUserDto>> SoftDelete(String id)
+        public async Task<ActionResult<SystemUserDTO>> SoftDelete(String id)
         {
             var user = await _service.InactivateAsync(new SystemUserId(id));
 
@@ -89,7 +89,7 @@ namespace DDDSample1.Controllers
 
         // DELETE: api/SystemUsers/U1/hard
         [HttpDelete("{id}/hard")]
-        public async Task<ActionResult<SystemUserDto>> HardDelete(String id)
+        public async Task<ActionResult<SystemUserDTO>> HardDelete(String id)
         {
             try
             {
