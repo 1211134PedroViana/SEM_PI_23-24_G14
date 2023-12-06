@@ -1,12 +1,12 @@
-using DDDSample1.Domain.Categories;
-using DDDSample1.Infrastructure.Shared;
+using Mpt.Domain.Categories;
+using Mpt.Infrastructure.Shared;
 
-namespace DDDSample1.Infrastructure.Categories
+namespace Mpt.Infrastructure.Categories
 {
     public class CategoryRepository : BaseRepository<Category, CategoryId>, ICategoryRepository
     {
     
-        public CategoryRepository(DDDSample1DbContext context):base(context.Categories)
+        public CategoryRepository(MptDbContext context):base(context.Categories)
         {
            
         }

@@ -1,6 +1,6 @@
-using DDDSample1.Domain.Shared;
+using Mpt.Domain.Shared;
 
-namespace DDDSample1.Domain.Products
+namespace Mpt.Domain.Products
 {
     public interface IProductRepository: IRepository<Product,ProductId>
     {

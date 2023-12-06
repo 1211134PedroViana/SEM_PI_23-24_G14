@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { ElevatorService } from 'src/elevatorService/elevator.service';
 import FloorMap from 'src/floorMapService/floorMap';
 import { FloorMapService } from 'src/floorMapService/floorMap-service';
@@ -18,7 +18,7 @@ import Cell from 'src/pathService/cell';
   styleUrls: ['./automatic-path-viewer.component.css']
 })
 
-export class AutomaticPathViewerComponent {
+export class AutomaticPathViewerComponent implements OnDestroy {
 
   @Input() path: string[] = [];
   @Input() cellsPath: Cell[][] = [];
@@ -44,6 +44,10 @@ export class AutomaticPathViewerComponent {
         });
       });
     }
+  }
+
+  ngOnDestroy() {
+    this.cleanup();
   }
 
   private floorViewer: any;

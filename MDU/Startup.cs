@@ -1,27 +1,26 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using DDDSample1.Infrastructure;
-using DDDSample1.Infrastructure.Categories;
-using DDDSample1.Infrastructure.Products;
-using DDDSample1.Infrastructure.Families;
-using DDDSample1.Infrastructure.Shared;
-using DDDSample1.Domain.Shared;
-using DDDSample1.Domain.Categories;
-using DDDSample1.Domain.Products;
-using DDDSample1.Domain.Families;
 
-namespace DDDSample1
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Mpt.Infrastructure;
+using Mpt.Infrastructure.Categories;
+using Mpt.Infrastructure.Products;
+using Mpt.Infrastructure.Families;
+using Mpt.Infrastructure.Shared;
+using Mpt.Domain.Shared;
+using Mpt.Domain.Categories;
+using Mpt.Domain.Products;
+using Mpt.Domain.Families;
+using Microsoft.EntityFrameworkCore;
+
+namespace Mpt
 {
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            // Load environment variables from .env file
+            DotNetEnv.Env.Load();
         }
 
         public IConfiguration Configuration { get; }
@@ -29,12 +28,12 @@ namespace DDDSample1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DDDSample1DbContext>(opt =>
-                opt.UseInMemoryDatabase("DDDSample1DB")
-                .ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>());
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<MptDbContext>(opt => opt.UseSqlServer(connectionString)
+                  .ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>());
 
             ConfigureMyServices(services);
-            
+
 
             services.AddControllers().AddNewtonsoftJson();
         }
@@ -52,6 +51,8 @@ namespace DDDSample1
                 app.UseHsts();
             }
 
+            app.UseCors("MyPolicy");
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -66,15 +67,15 @@ namespace DDDSample1
 
         public void ConfigureMyServices(IServiceCollection services)
         {
-            services.AddTransient<IUnitOfWork,UnitOfWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddTransient<ICategoryRepository,CategoryRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<CategoryService>();
 
-            services.AddTransient<IProductRepository,ProductRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ProductService>();
 
-            services.AddTransient<IFamilyRepository,FamilyRepository>();
+            services.AddTransient<IFamilyRepository, FamilyRepository>();
             services.AddTransient<FamilyService>();
         }
     }

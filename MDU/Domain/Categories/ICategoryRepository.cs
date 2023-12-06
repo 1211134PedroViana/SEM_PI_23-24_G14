@@ -1,7 +1,7 @@
 
-using DDDSample1.Domain.Shared;
+using Mpt.Domain.Shared;
 
-namespace DDDSample1.Domain.Categories
+namespace Mpt.Domain.Categories
 {
     public interface ICategoryRepository: IRepository<Category, CategoryId>
     {
