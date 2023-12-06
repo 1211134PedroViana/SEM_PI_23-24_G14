@@ -1,12 +1,12 @@
-using DDDSample1.Domain.Families;
-using DDDSample1.Infrastructure.Shared;
+using Mpt.Domain.Families;
+using Mpt.Infrastructure.Shared;
 
-namespace DDDSample1.Infrastructure.Families
+namespace Mpt.Infrastructure.Families
 {
     public class FamilyRepository : BaseRepository<Family, FamilyId>, IFamilyRepository
     {
       
-        public FamilyRepository(DDDSample1DbContext context):base(context.Families)
+        public FamilyRepository(MptDbContext context):base(context.Families)
         {
             
         }

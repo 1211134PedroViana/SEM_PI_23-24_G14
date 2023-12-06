@@ -1,7 +1,7 @@
-namespace DDDSample1.Infrastructure
+namespace Mpt.Infrastructure
 {
     internal class SchemaNames
     {
-        internal const string DDDSample1 = "ddd";
+        internal const string Mpt = "ddd";
     }
 }

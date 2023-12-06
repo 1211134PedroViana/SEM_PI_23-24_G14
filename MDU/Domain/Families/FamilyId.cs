@@ -1,7 +1,7 @@
 using System;
-using DDDSample1.Domain.Shared;
+using Mpt.Domain.Shared;
 
-namespace DDDSample1.Domain.Families
+namespace Mpt.Domain.Families
 {
     public class FamilyId : EntityId
     {

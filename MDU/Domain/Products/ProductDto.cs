@@ -1,7 +1,7 @@
 using System;
-using DDDSample1.Domain.Categories;
+using Mpt.Domain.Categories;
 
-namespace DDDSample1.Domain.Products
+namespace Mpt.Domain.Products
 {
     public class ProductDto
     {

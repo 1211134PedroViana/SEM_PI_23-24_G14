@@ -1,8 +1,8 @@
 using System;
-using DDDSample1.Domain.Shared;
-using DDDSample1.Domain.Categories;
+using Mpt.Domain.Shared;
+using Mpt.Domain.Categories;
 
-namespace DDDSample1.Domain.Products
+namespace Mpt.Domain.Products
 {
     public class Product : Entity<ProductId>, IAggregateRoot
     {

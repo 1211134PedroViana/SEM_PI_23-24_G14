@@ -1,13 +1,13 @@
 using System.Threading.Tasks;
-using DDDSample1.Domain.Shared;
+using Mpt.Domain.Shared;
 
-namespace DDDSample1.Infrastructure
+namespace Mpt.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DDDSample1DbContext _context;
+        private readonly MptDbContext _context;
 
-        public UnitOfWork(DDDSample1DbContext context)
+        public UnitOfWork(MptDbContext context)
         {
             this._context = context;
         }
