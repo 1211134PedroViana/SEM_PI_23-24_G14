@@ -1,0 +1,18 @@
+@startuml
+
+actor TaskManager
+activate TaskManager
+
+TaskManager -> UI : Wants to approve or reject a request
+activate UI
+
+UI --> TaskManager : requests request data
+deactivate UI
+
+TaskManager -> UI : approves or rejects the request
+activate UI
+
+UI --> TaskManager : informs operation success
+deactivate UI
+
+@enduml

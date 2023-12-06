@@ -14,10 +14,23 @@
       </select>
     </div>
 
-    <div class="col-md-4">
-      <label for="floorList" class="form-label">Floor List:</label>
-      <input type="text" class="form-control" name="floorList" [(ngModel)]="floorList">
+    <div class="row">
+      <div class="col-md-4">
+        <label class="form-label">Floors:</label>
+        <div *ngFor="let floor of floors">
+          <input type="checkbox" id="floor{{ floor.floorNumber }}" name="floorCheckbox" [(ngModel)]="floor.selected">
+          <label for="floor{{ floor.floorNumber }}">{{ floor.description }}</label>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <label class="form-label">Selected Floors:</label>
+        <ul>
+          <li *ngFor="let selectedFloor of selectedFloors">{{ selectedFloor }}</li>
+        </ul>
+      </div>
     </div>
+
+
 
     <div class="col-md-4">
       <label for="brand" class="form-label">Brand</label>

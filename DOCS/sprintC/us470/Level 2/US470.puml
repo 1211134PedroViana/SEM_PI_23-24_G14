@@ -1,0 +1,29 @@
+@startuml
+
+autonumber
+
+actor TaskManager
+activate TaskManager
+TaskManager -> SPA : Asks to approve or reject a request
+activate SPA
+
+SPA --> TaskManager : shows the requests list
+deactivate SPA
+
+TaskManager -> SPA : chooses one request from the list
+activate SPA
+
+SPA -> Request : PATCH/request{}
+activate Request
+Request --> SPA : status code
+deactivate Request
+
+alt successfull case
+    SPA -> TaskManager : request successfully approved or rejected
+else failure
+    SPA -> TaskManager : request wasn't successfully rejected
+end
+
+deactivate SPA
+
+@enduml
