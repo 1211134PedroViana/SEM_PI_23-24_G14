@@ -1,11 +1,31 @@
 @startuml
-'https://plantuml.com/sequence-diagram
 
-autonumber
+activate SPA
+SPA -> GestaoInfoAPI : patch(/api/requests)
+activate GestaoInfoAPI
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+GestaoInfoAPI -> RequestController : patch
+activate RequestController
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+RequestController -> RequestService : approveOrRejectRequest()
+activate RequestService
+
+RequestService -> Request : approve or reject
+RequestService -> RequestRepo : save(request)
+activate RequestRepo
+RequestRepo -> RequestService : request
+deactivate RequestRepo
+
+RequestService -> RequestMap : toDTO(request)
+activate RequestMap
+
+RequestMap -> RequestService : requestDTO
+deactivate RequestMap
+
+RequestService -> RequestController : requestDTO()
+
+RequestController -> GestaoInfoAPI : status code 201
+
+GestaoInfoAPI -> SPA : Success
+
 @enduml
