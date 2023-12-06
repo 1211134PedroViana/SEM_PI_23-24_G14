@@ -12,10 +12,13 @@ namespace Mpt.Infrastructure.SystemUsers
 
             builder.HasKey(b => b.Id);
 
-            // Exemplo de configuração de outras propriedades, se aplicável
-            builder.Property(b => b.Username).IsRequired().HasMaxLength(50);
+            builder.Property(b => b.Email).IsRequired().HasMaxLength(100);
             builder.Property(b => b.Password).IsRequired().HasMaxLength(100);
-            // ... outras propriedades ...
+            builder.Property(b => b.Role).IsRequired().HasMaxLength(50);
+
+            // Adicionando as novas propriedades
+            builder.Property(b => b.PhoneNumber).IsRequired().HasMaxLength(9);
+            builder.Property(b => b.Contribuinte).IsRequired().HasMaxLength(9);
 
             // Configuração de relacionamentos, se aplicável
             // builder.HasMany(b => b.Roles).WithMany(r => r.Users).UsingEntity(j => j.ToTable("UserRole"));

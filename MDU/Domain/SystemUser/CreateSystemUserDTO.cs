@@ -6,6 +6,8 @@ namespace DDDSample1.Domain.SystemUsers
         public string Email { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Contribuinte { get; set; }
 
         public static SystemUserDto FromDomain(SystemUser user)
         {
@@ -14,7 +16,9 @@ namespace DDDSample1.Domain.SystemUsers
                 Id = user.Id.ToString(),
                 Email = user.Email,
                 Password = user.Password,
-                Role = user.Role
+                Role = user.Role,
+                PhoneNumber = user.PhoneNumber,
+                Contribuinte = user.Contribuinte
             };
         }
     }

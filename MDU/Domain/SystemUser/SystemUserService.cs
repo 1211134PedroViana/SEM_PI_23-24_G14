@@ -16,12 +16,12 @@ namespace DDDSample1.Domain.SystemUsers
             this._repo = repo;
         }
 
-        public async Task<List<SystemUserDto>> GetAllAsync()
+        public async Task<List<SystemUserDTO>> GetAllAsync()
         {
             var list = await this._repo.GetAllAsync();
 
-            List<SystemUserDto> listDto = list.ConvertAll<SystemUserDto>(user =>
-                new SystemUserDto(user.Id.AsGuid(), user.Email, user.Role, user.Active));
+            List<SystemUserDTO> listDto = list.ConvertAll<SystemUserDto>(user =>
+                new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.Active, user.PhoneNumber, user.Contribuinte));
 
             return listDto;
         }
@@ -33,17 +33,17 @@ namespace DDDSample1.Domain.SystemUsers
             if(user == null)
                 return null;
 
-            return new SystemUserDto(user.Id.AsGuid(), user.Email, user.Role, user.Active);
+            return new SystemUserDto(user.Id.AsGuid(), user.Email, user.Role, user.Active, user.PhoneNumber, user.Contribuinte);
         }
 
         public async Task<SystemUserDto> AddAsync(CreatingSystemUserDto dto)
         {
-            var user = new SystemUser(dto.Email, dto.Password, dto.Role);
+            var user = new SystemUser(dto.Email, dto.Password, dto.Role, dto.PhoneNumber, dto.Contribuinte);
 
             await this._repo.AddAsync(user);
             await this._unitOfWork.CommitAsync();
 
-            return new SystemUserDto(user.Id.AsGuid(), user.Email, user.Role, user.Active);
+            return new SystemUserDto(user.Id.AsGuid(), user.Email, user.Role, user.Active, user.PhoneNumber, user.Contribuinte);
         }
 
         public async Task<SystemUserDto> UpdateAsync(SystemUserDto dto)
@@ -55,10 +55,12 @@ namespace DDDSample1.Domain.SystemUsers
 
             // change all fields
             user.ChangePassword(dto.Password);
+            user.ChangePhoneNumber(dto.PhoneNumber);
+            user.ChangeContribuinte(dto.Contribuinte);
 
             await this._unitOfWork.CommitAsync();
 
-            return new SystemUserDto(user.Id.AsGuid(), user.Email, user.Role, user.Active);
+            return new SystemUserDto(user.Id.AsGuid(), user.Email, user.Role, user.Active, user.PhoneNumber, user.Contribuinte);
         }
 
         public async Task<SystemUserDto> DeactivateAsync(SystemUserId id)
@@ -72,7 +74,7 @@ namespace DDDSample1.Domain.SystemUsers
 
             await this._unitOfWork.CommitAsync();
 
-            return new SystemUserDto(user.Id.AsGuid(), user.Email, user.Role, user.Active);
+            return new SystemUserDto(user.Id.AsGuid(), user.Email, user.Role, user.Active, user.PhoneNumber, user.Contribuinte);
         }
 
         public async Task<SystemUserDto> DeleteAsync(SystemUserId id)
@@ -85,7 +87,7 @@ namespace DDDSample1.Domain.SystemUsers
             this._repo.Remove(user);
             await this._unitOfWork.CommitAsync();
 
-            return new SystemUserDto(user.Id.AsGuid(), user.Email, user.Role, user.Active);
+            return new SystemUserDto(user.Id.AsGuid(), user.Email, user.Role, user.Active, user.PhoneNumber, user.Contribuinte);
         }
     }
 }
