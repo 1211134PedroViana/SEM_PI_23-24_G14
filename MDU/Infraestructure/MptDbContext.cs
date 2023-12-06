@@ -12,6 +12,8 @@ namespace Mpt.Infrastructure
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Family> Families { get; set; }
+        public DbSet<SystemUser> SystemUsers { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         public MptDbContext(DbContextOptions options) : base(options)
         {
@@ -23,6 +25,8 @@ namespace Mpt.Infrastructure
             modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new FamilyEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new SystemUserEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleEntityTypeConfiguration());
         }
     }
 }
