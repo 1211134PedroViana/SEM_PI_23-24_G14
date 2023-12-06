@@ -2,7 +2,7 @@ using System;
 using Mpt.Domain.Shared;
 using Newtonsoft.Json;
 
-namespace Mpt.Domain.Role
+namespace Mpt.Domain.Roles
 {
     public class RoleId : EntityId
     {

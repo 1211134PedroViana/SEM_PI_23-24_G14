@@ -1,6 +1,6 @@
 using System;
 
-namespace Mpt.Domain.Role
+namespace Mpt.Domain.Roles
 {
     public class CreateRoleDTO
     {

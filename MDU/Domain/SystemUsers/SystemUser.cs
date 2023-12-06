@@ -7,7 +7,7 @@ namespace Mpt.Domain.SystemUsers
     {
         public string Email { get; private set; }
         public string Password { get; private set; }
-        public string Role { get; private set; }
+        public Role Role { get; private set; }
         public bool Active { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Contribuinte { get; private set; }

@@ -2,7 +2,7 @@ using System;
 using Mpt.Domain.Shared;
 using Newtonsoft.Json;
 
-namespace Mpt.Domain.SystemUser
+namespace Mpt.Domain.SystemUsers
 {
     public class SystemUserId : EntityId
     {

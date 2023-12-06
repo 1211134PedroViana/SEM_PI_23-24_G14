@@ -1,7 +1,7 @@
 using System;
 using Mpt.Domain.Shared;
 
-namespace Mpt.Domain.Role
+namespace Mpt.Domain.Roles
 {
     public class Role : Entity<RoleId>, IAggregateRoot
     {
