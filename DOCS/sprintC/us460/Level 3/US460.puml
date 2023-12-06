@@ -1,0 +1,31 @@
+@startuml
+
+activate SPA
+SPA -> GestaoInfoAPI : post(/api/tasks)
+activate GestaoInfoAPI
+
+GestaoInfoAPI -> TaskController : post
+activate TaskController
+
+TaskController -> TaskService : createTask()
+activate TaskService
+
+TaskService -> Task : create
+TaskService -> TaskRepo : save(task)
+activate TaskRepo
+TaskRepo -> TaskService : task
+deactivate TaskRepo
+
+TaskService -> TaskMap : toDTO(task)
+activate TaskMap
+
+TaskMap -> TaskService : taskDTO
+deactivate TaskMap
+
+TaskService -> TaskController : taskDTO()
+
+TaskController -> GestaoInfoAPI : status code 201
+
+GestaoInfoAPI -> SPA : Success
+
+@enduml

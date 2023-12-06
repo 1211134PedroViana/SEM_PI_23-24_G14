@@ -1,0 +1,26 @@
+@startuml
+
+autonumber
+
+actor SystemUser
+activate SystemUser
+SystemUser -> SPA : Requests a task
+activate SPA
+SPA --> SystemUser : requests data (startPoint, endPoint, taskType)
+deactivate SPA
+SystemUser -> SPA : types data (startPoint, endPoint, taskType)
+activate SPA
+
+SPA -> Task : POST/ task/{endPoint, startPoint, taskType}
+activate Task
+Task --> SPA : status code
+deactivate Task
+
+alt successfull case
+    SPA -> SystemUser : task successfully requested
+else failure
+    SPA -> SystemUser : task wasn't successfully requested
+end
+
+
+@enduml

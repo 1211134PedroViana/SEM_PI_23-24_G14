@@ -1,0 +1,16 @@
+@startuml
+
+actor SystemUser
+activate SystemUser
+SystemUser -> UI : Requests a task intending the necessary parameters for its execution
+activate UI
+UI --> SystemUser : requests data (startPoint, endPoint, taskType)
+deactivate UI
+SystemUser -> UI : types requested data (startPoint, endPoint, taskType)
+activate UI
+UI --> SystemUser : informs operation result
+deactivate UI
+
+
+
+@enduml
