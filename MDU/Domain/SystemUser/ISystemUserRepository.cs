@@ -1,6 +1,6 @@
-using DDDSample1.Domain.Shared;
+using Mpt.Domain.Shared;
 
-namespace DDDSample1.Domain.SystemUsers
+namespace Mpt.Domain.SystemUsers
 {
     public interface ISystemUserRepository : IRepository<SystemUser, SystemUserId>
     {

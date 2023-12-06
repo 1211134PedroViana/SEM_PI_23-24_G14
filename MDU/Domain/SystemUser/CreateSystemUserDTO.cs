@@ -1,4 +1,4 @@
-namespace DDDSample1.Domain.SystemUsers
+namespace Mpt.Domain.SystemUsers
 {
     public class SystemUserDto
     {

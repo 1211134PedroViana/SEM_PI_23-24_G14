@@ -1,7 +1,7 @@
 using System;
-using DDDSample1.Domain.Shared;
+using Mpt.Domain.Shared;
 
-namespace DDDSample1.Domain.SystemUsers
+namespace Mpt.Domain.SystemUsers
 {
     public class SystemUser : Entity<SystemUserId>, IAggregateRoot
     {

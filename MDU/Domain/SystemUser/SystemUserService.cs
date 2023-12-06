@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DDDSample1.Domain.Shared;
+using Mpt.Domain.Shared;
 
-namespace DDDSample1.Domain.SystemUsers
+namespace Mpt.Domain.SystemUsers
 {
     public class SystemUserService
     {
