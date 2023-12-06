@@ -10,6 +10,7 @@ import { RoomService } from 'src/roomService/room.service';
 import ThumbRaiser from 'src/Thumb_Raiser/thumb_raiser';
 import * as THREE from "three";
 import Orientation from 'src/Thumb_Raiser/orientation';
+import Cell from 'src/pathService/cell';
 
 @Component({
   selector: 'app-automatic-path-viewer',
@@ -20,7 +21,7 @@ import Orientation from 'src/Thumb_Raiser/orientation';
 export class AutomaticPathViewerComponent {
 
   @Input() path: string[] = [];
-  @Input() cellsPath: string[][] = [];
+  @Input() cellsPath: Cell[][] = [];
 
   locations: Location[] = [];
 
@@ -62,7 +63,7 @@ export class AutomaticPathViewerComponent {
     this.floorViewer.dispose(); // Dispose of any Three.js resources
   }
 
-  loadFloorMap(mapUrl: string, locations: Location[], cells: string[]) {
+  async loadFloorMap(mapUrl: string, locations: Location[], cells: Cell[]) {
     this.container = document.getElementById('container');
 
     this.floorViewer = new ThumbRaiser(
@@ -315,6 +316,7 @@ export class AutomaticPathViewerComponent {
         { location: locations, cells: cells },
 
     );
+
     this.render(this.floorViewer);
   }
 }

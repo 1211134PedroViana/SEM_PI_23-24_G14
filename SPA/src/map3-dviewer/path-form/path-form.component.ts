@@ -12,6 +12,7 @@ import Room from 'src/roomService/room';
 import { ElevatorService } from 'src/elevatorService/elevator.service';
 import Elevator from 'src/Thumb_Raiser/elevator';
 import Passage from 'src/passageService/passage';
+import Cell from 'src/pathService/cell';
 
 @Component({
   selector: 'app-path-form',
@@ -24,7 +25,7 @@ export class PathFormComponent {
   isViewerVisible: boolean = false;
 
   path: string[] = [];
-  cellsPath: string[][] = [];
+  cellsPath: Cell[][] = [];
 
   buildings: Building[] = [];
   floorsOrig: Floor[] = [];
@@ -91,8 +92,6 @@ export class PathFormComponent {
 
           this.isFormVisible = false;
           this.isViewerVisible = true;
-
-          console.log("val:" + this.isFormVisible)
 
         }),
         catchError((error) => {

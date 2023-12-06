@@ -360,7 +360,7 @@ import UserInterface from "./user_interface.js";
  * 
  * automaticPathingParameters = {
  *   location: [{ positionX: number, positionY: number, direction: String}],
- *   cells: [String]
+ *   cells: [{ col: number, lin: number}]
  * }
  */
 
@@ -1172,7 +1172,7 @@ export default class ThumbRaiser {
         this.audio.play(this.audio.endClips, false);
     }
 
-    update() {
+    async update() {
         if (!this.gameRunning) {
             if (this.audio.loaded() && this.maze.loaded && this.player.loaded) { // If all resources have been loaded
                 // Add positional audio sources to objects
@@ -1225,8 +1225,12 @@ export default class ThumbRaiser {
                 this.animations = new Animations(this.player);
 
                 // Set the player's position and direction
-                if(this.isAutomaticPathing) {
-                    this.player.position.set(this.location[0].positionX, this.maze.initialPosition.y, this.location[0].positionY);
+                if(this.generalParameters.isAutomaticPathing) {
+                    let initialCell = [];
+                    initialCell.push(this.automaticPathingParameters.location[0].positionY)
+                    initialCell.push(this.automaticPathingParameters.location[0].positionX)
+                    let coords = this.maze.cellToCartesian(initialCell);
+                    this.player.position.set(coords.x, coords.y, coords.z);
                 }else{
                     this.player.position.set(this.maze.initialPosition.x, this.maze.initialPosition.y, this.maze.initialPosition.z);
                 }
@@ -1305,103 +1309,207 @@ export default class ThumbRaiser {
             }
         }
         else {
-            /*
-            const deltaT = this.clock.getDelta();
-            this.animations.update(deltaT);
-
-            let coveredDistance = this.player.walkingSpeed * deltaT;
-            const position = this.player.position.clone();
-            const test = THREE.MathUtils.degToRad(this.player.direction);
             
-            position.add(new THREE.Vector3(coveredDistance * Math.sin(test), 0.0, coveredDistance * Math.cos(test)));
-            this.animations.fadeToAction("Walking", 0.2);
-            this.player.position.set(position.x, position.y, position.z);
-            this.player.direction = 90;
-            this.player.rotation.y = test - this.player.defaultDirection;
-            */
+            const destiny = [];
+            let len = this.automaticPathingParameters.cells.length;
+            destiny.push(this.automaticPathingParameters.cells[len-1].lin);
+            destiny.push(this.automaticPathingParameters.cells[len-1].col);
+            const dPosition = this.maze.cellToCartesian(destiny);
             
+            if(this.generalParameters.isAutomaticPathing) {
+                
+                // Update the model animations
+                const deltaT = this.clock.getDelta();
+                this.animations.update(deltaT);
+
+                const position = this.player.position.clone();
+
+                if (position.x >= dPosition.x && position.z > dPosition.z) {
+                    this.finalSequence();
+                } else {
+
+                let arr1 = [];
+                arr1.push(this.automaticPathingParameters.cells[0].lin);
+                arr1.push(this.automaticPathingParameters.cells[0].col);
+                
+                let arr2 = [];
+                arr2.push(this.automaticPathingParameters.cells[1].lin);
+                arr2.push(this.automaticPathingParameters.cells[1].col);
+
+                let fPosition = this.maze.cellToCartesian(arr2);
             
-            if(this.isAutomaticPathing) {
-
-                for(let i = 1; i < this.cells.length; i++) {
-                    // Update the model animations
-                    const deltaT = this.clock.getDelta();
-                    this.animations.update(deltaT);
-
-                    const position = this.player.position.clone();
-                    let arr1 = this.extractNumbersFromString(this.cells[i-1]);
-                    let arr2 = this.extractNumbersFromString(this.cells[i]);
-
-                    let fPosition = this.maze.cellToCartesian(arr2);
-
-                    let coveredDistance = this.player.walkingSpeed * deltaT;
-                    let directionIncrement = this.player.turningSpeed * deltaT;
+                let coveredDistance = this.player.walkingSpeed * deltaT;
+                let directionIncrement = this.player.turningSpeed * deltaT;
                    
-                    coveredDistance *= this.player.runningFactor;
-                    directionIncrement *= this.player.runningFactor;
+                coveredDistance *= this.player.runningFactor;
+                directionIncrement *= this.player.runningFactor;
                     
-                    if(arr2[0] === arr1[0] + 1 && arr2[1] === arr1[1]) {
+                if(arr2[1] === arr1[1] && arr2[0] === arr1[0] + 1) {
+                    await this.sleep(10);
 
-                        if(this.player.direction != 90) {
-                            this.player.direction = 90;
-                        }
-
-                        const directionRad = THREE.MathUtils.degToRad(this.player.direction);
-                        while(position.x != fPosition.x && position.z != fPosition.z) {
-                            position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
-                            this.animations.fadeToAction("Walking", 0.2);
-                            this.player.position.set(position.x, position.y, position.z);
-                        }
+                    if(this.player.direction != 0) {
+                         this.player.direction = 0;
                     }
 
-                    if(arr2[0] === arr1[0] - 1 && arr2[1] === arr1[1]) {
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
 
-                        if(this.player.direction != 270) {
-                            this.player.direction = 270;
-                        }
+                    if(position.x === fPosition.x && position.z > fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+                }
 
-                        const directionRad = THREE.MathUtils.degToRad(this.player.direction);
-                        while(position.x != fPosition.x && position.z != fPosition.z) {
-                            position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
-                            this.animations.fadeToAction("Walking", 0.2);
-                            this.player.position.set(position.x, position.y, position.z);
-                        }
+                if(arr2[1] === arr1[1] && arr2[0] === arr1[0] - 1 ) {
 
+                    if(this.player.direction != 180) {
+                        this.player.direction = 180;
                     }
 
-                    if(arr2[0] === arr1[0] && arr2[1] === arr1[1] + 1) {
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
 
-                        if(this.player.direction != 0) {
-                            this.player.direction = 0;
-                        }
+                    if(position.x === fPosition.x && position.z < fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+                }
 
-                        const directionRad = THREE.MathUtils.degToRad(this.player.direction);
-                        while(position.x != fPosition.x && position.z != fPosition.z) {
-                            position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
-                            this.animations.fadeToAction("Walking", 0.2);
-                            this.player.position.set(position.x, position.y, position.z);
-                        }
+                if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0]) {
 
+                    if(this.player.direction != 90) {
+                         this.player.direction = 90;
                     }
 
-                    if(arr2[0] === arr1[0] && arr2[1] === arr1[1] - 1) {
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
 
-                        if(this.player.direction != 180) {
-                            this.player.direction = 180;
-                        }
+                    if(position.x > fPosition.x && position.z === fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+                }
 
-                        const directionRad = THREE.MathUtils.degToRad(this.player.direction);
-                        while(position.x != fPosition.x && position.z != fPosition.z) {
-                            position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
-                            this.animations.fadeToAction("Walking", 0.2);
-                            this.player.position.set(position.x, position.y, position.z);
-                        }
+                if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0]) {
 
+                    if(this.player.direction != 270) {
+                        this.player.direction = 270;
                     }
 
-                    this.player.rotation.y = directionRad - this.player.defaultDirection;
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x < fPosition.x && position.z === fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+                }
+
+                if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0] + 1) {
+
+                    if(this.player.direction != 45) {
+                        this.player.direction = 45;
+                    }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x > fPosition.x && position.z > fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
 
                 }
+
+                if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0] + 1) {
+
+                    if(this.player.direction != 315) {
+                        this.player.direction = 315;
+                    }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x < fPosition.x && position.z > fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+                }
+
+                if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0] - 1) {
+
+                    if(this.player.direction != 225) {
+                        this.player.direction = 225;
+                    }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x < fPosition.x && position.z < fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+                }
+
+                if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0] - 1) {
+
+                    if(this.player.direction != 135) {
+                        this.player.direction = 135;
+                    }
+
+                    const directionRad = THREE.MathUtils.degToRad(this.player.direction);
+
+                    if(position.x > fPosition.x && position.z < fPosition.z) {
+                        this.automaticPathingParameters.cells.shift();
+                        
+                    } else {
+                        position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
+                        this.animations.fadeToAction("Walking", 0.2);
+                        this.player.position.set(position.x, position.y, position.z);
+                      
+                    }
+    
+                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+                
+                } 
+                    
+                }
+            
 
             } else {
 
@@ -1495,7 +1603,6 @@ export default class ThumbRaiser {
             }
                 
             }
-            
 
             // Update the flashlight, first-person view, third-person view and top view camera parameters (player orientation and target)
             let orientation = new THREE.Quaternion();
@@ -1561,6 +1668,9 @@ export default class ThumbRaiser {
                 this.frame.children[0].material.color.set(this.miniMapCamera.frameColor);
                 this.renderer.render(this.frame, this.camera2D); // Render the frame
             }
+
+            
+        
         }
     }
     dispose() {
@@ -1633,19 +1743,8 @@ export default class ThumbRaiser {
 
     }
 
-    extractNumbersFromString(inputString) {
-        // Use a regular expression to match the numbers within the parentheses
-        const regex = /cel\((\d+),(\d+)\)/;
-        
-        // Use exec to extract matches from the inputString
-        const match = regex.exec(inputString);
-    
-        // Extract the two numbers from the match result
-        const number1 = parseInt(match[1], 10);
-        const number2 = parseInt(match[2], 10);
-          
-        // Store the numbers in an array and return it
-        const resultArray = [number1, number2];
-        return resultArray;
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
+
 }
