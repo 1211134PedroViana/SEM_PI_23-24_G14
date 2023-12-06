@@ -4,7 +4,9 @@ import { catchError, tap } from 'rxjs/operators';
 import { ElevatorService } from '../../elevatorService/elevator.service';
 import Elevator from '../../elevatorService/elevator';
 import Building from "../../buildingService/building";
-import {BuildingService} from "../../buildingService/building.service"; // Adjust the path accordingly
+import {BuildingService} from "../../buildingService/building.service";
+import Floor from "../../floorService/floor";
+import {FloorService} from "../../floorService/floor-service"; // Adjust the path accordingly
 
 @Component({
   selector: 'app-create-elevator-form',
@@ -19,14 +21,17 @@ export class CreateElevatorFormComponent {
   positionY: number = 0;
   direction: string = '';
   buildingId: string = '';
-  floorList: string = '';
   brand: string = '';
   model: string = '';
   serialNumber: string = '';
   description: string = '';
   buildings: Building[] = [];
+  floorList: string[] = []; // Inicialize como uma matriz vazia
+  floors: any[] = [];
 
-  constructor(private elevatorService: ElevatorService, private buildingService: BuildingService, private snackBar: MatSnackBar) { }
+
+
+  constructor(private elevatorService: ElevatorService, private buildingService: BuildingService, private floorService : FloorService, private snackBar: MatSnackBar) { }
 
   closeForm() {
     this.elevatorService.closeForm();
@@ -41,7 +46,7 @@ export class CreateElevatorFormComponent {
         direction: this.direction
       },
       buildingId: this.buildingId,
-      floorList: this.floorList.split(',').map(floor => floor.trim()),
+      floorList: this.selectedFloors,
       brand: this.brand,
       model: this.model,
       serialNumber: this.serialNumber,
@@ -72,8 +77,13 @@ export class CreateElevatorFormComponent {
     this.buildingService.getAllBuildings().subscribe((buildings) => {
       this.buildings = buildings;
     });
+    this.floorService.getAllFloors().subscribe((floors) => {
+      this.floors = floors;
+    });
   }
-
+  get selectedFloors(): string[] {
+    return this.floors.filter(floor => floor.selected).map(floor => floor.id);
+  }
 
 }
 
