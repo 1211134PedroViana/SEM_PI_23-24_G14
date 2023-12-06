@@ -11,10 +11,10 @@
         <th class="header" scope="col">Code</th>
         <th class="header" scope="col">Name</th>
         <th class="header" scope="col">Model</th>
-        <th class="header" scope="col">Building Id</th>
-        <th class="header" scope="col">Location</th>
+        <th class="header" scope="col">PositionX</th>
+        <th class="header" scope="col">PositionY</th>
+        <th class="header" scope="col">Direction</th>
         <th class="header" scope="col">Brand</th>
-        <th class="header" scope="col">Floor List</th>
         <th class="header" scope="col">Serial Number</th>
       </tr>
     </thead>
@@ -24,10 +24,10 @@
         <td>{{ elevator.code }}</td>
         <td>{{ elevator.description }}</td>
         <td>{{ elevator.model }}</td>
-        <td>{{ elevator.buildingId }}</td>
-        <td>{{ elevator.location }}</td>
+        <td>{{ elevator.location.positionX }}</td>
+        <td>{{ elevator.location.positionY }}</td>
+        <td>{{ elevator.location.direction }}</td>
         <td>{{ elevator.brand }}</td>
-        <td>{{ elevator.floorList }}</td>
         <td>{{ elevator.serialNumber }}</td>
       </tr>
     </tbody>
