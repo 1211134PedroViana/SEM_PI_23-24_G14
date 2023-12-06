@@ -1,11 +1,9 @@
 @startuml
-'https://plantuml.com/sequence-diagram
 
 autonumber
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+actor TaskManager
+activate TaskManager
+TaskManager -> SPA : 
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
 @enduml

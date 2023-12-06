@@ -1,11 +1,18 @@
 @startuml
-'https://plantuml.com/sequence-diagram
 
-autonumber
+actor TaskManager
+activate TaskManager
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+TaskManager -> UI : Wants to approve or reject a request
+activate UI
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+UI --> TaskManager : requests request data
+deactivate UI
+
+TaskManager -> UI : approves or rejects the request
+activate UI
+
+UI --> TaskManager : informs operation success
+deactivate UI
+
 @enduml
