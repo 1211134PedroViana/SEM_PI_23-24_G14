@@ -20,7 +20,6 @@ namespace Mpt.Domain.SystemUsers
             // Construtor privado para uso do Entity Framework ou mecanismos de persistência semântica semelhantes
         }
 
-        public SystemUser(string email, string password, string role, int phoneNumber, int contribuinte)
         public SystemUser(string email, string password, Role role, string phoneNumber, string contribuinte)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(role.Name))

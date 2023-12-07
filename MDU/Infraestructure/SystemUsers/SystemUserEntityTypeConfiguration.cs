@@ -1,4 +1,4 @@
-using DDDSample1.Domain.SystemUsers;
+using Mpt.Domain.SystemUsers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -19,9 +19,5 @@ namespace Mpt.Infrastructure.SystemUsers
 
             builder.HasOne(b => b.Role);
         }
-    }
-
-    internal interface IEntityTypeConfiguration<T>
-    {
     }
 }

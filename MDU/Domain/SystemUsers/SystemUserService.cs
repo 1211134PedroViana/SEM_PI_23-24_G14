@@ -4,8 +4,6 @@ using Mpt.Infrastructure.SystemUsers;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Mpt.Domain.Shared;
-using Mpt.Domain.SystemUsers;
 
 namespace Mpt.Domain.SystemUsers
 {
@@ -13,11 +11,11 @@ namespace Mpt.Domain.SystemUsers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISystemUserRepository _repo;
-        private readonly SystemUserRepository _userRepository;
         
-        public SystemUserService(SystemUserRepository userRepository)
+        public SystemUserService(IUnitOfWork unitOfWork, ISystemUserRepository repo)
         {
-            _userRepository = userRepository;
+            this._unitOfWork = unitOfWork;
+            this._repo = repo;
         }
 
         public async Task<List<SystemUserDTO>> GetAllAsync()
@@ -25,30 +23,21 @@ namespace Mpt.Domain.SystemUsers
             var list = await this._repo.GetAllAsync();
 
             List<SystemUserDTO> listDto = list.ConvertAll<SystemUserDTO>(user =>
-                new SystemUserDTO(user.Id.Value, user.Email, user.Role, user. Password, user.PhoneNumber, user.Contribuinte));
-        return listDto;
-        }
-        
-        public async Task<SystemUserDTO> GetByIdAsync(Guid id)
                 new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte));
-
+                
             return listDto;
         }
 
         public async Task<SystemUserDTO> GetByIdAsync(SystemUserId id)
         {
-            SystemUserId entityId = new SystemUserId(id);
 
-            SystemUser user = await _userRepository.GetByIdAsync(entityId);
+            var user = await this._repo.GetByIdAsync(id);
 
-            if (user != null)
+            if (user == null)
             {
-                return SystemUserDTO.FromDomain(user);
+                return null;
             }
 
-            // Handle the case where the user is not found
-            // For example, you can return null or throw an exception.
-            return null;
             return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
         }
 
@@ -59,7 +48,6 @@ namespace Mpt.Domain.SystemUsers
             await this._repo.AddAsync(user);
             await this._unitOfWork.CommitAsync();
 
-            return new SystemUserDTO(user.Id.Value, user.Email, user.Password, user.Role, user.PhoneNumber, user.Contribuinte);
             return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
         }
 
@@ -75,9 +63,6 @@ namespace Mpt.Domain.SystemUsers
             user.ChangeContribuinte(dto.Contribuinte);
 
             await this._unitOfWork.CommitAsync();
-
-            return new SystemUserDTO(user.Id.Value, user.Email, user.Password, user.Role, user.PhoneNumber, user.Contribuinte);
-        }
 
             return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
         }
@@ -122,7 +107,6 @@ namespace Mpt.Domain.SystemUsers
             this._repo.Remove(user);
             await this._unitOfWork.CommitAsync();
 
-            return new SystemUserDTO(user.Id.Value, user.Email, user.Password, user.Role, user.PhoneNumber, user.Contribuinte);
             return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
         }
     }

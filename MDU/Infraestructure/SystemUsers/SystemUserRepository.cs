@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using DDDSample1.Domain.SystemUsers;
 using Mpt.Domain.SystemUsers;
 using Mpt.Infrastructure.Shared;
 using Microsoft.EntityFrameworkCore;
