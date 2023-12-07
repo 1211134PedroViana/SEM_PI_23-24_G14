@@ -1,11 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Mpt.Domain.Categories;
-using Mpt.Domain.Families;
-using Mpt.Domain.Products;
 using Mpt.Domain.SystemUsers;
 using Mpt.Domain.Roles;
-using Mpt.Infrastructure.Categories;
-using Mpt.Infrastructure.Products;
 using Mpt.Infrastructure.SystemUsers;
 using Mpt.Infrastructure.Roles;
 
@@ -13,9 +8,6 @@ namespace Mpt.Infrastructure
 {
     public class MptDbContext : DbContext
     {
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Family> Families { get; set; }
         public DbSet<SystemUser> SystemUsers { get; set; }
         public DbSet<Role> Roles { get; set; }
 
@@ -26,9 +18,6 @@ namespace Mpt.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new FamilyEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new SystemUserEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new RoleEntityTypeConfiguration());
         }

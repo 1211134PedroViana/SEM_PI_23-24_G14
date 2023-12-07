@@ -9,7 +9,7 @@ namespace Mpt.Infrastructure.Roles
         public void Configure(EntityTypeBuilder<Role> builder)
         {
             
-            builder.ToTable("Roles", SchemaNames.Mpt);
+            builder.ToTable("Roles");
 
             builder.HasKey(b => b.Id);
 
