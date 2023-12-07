@@ -36,6 +36,7 @@ namespace Mpt.Infrastructure.SystemUsers
 
         public SystemUserRepository(DbSet<SystemUser> objs) : base(objs)
         {
+            //Task<SystemUser> GetByEmailAsync(string email);
         }
     }
 }

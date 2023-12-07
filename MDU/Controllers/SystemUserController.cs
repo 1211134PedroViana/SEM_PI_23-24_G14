@@ -2,12 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
-using DDDSample1.Domain.SystemUsers;
 using Mpt.Domain.Shared;
 using Mpt.Domain.SystemUsers;
-using SystemUserDTO = Mpt.Domain.SystemUsers.SystemUserDTO;
 
-namespace DDDSample1.Controllers
+namespace Mpt.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -22,14 +20,14 @@ namespace DDDSample1.Controllers
 
         // GET: api/SystemUsers
         [HttpGet]
-        public async Task<List<SystemUserDTO>> GetAll()
+        public async Task<ActionResult<IEnumerable<SystemUserDTO>>> GetAll()
         {
             return await _service.GetAllAsync();
         }
 
         // GET: api/SystemUsers/U1
         [HttpGet("{id}")]
-        public async Task<ActionResult<SystemUserDTO>> GetGetById(Guid id)
+        public async Task<ActionResult<SystemUserDTO>> GetGetById(String id)
         {
             var user = await _service.GetByIdAsync(id);
 
@@ -73,6 +71,20 @@ namespace DDDSample1.Controllers
             {
                 return BadRequest(new {Message = ex.Message});
             }
+        }
+
+        // Inactivate: api/SystemUsers/U1
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<SystemUserDTO>> SoftDelete(Guid id)
+        {
+            var user = await _service.InactivateAsync(new SystemUserId(id));
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
         }
 
         // DELETE: api/SystemUsers/U1/hard

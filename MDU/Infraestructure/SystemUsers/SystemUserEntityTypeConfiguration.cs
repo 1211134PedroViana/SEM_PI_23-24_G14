@@ -8,20 +8,16 @@ namespace Mpt.Infrastructure.SystemUsers
     {
         public void Configure(EntityTypeBuilder<SystemUser> builder)
         {
-            builder.ToTable("SystemUsers"); // Altere para o nome da tabela desejado
+            builder.ToTable("SystemUsers");
 
             builder.HasKey(b => b.Id);
 
             builder.Property(b => b.Email).IsRequired().HasMaxLength(100);
             builder.Property(b => b.Password).IsRequired().HasMaxLength(100);
-            builder.Property(b => b.Role).IsRequired().HasMaxLength(50);
-
-            // Adicionando as novas propriedades
             builder.Property(b => b.PhoneNumber).IsRequired().HasMaxLength(9);
             builder.Property(b => b.Contribuinte).IsRequired().HasMaxLength(9);
 
-            // Configuração de relacionamentos, se aplicável
-            // builder.HasMany(b => b.Roles).WithMany(r => r.Users).UsingEntity(j => j.ToTable("UserRole"));
+            builder.HasOne(b => b.Role);
         }
     }
 

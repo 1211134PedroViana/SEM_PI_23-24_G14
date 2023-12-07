@@ -1,8 +1,13 @@
 using Mpt.Domain.Shared;
 using Mpt.Domain.SystemUsers;
 using Mpt.Infrastructure.SystemUsers;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Mpt.Domain.Shared;
+using Mpt.Domain.SystemUsers;
 
-namespace DDDSample1.Domain.SystemUsers
+namespace Mpt.Domain.SystemUsers
 {
     public class SystemUserService
     {
@@ -25,6 +30,12 @@ namespace DDDSample1.Domain.SystemUsers
         }
         
         public async Task<SystemUserDTO> GetByIdAsync(Guid id)
+                new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte));
+
+            return listDto;
+        }
+
+        public async Task<SystemUserDTO> GetByIdAsync(SystemUserId id)
         {
             SystemUserId entityId = new SystemUserId(id);
 
@@ -38,6 +49,7 @@ namespace DDDSample1.Domain.SystemUsers
             // Handle the case where the user is not found
             // For example, you can return null or throw an exception.
             return null;
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
         }
 
         public async Task<SystemUserDTO> AddAsync(CreateSystemUserDTO dto)
@@ -48,6 +60,7 @@ namespace DDDSample1.Domain.SystemUsers
             await this._unitOfWork.CommitAsync();
 
             return new SystemUserDTO(user.Id.Value, user.Email, user.Password, user.Role, user.PhoneNumber, user.Contribuinte);
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
         }
 
         public async Task<SystemUserDTO> UpdateAsync(SystemUserDTO dto)
@@ -58,13 +71,30 @@ namespace DDDSample1.Domain.SystemUsers
                 return null;
 
             // change all fields
-            user.ChangePassword(dto.Password);
             user.ChangePhoneNumber(dto.PhoneNumber);
             user.ChangeContribuinte(dto.Contribuinte);
 
             await this._unitOfWork.CommitAsync();
 
             return new SystemUserDTO(user.Id.Value, user.Email, user.Password, user.Role, user.PhoneNumber, user.Contribuinte);
+        }
+
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
+        }
+
+        public async Task<SystemUserDTO> InactivateAsync(SystemUserId id)
+        {
+            var user = await this._repo.GetByIdAsync(id); 
+
+            if (user == null)
+                return null;   
+
+            // change all fields
+            user.MarkAsInative();
+            
+            await this._unitOfWork.CommitAsync();
+
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
         }
 
         public async Task<SystemUserDTO> DeactivateAsync(SystemUserId id)
@@ -74,11 +104,12 @@ namespace DDDSample1.Domain.SystemUsers
             if (user == null)
                 return null;
 
-            user.Deactivate();
+            user.MarkAsInative();
 
             await this._unitOfWork.CommitAsync();
 
             return new SystemUserDTO(user.Id.Value, user.Email, user.Password, user.Role, user.PhoneNumber, user.Contribuinte);
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
         }
 
         public async Task<SystemUserDTO> DeleteAsync(SystemUserId id)
@@ -92,6 +123,7 @@ namespace DDDSample1.Domain.SystemUsers
             await this._unitOfWork.CommitAsync();
 
             return new SystemUserDTO(user.Id.Value, user.Email, user.Password, user.Role, user.PhoneNumber, user.Contribuinte);
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
         }
     }
 }

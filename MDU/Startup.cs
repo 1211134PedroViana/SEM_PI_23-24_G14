@@ -1,14 +1,12 @@
 
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Mpt.Infrastructure;
-using Mpt.Infrastructure.Categories;
-using Mpt.Infrastructure.Products;
-using Mpt.Infrastructure.Families;
 using Mpt.Infrastructure.Shared;
+using Mpt.Infrastructure.Roles;
+using Mpt.Infrastructure.SystemUsers;
 using Mpt.Domain.Shared;
-using Mpt.Domain.Categories;
-using Mpt.Domain.Products;
-using Mpt.Domain.Families;
+using Mpt.Domain.Roles;
+using Mpt.Domain.SystemUsers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Mpt
@@ -69,14 +67,11 @@ namespace Mpt
         {
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddTransient<ICategoryRepository, CategoryRepository>();
-            services.AddTransient<CategoryService>();
+            services.AddTransient<ISystemUserRepository, SystemUserRepository>();
+            services.AddTransient<SystemUserService>();
 
-            services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<ProductService>();
-
-            services.AddTransient<IFamilyRepository, FamilyRepository>();
-            services.AddTransient<FamilyService>();
+            services.AddTransient<IRoleRepository, RoleRepository>();
+            services.AddTransient<RoleService>();
         }
     }
 }

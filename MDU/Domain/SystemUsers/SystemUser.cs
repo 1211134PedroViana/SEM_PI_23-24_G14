@@ -1,14 +1,16 @@
 using System;
 using Mpt.Domain.Shared;
 using Mpt.Domain.SystemUsers;
+using Mpt.Domain.Roles;
 
-namespace DDDSample1.Domain.SystemUsers
+namespace Mpt.Domain.SystemUsers
 {
     public class SystemUser : Entity<SystemUserId>, IAggregateRoot
     {
+        public SystemUserId Id { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
-        public string Role { get; private set; }
+        public Role Role { get; private set; }
         public bool Active { get; private set; }
         public int PhoneNumber { get; private set; }
         public int Contribuinte { get; private set; }
@@ -19,8 +21,9 @@ namespace DDDSample1.Domain.SystemUsers
         }
 
         public SystemUser(string email, string password, string role, int phoneNumber, int contribuinte)
+        public SystemUser(string email, string password, Role role, string phoneNumber, string contribuinte)
         {
-            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(role))
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(role.Name))
                 throw new BusinessRuleValidationException("Email, password, and role are required.");
 
             this.Id = new SystemUserId(Guid.NewGuid());
@@ -55,7 +58,7 @@ namespace DDDSample1.Domain.SystemUsers
             this.Contribuinte = newContribuinte;
         }
 
-        public void Deactivate()
+        public void MarkAsInative()
         {
             this.Active = false;
         }
