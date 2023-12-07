@@ -10,7 +10,7 @@ namespace Mpt.Domain.SystemUsers
         public SystemUserId Id { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
-        public Role Role { get; private set; }
+        public RoleId RoleId { get; private set; }
         public bool Active { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Contribuinte { get; private set; }
@@ -20,15 +20,18 @@ namespace Mpt.Domain.SystemUsers
             // Construtor privado para uso do Entity Framework ou mecanismos de persistência semântica semelhantes
         }
 
-        public SystemUser(string email, string password, Role role, string phoneNumber, string contribuinte)
+        public SystemUser(string email, string password, RoleId roleId, string phoneNumber, string contribuinte)
         {
-            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(role.Name))
-                throw new BusinessRuleValidationException("Email, password, and role are required.");
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(phoneNumber))
+                throw new BusinessRuleValidationException("Email, password are required.");
+
+            if (roleId == null)
+                throw new BusinessRuleValidationException("System user requires a role.");
 
             this.Id = new SystemUserId(Guid.NewGuid());
             this.Email = email;
             this.Password = password; // Recomenda-se utilizar técnicas seguras para armazenamento de senhas na prática
-            this.Role = role;
+            this.RoleId = roleId;
             this.Active = true;
             this.PhoneNumber = phoneNumber;
             this.Contribuinte = contribuinte;

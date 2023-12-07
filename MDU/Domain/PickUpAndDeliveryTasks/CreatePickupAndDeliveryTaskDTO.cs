@@ -15,7 +15,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
         public string DeliveryPersonPhoneNumber { get; set; }
         public string Description { get; set; }
         public string ConfirmationCode { get; set; }
-        public SystemUser User { get; set; }
+        public SystemUserId UserId { get; set; }
 
         public CreatePickupAndDeliveryTaskDTO(string pickupPlace, string deliveryPlace, string pickupPersonName,
             string pickupPersonPhoneNumber,
@@ -23,7 +23,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             string deliveryPersonPhoneNumber,
             string description,
             string confirmationCode,
-            SystemUser user)
+            SystemUserId userId)
         {
             this.PickupPlace = pickupPlace;
             this.DeliveryPlace = deliveryPlace;
@@ -33,7 +33,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             this.DeliveryPersonPhoneNumber = deliveryPersonPhoneNumber;
             this.Description = description;
             this.ConfirmationCode = confirmationCode;
-            this.User = user;
+            this.UserId = userId;
         }
     }
 }

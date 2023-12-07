@@ -15,7 +15,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
         public string Description { get; set; }
         public string ConfirmationCode { get; set; }
         public TasksStatus Status { get; set; }
-        public SystemUser User { get; set; }
+        public SystemUserId UserId { get; set; }
 
         private PickupAndDeliveryTask()
         {
@@ -31,7 +31,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             string deliveryPersonPhoneNumber,
             string description,
             string confirmationCode,
-            SystemUser user)
+            SystemUserId userId)
         {
             Id = new PickupAndDeliveryTaskId(Guid.NewGuid());
             this.PickupPlace = pickupPlace;
@@ -43,7 +43,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             this.Description = description;
             this.ConfirmationCode = confirmationCode;
             this.Status = TasksStatus.Pending;
-            this.User = user;
+            this.UserId = userId;
         }
     }
 }

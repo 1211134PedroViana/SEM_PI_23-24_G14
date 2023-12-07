@@ -22,10 +22,7 @@ namespace Mpt.Infrastructure.PickupAndDeliveryTasks
             builder.Property(b => b.Description).IsRequired().HasMaxLength(1000);
             builder.Property(b => b.ConfirmationCode).IsRequired();
             builder.Property(b => b.Status).IsRequired();
-            builder.Property(b => b.User).IsRequired();
-           
-            builder.HasOne(b => b.User);
-            
+            builder.Property(b => b.UserId).IsRequired();
         }
     }
 }

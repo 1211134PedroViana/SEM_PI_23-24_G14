@@ -16,8 +16,7 @@ namespace Mpt.Infrastructure.SystemUsers
             builder.Property(b => b.Password).IsRequired().HasMaxLength(100);
             builder.Property(b => b.PhoneNumber).IsRequired().HasMaxLength(9);
             builder.Property(b => b.Contribuinte).IsRequired().HasMaxLength(9);
-
-            builder.HasOne(b => b.Role);
+            builder.Property(b => b.RoleId).IsRequired();
         }
     }
 }

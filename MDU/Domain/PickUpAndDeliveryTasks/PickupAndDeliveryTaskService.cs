@@ -23,7 +23,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             List<PickupAndDeliveryTaskDTO> listDto = list.ConvertAll<PickupAndDeliveryTaskDTO>(task => 
                 new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
                 task.PickupPersonPhoneNumber, task.DeliveryPersonName, task.DeliveryPersonPhoneNumber, task.Description,
-                task.ConfirmationCode, task.Status, task.User));
+                task.ConfirmationCode, task.Status, task.UserId));
 
             return listDto;
         }
@@ -37,14 +37,14 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
 
             return new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
                 task.PickupPersonPhoneNumber, task.DeliveryPersonName, task.DeliveryPersonPhoneNumber, task.Description,
-                task.ConfirmationCode, task.Status, task.User);
+                task.ConfirmationCode, task.Status, task.UserId);
         }
 
         public async Task<PickupAndDeliveryTaskDTO> AddAsync(CreatePickupAndDeliveryTaskDTO dto)
         {
             var task = new PickupAndDeliveryTask(dto.PickupPlace, dto.DeliveryPlace, dto.PickupPersonName, 
             dto.PickupPersonPhoneNumber, dto.DeliveryPersonName, dto.DeliveryPersonPhoneNumber, dto.Description, 
-            dto.ConfirmationCode, dto.User);
+            dto.ConfirmationCode, dto.UserId);
 
             await this._repo.AddAsync(task);
 
@@ -52,7 +52,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
 
             return new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
                 task.PickupPersonPhoneNumber, task.DeliveryPersonName, task.DeliveryPersonPhoneNumber, task.Description,
-                task.ConfirmationCode, task.Status, task.User);
+                task.ConfirmationCode, task.Status, task.UserId);
         }
 
         public async Task<PickupAndDeliveryTaskDTO> DeleteAsync(PickupAndDeliveryTaskId id)
@@ -67,7 +67,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
 
             return new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
                 task.PickupPersonPhoneNumber, task.DeliveryPersonName, task.DeliveryPersonPhoneNumber, task.Description,
-                task.ConfirmationCode, task.Status, task.User);
+                task.ConfirmationCode, task.Status, task.UserId);
         }
     }
 }

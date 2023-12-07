@@ -1,7 +1,7 @@
 using System;
 using Mpt.Domain.SurveillanceTasks;
-using Mpt.Domain.Shared;
 using Mpt.Domain.SystemUsers;
+using Mpt.Domain.Shared;
 
 namespace Mpt.Domain.SurveillanceTasks
 {
@@ -12,16 +12,16 @@ namespace Mpt.Domain.SurveillanceTasks
         public string[] FloorIds { get; set; }
         public string PhoneNumber { get; set; }
         public TasksStatus Status { get; set; }
-        public SystemUser User { get; set; }
+        public SystemUserId UserId { get; set; }
 
-        public SurveillanceTaskDTO(Guid Id, string buildingId, string[] floorIds, string phoneNumber, TasksStatus status, SystemUser user)
+        public SurveillanceTaskDTO(Guid Id, string buildingId, string[] floorIds, string phoneNumber, TasksStatus status, SystemUserId userId)
         {
             this.Id = Id;
             this.BuildingId = buildingId;
             this.FloorIds = floorIds; 
             this.PhoneNumber = phoneNumber;
             this.Status = status;
-            this.User = user;
+            this.UserId = userId;
         }
     }
 }

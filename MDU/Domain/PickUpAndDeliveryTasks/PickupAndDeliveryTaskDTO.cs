@@ -1,7 +1,7 @@
 using System;
 using Mpt.Domain.PickupAndDeliveryTasks;
-using Mpt.Domain.Shared;
 using Mpt.Domain.SystemUsers;
+using Mpt.Domain.Shared;
 
 namespace Mpt.Domain.PickupAndDeliveryTasks
 {
@@ -17,7 +17,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
         public string Description { get; set; }
         public string ConfirmationCode { get; set; }
         public TasksStatus Status { get; set; }
-        public SystemUser User { get; set; }
+        public SystemUserId UserId { get; set; }
 
         public PickupAndDeliveryTaskDTO(Guid Id, string pickupPlace, string deliveryPlace, string pickupPersonName,
             string pickupPersonPhoneNumber,
@@ -26,7 +26,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             string description,
             string confirmationCode,
             TasksStatus status,
-            SystemUser user)
+            SystemUserId userId)
         {
             this.Id = Id;
             this.PickupPlace = pickupPlace;
@@ -38,7 +38,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             this.Description = description;
             this.ConfirmationCode = confirmationCode;
             this.Status = status;
-            this.User = user;
+            this.UserId = userId;
         }
     }
 }
