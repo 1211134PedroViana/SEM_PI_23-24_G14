@@ -93,7 +93,6 @@ namespace Mpt.Domain.SystemUsers
 
             await this._unitOfWork.CommitAsync();
 
-            return new SystemUserDTO(user.Id.Value, user.Email, user.Password, user.Role, user.PhoneNumber, user.Contribuinte);
             return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
         }
 

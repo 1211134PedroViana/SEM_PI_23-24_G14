@@ -27,9 +27,9 @@ namespace Mpt.Controllers
 
         // GET: api/SystemUsers/U1
         [HttpGet("{id}")]
-        public async Task<ActionResult<SystemUserDTO>> GetGetById(String id)
+        public async Task<ActionResult<SystemUserDTO>> GetGetById(Guid id)
         {
-            var user = await _service.GetByIdAsync(id);
+            var user = await _service.GetByIdAsync(new SystemUserId(id));
 
             if (user == null)
             {
