@@ -1,6 +1,6 @@
+using DDDSample1.Domain.SystemUsers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Mpt.Domain.SystemUsers;
 
 namespace Mpt.Infrastructure.SystemUsers
 {
@@ -23,5 +23,9 @@ namespace Mpt.Infrastructure.SystemUsers
             // Configuração de relacionamentos, se aplicável
             // builder.HasMany(b => b.Roles).WithMany(r => r.Users).UsingEntity(j => j.ToTable("UserRole"));
         }
+    }
+
+    internal interface IEntityTypeConfiguration<T>
+    {
     }
 }

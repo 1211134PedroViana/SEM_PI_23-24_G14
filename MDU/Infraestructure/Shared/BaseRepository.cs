@@ -9,7 +9,6 @@ namespace Mpt.Infrastructure.Shared
 {
     public class BaseRepository<TEntity,TEntityId> : IRepository<TEntity,TEntityId>
     where TEntity : Entity<TEntityId>
-    where TEntityId : EntityId
     {
         private readonly DbSet<TEntity> _objs;
         

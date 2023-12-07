@@ -8934,19 +8934,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pedro\\.nuget\\packages\\": {}
+    "C:\\Users\\Pedro Costa\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pedro\\Documents\\GitHub\\SEM_PI_23-24_G14\\MDU\\mpt.csproj",
+      "projectUniqueName": "C:\\Users\\Pedro Costa\\Desktop\\ISEP\\5º Semestre\\SEM_PI_23-24_G14\\MDU\\mpt.csproj",
       "projectName": "mpt",
-      "projectPath": "C:\\Users\\pedro\\Documents\\GitHub\\SEM_PI_23-24_G14\\MDU\\mpt.csproj",
-      "packagesPath": "C:\\Users\\pedro\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pedro\\Documents\\GitHub\\SEM_PI_23-24_G14\\MDU\\obj\\",
+      "projectPath": "C:\\Users\\Pedro Costa\\Desktop\\ISEP\\5º Semestre\\SEM_PI_23-24_G14\\MDU\\mpt.csproj",
+      "packagesPath": "C:\\Users\\Pedro Costa\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Pedro Costa\\Desktop\\ISEP\\5º Semestre\\SEM_PI_23-24_G14\\MDU\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\pedro\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Pedro Costa\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -9030,7 +9030,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

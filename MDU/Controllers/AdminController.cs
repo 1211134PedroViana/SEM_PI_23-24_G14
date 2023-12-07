@@ -2,16 +2,19 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
-using DDDSample1.Domain.Shared;
+using Mpt.Domain.Shared;
 using DDDSample1.Domain.SystemUsers;
-
-namespace DDDSample1.Controllers 
+/*
+namespace DDDSample1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
     {
         private AdminService _service;
+
+        // Corrected constructor
+        public AdminController(AdminService service)
         {
             _service = service;
         }
@@ -23,6 +26,7 @@ namespace DDDSample1.Controllers
         {
             return await _service.GetAllAsync();
         }
-        */
+        
     }
 }
+*/
