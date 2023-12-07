@@ -2,8 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using Mpt.Domain.Categories;
 using Mpt.Domain.Families;
 using Mpt.Domain.Products;
+using Mpt.Domain.SystemUsers;
+using Mpt.Domain.Roles;
 using Mpt.Infrastructure.Categories;
 using Mpt.Infrastructure.Products;
+using Mpt.Infrastructure.SystemUsers;
+using Mpt.Infrastructure.Roles;
 
 namespace Mpt.Infrastructure
 {

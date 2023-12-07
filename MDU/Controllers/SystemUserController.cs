@@ -41,7 +41,7 @@ namespace Mpt.Controllers
 
         // POST: api/SystemUsers
         [HttpPost]
-        public async Task<ActionResult<SystemUserDTO>> Create(SystemUserDTO dto)
+        public async Task<ActionResult<SystemUserDTO>> Create(CreateSystemUserDTO dto)
         {
             var user = await _service.AddAsync(dto);
 
@@ -50,7 +50,7 @@ namespace Mpt.Controllers
 
         // PUT: api/SystemUsers/U1
         [HttpPut("{id}")]
-        public async Task<ActionResult<SystemUserDTO>> Update(String id, SystemUserDTO dto)
+        public async Task<ActionResult<SystemUserDTO>> Update(Guid id, SystemUserDTO dto)
         {
             if (id != dto.Id)
             {
@@ -75,7 +75,7 @@ namespace Mpt.Controllers
 
         // Inactivate: api/SystemUsers/U1
         [HttpDelete("{id}")]
-        public async Task<ActionResult<SystemUserDTO>> SoftDelete(String id)
+        public async Task<ActionResult<SystemUserDTO>> SoftDelete(Guid id)
         {
             var user = await _service.InactivateAsync(new SystemUserId(id));
 
@@ -89,7 +89,7 @@ namespace Mpt.Controllers
 
         // DELETE: api/SystemUsers/U1/hard
         [HttpDelete("{id}/hard")]
-        public async Task<ActionResult<SystemUserDTO>> HardDelete(String id)
+        public async Task<ActionResult<SystemUserDTO>> HardDelete(Guid id)
         {
             try
             {

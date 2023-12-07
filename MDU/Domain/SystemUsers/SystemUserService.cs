@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mpt.Domain.Shared;
+using Mpt.Domain.SystemUsers;
 
 namespace Mpt.Domain.SystemUsers
 {
@@ -20,33 +21,33 @@ namespace Mpt.Domain.SystemUsers
         {
             var list = await this._repo.GetAllAsync();
 
-            List<SystemUserDTO> listDto = list.ConvertAll<SystemUserDto>(user =>
-                new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.Active, user.PhoneNumber, user.Contribuinte));
+            List<SystemUserDTO> listDto = list.ConvertAll<SystemUserDTO>(user =>
+                new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte));
 
             return listDto;
         }
 
-        public async Task<SystemUserDto> GetByIdAsync(SystemUserId id)
+        public async Task<SystemUserDTO> GetByIdAsync(SystemUserId id)
         {
             var user = await this._repo.GetByIdAsync(id);
 
             if(user == null)
                 return null;
 
-            return new SystemUserDto(user.Id.AsGuid(), user.Email, user.Role, user.Active, user.PhoneNumber, user.Contribuinte);
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
         }
 
-        public async Task<SystemUserDto> AddAsync(CreatingSystemUserDto dto)
+        public async Task<SystemUserDTO> AddAsync(CreateSystemUserDTO dto)
         {
             var user = new SystemUser(dto.Email, dto.Password, dto.Role, dto.PhoneNumber, dto.Contribuinte);
 
             await this._repo.AddAsync(user);
             await this._unitOfWork.CommitAsync();
 
-            return new SystemUserDto(user.Id.AsGuid(), user.Email, user.Role, user.Active, user.PhoneNumber, user.Contribuinte);
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
         }
 
-        public async Task<SystemUserDto> UpdateAsync(SystemUserDto dto)
+        public async Task<SystemUserDTO> UpdateAsync(SystemUserDTO dto)
         {
             var user = await this._repo.GetByIdAsync(new SystemUserId(dto.Id));
 
@@ -54,30 +55,44 @@ namespace Mpt.Domain.SystemUsers
                 return null;
 
             // change all fields
-            user.ChangePassword(dto.Password);
             user.ChangePhoneNumber(dto.PhoneNumber);
             user.ChangeContribuinte(dto.Contribuinte);
 
             await this._unitOfWork.CommitAsync();
 
-            return new SystemUserDto(user.Id.AsGuid(), user.Email, user.Role, user.Active, user.PhoneNumber, user.Contribuinte);
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
         }
 
-        public async Task<SystemUserDto> DeactivateAsync(SystemUserId id)
+        public async Task<SystemUserDTO> InactivateAsync(SystemUserId id)
+        {
+            var user = await this._repo.GetByIdAsync(id); 
+
+            if (user == null)
+                return null;   
+
+            // change all fields
+            user.MarkAsInative();
+            
+            await this._unitOfWork.CommitAsync();
+
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
+        }
+
+        public async Task<SystemUserDTO> DeactivateAsync(SystemUserId id)
         {
             var user = await this._repo.GetByIdAsync(id);
 
             if (user == null)
                 return null;
 
-            user.Deactivate();
+            user.MarkAsInative();
 
             await this._unitOfWork.CommitAsync();
 
-            return new SystemUserDto(user.Id.AsGuid(), user.Email, user.Role, user.Active, user.PhoneNumber, user.Contribuinte);
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
         }
 
-        public async Task<SystemUserDto> DeleteAsync(SystemUserId id)
+        public async Task<SystemUserDTO> DeleteAsync(SystemUserId id)
         {
             var user = await this._repo.GetByIdAsync(id);
 
@@ -87,7 +102,7 @@ namespace Mpt.Domain.SystemUsers
             this._repo.Remove(user);
             await this._unitOfWork.CommitAsync();
 
-            return new SystemUserDto(user.Id.AsGuid(), user.Email, user.Role, user.Active, user.PhoneNumber, user.Contribuinte);
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.Role, user.PhoneNumber, user.Contribuinte);
         }
     }
 }

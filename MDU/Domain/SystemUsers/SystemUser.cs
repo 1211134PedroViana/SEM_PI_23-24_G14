@@ -1,10 +1,12 @@
 using System;
 using Mpt.Domain.Shared;
+using Mpt.Domain.Roles;
 
 namespace Mpt.Domain.SystemUsers
 {
     public class SystemUser : Entity<SystemUserId>, IAggregateRoot
     {
+        public SystemUserId Id { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
         public Role Role { get; private set; }
@@ -17,9 +19,9 @@ namespace Mpt.Domain.SystemUsers
             // Construtor privado para uso do Entity Framework ou mecanismos de persistência semântica semelhantes
         }
 
-        public SystemUser(string email, string password, string role, string phoneNumber, string contribuinte)
+        public SystemUser(string email, string password, Role role, string phoneNumber, string contribuinte)
         {
-            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(role))
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(role.Name))
                 throw new BusinessRuleValidationException("Email, password, and role are required.");
 
             this.Id = new SystemUserId(Guid.NewGuid());
@@ -54,7 +56,7 @@ namespace Mpt.Domain.SystemUsers
             this.Contribuinte = newContribuinte;
         }
 
-        public void Deactivate()
+        public void MarkAsInative()
         {
             this.Active = false;
         }

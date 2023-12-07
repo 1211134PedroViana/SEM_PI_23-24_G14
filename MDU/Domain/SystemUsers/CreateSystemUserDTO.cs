@@ -1,25 +1,23 @@
+using Mpt.Domain.Roles;
+using Mpt.Domain.SystemUsers;
+
 namespace Mpt.Domain.SystemUsers
 {
-    public class SystemUserDto
+    public class CreateSystemUserDTO
     {
-        public string Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Role { get; set; }
+        public Role Role { get; set; }
         public string PhoneNumber { get; set; }
         public string Contribuinte { get; set; }
 
-        public static SystemUserDto FromDomain(SystemUser user)
+        public CreateSystemUserDTO(string email, string password, Role role, string phoneNumber, string contribuinte)
         {
-            return new SystemUserDto
-            {
-                Id = user.Id.ToString(),
-                Email = user.Email,
-                Password = user.Password,
-                Role = user.Role,
-                PhoneNumber = user.PhoneNumber,
-                Contribuinte = user.Contribuinte
-            };
+            Email = email;
+            Password = password;
+            Role = role;
+            PhoneNumber = phoneNumber;
+            Contribuinte = contribuinte;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Mpt.Infrastructure.SystemUsers
     {
         public SystemUserRepository(MptDbContext context) : base(context.SystemUsers)
         {
-
+            //Task<SystemUser> GetByEmailAsync(string email);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using Mpt.Domain.Roles;
 
 namespace Mpt.Domain.Roles
 {
@@ -8,7 +9,7 @@ namespace Mpt.Domain.Roles
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public RoleDTO(Guid id, string name, string description)
+        public RoleDTO(Guid Id, string name, string description)
         {
             this.Id = Id;
             this.Name = name;

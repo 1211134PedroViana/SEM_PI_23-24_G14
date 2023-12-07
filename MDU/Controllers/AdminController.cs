@@ -1,3 +1,4 @@
+/*
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
@@ -16,13 +17,14 @@ namespace Mpt.Controllers
             _service = service;
         }
 
-        /*
+        
         // POST : api/Admin/AcceptOrRejectUsers
         [HttpPost]
         public async Task<ActionResult<AdminDto>> GetAll()
         {
             return await _service.GetAllAsync();
         }
-        */
+        
     }
 }
+*/
