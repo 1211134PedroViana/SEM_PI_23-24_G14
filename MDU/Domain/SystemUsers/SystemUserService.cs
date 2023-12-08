@@ -31,7 +31,7 @@ namespace Mpt.Domain.SystemUsers
         }
     
 
-        public async Task<SystemUserDTO> GetByIdAsync(Guid id)
+        public async Task<SystemUserDTO> GetByIdAsync(SystemUserId id)
         {
 
             var user = await this._repo.GetByIdAsync(id);

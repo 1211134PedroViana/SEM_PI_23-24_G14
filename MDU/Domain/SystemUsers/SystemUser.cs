@@ -5,7 +5,7 @@ using Mpt.Domain.Roles;
 
 namespace Mpt.Domain.SystemUsers
 {
-    public class SystemUser : Entity<Guid>, IAggregateRoot
+    public class SystemUser : Entity<SystemUserId>, IAggregateRoot
     {
         public Guid Id { get; private set; }
         public string Email { get; private set; }

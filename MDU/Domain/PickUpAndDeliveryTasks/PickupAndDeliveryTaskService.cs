@@ -12,7 +12,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
         private readonly IPickupAndDeliveryTaskRepository _repo;
         private readonly ISystemUserRepository _userRepo;
 
-        public PickupAndDeliveryTaskService(IUnitOfWork unitOfWork, IPickupAndDeliveryTaskRepository repo ISystemUserRepository userRepo)
+        public PickupAndDeliveryTaskService(IUnitOfWork unitOfWork, IPickupAndDeliveryTaskRepository repo, ISystemUserRepository userRepo)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;

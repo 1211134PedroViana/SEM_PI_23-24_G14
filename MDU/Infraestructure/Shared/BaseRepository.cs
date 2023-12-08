@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Mpt.Domain.Shared;
+using Mpt.Domain.SystemUsers;
 
 namespace Mpt.Infrastructure.Shared
 {
@@ -11,7 +12,7 @@ namespace Mpt.Infrastructure.Shared
     where TEntity : Entity<TEntityId>
     where TEntityId : EntityId
     {
-        private readonly DbSet<TEntity> _objs;
+        public readonly DbSet<TEntity> _objs;
         
         public BaseRepository(DbSet<TEntity> objs)
         {
@@ -24,7 +25,7 @@ namespace Mpt.Infrastructure.Shared
             return await this._objs.ToListAsync();
         }
         
-        public async Task<TEntity> GetByIdAsync(TEntityId id)
+        public async Task<TEntity> GetByIdAsync(SystemUserId id)
         {
             //return await this._context.Categories.FindAsync(id);
             return await this._objs
