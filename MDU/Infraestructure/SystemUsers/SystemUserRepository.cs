@@ -11,13 +11,8 @@ namespace Mpt.Infrastructure.SystemUsers
 {
     public class SystemUserRepository : BaseRepository<SystemUser, SystemUserId>, ISystemUserRepository
     {
-        public SystemUserRepository(DbSet<SystemUser> objs) : base(objs)
+        public SystemUserRepository(MptDbContext context):base(context.SystemUsers)
         {
-        }
-
-        public async Task<List<SystemUser>> GetByIdsAsync(List<Guid> ids)
-        {
-            return await _objs.Where(user => ids.Contains(user.Id)).ToListAsync();
         }
     }
 }

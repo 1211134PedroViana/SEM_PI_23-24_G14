@@ -105,3 +105,11 @@
   
   .fw-semibold { font-weight: 600; }
   .lh-tight { line-height: 1.25; }
+
+.listOptions {
+  background-color: rgb(29, 25, 42);
+}
+
+.click {
+  cursor: pointer;
+}

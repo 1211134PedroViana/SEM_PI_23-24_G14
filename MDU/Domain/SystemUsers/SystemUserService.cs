@@ -24,37 +24,79 @@ namespace Mpt.Domain.SystemUsers
         public async Task<List<SystemUserDTO>> GetAllAsync()
         {
             var list = await this._repo.GetAllAsync();
-
             List<SystemUserDTO> listDto = list.ConvertAll<SystemUserDTO>(user =>
-                new SystemUserDTO(user.Id, user.Email, user.Role, user. Password, user.PhoneNumber, user.Contribuinte));
-        return listDto;
+                new SystemUserDTO(user.Id.AsGuid(), user.Email, user.RoleId, user.PhoneNumber, user.Contribuinte));
+                
+            return listDto;
         }
-    
 
         public async Task<SystemUserDTO> GetByIdAsync(SystemUserId id)
         {
-
             var user = await this._repo.GetByIdAsync(id);
-
             if (user == null)
             {
                 return null;
             }
-
-            // Handle the case where the user is not found
-            // For example, you can return null or throw an exception.
-            return new SystemUserDTO(user.Id, user.Email, user.RoleId, user.PhoneNumber, user.Contribuinte);
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.RoleId, user.PhoneNumber, user.Contribuinte);
         }
-
 
         public async Task<SystemUserDTO> AddAsync(CreateSystemUserDTO dto)
         {
-            var user = new SystemUser(dto.Email, dto.Password, dto.Role, dto.PhoneNumber, dto.Contribuinte);
-
+            await checkRoleIdAsync(dto.RoleId);
+            var user = new SystemUser(dto.Email, dto.Password, dto.RoleId, dto.PhoneNumber, dto.Contribuinte);
             await this._repo.AddAsync(user);
             await this._unitOfWork.CommitAsync();
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.RoleId, user.PhoneNumber, user.Contribuinte);
+        }
 
-            return new SystemUserDTO(user.Id, user.Email, user.Password, user.Role, user.PhoneNumber, user.Contribuinte);
+        public async Task<SystemUserDTO> UpdateAsync(SystemUserDTO dto)
+        {
+            var user = await _repo.GetByIdAsync(new SystemUserId(dto.Id));
+            if (user == null)
+                return null;
+            // change all fields
+            user.ChangePhoneNumber(dto.PhoneNumber);
+            user.ChangeContribuinte(dto.Contribuinte);
+            await this._unitOfWork.CommitAsync();
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.RoleId, user.PhoneNumber, user.Contribuinte);
+        }
+        public async Task<SystemUserDTO> InactivateAsync(SystemUserId id)
+        {
+            var user = await this._repo.GetByIdAsync(id); 
+            if (user == null)
+                return null;   
+            // change all fields
+            user.MarkAsInative();
+            
+            await this._unitOfWork.CommitAsync();
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.RoleId, user.PhoneNumber, user.Contribuinte);
+        }
+
+        public async Task<SystemUserDTO> DeactivateAsync(SystemUserId id)
+        {
+            var user = await this._repo.GetByIdAsync(id);
+            if (user == null)
+                return null;
+            user.MarkAsInative();
+            await this._unitOfWork.CommitAsync();
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.RoleId, user.PhoneNumber, user.Contribuinte);
+        }
+
+        public async Task<SystemUserDTO> DeleteAsync(SystemUserId id)
+        {
+            var user = await this._repo.GetByIdAsync(id);
+            if (user == null)
+                return null;
+            this._repo.Remove(user);
+            await this._unitOfWork.CommitAsync();
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.RoleId, user.PhoneNumber, user.Contribuinte);
+        }
+
+        private async Task checkRoleIdAsync(RoleId roleId)
+        {
+           var role = await _roleRepo.GetByIdAsync(roleId);
+           if (role == null)
+                throw new BusinessRuleValidationException("Invalid Role Id.");
         }
     }
 }

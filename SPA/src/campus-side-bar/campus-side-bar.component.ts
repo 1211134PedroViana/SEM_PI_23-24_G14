@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class CampusSideBarComponent {
 
+  userOptions: boolean = false;
+
+  showOptions() {
+    this.userOptions = true;
+  }
+
 }

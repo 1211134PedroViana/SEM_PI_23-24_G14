@@ -7,15 +7,18 @@ namespace Mpt.Domain.SystemUsers
     {
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Role { get; set; }
-        public int PhoneNumber { get; set; }
-        public int Contribuinte { get; set; }
+        public RoleId RoleId { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Contribuinte { get; set; }
 
-        public CreateSystemUserDTO(string email, string password, string role, int phoneNumber, int contribuinte)
+        public CreateSystemUserDTO(string email, string password, string roleId, string phoneNumber, string contribuinte)
         {
             this.Email = email;
             this.Password = password;
-            this.Role = role;
+            if (Guid.TryParse(roleId, out Guid roleIdGuid))
+            {
+                RoleId = new RoleId(roleIdGuid);
+            }
             this.PhoneNumber = phoneNumber;
             this.Contribuinte = contribuinte;
         }
