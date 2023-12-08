@@ -69,6 +69,8 @@ import {AdminSideBarComponent} from "../admin-side-bar/admin-side-bar.component"
 import {SystemUserComponent} from "../systemUser/systemUser.component";
 import {CreateSystemUserComponent} from "../systemUser/create-systemUser/create-systemUser.component";
 import {CreateSystemUserFormComponent} from "../systemUser/create-systemUser-form/create-systemUser-form.component";
+import { AppUserComponent } from '../app-user/app-user.component';
+import { UserSideBarComponent } from '../user-side-bar/user-side-bar.component';
 
 @NgModule({
   declarations: [
@@ -134,7 +136,9 @@ import {CreateSystemUserFormComponent} from "../systemUser/create-systemUser-for
     AdminSideBarComponent,
     SystemUserComponent,
     CreateSystemUserComponent,
-    CreateSystemUserFormComponent
+    CreateSystemUserFormComponent,
+    AppUserComponent,
+    UserSideBarComponent
   ],
   imports: [
     BrowserModule,

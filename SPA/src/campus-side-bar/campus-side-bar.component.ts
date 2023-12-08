@@ -10,7 +10,11 @@ export class CampusSideBarComponent {
   userOptions: boolean = false;
 
   showOptions() {
-    this.userOptions = true;
+    if(this.userOptions === true) {
+      this.userOptions = false;
+    }else{
+      this.userOptions = true;
+    }
   }
 
 }

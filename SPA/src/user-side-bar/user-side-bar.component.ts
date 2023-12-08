@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class UserSideBarComponent {
 
+  userOptions: boolean = false;
+
+  showOptions() {
+    if(this.userOptions === true) {
+      this.userOptions = false;
+    }else{
+      this.userOptions = true;
+    }
+  }
 }
