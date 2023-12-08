@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Mpt.Domain.Shared;
 using Mpt.Domain.PickupAndDeliveryTasks;
+using Mpt.Domain.SystemUsers;
 
 namespace Mpt.Domain.PickupAndDeliveryTasks
 {
@@ -9,11 +10,13 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPickupAndDeliveryTaskRepository _repo;
+        private readonly ISystemUserRepository _userRepo;
 
-        public PickupAndDeliveryTaskService(IUnitOfWork unitOfWork, IPickupAndDeliveryTaskRepository repo)
+        public PickupAndDeliveryTaskService(IUnitOfWork unitOfWork, IPickupAndDeliveryTaskRepository repo ISystemUserRepository userRepo)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
+            this._userRepo = userRepo;
         }
 
         public async Task<List<PickupAndDeliveryTaskDTO>> GetAllAsync()
@@ -42,6 +45,8 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
 
         public async Task<PickupAndDeliveryTaskDTO> AddAsync(CreatePickupAndDeliveryTaskDTO dto)
         {
+            await checkUserIdAsync(dto.UserId);
+            
             var task = new PickupAndDeliveryTask(dto.PickupPlace, dto.DeliveryPlace, dto.PickupPersonName, 
             dto.PickupPersonPhoneNumber, dto.DeliveryPersonName, dto.DeliveryPersonPhoneNumber, dto.Description, 
             dto.ConfirmationCode, dto.UserId);
@@ -68,6 +73,13 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             return new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
                 task.PickupPersonPhoneNumber, task.DeliveryPersonName, task.DeliveryPersonPhoneNumber, task.Description,
                 task.ConfirmationCode, task.Status, task.UserId);
+        }
+
+        private async Task checkUserIdAsync(SystemUserId userId)
+        {
+           var user = await _userRepo.GetByIdAsync(userId);
+           if (user == null)
+                throw new BusinessRuleValidationException("Invalid User Id.");
         }
     }
 }

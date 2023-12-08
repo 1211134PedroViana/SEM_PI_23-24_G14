@@ -14,11 +14,11 @@ namespace Mpt.Domain.SystemUsers
 
         public SystemUserDTO(Guid Id, string email, RoleId roleId, string phoneNumber, string contribuinte)
         {
-            Id = Id;
-            Email = email;
-            RoleId = roleId;
-            PhoneNumber = phoneNumber;
-            Contribuinte = contribuinte;
+            this.Id = Id;
+            this.Email = email;
+            this.RoleId = roleId;
+            this.PhoneNumber = phoneNumber;
+            this.Contribuinte = contribuinte;
         }
         
     }

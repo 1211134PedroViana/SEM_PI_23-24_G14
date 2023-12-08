@@ -1,6 +1,7 @@
 using Mpt.Domain.Shared;
 using Mpt.Domain.SystemUsers;
 using Mpt.Infrastructure.SystemUsers;
+using Mpt.Domain.Roles;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,11 +12,13 @@ namespace Mpt.Domain.SystemUsers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISystemUserRepository _repo;
+        private readonly IRoleRepository _roleRepo;
         
-        public SystemUserService(IUnitOfWork unitOfWork, ISystemUserRepository repo)
+        public SystemUserService(IUnitOfWork unitOfWork, ISystemUserRepository repo, IRoleRepository roleRepo)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
+            this._roleRepo = roleRepo;
         }
 
         public async Task<List<SystemUserDTO>> GetAllAsync()
@@ -43,6 +46,7 @@ namespace Mpt.Domain.SystemUsers
 
         public async Task<SystemUserDTO> AddAsync(CreateSystemUserDTO dto)
         {
+            await checkRoleIdAsync(dto.RoleId);
             var user = new SystemUser(dto.Email, dto.Password, dto.RoleId, dto.PhoneNumber, dto.Contribuinte);
 
             await this._repo.AddAsync(user);
@@ -107,6 +111,13 @@ namespace Mpt.Domain.SystemUsers
             await this._unitOfWork.CommitAsync();
 
             return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.RoleId, user.PhoneNumber, user.Contribuinte);
+        }
+
+        private async Task checkRoleIdAsync(RoleId roleId)
+        {
+           var role = await _roleRepo.GetByIdAsync(roleId);
+           if (role == null)
+                throw new BusinessRuleValidationException("Invalid Role Id.");
         }
     }
 }

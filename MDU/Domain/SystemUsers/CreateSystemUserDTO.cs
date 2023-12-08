@@ -13,14 +13,14 @@ namespace Mpt.Domain.SystemUsers
 
         public CreateSystemUserDTO(string email, string password, string roleId, string phoneNumber, string contribuinte)
         {
-            Email = email;
-            Password = password;
+            this.Email = email;
+            this.Password = password;
             if (Guid.TryParse(roleId, out Guid roleIdGuid))
             {
-                RoleId = new RoleId(roleIdGuid);
+                this.RoleId = new RoleId(roleIdGuid);
             }
-            PhoneNumber = phoneNumber;
-            Contribuinte = contribuinte;
+            this.PhoneNumber = phoneNumber;
+            this.Contribuinte = contribuinte;
         }
     }
 }

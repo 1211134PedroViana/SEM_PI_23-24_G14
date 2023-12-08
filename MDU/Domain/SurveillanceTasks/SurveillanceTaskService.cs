@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Mpt.Domain.Shared;
 using Mpt.Domain.SurveillanceTasks;
+using Mpt.Domain.SystemUsers;
 
 namespace Mpt.Domain.SurveillanceTasks
 {
@@ -9,11 +10,13 @@ namespace Mpt.Domain.SurveillanceTasks
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISurveillanceTaskRepository _repo;
+        private readonly ISystemUserRepository _userRepo;
 
-        public SurveillanceTaskService(IUnitOfWork unitOfWork, ISurveillanceTaskRepository repo)
+        public SurveillanceTaskService(IUnitOfWork unitOfWork, ISurveillanceTaskRepository repo, ISystemUserRepository userRepo)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
+            this._userRepo = userRepo;
         }
 
         public async Task<List<SurveillanceTaskDTO>> GetAllAsync()
@@ -38,6 +41,7 @@ namespace Mpt.Domain.SurveillanceTasks
 
         public async Task<SurveillanceTaskDTO> AddAsync(CreateSurveillanceTaskDTO dto)
         {
+            await checkUserIdAsync(dto.UserId);
             var task = new SurveillanceTask(dto.BuildingId, dto.FloorIds, dto.PhoneNumber, dto.UserId);
 
             await this._repo.AddAsync(task);
@@ -58,6 +62,13 @@ namespace Mpt.Domain.SurveillanceTasks
             await this._unitOfWork.CommitAsync();
 
             return new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.FloorIds, task.PhoneNumber, task.Status, task.UserId);
+        }
+
+        private async Task checkUserIdAsync(SystemUserId userId)
+        {
+           var user = await _userRepo.GetByIdAsync(userId);
+           if (user == null)
+                throw new BusinessRuleValidationException("Invalid User Id.");
         }
     }
 }
