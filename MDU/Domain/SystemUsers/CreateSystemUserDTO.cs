@@ -7,11 +7,11 @@ namespace Mpt.Domain.SystemUsers
     {
         public string Email { get; set; }
         public string Password { get; set; }
-        public Role Role { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Contribuinte { get; set; }
+        public string Role { get; set; }
+        public int PhoneNumber { get; set; }
+        public int Contribuinte { get; set; }
 
-        public CreateSystemUserDTO(string email, string password, Role role, string phoneNumber, string contribuinte)
+        public CreateSystemUserDTO(string email, string password, string role, int phoneNumber, int contribuinte)
         {
             Email = email;
             Password = password;

@@ -1,6 +1,7 @@
 using DDDSample1.Domain.SystemUsers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Mpt.Domain.SystemUsers;
 
 namespace Mpt.Infrastructure.SystemUsers
 {

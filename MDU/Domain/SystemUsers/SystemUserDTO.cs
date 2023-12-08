@@ -15,13 +15,8 @@ namespace Mpt.Domain.SystemUsers
         public int Contribuinte { get; set; }
 
         public SystemUserDTO(Guid id, string email, string password, string role, int phoneNumber, int contribuinte)
-        public Role Role { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Contribuinte { get; set; }
-
-        public SystemUserDTO(Guid Id, string email, Role role, string phoneNumber, string contribuinte)
         {
-            Id = Id;
+            Id = id;
             Email = email;
             Role = role;
             PhoneNumber = phoneNumber;
@@ -32,7 +27,7 @@ namespace Mpt.Domain.SystemUsers
         {
             // Assuming SystemUserId has a property named Value of type Guid
             return new SystemUserDTO(
-                id: user.Id.Value, // Adjust this line based on your actual property in SystemUserId
+                id: user.Id,
                 email: user.Email,
                 password: user.Password,
                 role: user.Role,
