@@ -1,5 +1,5 @@
-using Mpt.Domain.Roles;
 using Mpt.Domain.SystemUsers;
+using Mpt.Domain.Roles;
 
 namespace Mpt.Domain.SystemUsers
 {
@@ -13,11 +13,11 @@ namespace Mpt.Domain.SystemUsers
 
         public CreateSystemUserDTO(string email, string password, string role, int phoneNumber, int contribuinte)
         {
-            Email = email;
-            Password = password;
-            Role = role;
-            PhoneNumber = phoneNumber;
-            Contribuinte = contribuinte;
+            this.Email = email;
+            this.Password = password;
+            this.Role = role;
+            this.PhoneNumber = phoneNumber;
+            this.Contribuinte = contribuinte;
         }
     }
 }

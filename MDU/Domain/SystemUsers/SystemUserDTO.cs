@@ -1,7 +1,6 @@
 using System;
-using DDDSample1.Domain.SystemUsers;
-using Mpt.Domain.Roles;
 using Mpt.Domain.SystemUsers;
+using Mpt.Domain.Roles;
 
 namespace Mpt.Domain.SystemUsers
 {
@@ -35,5 +34,14 @@ namespace Mpt.Domain.SystemUsers
                 contribuinte: user.Contribuinte
             );
         }
+        public SystemUserDTO(Guid Id, string email, string role, int phoneNumber, int contribuinte)
+        {
+            this.Id = Id;
+            this.Email = email;
+            this.Role = role;
+            this.PhoneNumber = phoneNumber;
+            this.Contribuinte = contribuinte;
+        }
+    
     }
 }

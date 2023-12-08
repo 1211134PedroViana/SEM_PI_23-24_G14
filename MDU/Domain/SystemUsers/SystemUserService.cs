@@ -1,11 +1,10 @@
 using Mpt.Domain.Shared;
 using Mpt.Domain.SystemUsers;
 using Mpt.Infrastructure.SystemUsers;
+using Mpt.Domain.Roles;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Mpt.Domain.Shared;
-using Mpt.Domain.SystemUsers;
 
 namespace Mpt.Domain.SystemUsers
 {
@@ -13,11 +12,13 @@ namespace Mpt.Domain.SystemUsers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISystemUserRepository _repo;
-        private readonly SystemUserRepository _userRepository;
+        private readonly IRoleRepository _roleRepo;
         
-        public SystemUserService(SystemUserRepository userRepository)
+        public SystemUserService(IUnitOfWork unitOfWork, ISystemUserRepository repo, IRoleRepository roleRepo)
         {
-            _userRepository = userRepository;
+            this._unitOfWork = unitOfWork;
+            this._repo = repo;
+            this._roleRepo = roleRepo;
         }
 
         public async Task<List<SystemUserDTO>> GetAllAsync()
@@ -28,21 +29,21 @@ namespace Mpt.Domain.SystemUsers
                 new SystemUserDTO(user.Id, user.Email, user.Role, user. Password, user.PhoneNumber, user.Contribuinte));
         return listDto;
         }
-        
+    
+
         public async Task<SystemUserDTO> GetByIdAsync(Guid id)
         {
-            Guid entityId = id;
 
-            SystemUser user = await _userRepository.GetByIdAsync(entityId);
+            var user = await this._repo.GetByIdAsync(id);
 
-            if (user != null)
+            if (user == null)
             {
-                return SystemUserDTO.FromDomain(user);
+                return null;
             }
 
             // Handle the case where the user is not found
             // For example, you can return null or throw an exception.
-            return null;
+            return new SystemUserDTO(user.Id, user.Email, user.RoleId, user.PhoneNumber, user.Contribuinte);
         }
 
 
@@ -56,5 +57,4 @@ namespace Mpt.Domain.SystemUsers
             return new SystemUserDTO(user.Id, user.Email, user.Password, user.Role, user.PhoneNumber, user.Contribuinte);
         }
     }
-
 }

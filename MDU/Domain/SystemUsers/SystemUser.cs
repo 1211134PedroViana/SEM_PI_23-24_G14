@@ -11,7 +11,7 @@ namespace Mpt.Domain.SystemUsers
         public string Email { get; private set; }
         public string Password { get; private set; }
         public string Role { get; private set; }
-        public bool Active { get; private set; }
+        public string RoleId { get; private set; }
         public int PhoneNumber { get; private set; }
         public int Contribuinte { get; private set; }
 
@@ -20,46 +20,22 @@ namespace Mpt.Domain.SystemUsers
             // Construtor privado para uso do Entity Framework ou mecanismos de persistência semântica semelhantes
         }
 
-        public SystemUser(string email, string password, String role, int phoneNumber, int contribuinte)
+        public SystemUser(string email, string password, string role, int phoneNumber, int contribuinte)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) )
                 throw new BusinessRuleValidationException("Email, password, and role are required.");
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) )
+                throw new BusinessRuleValidationException("Email, password are required.");
+
+            if (role== null)
+                throw new BusinessRuleValidationException("System user requires a role.");
 
             this.Id = Guid.NewGuid();
             this.Email = email;
-            this.Password = password; // Recomenda-se utilizar técnicas seguras para armazenamento de senhas na prática
-            this.Role = role;
-            this.Active = true;
+            this.Password = password;
+            this.RoleId = role;
             this.PhoneNumber = phoneNumber;
             this.Contribuinte = contribuinte;
-        }
-
-        public void ChangePassword(string newPassword)
-        {
-            if (!this.Active)
-                throw new BusinessRuleValidationException("It is not possible to change the password for an inactive user.");
-
-            if (string.IsNullOrWhiteSpace(newPassword))
-                throw new BusinessRuleValidationException("New password cannot be empty.");
-
-            this.Password = newPassword; // Recomenda-se utilizar técnicas seguras para armazenamento de senhas na prática
-        }
-
-        public void ChangePhoneNumber(int newPhoneNumber)
-        {
-            // Lógica para validação, se necessário
-            this.PhoneNumber = newPhoneNumber;
-        }
-
-        public void ChangeContribuinte(int newContribuinte)
-        {
-            // Lógica para validação, se necessário
-            this.Contribuinte = newContribuinte;
-        }
-
-        public void MarkAsInative()
-        {
-            this.Active = false;
         }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Mpt.Infrastructure;
 
@@ -10,9 +11,11 @@ using Mpt.Infrastructure;
 namespace mpt.Migrations
 {
     [DbContext(typeof(MptDbContext))]
-    partial class MptDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231207225731_Database")]
+    partial class Database
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

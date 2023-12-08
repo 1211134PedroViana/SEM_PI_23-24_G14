@@ -1,13 +1,17 @@
-
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Mpt.Infrastructure;
 using Mpt.Infrastructure.Shared;
 using Mpt.Infrastructure.Roles;
 using Mpt.Infrastructure.SystemUsers;
+using Mpt.Infrastructure.SurveillanceTasks;
+using Mpt.Infrastructure.PickupAndDeliveryTasks;
 using Mpt.Domain.Shared;
 using Mpt.Domain.Roles;
 using Mpt.Domain.SystemUsers;
+using Mpt.Domain.SurveillanceTasks;
+using Mpt.Domain.PickupAndDeliveryTasks;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace Mpt
 {
@@ -72,6 +76,12 @@ namespace Mpt
 
             services.AddTransient<IRoleRepository, RoleRepository>();
             services.AddTransient<RoleService>();
+
+            services.AddTransient<ISurveillanceTaskRepository, SurveillanceTaskRepository>();
+            services.AddTransient<SurveillanceTaskService>();
+
+            services.AddTransient<IPickupAndDeliveryTaskRepository, PickupAndDeliveryTaskRepository>();
+            services.AddTransient<PickupAndDeliveryTaskService>();
         }
     }
 }
