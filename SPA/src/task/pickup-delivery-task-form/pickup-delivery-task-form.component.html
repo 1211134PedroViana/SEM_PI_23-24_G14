@@ -1,0 +1,59 @@
+<form (ngSubmit)="onSubmit()">
+    <p class="form-title">Request new PickUp & Delivery Task</p>
+    <div class="row g-4">
+  
+      <div class="col-md-4">
+        <label class="form-label" for="building">FromBuilding:</label>
+        <select class="form-select" id="building" name="selectedFromBuilding" [(ngModel)]="selectedFromBuilding" (change)="onFromBuildingChange()">
+          <option *ngFor="let building of buildings" [value]="building.id">{{ building.code }}</option>
+        </select>
+      </div>
+  
+      <div class="col-md-4">
+        <label class="form-label" for="building">ToBuilding:</label>
+        <select class="form-select" id="building2" name="selectedToBuilding" [(ngModel)]="selectedToBuilding" (change)="onToBuildingChange()">
+          <option *ngFor="let building of buildings" [value]="building.id">{{ building.code }}</option>
+        </select>
+      </div>
+  
+      <div *ngIf="selectedFromBuilding" class="col-md-2">
+        <label class="form-label" for="floor">FromFloor:</label>
+        <select class="form-select" id="floor" name="selectedFloor1" [(ngModel)]="selectedFloor1">
+          <option *ngFor="let floor of floors1" [value]="floor.id">{{ floor.floorNumber }}</option>
+        </select>
+      </div>
+  
+      <div *ngIf="selectedToBuilding" class="col-md-2">
+        <label class="form-label" for="floor">ToFloor:</label>
+        <select class="form-select" id="floor2" name="selectedFloor2" [(ngModel)]="selectedFloor2">
+          <option *ngFor="let floor of floors2" [value]="floor.id">{{ floor.floorNumber }}</option>
+        </select>
+      </div>
+  
+    </div>
+  
+    <div class="row g-3">
+  
+      <div class="col-md-4">
+        <label for="positionX" class="form-label">Position X</label>
+        <input type="text" class="form-control" name="positionX" [(ngModel)]="positionX">
+      </div>
+      <div class="col-md-4">
+        <label for="positionY" class="form-label">Position Y</label>
+        <input type="text" class="form-control" name="positionY" [(ngModel)]="positionY">
+      </div>
+      <div class="col-md-4">
+        <label for="direction" class="form-label">Direction</label>
+        <select class="form-select" name="direction" [(ngModel)]="direction">
+          <option selected>North</option>
+          <option>South</option>
+          <option>West</option>
+          <option>East</option>
+        </select>
+      </div>
+    </div>
+  
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>

@@ -44,6 +44,10 @@ import { MapViewerFeaturesComponent } from 'src/map3-dviewer/map-viewer-features
 import {AppAdminComponent} from "../app-admin/app-admin.component";
 import {SystemUserComponent} from "../systemUser/systemUser.component";
 import {CreateSystemUserComponent} from "../systemUser/create-systemUser/create-systemUser.component";
+import { AppUserComponent } from 'src/app-user/app-user.component';
+import { RequestTaskComponent } from 'src/task/request-task/request-task.component';
+import { PickupDeliveryTaskFormComponent } from 'src/task/pickup-delivery-task-form/pickup-delivery-task-form.component';
+import { SurveillanceTaskFormComponent } from 'src/task/surveillance-task-form/surveillance-task-form.component';
 
 const routes: Routes = [
 
@@ -107,7 +111,15 @@ const routes: Routes = [
       { path: 'user', component: SystemUserComponent, children:[
           { path: 'create', component: CreateSystemUserComponent}
       ]}
-    ]}
+  ]},
+
+  //User App
+  { path: 'user', component: AppUserComponent, children: [
+    { path: 'requestTask', component: RequestTaskComponent, children:[
+      { path: 'pickup', component: PickupDeliveryTaskFormComponent},
+      { path: 'surveillance', component: SurveillanceTaskFormComponent},
+  ]}
+  ]}
 ];
 
 @NgModule({

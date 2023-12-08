@@ -71,6 +71,9 @@ import {CreateSystemUserComponent} from "../systemUser/create-systemUser/create-
 import {CreateSystemUserFormComponent} from "../systemUser/create-systemUser-form/create-systemUser-form.component";
 import { AppUserComponent } from '../app-user/app-user.component';
 import { UserSideBarComponent } from '../user-side-bar/user-side-bar.component';
+import { TaskComponent } from '../task/task.component';
+import { RequestTaskComponent } from '../task/request-task/request-task.component';
+import { PickupDeliveryTaskFormComponent } from '../task/pickup-delivery-task-form/pickup-delivery-task-form.component';
 
 @NgModule({
   declarations: [
@@ -138,7 +141,10 @@ import { UserSideBarComponent } from '../user-side-bar/user-side-bar.component';
     CreateSystemUserComponent,
     CreateSystemUserFormComponent,
     AppUserComponent,
-    UserSideBarComponent
+    UserSideBarComponent,
+    TaskComponent,
+    RequestTaskComponent,
+    PickupDeliveryTaskFormComponent
   ],
   imports: [
     BrowserModule,
