@@ -19,13 +19,6 @@ export class BuildingService {
   private isVisible = new BehaviorSubject<boolean>(false);
   private building = new BehaviorSubject<Building>({} as Building);
 
-  // @ts-ignore
-  @Component({
-    selector: 'app-create-elevator-form',
-    templateUrl: './create-elevator-form.component.html',
-    styleUrls: ['./create-elevator-form.component.css']
-  })
-
   constructor(private http: HttpClient) {
   }
 

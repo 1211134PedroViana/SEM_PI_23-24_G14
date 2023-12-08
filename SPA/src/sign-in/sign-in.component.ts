@@ -21,8 +21,10 @@ export class SignInComponent {
       this.router.navigate(["/fleet"]);
     } else if (this.selectedRole === "Task") {
       this.router.navigate(["/task"]);
-    } else {
+    } else if(this.selectedRole === "Admin") {
       this.router.navigate(["/admin"]);
+    }else{
+      this.router.navigate(["/user"]);
     }
   }
 }
