@@ -5,8 +5,6 @@
 
   <div class="row g-4">
 
-    <p class="sectionTitle">Start and End Places:</p>
-
     <div class="col-md-2">
         <label class="form-label" for="building">Building</label>
         <select class="form-select" id="building" name="selectedBuilding" [(ngModel)]="selectedBuilding" (change)="onBuildingChange()">
@@ -14,15 +12,21 @@
         </select>
     </div>
 
-    <p class="taskType">Choose Floors:</p>
-    <div *ngFor="let floor of floors; let i = index" class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" id="'flexCheckDefault' + i"  name="'checkboxValues' + i" [(ngModel)]="selectedFloors[i]"  (change)="onFloorChange()">
-      <label class="form-check-label" for="'flexCheckDefault' + i">
-        Floor {{ floor.floorNumber }}
-      </label>
+    <hr>
+    
+    <div class="form-check form-check-inline">
+      <p class="sectionTitle">Choose Floors:</p>
+      <div *ngFor="let floor of floors; let i = index" class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="'flexCheckDefault' + i"  name="'checkboxValues' + i" [(ngModel)]="selectedFloors[i]"  (change)="onFloorChange()">
+        <label class="form-check-label" for="'flexCheckDefault' + i">
+          Floor {{ floor.floorNumber }}
+        </label>
+      </div>
     </div>
 
     <hr>
+
+    <p class="sectionTitle">Start Place:</p>
 
     <div class="col-md-2">
         <label class="form-label" for="acessPoint">Type</label>
@@ -42,6 +46,7 @@
 
     <hr>
 
+    <p class="sectionTitle">End Place:</p>
     <div class="col-md-2">
       <label class="form-label" for="acessPoint">Type</label>
       <select class="form-select" id="acessPoint2" name="selectedTypeDest" [(ngModel)]="selectedTypeDest" (change)="onTypeChange2()">
@@ -59,6 +64,13 @@
     </div>
 
   </div>
+
+  <hr>
+
+  <div class="col-md-2">
+    <label class="form-label" for="phoneNumber">Phone Number</label>
+    <input id="phoneNumber" type="text" class="form-control" name="phoneNumber" [(ngModel)]="phoneNumber">
+  </div> 
 
   <div class="col-12">
     <button type="submit" class="btn btn-primary">Submit</button>
