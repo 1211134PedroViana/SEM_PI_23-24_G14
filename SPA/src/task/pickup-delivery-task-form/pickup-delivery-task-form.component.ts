@@ -12,7 +12,6 @@ import { catchError, tap } from 'rxjs/operators';
 import { RoomService } from 'src/roomService/room.service';
 import Room from 'src/roomService/room';
 import { ElevatorService } from 'src/elevatorService/elevator.service';
-import Elevator from 'src/Thumb_Raiser/elevator';
 import Passage from 'src/passageService/passage';
 
 @Component({

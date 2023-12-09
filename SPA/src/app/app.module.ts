@@ -74,6 +74,7 @@ import { UserSideBarComponent } from '../user-side-bar/user-side-bar.component';
 import { TaskComponent } from '../task/task.component';
 import { RequestTaskComponent } from '../task/request-task/request-task.component';
 import { PickupDeliveryTaskFormComponent } from '../task/pickup-delivery-task-form/pickup-delivery-task-form.component';
+import { SurveillanceTaskFormComponent } from 'src/task/surveillance-task-form/surveillance-task-form.component';
 
 @NgModule({
   declarations: [
@@ -144,7 +145,8 @@ import { PickupDeliveryTaskFormComponent } from '../task/pickup-delivery-task-fo
     UserSideBarComponent,
     TaskComponent,
     RequestTaskComponent,
-    PickupDeliveryTaskFormComponent
+    PickupDeliveryTaskFormComponent,
+    SurveillanceTaskFormComponent
   ],
   imports: [
     BrowserModule,
