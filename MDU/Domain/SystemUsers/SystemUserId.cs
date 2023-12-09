@@ -1,5 +1,6 @@
-using System.Text.Json.Serialization;
+using System;
 using Mpt.Domain.Shared;
+using Newtonsoft.Json;
 
 namespace Mpt.Domain.SystemUsers
 {
