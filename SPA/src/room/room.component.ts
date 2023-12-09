@@ -9,10 +9,10 @@ import { Component } from '@angular/core';
 export class RoomComponent {
 
   titleText = 'Rooms Management';
-  createButtonText = 'Create Rooms';
-  updateButtonText = 'Update Rooms';
-  listButtonText = 'List Rooms';
-  createRoute = '/campus/room/create';
-  updateRoute = '/campus/room/update';
-  listRoute = '/campus/room/list';
+  feature1ButtonText = 'Create Rooms';
+  feature2ButtonText = 'Update Rooms';
+  feature3ButtonText = 'List Rooms';
+  feature1Route = '/campus/room/create';
+  feature2Route = '/campus/room/update';
+  feature3Route = '/campus/room/list';
 }

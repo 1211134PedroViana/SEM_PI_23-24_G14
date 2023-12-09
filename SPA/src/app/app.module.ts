@@ -75,6 +75,10 @@ import { TaskComponent } from '../task/task.component';
 import { RequestTaskComponent } from '../task/request-task/request-task.component';
 import { PickupDeliveryTaskFormComponent } from '../task/pickup-delivery-task-form/pickup-delivery-task-form.component';
 import { SurveillanceTaskFormComponent } from 'src/task/surveillance-task-form/surveillance-task-form.component';
+import { SearchTaskComponent } from '../search-task/search-task.component';
+import { TaskByStatusComponent } from '../search-task/task-by-status/task-by-status.component';
+import { TaskByTypeComponent } from '../search-task/task-by-type/task-by-type.component';
+import { TaskByUserComponent } from '../search-task/task-by-user/task-by-user.component';
 
 @NgModule({
   declarations: [
@@ -146,7 +150,11 @@ import { SurveillanceTaskFormComponent } from 'src/task/surveillance-task-form/s
     TaskComponent,
     RequestTaskComponent,
     PickupDeliveryTaskFormComponent,
-    SurveillanceTaskFormComponent
+    SurveillanceTaskFormComponent,
+    SearchTaskComponent,
+    TaskByStatusComponent,
+    TaskByTypeComponent,
+    TaskByUserComponent
   ],
   imports: [
     BrowserModule,

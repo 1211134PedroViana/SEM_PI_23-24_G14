@@ -9,10 +9,11 @@ import { Component } from '@angular/core';
 export class ElevatorComponent {
 
   titleText = 'Elevators Management';
-  createButtonText = 'Create Elevators';
-  updateButtonText = 'Update Elevators';
-  listButtonText = 'List Elevators';
-  createRoute = '/campus/elevator/create';
-  updateRoute = '/campus/elevator/update';
-  listRoute = '/campus/elevator/list';
+  feature1ButtonText = 'Create Elevators';
+  feature2ButtonText = 'Update Elevators';
+  feature3ButtonText = 'List Elevators';
+  feature1Route = '/campus/elevator/create';
+  feature2Route = '/campus/elevator/update';
+  feature3Route = '/campus/elevator/list';
+
 }

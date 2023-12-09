@@ -48,6 +48,7 @@ import { AppUserComponent } from 'src/app-user/app-user.component';
 import { RequestTaskComponent } from 'src/task/request-task/request-task.component';
 import { PickupDeliveryTaskFormComponent } from 'src/task/pickup-delivery-task-form/pickup-delivery-task-form.component';
 import { SurveillanceTaskFormComponent } from 'src/task/surveillance-task-form/surveillance-task-form.component';
+import { SearchTaskComponent } from 'src/search-task/search-task.component';
 
 const routes: Routes = [
 
@@ -103,7 +104,10 @@ const routes: Routes = [
 
   //Task Manager App
   { path: 'task', component: AppTaskComponent, children: [
-    { path: 'findPath', component: ComputePathComponent }
+    { path: 'findPath', component: ComputePathComponent },
+    { path: 'searchTask', component: SearchTaskComponent, children:[
+     
+    ]}
   ]},
 
   //Admin App
@@ -118,7 +122,7 @@ const routes: Routes = [
     { path: 'requestTask', component: RequestTaskComponent, children:[
       { path: 'pickup', component: PickupDeliveryTaskFormComponent},
       { path: 'surveillance', component: SurveillanceTaskFormComponent},
-  ]}
+    ]}
   ]}
 ];
 

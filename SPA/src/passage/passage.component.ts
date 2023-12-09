@@ -7,11 +7,13 @@ import { Component } from '@angular/core';
 })
 
 export class PassageComponent {
+  
   titleText = 'Passages Management';
-  createButtonText = 'Create Passage';
-  updateButtonText = 'Update Passage';
-  listButtonText = 'List Passages';
-  createRoute = '/campus/passage/create';
-  updateRoute = '/campus/passage/update';
-  listRoute = '/campus/passage/list';
+  feature1ButtonText = 'Create Passage';
+  feature2ButtonText = 'Update Passage';
+  feature3ButtonText = 'List Passages';
+  feature1Route = '/campus/passage/create';
+  feature2Route = '/campus/passage/update';
+  feature3Route = '/campus/passage/list';
+
 }

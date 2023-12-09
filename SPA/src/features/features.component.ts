@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
 
 export class FeaturesComponent {
 
-  @Input() titleText: string = ' ';
-  @Input() createButtonText: string = ' ';
-  @Input() updateButtonText: string = ' ';
-  @Input() listButtonText: string = ' ';
-  @Input() createRoute: string = ' ';
-  @Input() updateRoute: string = ' ';
-  @Input() listRoute: string = ' ';
+  @Input() titleText: string = '';
+  @Input() feature1ButtonText: string = '';
+  @Input() feature2ButtonText: string = '';
+  @Input() feature3ButtonText: string = '';
+  @Input() feature1Route: string = '';
+  @Input() feature2Route: string = '';
+  @Input() feature3Route: string = '';
 
   constructor(private router: Router) {}
 
