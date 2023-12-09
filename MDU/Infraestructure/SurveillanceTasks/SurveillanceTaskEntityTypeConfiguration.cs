@@ -15,6 +15,8 @@ namespace Mpt.Infrastructure.SurveillanceTasks
 
             builder.Property(b => b.BuildingId).IsRequired();
             builder.Property(b => b.FloorIds).IsRequired();
+            builder.Property(b => b.StartPlace).IsRequired();
+            builder.Property(b => b.EndPlace).IsRequired();
             builder.Property(b => b.PhoneNumber).IsRequired().HasMaxLength(9);
             builder.Property(b => b.Status).IsRequired();
             builder.Property(b => b.UserId).IsRequired();

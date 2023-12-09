@@ -11,7 +11,7 @@ using Mpt.Infrastructure;
 namespace mpt.Migrations
 {
     [DbContext(typeof(MptDbContext))]
-    [Migration("20231207225731_Database")]
+    [Migration("20231209151710_Database")]
     partial class Database
     {
         /// <inheritdoc />
@@ -107,6 +107,10 @@ namespace mpt.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EndPlace")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FloorIds")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -115,6 +119,10 @@ namespace mpt.Migrations
                         .IsRequired()
                         .HasMaxLength(9)
                         .HasColumnType("nvarchar(9)");
+
+                    b.Property<string>("StartPlace")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

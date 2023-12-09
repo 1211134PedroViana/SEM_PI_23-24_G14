@@ -24,7 +24,8 @@ namespace Mpt.Domain.SurveillanceTasks
             var list = await this._repo.GetAllAsync();
             
             List<SurveillanceTaskDTO> listDto = list.ConvertAll<SurveillanceTaskDTO>(task => 
-                new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.FloorIds, task.PhoneNumber, task.Status, task.UserId));
+                new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.StartPlace, task.EndPlace, task.FloorIds, 
+                task.PhoneNumber, task.Status, task.UserId));
 
             return listDto;
         }
@@ -36,19 +37,21 @@ namespace Mpt.Domain.SurveillanceTasks
             if(task == null)
                 return null;
 
-            return new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.FloorIds, task.PhoneNumber, task.Status, task.UserId);
+            return new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.StartPlace, task.EndPlace, task.FloorIds, 
+            task.PhoneNumber, task.Status, task.UserId);
         }
 
         public async Task<SurveillanceTaskDTO> AddAsync(CreateSurveillanceTaskDTO dto)
         {
             await checkUserIdAsync(dto.UserId);
-            var task = new SurveillanceTask(dto.BuildingId, dto.FloorIds, dto.PhoneNumber, dto.UserId);
+            var task = new SurveillanceTask(dto.BuildingId, dto.StartPlace, dto.EndPlace, dto.FloorIds, dto.PhoneNumber, dto.UserId);
 
             await this._repo.AddAsync(task);
 
             await this._unitOfWork.CommitAsync();
 
-            return new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.FloorIds, task.PhoneNumber, task.Status, task.UserId);
+            return new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.StartPlace, task.EndPlace, task.FloorIds, 
+            task.PhoneNumber, task.Status, task.UserId);
         }
 
         public async Task<SurveillanceTaskDTO> DeleteAsync(SurveillanceTaskId id)
@@ -61,7 +64,8 @@ namespace Mpt.Domain.SurveillanceTasks
             this._repo.Remove(task);
             await this._unitOfWork.CommitAsync();
 
-            return new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.FloorIds, task.PhoneNumber, task.Status, task.UserId);
+            return new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.StartPlace, task.EndPlace, task.FloorIds, 
+            task.PhoneNumber, task.Status, task.UserId);
         }
 
         private async Task checkUserIdAsync(SystemUserId userId)

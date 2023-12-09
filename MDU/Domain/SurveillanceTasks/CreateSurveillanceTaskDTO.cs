@@ -10,13 +10,17 @@ namespace Mpt.Domain.SurveillanceTasks
     
         public string BuildingId { get; private set; }
         public string[] FloorIds { get; set; }
+        public string StartPlace { get; set; }
+        public string EndPlace { get; set; }
         public string PhoneNumber { get; set; }
         public SystemUserId UserId { get; set; }
 
-        public CreateSurveillanceTaskDTO(string buildingId, string[] floorIds, string phoneNumber, SystemUserId userId)
+        public CreateSurveillanceTaskDTO(string buildingId, string startPlace, string endPlace, string[] floorIds, string phoneNumber, SystemUserId userId)
         {
             this.BuildingId = buildingId;
-            this.FloorIds = floorIds; 
+            this.FloorIds = floorIds;
+            this.StartPlace = startPlace;
+            this.EndPlace = endPlace; 
             this.PhoneNumber = phoneNumber;
             this.UserId = userId;
         }

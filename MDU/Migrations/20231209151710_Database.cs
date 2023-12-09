@@ -51,6 +51,8 @@ namespace mpt.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     BuildingId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FloorIds = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartPlace = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EndPlace = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: false)
