@@ -68,6 +68,46 @@ namespace Mpt.Domain.SurveillanceTasks
             task.PhoneNumber, task.Status, task.UserId);
         }
 
+        public async Task<List<SurveillanceTaskDTO>> GetByStatusAsync(string status)
+        {
+            if (Enum.TryParse<TasksStatus>(status, true, out var parsedStatus))
+            {
+                var list = await this._repo.GetTasksByStatus(parsedStatus);
+
+                List<SurveillanceTaskDTO> listDto = list.ConvertAll<SurveillanceTaskDTO>(task => 
+                    new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.StartPlace, task.EndPlace, task.FloorIds, 
+                    task.PhoneNumber, task.Status, task.UserId));
+
+                return listDto;
+            }
+            else
+            {
+                return null;
+            }
+        
+        }
+
+        public async Task<List<SurveillanceTaskDTO>> GetByUserAsync(string userId)
+        {
+
+            if (Guid.TryParse(userId, out Guid userIdGuid))
+            {
+                var parsedUserId = new SystemUserId(userIdGuid);
+
+                var list = await this._repo.GetTasksByUser(parsedUserId);
+
+                List<SurveillanceTaskDTO> listDto = list.ConvertAll<SurveillanceTaskDTO>(task => 
+                    new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.StartPlace, task.EndPlace, task.FloorIds, 
+                    task.PhoneNumber, task.Status, task.UserId));
+
+                return listDto;
+
+            }else{
+                return null;
+            }
+            
+        }
+
         private async Task checkUserIdAsync(SystemUserId userId)
         {
            var user = await _userRepo.GetByIdAsync(userId);

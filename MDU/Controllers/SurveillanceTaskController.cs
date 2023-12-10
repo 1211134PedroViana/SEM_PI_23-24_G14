@@ -25,6 +25,13 @@ namespace Mpt.Controllers
             return await _service.GetAllAsync();
         }
 
+        // GET: api/SurveillanceTasks
+        [HttpGet("searchByStatus/{status}")]
+        public async Task<ActionResult<IEnumerable<SurveillanceTaskDTO>>> GetTasksByStatus(string status)
+        {
+            return await _service.GetByStatusAsync(status);
+        }
+
         // GET: api/SurveillanceTasks/1
         [HttpGet("{id}")]
         public async Task<ActionResult<SurveillanceTaskDTO>> GetGetById(Guid id)

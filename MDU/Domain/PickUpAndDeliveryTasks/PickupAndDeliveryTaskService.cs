@@ -75,6 +75,48 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
                 task.ConfirmationCode, task.Status, task.UserId);
         }
 
+        public async Task<List<PickupAndDeliveryTaskDTO>> GetByStatusAsync(string status)
+        {
+            if (Enum.TryParse<TasksStatus>(status, true, out var parsedStatus))
+            {
+                var list = await this._repo.GetTasksByStatus(parsedStatus);
+
+                List<PickupAndDeliveryTaskDTO> listDto = list.ConvertAll<PickupAndDeliveryTaskDTO>(task =>           
+                    new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
+                    task.PickupPersonPhoneNumber, task.DeliveryPersonName, task.DeliveryPersonPhoneNumber, task.Description,
+                    task.ConfirmationCode, task.Status, task.UserId));
+
+                return listDto;
+            }
+            else
+            {
+                return null;
+            }
+        
+        }
+
+        public async Task<List<PickupAndDeliveryTaskDTO>> GetByUserAsync(string userId)
+        {
+
+            if (Guid.TryParse(userId, out Guid userIdGuid))
+            {
+                var parsedUserId = new SystemUserId(userIdGuid);
+
+                var list = await this._repo.GetTasksByUser(parsedUserId);
+
+                List<PickupAndDeliveryTaskDTO> listDto = list.ConvertAll<PickupAndDeliveryTaskDTO>(task => 
+                    new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
+                    task.PickupPersonPhoneNumber, task.DeliveryPersonName, task.DeliveryPersonPhoneNumber, task.Description,
+                    task.ConfirmationCode, task.Status, task.UserId));
+
+                return listDto;
+
+            }else{
+                return null;
+            }
+            
+        }
+
         private async Task checkUserIdAsync(SystemUserId userId)
         {
            var user = await _userRepo.GetByIdAsync(userId);
