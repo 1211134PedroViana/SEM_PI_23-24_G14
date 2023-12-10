@@ -25,6 +25,20 @@ namespace Mpt.Controllers
             return await _service.GetAllAsync();
         }
 
+        // GET: api/PickupAndDeliveryTasks/searchByStatus/Pending
+        [HttpGet("searchByStatus/{status}")]
+        public async Task<ActionResult<IEnumerable<PickupAndDeliveryTaskDTO>>> GetTasksByStatus(string status)
+        {
+            return await _service.GetByStatusAsync(status);
+        }
+
+        // GET: api/PickupAndDeliveryTasks/searchByUser/userId
+        [HttpGet("searchByUser/{userId}")]
+        public async Task<ActionResult<IEnumerable<PickupAndDeliveryTaskDTO>>> GetTasksByUser(string userId)
+        {
+            return await _service.GetByUserAsync(userId);
+        }
+
         // GET: api/PickupAndDeliveryTasks/1
         [HttpGet("{id}")]
         public async Task<ActionResult<PickupAndDeliveryTaskDTO>> GetGetById(Guid id)
