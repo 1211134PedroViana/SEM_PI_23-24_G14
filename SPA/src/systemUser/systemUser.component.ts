@@ -10,6 +10,6 @@ export class SystemUserComponent {
 
   titleText = 'SystemUser Management';
   feature1ButtonText = 'Create SystemUser';
-  feature1Route = '/admin/SystemUser/create';
+  feature1Route = '/admin/systemUser/create';
 
 }
