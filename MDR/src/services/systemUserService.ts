@@ -6,31 +6,50 @@ import { SystemUser } from '../domain/systemUser';
 import ISystemUserService from './IServices/ISystemUserService';
 import ISystemUserRepo from './IRepos/ISystemUserRepo';
 import { SystemUserMap } from '../mappers/SystemUserMap';
+import { UserEmail } from '../domain/valueObjects/userEmail';
 
 @Service()
 export default class SystemUserService implements ISystemUserService {
   constructor(@Inject(config.repos.systemUser.name) private systemUserRepo: ISystemUserRepo) {}
 
-  public async createSystemUser(systemUserDto: ISystemUserDTO): Promise<Result<ISystemUserDTO>> {
-    try {
-      // Crie o SystemUser usando o método estático create
-      const systemUserOrError = SystemUser.create(systemUserDto);
+  public async createSystemUser(systemUserDTO: ISystemUserDTO): Promise<Result<ISystemUserDTO>> {
+    try {          
+     
+            const taskTypeDescriptionOrError = UserEmail.create(systemUserDTO.email);
 
-      if (systemUserOrError.isFailure) {
-        return Result.fail<ISystemUserDTO>(systemUserOrError.errorValue());
+      if (taskTypeDescriptionOrError.isFailure) {
+        return Result.fail<ISystemUserDTO>(taskTypeDescriptionOrError.errorValue());
       }
 
-      const systemUserResult = systemUserOrError.getValue();
+      // checks if theres already a RobotType with the code provided
+      const taskTypeDocument = await this.systemUserRepo.findByEmail(systemUserDTO.email);
+      const found = !!taskTypeDocument;
 
-      // Salva o novo usuário do sistema e retorna o DTO correspondente
-      await this.systemUserRepo.save(systemUserResult);
+      if (found) {
+        return Result.fail<ISystemUserDTO>('System User already exists with email:' + systemUserDTO.email);
+      }
 
-      const systemUserDTOResult = SystemUserMap.toDTO(systemUserResult) as ISystemUserDTO;
-      return Result.ok<ISystemUserDTO>(systemUserDTOResult);
-    } catch (error) {
-      // Trate exceções adequadamente ou registre-as conforme necessário
-      console.error(error);
-      return Result.fail<ISystemUserDTO>('An unexpected error occurred.');
+      const taskTypeOrError = await SystemUser.create({
+        email: systemUserDTO.email,
+        role: systemUserDTO.role,
+        id:systemUserDTO.id,
+        password: systemUserDTO.password
+      });
+
+      if (taskTypeOrError.isFailure) {
+        return Result.fail<ISystemUserDTO>(taskTypeOrError.errorValue());
+      }
+  
+      const taskTypeResult = taskTypeOrError.getValue();
+  
+      // saves the new created building and returns the building DTO 
+      await this.systemUserRepo.save(taskTypeResult);
+  
+      const taskTypeDTOResult = SystemUserMap.toDTO( taskTypeResult ) as ISystemUserDTO;
+        return Result.ok<ISystemUserDTO>( taskTypeDTOResult )
+      } catch (e) {
+        throw e;
     }
-  }
+}
+
 }
