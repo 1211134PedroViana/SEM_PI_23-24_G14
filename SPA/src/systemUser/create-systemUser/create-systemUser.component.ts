@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-create-building',
+  selector: 'app-create-systemUser',
   templateUrl: './create-systemUser.component.html',
   styleUrls: ['./create-systemUser.component.css']
 })

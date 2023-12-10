@@ -11,7 +11,7 @@ const route = Router();
 export default (app: Router) => {
   app.use('/systemUsers', route);
 
-  const ctrl = Container.get(config.controllers.building.name) as ISystemUserController;
+  const ctrl = Container.get(config.controllers.systemUser.name) as ISystemUserController;
 
   //API POST request - create a new Building
   route.post(
