@@ -13,7 +13,7 @@ export default (app: Router) => {
 
   const ctrl = Container.get(config.controllers.systemUser.name) as ISystemUserController;
 
-  //API POST request - create a new Building
+  //API POST request - create a new SystemUser
   route.post(
     '/create',
     celebrate({
