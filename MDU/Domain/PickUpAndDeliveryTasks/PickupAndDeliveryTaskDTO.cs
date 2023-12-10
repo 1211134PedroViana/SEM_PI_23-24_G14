@@ -1,4 +1,5 @@
 using System;
+using Newtonsoft.Json;
 using Mpt.Domain.PickupAndDeliveryTasks;
 using Mpt.Domain.SystemUsers;
 using Mpt.Domain.Shared;
@@ -16,6 +17,8 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
         public string DeliveryPersonPhoneNumber { get; set; }
         public string Description { get; set; }
         public string ConfirmationCode { get; set; }
+
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public TasksStatus Status { get; set; }
         public SystemUserId UserId { get; set; }
 

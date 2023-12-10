@@ -9,11 +9,11 @@ namespace Mpt.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SurveillanceTaskController : ControllerBase
+    public class SurveillanceTasksController : ControllerBase
     {
         private readonly SurveillanceTaskService _service;
 
-        public SurveillanceTaskController(SurveillanceTaskService service)
+        public SurveillanceTasksController(SurveillanceTaskService service)
         {
             _service = service;
         }

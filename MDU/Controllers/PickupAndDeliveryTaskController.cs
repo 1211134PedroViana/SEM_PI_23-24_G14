@@ -9,11 +9,11 @@ namespace Mpt.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PickupAndDeliveryTaskController : ControllerBase
+    public class PickupAndDeliveryTasksController : ControllerBase
     {
         private readonly PickupAndDeliveryTaskService _service;
 
-        public PickupAndDeliveryTaskController(PickupAndDeliveryTaskService service)
+        public PickupAndDeliveryTasksController(PickupAndDeliveryTaskService service)
         {
             _service = service;
         }
