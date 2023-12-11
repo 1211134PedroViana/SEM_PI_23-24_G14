@@ -14,10 +14,7 @@ namespace Mpt.Domain.SystemUsers
         public string PhoneNumber { get; private set; }
         public string Contribuinte { get; private set; }
 
-        private SystemUser()
-        {
-            // Construtor privado para uso do Entity Framework ou mecanismos de persistência semântica semelhantes
-        }
+        private SystemUser(){}
 
         public SystemUser(string email, string password, RoleId roleId, string phoneNumber, string contribuinte)
         {
@@ -30,7 +27,7 @@ namespace Mpt.Domain.SystemUsers
 
             this.Id = new SystemUserId(Guid.NewGuid());
             this.Email = email;
-            this.Password = password; // Recomenda-se utilizar técnicas seguras para armazenamento de senhas na prática
+            this.Password = password; 
             this.RoleId = roleId;
             this.PhoneNumber = phoneNumber;
             this.Contribuinte = contribuinte;
@@ -39,16 +36,14 @@ namespace Mpt.Domain.SystemUsers
         {
             if (string.IsNullOrWhiteSpace(newPassword))
                 throw new BusinessRuleValidationException("New password cannot be empty.");
-            this.Password = newPassword; // Recomenda-se utilizar técnicas seguras para armazenamento de senhas na prática
+            this.Password = newPassword; 
         }
         public void ChangePhoneNumber(string newPhoneNumber)
         {
-            // Lógica para validação, se necessário
             this.PhoneNumber = newPhoneNumber;
         }
         public void ChangeContribuinte(string newContribuinte)
         {
-            // Lógica para validação, se necessário
             this.Contribuinte = newContribuinte;
         }
     }
