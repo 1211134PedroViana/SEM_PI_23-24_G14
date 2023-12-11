@@ -123,5 +123,35 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
            if (user == null)
                 throw new BusinessRuleValidationException("Invalid User Id.");
         }
+
+        private async void approveTask(SystemUserId userId, PickupAndDeliveryTaskDTO pickupAndDeliveryTask) {
+            var user = await _userRepo.GetByIdAsync(userId);
+
+            if (user == null) {
+                throw new BusinessRuleValidationException("Invalid User Id.");
+            }
+
+            /*
+            Verifica se o user é admin     
+            */
+
+            string approvedStatus = pickupAndDeliveryTask.Status.Approved;
+            pickupAndDeliveryTask.setStatus(approvedStatus);
+        }
+
+        private async void refuseTask(SystemUserId userId, PickupAndDeliveryTaskDTO pickupAndDeliveryTask) {
+            var user = await _userRepo.GetByIdAsync(userId);
+
+            if (user == null) {
+                throw new BusinessRuleValidationException("Invalid User Id.");
+            }
+
+            /*
+            Verifica se o user é admin     
+            */
+
+            string refusedStatus = pickupAndDeliveryTask.Status.Refused;
+            pickupAndDeliveryTask.setStatus(refusedStatus);
+        }
     }
 }
