@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
+import { forkJoin, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { BuildingService } from 'src/buildingService/building.service';
 import { FloorService } from 'src/floorService/floor-service';
@@ -14,6 +15,8 @@ import { SystemUserService } from 'src/systemUserService/systemUser.service';
   styleUrls: ['./task-by-status.component.css']
 })
 export class TaskByStatusComponent {
+
+  observables: Observable<any>[] = [];
 
   selectedStatus = '';
   isFormVisible: boolean = true;
@@ -30,11 +33,10 @@ export class TaskByStatusComponent {
   }
 
   onSubmit() {
-    
+
     this.taskService.getByStatusSurveillanceTask(this.selectedStatus)
       .pipe(
         tap((response) => {
-          console.log('Room created successfully', response);
           this.survTasks = response;
           this.parseSurvList();
         }),
@@ -79,7 +81,7 @@ export class TaskByStatusComponent {
               building = response;
 
               for(let j = 0; j < this.survTasks[i].floorIds.length; j++) {
-                this.floorService.getFloorById(this.survTasks[i].floorIds[j])
+                let observable: Observable<any> = this.floorService.getFloorById(this.survTasks[i].floorIds[j])
                 .pipe(
                 tap((response) => {
                   floors.push(response.floorNumber.toString())
@@ -89,20 +91,25 @@ export class TaskByStatusComponent {
                   throw error;
                 })
                 )
-                .subscribe()
+                this.observables.push(observable);
               }
 
-              const surveillanceTask = ({
-                buildingId: building.name,
-                floorIds: floors,
-                startPlace: this.survTasks[i].startPlace,
-                endPlace: this.survTasks[i].endPlace,
-                phoneNumber: this.survTasks[i].phoneNumber,
-                status: this.survTasks[i].status,
-                userId: user.email
-              }) as SurveillanceTask;
-        
-              this.parsedSurvTasks.push(surveillanceTask);
+              forkJoin(this.observables).subscribe((responses: any[]) => {
+                const validResponses = responses.filter(response => response !== null);
+                const floors = validResponses.map(response => response.floorNumber.toString());
+              
+                const surveillanceTask = {
+                  buildingId: building.name,
+                  floorIds: floors,
+                  startPlace: this.survTasks[i].startPlace,
+                  endPlace: this.survTasks[i].endPlace,
+                  phoneNumber: this.survTasks[i].phoneNumber,
+                  status: this.survTasks[i].status,
+                  userId: user.email
+                } as SurveillanceTask;
+              
+                this.parsedSurvTasks.push(surveillanceTask);
+              });
 
             }),
           catchError((error) => {

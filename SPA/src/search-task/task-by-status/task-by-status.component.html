@@ -4,18 +4,15 @@
     <button class="close-button" (click)="closeForm()">X</button>
 
     <div class="row g-4">
-        <div class="col-md-2">
-            <label class="form-label" for="status">Status</label>
-            <select class="form-select" id="status" name="selectedStatus" [(ngModel)]="selectedStatus">
-                <option value="Approved">Approved</option>
-                <option value="Pending">Pending</option>
-                <option value="Rejected">Rejected</option>
-            </select>
-        </div>
-
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Search</button>
-        </div>
+      <label class="form-label" for="status">Status</label>
+        <select class="form-select" id="status" name="selectedStatus" [(ngModel)]="selectedStatus">
+          <option value="Approved">Approved</option>
+          <option value="Pending">Pending</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+        
+        <button type="submit" class="btn btn-primary">Search</button>
+        
     </div>
 </form>
 
