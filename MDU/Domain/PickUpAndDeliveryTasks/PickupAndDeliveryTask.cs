@@ -46,4 +46,8 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             this.UserId = userId;
         }
     }
+
+    public void setStatus(string newStatus) {
+        this.Status = newStatus;
+    }
 }
