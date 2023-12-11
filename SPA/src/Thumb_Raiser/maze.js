@@ -148,54 +148,54 @@ export default class Maze extends THREE.Group {
                 const door = new Door({
                     door: d.location,
                     halfSize: this.halfSize,
-                });      
+                });
                 this.doors.push(door);
                 this.add(door);
             });
 
-     
+
             var pngFiles = [
                 'assets/models/artorias/textures/Mat_Chainmail_Base_Color.png', 'assets/models/artorias/textures/Mat_Chainmail_Metallic.png',
-                'assets/models/artorias/textures/Mat_Chainmail_Normal_OpenGL.png','assets/models/artorias/textures/Mat_Chainmail_Roughness.png', 
-                'assets/models/artorias/textures/Mat_Circle_Base_Color.png','assets/models/artorias/textures/Mat_Circle_Roughness.png', 
+                'assets/models/artorias/textures/Mat_Chainmail_Normal_OpenGL.png','assets/models/artorias/textures/Mat_Chainmail_Roughness.png',
+                'assets/models/artorias/textures/Mat_Circle_Base_Color.png','assets/models/artorias/textures/Mat_Circle_Roughness.png',
                 'assets/models/artorias/textures/Mat_Helmet_Base_Color.png', 'assets/models/artorias/textures/Mat_Helmet_Metallic.png',
-                'assets/models/artorias/textures/Mat_Helmet_Normal_OpenGL.png','assets/models/artorias/textures/Mat_Helmet_Roughness.png', 
+                'assets/models/artorias/textures/Mat_Helmet_Normal_OpenGL.png','assets/models/artorias/textures/Mat_Helmet_Roughness.png',
                 'assets/models/artorias/textures/Mat_PlateArmor_Base_Color.png','assets/models/artorias/textures/Mat_PlateArmor_Metallic.png',
-                'assets/models/artorias/textures/Mat_PlateArmor_Normal_OpenGL.png','assets/models/artorias/textures/Mat_PlateArmor_Roughness.png',          
+                'assets/models/artorias/textures/Mat_PlateArmor_Normal_OpenGL.png','assets/models/artorias/textures/Mat_PlateArmor_Roughness.png',
                 'assets/models/artorias/textures/Mat_Skirt_Base_Color.png', 'assets/models/artorias/textures/Mat_Skirt_Metallic.png',
                 'assets/models/artorias/textures/Mat_Skirt_Normal_OpenGL.png', 'assets/models/artorias/textures/Mat_Skirt_Roughness.png',
                 'assets/models/artorias/textures/Sword_albedo.jpg', 'assets/models/artorias/textures/Sword_metallic.jpg',
                 'assets/models/artorias/textures/Sword_roughness.jpg', 'assets/models/artorias/textures/Sword_normal.jpg'
             ];
- 
-            
-                 
-                // Load FBX Model      
+
+
+
+                // Load FBX Model
                 const artoriasLoader = new FBXLoader();
                 artoriasLoader.load('assets/models/artorias/Artorias.fbx.fbx', (object) => {
-                    // Create an array to hold materials for each DDS texture         
-    
-                    let materialsPNG = [];     
-                
-                    // Load Textures and create materials           
-                    var textureLoader = new THREE.TextureLoader();  
-                    pngFiles.forEach(function (filePath) {              
-                        var texturePNG = textureLoader.load(filePath);             
-                        materialsPNG.push(texturePNG);  
+                    // Create an array to hold materials for each DDS texture
+
+                    let materialsPNG = [];
+
+                    // Load Textures and create materials
+                    var textureLoader = new THREE.TextureLoader();
+                    pngFiles.forEach(function (filePath) {
+                        var texturePNG = textureLoader.load(filePath);
+                        materialsPNG.push(texturePNG);
                     });
 
                     console.log("mat:" + materialsPNG)
 
-                    object.position.set( 
-                        5 - 5 + 0.5,        
-                        0.01, 
+                    object.position.set(
+                        5 - 5 + 0.5,
+                        0.01,
                         5 - 5
                     );
 
                     // Assign materials to the FBX model
-    
+
                     object.traverse(function (child) {
-                      
+
                         switch (child.name) {
                             case 'Chainmail001':
                                 const chainmail = new THREE.MeshStandardMaterial({
@@ -204,7 +204,7 @@ export default class Maze extends THREE.Group {
                                     normalMap: materialsPNG[2],
                                     roughnessMap: materialsPNG[3],
                                 });
-                                child.material = chainmail; 
+                                child.material = chainmail;
                                 break;
                             case 'Helmet001':
                                 const helmet = new THREE.MeshStandardMaterial({
@@ -239,7 +239,7 @@ export default class Maze extends THREE.Group {
                                     roughnessMap: materialsPNG[13],
                                 });
                                 child.material = platearmor;
-                                break;           
+                                break;
                             case 'Sword_Cylinder001':
                                 const sword = new THREE.MeshStandardMaterial({
                                     map: materialsPNG[18],
@@ -250,19 +250,19 @@ export default class Maze extends THREE.Group {
                                 child.material = sword;
                         }
                     });
-                    
+
 
                     object.scale.set(0.0005, 0.0005, 0.0005);
                     this.add(object);
                 });
-                
+
 
             // Store the player's initial position and direction
             this.initialPosition = this.cellToCartesian(description.player.initialPosition);
             this.initialDirection = description.player.initialDirection;
 
             this.loaded = true;
-        
+
         }
 
         const onProgress = function (url, xhr) {
@@ -418,7 +418,7 @@ export default class Maze extends THREE.Group {
 
     doorCollision(position, halfSize) {
         const indices = this.cartesianToCell(position);
- 
+
         if (
             this.doorColli(indices, [0, 0], 0, position, { x: 0.0, z: -0.475 }, halfSize, 'north door') || // Collision with north door)
             this.doorColli(indices, [0, 0], 1, position, { x: -0.475, z: 0.0 }, halfSize, 'west door')     // Collision with west door
@@ -427,11 +427,31 @@ export default class Maze extends THREE.Group {
         }
         return false;
     }
- 
-    doorColli(indices, offsets, orientation, position, delta, radius, name) {
+
+  elevatorCollision(position, halfSize) {
+    const elevatorCell = this.cartesianToCell(position);
+
+    const elevatorCollisionArea = {
+      minX: this.elevator.positionX - this.elevator.halfSize.width,
+      maxX: this.elevator.positionX + this.elevator.halfSize.width,
+      minZ: this.elevator.positionY - this.elevator.halfSize.depth,
+      maxZ: this.elevator.positionY + this.elevator.halfSize.depth,
+    };
+
+    const insideCollisionArea =
+      position.x + halfSize < elevatorCollisionArea.maxX &&
+      position.x - halfSize > elevatorCollisionArea.minX &&
+      position.z + halfSize < elevatorCollisionArea.maxZ &&
+      position.z - halfSize > elevatorCollisionArea.minZ;
+
+    return insideCollisionArea;
+  }
+
+
+  doorColli(indices, offsets, orientation, position, delta, radius, name) {
         const row = indices[0] + offsets[0];
         const column = indices[1] + offsets[1];
- 
+
         for (let i = 0; i < this.doors.length; i++) {
             if (
                 this.doors[i].door.positionX === column &&
@@ -441,7 +461,7 @@ export default class Maze extends THREE.Group {
                     if (
                         Math.abs(position.x - (this.cellToCartesian([row, column]).x + delta.x * this.scale.x)) < radius
                     ) {
-                        console.log('Collision with ' + name + '.');  
+                        console.log('Collision with ' + name + '.');
                         this.changeDoor(this.doors[i]);
                         this.doors.splice(i, 1); // remove from array
                         return true;
@@ -451,17 +471,17 @@ export default class Maze extends THREE.Group {
                         Math.abs(position.z - (this.cellToCartesian([row, column]).z + delta.z * this.scale.z)) < radius
                     ) {
                         console.log('Collision with ' + name + '.');
-                        this.changeDoor(this.doors[i]); 
+                        this.changeDoor(this.doors[i]);
                         this.doors.splice(i, 1); // remove from array
                         return true;
                     }
                 }
- 
+
             }
         }
         return false;
     }
- 
+
     async changeDoor(currentDoor) {
         let door;
 
@@ -480,7 +500,7 @@ export default class Maze extends THREE.Group {
                 url: '',
             });
         }
- 
+
         this.remove(currentDoor); // remove current door
         this.add(door);
         await this.sleep(5000);
@@ -502,5 +522,4 @@ export default class Maze extends THREE.Group {
     foundCell(actual, destiny) {
         return Math.abs(actual.x - destiny.x) < 0.5 * this.scale.x && Math.abs(actual.z - destiny.z) < 0.5 * this.scale.z
     };
-
 }

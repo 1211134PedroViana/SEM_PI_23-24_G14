@@ -27,6 +27,7 @@ import { AmbientLight, DirectionalLight, SpotLight, FlashLight } from "./lights.
 import Fog from "./fog.js";
 import Camera from "./camera.js";
 import UserInterface from "./user_interface.js";
+import Elevator from './elevator'; // Substitua pelo caminho real do seu arquivo Elevator
 
 /*
  * generalParameters = {
@@ -189,7 +190,7 @@ import UserInterface from "./user_interface.js";
  *   focus: Float
  *  }
  * }
- * 
+ *
  * shadowsParameters = {
  *  enabled: Boolean,
  *  type: Integer
@@ -357,7 +358,7 @@ import UserInterface from "./user_interface.js";
  *  containerWidth: number,
  *  containerHeight: number
  * }
- * 
+ *
  * automaticPathingParameters = {
  *   location: [{ positionX: number, positionY: number, direction: String}],
  *   cells: [{ col: number, lin: number}]
@@ -1237,7 +1238,7 @@ export default class ThumbRaiser {
                 }else{
                     this.player.position.set(this.maze.initialPosition.x, this.maze.initialPosition.y, this.maze.initialPosition.z);
                 }
-                
+
                 this.player.direction = this.maze.initialDirection;
 
                 // Set the spotlight target
@@ -1312,15 +1313,15 @@ export default class ThumbRaiser {
             }
         }
         else {
-            
+
             const destiny = [];
             let len = this.automaticPathingParameters.cells.length;
             destiny.push(this.automaticPathingParameters.cells[len-1].lin);
             destiny.push(this.automaticPathingParameters.cells[len-1].col);
             const dPosition = this.maze.cellToCartesian(destiny);
-            
+
             if(this.generalParameters.isAutomaticPathing) {
-                
+
                 // Update the model animations
                 const deltaT = this.clock.getDelta();
                 this.animations.update(deltaT);
@@ -1336,19 +1337,19 @@ export default class ThumbRaiser {
                 let arr1 = [];
                 arr1.push(this.automaticPathingParameters.cells[0].lin);
                 arr1.push(this.automaticPathingParameters.cells[0].col);
-                
+
                 let arr2 = [];
                 arr2.push(this.automaticPathingParameters.cells[1].lin);
                 arr2.push(this.automaticPathingParameters.cells[1].col);
 
                 let fPosition = this.maze.cellToCartesian(arr2);
-            
+
                 let coveredDistance = this.player.walkingSpeed * deltaT;
                 let directionIncrement = this.player.turningSpeed * deltaT;
-                   
+
                 coveredDistance *= this.player.runningFactor;
                 directionIncrement *= this.player.runningFactor;
-                    
+
                 if(arr2[1] === arr1[1] && arr2[0] === arr1[0] + 1) {
                     await this.sleep(50);
 
@@ -1363,15 +1364,15 @@ export default class ThumbRaiser {
                             this.automaticPathingParameters.cells.shift();
                             this.check = false;
                         }
-                        
+
                     } else {
                         position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
                         this.animations.fadeToAction("Walking", 0.2);
                         this.player.position.set(position.x, position.y, position.z);
-                      
+
                     }
-    
-                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+
+                    this.player.rotation.y = directionRad - this.player.defaultDirection;
                 }
 
                 if(arr2[1] === arr1[1] && arr2[0] === arr1[0] - 1 ) {
@@ -1388,10 +1389,10 @@ export default class ThumbRaiser {
                         position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
                         this.animations.fadeToAction("Walking", 0.2);
                         this.player.position.set(position.x, position.y, position.z);
-                      
+
                     }
-    
-                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+
+                    this.player.rotation.y = directionRad - this.player.defaultDirection;
                 }
 
                 if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0]) {
@@ -1408,10 +1409,10 @@ export default class ThumbRaiser {
                         position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
                         this.animations.fadeToAction("Walking", 0.2);
                         this.player.position.set(position.x, position.y, position.z);
-                      
+
                     }
-    
-                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+
+                    this.player.rotation.y = directionRad - this.player.defaultDirection;
                 }
 
                 if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0]) {
@@ -1429,10 +1430,10 @@ export default class ThumbRaiser {
                         position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
                         this.animations.fadeToAction("Walking", 0.2);
                         this.player.position.set(position.x, position.y, position.z);
-                      
+
                     }
-    
-                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+
+                    this.player.rotation.y = directionRad - this.player.defaultDirection;
                 }
 
                 if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0] + 1) {
@@ -1445,15 +1446,15 @@ export default class ThumbRaiser {
 
                     if(position.z > fPosition.z || position.x > fPosition.x) {
                         this.automaticPathingParameters.cells.shift();
-                        
+
                     } else {
                         position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
                         this.animations.fadeToAction("Walking", 0.2);
                         this.player.position.set(position.x, position.y, position.z);
-                      
+
                     }
-    
-                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+
+                    this.player.rotation.y = directionRad - this.player.defaultDirection;
 
                 }
 
@@ -1472,10 +1473,10 @@ export default class ThumbRaiser {
                         position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
                         this.animations.fadeToAction("Walking", 0.2);
                         this.player.position.set(position.x, position.y, position.z);
-                      
+
                     }
-    
-                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+
+                    this.player.rotation.y = directionRad - this.player.defaultDirection;
                 }
 
                 if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0] - 1) {
@@ -1492,10 +1493,10 @@ export default class ThumbRaiser {
                         position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
                         this.animations.fadeToAction("Walking", 0.2);
                         this.player.position.set(position.x, position.y, position.z);
-                      
+
                     }
-    
-                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
+
+                    this.player.rotation.y = directionRad - this.player.defaultDirection;
                 }
 
                 if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0] - 1) {
@@ -1508,20 +1509,20 @@ export default class ThumbRaiser {
 
                     if(this.maze.foundCell(position, fPosition)) {
                         this.automaticPathingParameters.cells.shift();
-                        
+
                     } else {
                         position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
                         this.animations.fadeToAction("Walking", 0.2);
                         this.player.position.set(position.x, position.y, position.z);
-                      
+
                     }
-    
-                    this.player.rotation.y = directionRad - this.player.defaultDirection; 
-                
-                } 
-                    
+
+                    this.player.rotation.y = directionRad - this.player.defaultDirection;
+
                 }
-            
+
+                }
+
 
             } else {
 
@@ -1613,7 +1614,7 @@ export default class ThumbRaiser {
                     this.player.rotation.y = directionRad - this.player.defaultDirection;
                 }
             }
-                
+
             }
 
             // Update the flashlight, first-person view, third-person view and top view camera parameters (player orientation and target)
@@ -1681,82 +1682,81 @@ export default class ThumbRaiser {
                 this.renderer.render(this.frame, this.camera2D); // Render the frame
             }
 
-            
-        
+
+
         }
     }
     dispose() {
-        // Clean up resources or event listeners here
-        this.audio.stop(this.audio.introductionClips);
-        this.audio.stop(this.audio.idleClips);
-        this.audio.stop(this.audio.danceClips);
-        this.audio.stop(this.audio.endClips);
-        this.audio.stop(this.audio.jumpClips);
-        this.audio.stop(this.audio.deathClips);
+      // Clean up resources or event listeners here
+      this.audio.stop(this.audio.introductionClips);
+      this.audio.stop(this.audio.idleClips);
+      this.audio.stop(this.audio.danceClips);
+      this.audio.stop(this.audio.endClips);
+      this.audio.stop(this.audio.jumpClips);
+      this.audio.stop(this.audio.deathClips);
 
-        // Remove the maze, the player and the lights from the scene
-        this.scene.remove(this.maze);
-        this.scene.remove(this.player);
-        this.scene.remove(this.ambientLight);
-        this.scene.remove(this.directionalLight);
-        this.scene.remove(this.spotLight);
-        this.scene.remove(this.flashLight);
-        this.scene.remove(this.flashLight.target);
+      // Remove the maze, the player and the lights from the scene
+      this.scene.remove(this.maze);
+      this.scene.remove(this.player);
+      this.scene.remove(this.ambientLight);
+      this.scene.remove(this.directionalLight);
+      this.scene.remove(this.spotLight);
+      this.scene.remove(this.flashLight);
+      this.scene.remove(this.flashLight.target);
 
-        // Remove positional audio sources from objects
-        const types = [this.audio.introductionClips, this.audio.idleClips, this.audio.jumpClips, this.audio.deathClips, this.audio.danceClips, this.audio.endClips];
-        types.forEach(type => {
-            type.forEach(clip => {
-                this.scene.remove(clip.source);
-            });
+      // Remove positional audio sources from objects
+      const types = [this.audio.introductionClips, this.audio.idleClips, this.audio.jumpClips, this.audio.deathClips, this.audio.danceClips, this.audio.endClips];
+      types.forEach(type => {
+        type.forEach(clip => {
+          this.scene.remove(clip.source);
         });
+      });
 
-        // Remove the event handler to be called on window resize
-        window.removeEventListener("resize", event => this.windowResize(event));
-        // Remove the event handler to be called on key down
-        document.removeEventListener("keydown", event => this.keyChange(event, true));
-        // Remove the event handler to be called on key release
-        document.removeEventListener("keyup", event => this.keyChange(event, false));
-        // Remove the event handler to be called on mouse down
-        document.removeEventListener("mousedown", event => this.mouseDown(event));
-        // Remove the event handler to be called on mouse move
-        document.removeEventListener("mousemove", event => this.mouseMove(event));
-        // Remove the event handler to be called on mouse up
-        document.removeEventListener("mouseup", event => this.mouseUp(event));
-        // Remove the event handler to be called on mouse wheel
-        this.renderer.domElement.removeEventListener("wheel", event => this.mouseWheel(event));
-        // Remove the event handler to be called on context menu
-        document.removeEventListener("contextmenu", event => this.contextMenu(event));
-        // Remove the event handler to be called on select, input number, or input checkbox change
-        this.view.removeEventListener("change", event => this.elementChange(event));
-        // Remove the event handler to be called on input button click
-        this.reset.removeEventListener("click", event => this.buttonClick(event));
-        // Remove the event handler to be called on input button click
-        this.resetAll.removeEventListener("click", event => this.buttonClick(event));
-        // Remove the event handler to be called on select, input number, or input checkbox change
-        this.projection.removeEventListener("change", event => this.elementChange(event));  
-        this.horizontal.removeEventListener("change", event => this.elementChange(event));
-        this.vertical.removeEventListener("change", event => this.elementChange(event));
-        this.distance.removeEventListener("change", event => this.elementChange(event));
-        this.zoom.removeEventListener("change", event => this.elementChange(event));
-        this.fixedViewCamera.checkBox.removeEventListener("change", event => this.elementChange(event));
-        this.firstPersonViewCamera.checkBox.removeEventListener("change", event => this.elementChange(event));
-        this.thirdPersonViewCamera.checkBox.removeEventListener("change", event => this.elementChange(event));
-        this.topViewCamera.checkBox.removeEventListener("change", event => this.elementChange(event));
-        this.statistics.checkBox.removeEventListener("change", event => this.elementChange(event));
-        this.help.checkBox.removeEventListener("change", event => this.elementChange(event));
+      // Remove the event handler to be called on window resize
+      window.removeEventListener("resize", event => this.windowResize(event));
+      // Remove the event handler to be called on key down
+      document.removeEventListener("keydown", event => this.keyChange(event, true));
+      // Remove the event handler to be called on key release
+      document.removeEventListener("keyup", event => this.keyChange(event, false));
+      // Remove the event handler to be called on mouse down
+      document.removeEventListener("mousedown", event => this.mouseDown(event));
+      // Remove the event handler to be called on mouse move
+      document.removeEventListener("mousemove", event => this.mouseMove(event));
+      // Remove the event handler to be called on mouse up
+      document.removeEventListener("mouseup", event => this.mouseUp(event));
+      // Remove the event handler to be called on mouse wheel
+      this.renderer.domElement.removeEventListener("wheel", event => this.mouseWheel(event));
+      // Remove the event handler to be called on context menu
+      document.removeEventListener("contextmenu", event => this.contextMenu(event));
+      // Remove the event handler to be called on select, input number, or input checkbox change
+      this.view.removeEventListener("change", event => this.elementChange(event));
+      // Remove the event handler to be called on input button click
+      this.reset.removeEventListener("click", event => this.buttonClick(event));
+      // Remove the event handler to be called on input button click
+      this.resetAll.removeEventListener("click", event => this.buttonClick(event));
+      // Remove the event handler to be called on select, input number, or input checkbox change
+      this.projection.removeEventListener("change", event => this.elementChange(event));
+      this.horizontal.removeEventListener("change", event => this.elementChange(event));
+      this.vertical.removeEventListener("change", event => this.elementChange(event));
+      this.distance.removeEventListener("change", event => this.elementChange(event));
+      this.zoom.removeEventListener("change", event => this.elementChange(event));
+      this.fixedViewCamera.checkBox.removeEventListener("change", event => this.elementChange(event));
+      this.firstPersonViewCamera.checkBox.removeEventListener("change", event => this.elementChange(event));
+      this.thirdPersonViewCamera.checkBox.removeEventListener("change", event => this.elementChange(event));
+      this.topViewCamera.checkBox.removeEventListener("change", event => this.elementChange(event));
+      this.statistics.checkBox.removeEventListener("change", event => this.elementChange(event));
+      this.help.checkBox.removeEventListener("change", event => this.elementChange(event));
 
 
-        // Remove the user interface
-        this.userInterface?.destroy();
+      // Remove the user interface
+      this.userInterface?.destroy();
 
-        // Remove the canvas
-        this.renderer.domElement.remove();
+      // Remove the canvas
+      this.renderer.domElement.remove();
 
-    }
-
-    sleep(ms) {
+      sleep(ms)
+      {
         return new Promise(resolve => setTimeout(resolve, ms));
+      }
     }
-
 }

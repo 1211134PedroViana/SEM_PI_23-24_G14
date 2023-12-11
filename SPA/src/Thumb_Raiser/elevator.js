@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { merge } from "./merge.js";
 import { OBJLoader } from "three/examples/jsm/Addons.js";
 import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
+import Animations from './animations'; // Certifique-se de importar corretamente o arquivo de animações
 
 /*
  * parameters = {
@@ -11,6 +12,18 @@ import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
  * }
  */
 export default class Elevator extends THREE.Group {
+
+  enterElevator() {
+    if (this.loaded) {
+      const animations = new Animations(this.children[0]);
+
+      const elevatorEnterAnimation = 'YourEnterAnimation';
+
+      const transitionDuration = 1.0;
+
+      animations.fadeToAction(elevatorEnterAnimation, transitionDuration);
+    }
+  }
   constructor(parameters) {
     super();
     merge(this, parameters);
@@ -20,29 +33,29 @@ export default class Elevator extends THREE.Group {
     this.onLoad = function (object) {
         object.scale.set(0.0054, 0.0032, 0.005);
         switch(this.elevator.direction) {
-            
+
             case "north":
                 object.rotateY(Math.PI);
                 object.position.set(
-                    this.elevator.positionX - this.halfSize.width + 0.5, 
-                    0.55, 
+                    this.elevator.positionX - this.halfSize.width + 0.5,
+                    0.55,
                     this.elevator.positionY - this.halfSize.depth);
                 break;
 
             case "west":
                 object.rotateY(Math.PI / 2);
                 object.position.set(
-                    this.elevator.positionX - this.halfSize.width, 
-                    0.68, 
+                    this.elevator.positionX - this.halfSize.width,
+                    0.68,
                     this.elevator.positionY - this.halfSize.depth + 0.5);
                 break;
 
             case "south":
                 object.position.set(
-                    this.elevator.positionX - this.halfSize.width + 0.5, 
-                    0.68, 
+                    this.elevator.positionX - this.halfSize.width + 0.5,
+                    0.68,
                     this.elevator.positionY - this.halfSize.depth + 1);
-            
+
         }
 
       // Add the door object to the scene
@@ -77,13 +90,13 @@ export default class Elevator extends THREE.Group {
         loader.load(
             //Resource URL
             this.url,
-      
+
             // onLoad callback
             (object) => this.onLoad(object),
-      
+
             // onProgress callback
             (xhr) => onProgress(this.url, xhr),
-      
+
             // onError callback
             (error) => onError(this.url, error)
         );
