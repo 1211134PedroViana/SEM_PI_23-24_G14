@@ -33,6 +33,8 @@ export class CreatePassageFormComponent implements OnInit {
 
   onSubmit() {
     const passageData = ({
+      fromBuildingId: this.selectedFromBuilding,
+      toBuildingId: this.selectedToBuilding,
       fromFloorId: this.selectedFloor1,
       toFloorId: this.selectedFloor2,
       location: {

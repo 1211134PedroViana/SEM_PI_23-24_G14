@@ -8,6 +8,18 @@ const PassageSchema = new mongoose.Schema(
       unique: true,
     },
 
+    fromBuildingId: {
+        type: String,
+        ref: 'Building',
+        required: [true, 'Please enter Building ID'],
+      },
+
+    toBuildingId: {
+        type: String,
+        ref: 'Building',
+        required: [true, 'Please enter Building ID'],
+      },
+
     fromFloorId: {
       type: String,
       ref: 'Floor',

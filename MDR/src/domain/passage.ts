@@ -8,6 +8,8 @@ import IPassageDTO from '../dto/IPassageDTO';
 import { Description } from './valueObjects/description';
 
 interface PassageProps {
+  fromBuildingId: string;
+  toBuildingId: string;
   fromFloorId: string;
   toFloorId: string;
   location: Location;
@@ -21,6 +23,14 @@ export class Passage extends AggregateRoot<PassageProps> {
 
   get passageId(): PassageId {
     return new PassageId(this.passageId.toValue());
+  }
+
+  get fromBuildingId(): string {
+    return this.props.fromBuildingId;
+  }
+
+  get toBuildingId(): string {
+    return this.props.toBuildingId;
   }
 
   get fromFloorId(): string {
@@ -69,6 +79,8 @@ export class Passage extends AggregateRoot<PassageProps> {
     const description = Description.create(passageDTO.description);
 
     const guardedProps = [
+      { argument: passageDTO.fromBuildingId, argumentName: 'fromBuildingId' },
+      { argument: passageDTO.toBuildingId, argumentName: 'toBuildingId' },
       { argument: passageDTO.fromFloorId, argumentName: 'fromFloorId' },
       { argument: passageDTO.toFloorId, argumentName: 'toFloorId' },
       { argument: passageDTO.location, argumentName: 'location' },
@@ -80,7 +92,7 @@ export class Passage extends AggregateRoot<PassageProps> {
       return Result.fail<Passage>('Must provide the Floor IDs and the Location');
     } else {
       const passage = new Passage(
-        { fromFloorId: passageDTO.fromFloorId, toFloorId: passageDTO.toFloorId, location: location.getValue(), description: description.getValue() },
+        { fromBuildingId: passageDTO.fromBuildingId, toBuildingId: passageDTO.fromBuildingId,fromFloorId: passageDTO.fromFloorId, toFloorId: passageDTO.toFloorId, location: location.getValue(), description: description.getValue() },
         id,
       );
       return Result.ok<Passage>(passage);

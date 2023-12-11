@@ -9,16 +9,21 @@ import { Location } from '../domain/valueObjects/location';
 import { Passage } from '../domain/passage';
 import { PassageMap } from '../mappers/PassageMap';
 import { Description } from '../domain/valueObjects/description';
+import IBuildingRepo from "./IRepos/IBuildingRepo";
+import { forEach } from 'lodash';
 
 @Service()
 export default class PassageService implements IPassageService {
   constructor(
     @Inject(config.repos.passage.name) private passageRepo: IPassageRepo,
     @Inject(config.repos.floor.name) private floorRepo: IFloorRepo,
+    @Inject(config.repos.building.name) private buildingRepo: IBuildingRepo,
   ) {}
 
   public async createPassage(passageDTO: IPassageDTO): Promise<Result<IPassageDTO>> {
     try {
+      const fromBuilding = await this.buildingRepo.findByDomainId(passageDTO.fromBuildingId);
+      const toBuilding = await this.buildingRepo.findByDomainId(passageDTO.toBuildingId);
       const fromFloor = await this.floorRepo.findByDomainId(passageDTO.fromFloorId);
       const toFloor = await this.floorRepo.findByDomainId(passageDTO.toFloorId);
 
@@ -29,6 +34,14 @@ export default class PassageService implements IPassageService {
       });
 
       const description = Description.create(passageDTO.description);
+
+      if (fromBuilding === null || fromBuilding === undefined) {
+        return Result.fail<IPassageDTO>('Building with ID "' + passageDTO.fromBuildingId + '" not found');
+      }
+
+      if (toBuilding === null || toBuilding === undefined) {
+        return Result.fail<IPassageDTO>('Building with ID "' + passageDTO.toBuildingId + '" not found');
+      }
 
       if (fromFloor === null || fromFloor === undefined) {
         return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.fromFloorId + '" not found');
