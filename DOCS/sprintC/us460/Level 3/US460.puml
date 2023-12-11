@@ -1,30 +1,30 @@
 @startuml
 
 activate SPA
-SPA -> GestaoInfoAPI : post(/api/tasks)
+SPA -> GestaoInfoAPI : create(/api/pickUpAndDeliveryTasks)
 activate GestaoInfoAPI
 
-GestaoInfoAPI -> TaskController : post
-activate TaskController
+GestaoInfoAPI -> PickUpAndDeliveryTaskController : create
+activate PickUpAndDeliveryTaskController
 
-TaskController -> TaskService : createTask()
-activate TaskService
+PickUpAndDeliveryTaskController -> PickUpAndDeliveryTaskService : createPickupAndDeliveryTask()
+activate PickUpAndDeliveryTaskService
 
-TaskService -> Task : create
-TaskService -> TaskRepo : save(task)
-activate TaskRepo
-TaskRepo -> TaskService : task
-deactivate TaskRepo
+PickUpAndDeliveryTaskService -> pickUpAndDeliveryTask : create
+PickUpAndDeliveryTaskService -> PickUpAndDeliveryTaskRepo : save(pickUpAndDeliveryTask)
+activate PickUpAndDeliveryTaskRepo
+PickUpAndDeliveryTaskRepo -> PickUpAndDeliveryTaskService : pickUpAndDeliveryTasks
+deactivate PickUpAndDeliveryTaskRepo
 
-TaskService -> TaskMap : toDTO(task)
-activate TaskMap
+PickUpAndDeliveryTaskService -> PickUpAndDeliveryTaskskMap : toDTO(pickUpAndDeliveryTasks)
+activate PickUpAndDeliveryTaskskMap
 
-TaskMap -> TaskService : taskDTO
-deactivate TaskMap
+PickUpAndDeliveryTaskskMap -> PickUpAndDeliveryTaskService : taskDTO
+deactivate PickUpAndDeliveryTaskskMap
 
-TaskService -> TaskController : taskDTO()
+PickUpAndDeliveryTaskService -> PickUpAndDeliveryTaskController : taskDTO()
 
-TaskController -> GestaoInfoAPI : status code 201
+PickUpAndDeliveryTaskController -> GestaoInfoAPI : status code 201
 
 GestaoInfoAPI -> SPA : Success
 
