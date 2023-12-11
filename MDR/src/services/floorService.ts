@@ -128,4 +128,20 @@ export default class FloorService implements IFloorService {
       return Result.fail<IFloorDTO[]>(e.message);
     }
   }
+
+  public async getFloorById( floorId: string): Promise<Result<IFloorDTO>> {
+    try {
+      const floor = await this.floorRepo.findByDomainId(floorId);
+
+      if (floor === null) {
+        return Result.fail<IFloorDTO>('Floor with Floor ID "' + floorId + '" not found');
+      }
+
+      const floorDTO = FloorMap.toDTO( floor ) as IFloorDTO;
+
+      return Result.ok(floorDTO);
+    } catch (e) {
+      return Result.fail<IFloorDTO>(e.message);
+    }
+  }
 }

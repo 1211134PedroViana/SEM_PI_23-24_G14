@@ -45,4 +45,7 @@ export default (app: Router) => {
   route.get('/withPassages', (req, res, next) => ctrl.listFloorsWithPassage(req, res, next));
 
   route.get('/fromBuilding/:buildingId', (req, res, next) => ctrl.listFloorsFromBuilding(req, res, next));
+
+  //API GET request - get Floor by floorId
+  route.get('/floorById/:floorId', (req, res, next) => ctrl.getFloorById(req, res, next));
 };
