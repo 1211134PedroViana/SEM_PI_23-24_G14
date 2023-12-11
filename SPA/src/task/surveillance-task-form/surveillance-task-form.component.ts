@@ -84,7 +84,7 @@ export class SurveillanceTaskFormComponent {
     }
 
     const surveillanceTask = ({
-      buidlingId: this.selectedBuilding,
+      buildingId: this.selectedBuilding,
       floorIds: selFloors,
       startPlace: this.selectedOrig,
       endPlace: this.selectedDest,
