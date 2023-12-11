@@ -90,10 +90,10 @@ export default class PassageService implements IPassageService {
   public async updatePassage(passageDTO: IPassageDTO): Promise<Result<IPassageDTO>> {
     try {
       const passage = await this.passageRepo.findByDomainId(passageDTO.id);
-      const fromBuilding = await this.buildingRepo.findByObjectId(passageDTO.fromBuildingId);
-      const toBuilding = await this.buildingRepo.findByObjectId(passageDTO.fromBuildingId);
-      const fromFloor = await this.floorRepo.findByObjectId(passageDTO.fromFloorId);
-      const toFloor = await this.floorRepo.findByObjectId(passageDTO.toFloorId);
+      const fromBuilding = await this.buildingRepo.findByDomainId(passageDTO.fromBuildingId);
+      const toBuilding = await this.buildingRepo.findByDomainId(passageDTO.fromBuildingId);
+      const fromFloor = await this.floorRepo.findByDomainId(passageDTO.fromFloorId);
+      const toFloor = await this.floorRepo.findByDomainId(passageDTO.toFloorId);
       const location = Location.create({
         positionX: passageDTO.location.positionX,
         positionY: passageDTO.location.positionY,
