@@ -8,17 +8,25 @@
     <thead>
       <tr>
         <th class="header" scope="col">#</th>
-        <th class="header" scope="col">FromFloor</th>
-        <th class="header" scope="col">ToFloor</th>
-        <th class="header" scope="col">Location</th>
+        <th class="header" scope="col">Building Code</th>
+        <th class="header" scope="col">Floor Number</th>
+        <th class="header" scope="col">Building Code</th>
+        <th class="header" scope="col">Floor Number</th>
+        <th class="header" scope="col">Direction</th>
+        <th class="header" scope="col">Position X</th>
+        <th class="header" scope="col">Position Y</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let passage of passages; let i = index" (click)="openForm(passage)">
         <th scope="row">{{ i + 1 }}</th>
-        <td>{{ passage.fromFloorId }}</td>
-        <td>{{ passage.toFloorId }}</td>
-        <td>{{ passage.location }}</td>
+        <td>{{ findBuildingCode(passage.fromBuildingId) }}</td>
+        <td>{{ findFloorNumber(passage.fromFloorId) }}</td>
+        <td>{{ findBuildingCode(passage.toBuildingId) }}</td>
+        <td>{{ findFloorNumber(passage.toFloorId) }}</td>
+        <td>{{ passage.location.direction }}</td>
+        <td>{{ passage.location.positionX }}</td>
+        <td>{{ passage.location.positionY }}</td>
       </tr>
     </tbody>
 </table>

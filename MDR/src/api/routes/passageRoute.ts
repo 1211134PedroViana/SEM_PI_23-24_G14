@@ -18,6 +18,8 @@ export default (app: Router) => {
     '/create',
     celebrate({
       body: Joi.object({
+        fromBuildingId: Joi.string().required(),
+        toBuildingId: Joi.string().required(),
         fromFloorId: Joi.string().required(),
         toFloorId: Joi.string().required(),
         location: {
@@ -51,6 +53,8 @@ export default (app: Router) => {
     celebrate({
       body: Joi.object({
         id: Joi.string().required(),
+        fromBuildingId: Joi.string().required(),
+        toBuildingId: Joi.string().required(),
         fromFloorId: Joi.string().required(),
         toFloorId: Joi.string().required(),
         location: {

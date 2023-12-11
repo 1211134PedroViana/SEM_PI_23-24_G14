@@ -10,6 +10,8 @@ export class PassageMap extends Mapper<Passage> {
     public static toDTO( passage: Passage): IPassageDTO {
         return {
             id: passage.id.toString(),
+            fromBuildingId: passage.fromFloorId,
+            toBuildingId: passage.toFloorId,
             fromFloorId: passage.fromFloorId,
             toFloorId: passage.toFloorId,
             location: {
@@ -38,6 +40,8 @@ export class PassageMap extends Mapper<Passage> {
         
         for (let i = 0; i < passageList.length; i++) {
             const passageOrError = Passage.create({
+                fromBuildingId: passageList[i].fromBuildingId,
+                toBuildingId: passageList[i].toBuildingId,
                 fromFloorId: passageList[i].fromFloorId,
                 toFloorId: passageList[i].toFloorId,
                 location: passageList[i].location,
@@ -60,6 +64,8 @@ export class PassageMap extends Mapper<Passage> {
     public static toPersistence(passage: Passage): any {
         return {
             domainId: passage.id.toString(),
+            fromBuildingId: passage.fromBuildingId,
+            toBuildingId: passage.toBuildingId,
             fromFloorId: passage.fromFloorId,
             toFloorId: passage.toFloorId,
             location: {
