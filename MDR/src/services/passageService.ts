@@ -90,6 +90,8 @@ export default class PassageService implements IPassageService {
   public async updatePassage(passageDTO: IPassageDTO): Promise<Result<IPassageDTO>> {
     try {
       const passage = await this.passageRepo.findByDomainId(passageDTO.id);
+      const fromBuilding = await this.buildingRepo.findByObjectId(passageDTO.fromBuildingId);
+      const toBuilding = await this.buildingRepo.findByObjectId(passageDTO.fromBuildingId);
       const fromFloor = await this.floorRepo.findByObjectId(passageDTO.fromFloorId);
       const toFloor = await this.floorRepo.findByObjectId(passageDTO.toFloorId);
       const location = Location.create({
@@ -101,11 +103,17 @@ export default class PassageService implements IPassageService {
       if (passage === null) {
         return Result.fail<IPassageDTO>('Passage not found with id:' + passageDTO.id);
       } else {
-        if (fromFloor === null || fromFloor === undefined) {
+        if (fromBuilding === null || fromBuilding === undefined) {
+          return Result.fail<IPassageDTO>('Building with ID "' + passageDTO.fromBuildingId + '" not found');
+        } else if (toBuilding === null || toBuilding === undefined) {
+          return Result.fail<IPassageDTO>('Building with ID "' + passageDTO.toBuildingId + '" not found');
+        } else if (fromFloor === null || fromFloor === undefined) {
           return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.fromFloorId + '" not found');
         } else if (toFloor === null || toFloor === undefined) {
           return Result.fail<IPassageDTO>('Floor with ID "' + passageDTO.toFloorId + '" not found');
         } else {
+          passage.fromBuildingId = passageDTO.fromBuildingId;
+          passage.toBuildingId = passageDTO.toBuildingId;
           passage.fromFloorId = passageDTO.fromFloorId;
           passage.toFloorId = passageDTO.toFloorId;
           passage.location = location.getValue();

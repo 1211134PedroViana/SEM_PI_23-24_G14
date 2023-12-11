@@ -81,7 +81,7 @@ export class ListPassageComponent implements OnInit {
   }
 
   findBuildingCode(buildingId: string): string | undefined {
-    const foundBuilding = this.buildings.find(building => buildingId.match(buildingId));
+    const foundBuilding = this.buildings.find(building => buildingId.match(building.id));
     return foundBuilding ? foundBuilding.code : undefined;
   }
 

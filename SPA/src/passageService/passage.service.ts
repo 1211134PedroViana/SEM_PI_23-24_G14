@@ -103,4 +103,8 @@ export class PassageService {
   getFormVisibility() {
     return this.isVisible.asObservable();
   }
+
+  getPassage() {
+    return this.passage.asObservable();
+  }
 }
