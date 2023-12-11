@@ -14,7 +14,7 @@ namespace Mpt.Domain.SystemUsers
 
         public SystemUserDTO(Guid id, string email, RoleId roleId, string phoneNumber, string contribuinte)
         {
-            this.Id = Id;
+            this.Id = id;
             this.Email = email;
             this.RoleId = roleId;
             this.PhoneNumber = phoneNumber;

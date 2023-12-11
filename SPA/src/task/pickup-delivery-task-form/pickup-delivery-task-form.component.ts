@@ -13,6 +13,7 @@ import { RoomService } from 'src/roomService/room.service';
 import Room from 'src/roomService/room';
 import { ElevatorService } from 'src/elevatorService/elevator.service';
 import Passage from 'src/passageService/passage';
+import PickupAndDeliveryTask from 'src/taskService/pickupAndDeliveryTask';
 
 @Component({
   selector: 'app-pickup-delivery-task-form',
@@ -82,19 +83,31 @@ export class PickupDeliveryTaskFormComponent {
   }
 
   onSubmit() {
+    
+    const pickupAndDeliveryTask = ({
+      pickupPlace: this.selectedOrig,
+      deliveryPlace: this.selectedDest,
+      pickupPersonName: this.pickupName,
+      pickupPersonPhoneNumber: this.pickupNumber,
+      deliveryPersonName: this.deliveryName,
+      deliveryPersonPhoneNumber: this.deliveryNumber,
+      description: this.description,
+      confirmationCode: this.confirmationCode,
+      userId: "to do"
+    }) as PickupAndDeliveryTask;
 
-    this.pathService.computePath(this.selectedOrig, this.selectedDest)
+    this.taskService.createPickupAndDeliveryTask(pickupAndDeliveryTask)
       .pipe(
         tap((response) => {
-          console.log('Path found sucessfully!', response);
-          const message = `Path found successfully!`;
+          console.log('PickupAndDelivery Task  requested sucessfully!', response);
+          const message = `PickupAndDelivery Task  requested sucessfully!`;
           this.snackBar.open(message, 'Close', {
             duration: 5000, // 5 seconds
           });
         }),
         catchError((error) => {
-          console.error('Error occurred while find the Path', error);
-          this.snackBar.open('Failed to find Path, returned code:' + error.status, 'Close', {
+          console.error('Error occurred while requesting PickupAndDelivery Task ', error);
+          this.snackBar.open('Failed to requesting PickupAndDelivery Task, returned code:' + error.status, 'Close', {
             duration: 5000, // 5 seconds
           });
           throw error;

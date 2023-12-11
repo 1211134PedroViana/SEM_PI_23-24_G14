@@ -17,7 +17,7 @@ namespace Mpt.Domain.SystemUsers
             this.Password = password;
             if (Guid.TryParse(roleId, out Guid roleIdGuid))
             {
-                RoleId = new RoleId(roleIdGuid);
+                this.RoleId = new RoleId(roleIdGuid);
             }
             this.PhoneNumber = phoneNumber;
             this.Contribuinte = contribuinte;

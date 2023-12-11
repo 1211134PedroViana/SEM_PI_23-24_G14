@@ -1,6 +1,4 @@
-using System;
 using Mpt.Domain.PickupAndDeliveryTasks;
-using Mpt.Domain.Shared;
 using Mpt.Domain.SystemUsers;
 
 namespace Mpt.Domain.PickupAndDeliveryTasks
@@ -23,7 +21,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             string deliveryPersonPhoneNumber,
             string description,
             string confirmationCode,
-            SystemUserId userId)
+            string userId)
         {
             this.PickupPlace = pickupPlace;
             this.DeliveryPlace = deliveryPlace;
@@ -33,7 +31,10 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             this.DeliveryPersonPhoneNumber = deliveryPersonPhoneNumber;
             this.Description = description;
             this.ConfirmationCode = confirmationCode;
-            this.UserId = userId;
+            if (Guid.TryParse(userId, out Guid userIdGuid))
+            {
+                this.UserId = new SystemUserId(userIdGuid);
+            }
         }
     }
 }

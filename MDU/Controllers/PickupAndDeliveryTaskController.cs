@@ -9,11 +9,11 @@ namespace Mpt.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PickupAndDeliveryTaskController : ControllerBase
+    public class PickupAndDeliveryTasksController : ControllerBase
     {
         private readonly PickupAndDeliveryTaskService _service;
 
-        public PickupAndDeliveryTaskController(PickupAndDeliveryTaskService service)
+        public PickupAndDeliveryTasksController(PickupAndDeliveryTaskService service)
         {
             _service = service;
         }
@@ -23,6 +23,20 @@ namespace Mpt.Controllers
         public async Task<ActionResult<IEnumerable<PickupAndDeliveryTaskDTO>>> GetAll()
         {
             return await _service.GetAllAsync();
+        }
+
+        // GET: api/PickupAndDeliveryTasks/searchByStatus/Pending
+        [HttpGet("searchByStatus/{status}")]
+        public async Task<ActionResult<IEnumerable<PickupAndDeliveryTaskDTO>>> GetTasksByStatus(string status)
+        {
+            return await _service.GetByStatusAsync(status);
+        }
+
+        // GET: api/PickupAndDeliveryTasks/searchByUser/userId
+        [HttpGet("searchByUser/{userId}")]
+        public async Task<ActionResult<IEnumerable<PickupAndDeliveryTaskDTO>>> GetTasksByUser(string userId)
+        {
+            return await _service.GetByUserAsync(userId);
         }
 
         // GET: api/PickupAndDeliveryTasks/1

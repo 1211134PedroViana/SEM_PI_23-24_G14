@@ -1,7 +1,6 @@
-using System;
 using Mpt.Domain.SurveillanceTasks;
 using Mpt.Domain.SystemUsers;
-using Mpt.Domain.Shared;
+
 
 namespace Mpt.Domain.SurveillanceTasks
 {
@@ -15,14 +14,17 @@ namespace Mpt.Domain.SurveillanceTasks
         public string PhoneNumber { get; set; }
         public SystemUserId UserId { get; set; }
 
-        public CreateSurveillanceTaskDTO(string buildingId, string startPlace, string endPlace, string[] floorIds, string phoneNumber, SystemUserId userId)
+        public CreateSurveillanceTaskDTO(string buildingId, string startPlace, string endPlace, string[] floorIds, string phoneNumber, string userId)
         {
             this.BuildingId = buildingId;
             this.FloorIds = floorIds;
             this.StartPlace = startPlace;
             this.EndPlace = endPlace; 
             this.PhoneNumber = phoneNumber;
-            this.UserId = userId;
+            if (Guid.TryParse(userId, out Guid userIdGuid))
+            {
+                this.UserId = new SystemUserId(userIdGuid);
+            }
         }
     }
 }

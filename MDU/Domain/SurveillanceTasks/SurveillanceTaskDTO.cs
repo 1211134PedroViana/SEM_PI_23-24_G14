@@ -1,4 +1,5 @@
 using System;
+using Newtonsoft.Json;
 using Mpt.Domain.SurveillanceTasks;
 using Mpt.Domain.SystemUsers;
 using Mpt.Domain.Shared;
@@ -13,6 +14,8 @@ namespace Mpt.Domain.SurveillanceTasks
         public string StartPlace { get; set; }
         public string EndPlace { get; set; }
         public string PhoneNumber { get; set; }
+        
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public TasksStatus Status { get; set; }
         public SystemUserId UserId { get; set; }
 

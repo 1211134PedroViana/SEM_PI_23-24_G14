@@ -9,11 +9,11 @@ namespace Mpt.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SurveillanceTaskController : ControllerBase
+    public class SurveillanceTasksController : ControllerBase
     {
         private readonly SurveillanceTaskService _service;
 
-        public SurveillanceTaskController(SurveillanceTaskService service)
+        public SurveillanceTasksController(SurveillanceTaskService service)
         {
             _service = service;
         }
@@ -25,11 +25,18 @@ namespace Mpt.Controllers
             return await _service.GetAllAsync();
         }
 
-        // GET: api/SurveillanceTasks
+        // GET: api/SurveillanceTasks/searchByStatus/Pending
         [HttpGet("searchByStatus/{status}")]
         public async Task<ActionResult<IEnumerable<SurveillanceTaskDTO>>> GetTasksByStatus(string status)
         {
             return await _service.GetByStatusAsync(status);
+        }
+
+        // GET: api/SurveillanceTasks/searchByUser/userId
+        [HttpGet("searchByUser/{userId}")]
+        public async Task<ActionResult<IEnumerable<SurveillanceTaskDTO>>> GetTasksByUser(string userId)
+        {
+            return await _service.GetByUserAsync(userId);
         }
 
         // GET: api/SurveillanceTasks/1

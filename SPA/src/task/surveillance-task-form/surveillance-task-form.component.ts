@@ -13,6 +13,7 @@ import { RoomService } from 'src/roomService/room.service';
 import Room from 'src/roomService/room';
 import { ElevatorService } from 'src/elevatorService/elevator.service';
 import Passage from 'src/passageService/passage';
+import SurveillanceTask from 'src/taskService/surveillanceTask';
 
 @Component({
   selector: 'app-surveillance-task-form',
@@ -74,19 +75,35 @@ export class SurveillanceTaskFormComponent {
   }
 
   onSubmit() {
+    let selFloors: string[] = [];
 
-    this.pathService.computePath(this.selectedOrig, this.selectedDest)
+    for(let i = 0; i < this.selectedFloors.length; i++) {
+      if(this.selectedFloors[i]) {
+        selFloors.push(this.floors[i].id);
+      }
+    }
+
+    const surveillanceTask = ({
+      buidlingId: this.selectedBuilding,
+      floorIds: selFloors,
+      startPlace: this.selectedOrig,
+      endPlace: this.selectedDest,
+      phoneNumber: this.phoneNumber,
+      userId: "to do"
+    }) as SurveillanceTask;
+
+    this.taskService.createSurveillanceTask(surveillanceTask)
       .pipe(
         tap((response) => {
-          console.log('Path found sucessfully!', response);
-          const message = `Path found successfully!`;
+          console.log('Surveillance task requested sucessfully!', response);
+          const message = `Surveillance task requested sucessfully!`;
           this.snackBar.open(message, 'Close', {
             duration: 5000, // 5 seconds
           });
         }),
         catchError((error) => {
-          console.error('Error occurred while find the Path', error);
-          this.snackBar.open('Failed to find Path, returned code:' + error.status, 'Close', {
+          console.error('Error occurred while requesting Surveillance task', error);
+          this.snackBar.open('Failed to requesting Surveillance task, returned code:' + error.status, 'Close', {
             duration: 5000, // 5 seconds
           });
           throw error;
