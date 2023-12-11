@@ -43,5 +43,6 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             this.Status = status;
             this.UserId = userId;
         }
+
     }
 }
