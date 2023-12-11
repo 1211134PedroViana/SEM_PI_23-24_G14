@@ -92,7 +92,7 @@ namespace Mpt.Controllers
             }
 
             try {
-                dto = await _service.ApproveTask(id, dto);
+               // dto = await _service.ApproveTask(id, dto);
 
                 if (dto == null) {
                     return NotFound();
@@ -111,7 +111,7 @@ namespace Mpt.Controllers
             }
 
             try {
-                dto = await _service.RefuseTask(id, dto);
+                //dto = await _service.RefuseTask(id, dto);
 
                 if (dto == null) {
                     return NotFound();

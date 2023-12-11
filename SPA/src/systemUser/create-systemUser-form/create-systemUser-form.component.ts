@@ -14,7 +14,7 @@ import SystemUser from "../../systemUserService/systemUser";
 export class CreateSystemUserFormComponent {
 
   email: string = " ";
-  password: string = " ";
+  password: string = "";
   role: string = " ";
 
   constructor(private systemUserService: SystemUserService, private snackBar: MatSnackBar) { }
@@ -34,14 +34,14 @@ export class CreateSystemUserFormComponent {
       .pipe(
         tap((response) => {
           console.log('System User created successfully', response);
-          const message = `Building created successfully! | Email: ${response.email} | Role: ${response.role}`;
+          const message = `System User created successfully! | Email: ${response.email} | Role: ${response.role}`;
           this.snackBar.open(message, 'Close', {
             duration: 5000, // 5 seconds
           });
         }),
         catchError((error) => {
           console.error('Error occurred while creating the System User', error);
-          this.snackBar.open('Failed to create building, returned code:' + error.status, 'Close', {
+          this.snackBar.open('Failed to create System User, returned code:' + error.status, 'Close', {
             duration: 5000, // 5 seconds
           });
           throw error;

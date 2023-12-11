@@ -1,0 +1,14 @@
+body {
+    background-image: url("/assets/images/moon_background.png");
+    background-size: cover;
+}
+
+.app-user {
+    width: 100%;
+    font-family: 'Playpen Sans', cursive;
+    font-size: 15px;
+    text-align: center;
+    color: #fff;
+    padding: 10px;
+    background-color: rgb(188, 183, 177, 0.3);
+}

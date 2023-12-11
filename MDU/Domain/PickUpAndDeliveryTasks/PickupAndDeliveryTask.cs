@@ -47,7 +47,8 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
         }
     }
 
-    public void setStatus(string newStatus) {
+    /*public void setStatus(string newStatus) {
         this.Status = newStatus;
     }
+    */
 }

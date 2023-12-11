@@ -9,7 +9,7 @@ import ISystemUserController from '../../controllers/IControllers/ISystemUserCon
 const route = Router();
 
 export default (app: Router) => {
-  app.use('/systemUsers', route);
+  app.use('/user', route);
 
   const ctrl = Container.get(config.controllers.systemUser.name) as ISystemUserController;
 
