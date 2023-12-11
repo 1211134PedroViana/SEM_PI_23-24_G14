@@ -11,7 +11,6 @@ namespace Mpt.Domain.SystemUsers
         public string Email { get; private set; }
         public string Password { get; private set; }
         public RoleId RoleId { get; private set; }
-        public bool Active { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Contribuinte { get; private set; }
 
@@ -33,14 +32,11 @@ namespace Mpt.Domain.SystemUsers
             this.Email = email;
             this.Password = password; // Recomenda-se utilizar técnicas seguras para armazenamento de senhas na prática
             this.RoleId = roleId;
-            this.Active = true;
             this.PhoneNumber = phoneNumber;
             this.Contribuinte = contribuinte;
         }
         public void ChangePassword(string newPassword)
         {
-            if (!this.Active)
-                throw new BusinessRuleValidationException("It is not possible to change the password for an inactive user.");
             if (string.IsNullOrWhiteSpace(newPassword))
                 throw new BusinessRuleValidationException("New password cannot be empty.");
             this.Password = newPassword; // Recomenda-se utilizar técnicas seguras para armazenamento de senhas na prática
@@ -54,10 +50,6 @@ namespace Mpt.Domain.SystemUsers
         {
             // Lógica para validação, se necessário
             this.Contribuinte = newContribuinte;
-        }
-        public void MarkAsInative()
-        {
-            this.Active = false;
         }
     }
 }

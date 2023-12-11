@@ -52,59 +52,5 @@ namespace Mpt.Controllers
                 return BadRequest(new {Message = ex.Message});
             }
         }
-
-        // PUT: api/SystemUsers/U1
-        [HttpPut("{id}")]
-        public async Task<ActionResult<SystemUserDTO>> Update(Guid id, SystemUserDTO dto)
-        {
-            if (id != dto.Id)
-            {
-                return BadRequest();
-            }
-            try
-            {
-                var user = await _service.UpdateAsync(dto);
-                if (user == null)
-                {
-                    return NotFound();
-                }
-                return Ok(user);
-            }
-            catch(BusinessRuleValidationException ex)
-            {
-                return BadRequest(new {Message = ex.Message});
-            }
-        }
-
-        // Inactivate: api/SystemUsers/U1
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<SystemUserDTO>> SoftDelete(Guid id)
-        {
-            var user = await _service.InactivateAsync(new SystemUserId(id));
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return Ok(user);
-        }
-
-        // DELETE: api/SystemUsers/U1/hard
-        [HttpDelete("{id}/hard")]
-        public async Task<ActionResult<SystemUserDTO>> HardDelete(Guid id)
-        {
-            try
-            {
-                var user = await _service.DeleteAsync(new SystemUserId(id));
-                if (user == null)
-                {
-                    return NotFound();
-                }
-                return Ok(user);
-            }
-            catch(BusinessRuleValidationException ex)
-            {
-                return BadRequest(new {Message = ex.Message});
-            }
-        }
     }
 }
