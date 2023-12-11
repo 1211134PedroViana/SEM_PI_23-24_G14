@@ -127,7 +127,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
         private async void approveTask(SystemUserId userId, PickupAndDeliveryTaskDTO pickupAndDeliveryTask) {
             var user = await _userRepo.GetByIdAsync(userId);
 
-            if (user == null) {
+            if (userId == null) {
                 throw new BusinessRuleValidationException("Invalid User Id.");
             }
 
@@ -142,7 +142,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
         private async void refuseTask(SystemUserId userId, PickupAndDeliveryTaskDTO pickupAndDeliveryTask) {
             var user = await _userRepo.GetByIdAsync(userId);
 
-            if (user == null) {
+            if (userId == null) {
                 throw new BusinessRuleValidationException("Invalid User Id.");
             }
 
