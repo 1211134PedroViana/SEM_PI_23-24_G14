@@ -45,4 +45,21 @@ export default class TaskTypeController implements ITaskTypeController {
             return next(e);
         }
     }
+
+    public async getTaskTypeById(req: Request, res: Response, next: NextFunction) {
+        try {
+            const taskTypeId = req.params.taskTypeId;
+            const taskTypeOrError = await this.taskTypeServiceInstance.getTaskTypeById(taskTypeId) as Result<ITaskTypeDTO>;
+
+            if(taskTypeOrError.isFailure) {
+                return res.status(402).send(taskTypeOrError.errorValue());
+            }
+
+            const taskTypeDTO = taskTypeOrError.getValue();
+            return res.json( taskTypeDTO ).status(201);
+
+        } catch (e) {
+            return next(e);
+        }
+    }
 }

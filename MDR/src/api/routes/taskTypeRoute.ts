@@ -24,5 +24,8 @@ export default( app: Router) => {
 
       //API GET request - get TaskType by name
       route.get('/getTaskType/:name', (req, res, next) => ctrl.getTaskType(req, res, next));
+
+      //API GET request - get TaskType by ID
+      route.get('/getTaskTypeById/:taskTypeId', (req, res, next) => ctrl.getTaskTypeById(req, res, next));
     
 }

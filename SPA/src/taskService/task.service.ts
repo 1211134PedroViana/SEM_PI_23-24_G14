@@ -82,7 +82,7 @@ export class TaskService {
     );
   }
 
-  getAllPickupAndDelivery(status: string): Observable<PickupAndDeliveryTask[]> {
+  getAllPickupAndDelivery(): Observable<PickupAndDeliveryTask[]> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
