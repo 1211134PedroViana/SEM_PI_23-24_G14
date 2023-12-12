@@ -1,1 +1,79 @@
-<p>task-by-user works!</p>
+<form *ngIf="isFormVisible" (ngSubmit)="onSubmit()">
+    <p class="form-title">Choose System User:</p>
+
+    <button class="close-button" (click)="closeForm()">X</button>
+
+    <div class="row g-4">
+      <label class="form-label" for="status">System User</label>
+      <select class="form-select" id="status" name="selectedUser" [(ngModel)]="selectedUser">
+        <option *ngFor="let user of systemUsers" [value]="user.id">{{ user.email }}</option>
+      </select>
+        
+        <button type="submit" class="btn btn-primary">Search</button>
+        
+    </div>
+</form>
+
+<div *ngIf="isListVisible" class="tables">
+  <h3 class="title">Surveillance Tasks</h3>
+    <table class="table table-striped table-dark table-hover"> 
+      <thead>
+        <tr>
+          <th class="header" scope="col">#</th>
+          <th class="header" scope="col">Building</th>
+          <th class="header" scope="col">Floors</th>
+          <th class="header" scope="col">Start</th>
+          <th class="header" scope="col">End</th>
+          <th class="header" scope="col">Phone</th>
+          <th class="header" scope="col">Status</th>
+          <th class="header" scope="col">User</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of parsedSurvTasks; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ task.buildingId }}</td>
+          <td>{{ task.floorIds }}</td>
+          <td>{{ task.startPlace }}</td>
+          <td>{{ task.endPlace }}</td>
+          <td>{{ task.phoneNumber }}</td>
+          <td>{{ task.status }}</td>
+          <td>{{ task.userId }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="title">Pickup & Delivery Tasks</h3>
+    <table class="table table-striped table-dark table-hover"> 
+      <thead>
+        <tr>
+          <th class="header" scope="col">#</th>
+          <th class="header" scope="col">Pickup Place</th>
+          <th class="header" scope="col">Delivery Place</th>
+          <th class="header" scope="col">Pickup Name</th>
+          <th class="header" scope="col">Pickup Phone</th>
+          <th class="header" scope="col">Delivery Name</th>
+          <th class="header" scope="col">Delivery Phone</th>
+          <th class="header" scope="col">Description</th>
+          <th class="header" scope="col">Code</th>
+          <th class="header" scope="col">Status</th>
+          <th class="header" scope="col">User</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of parsedPickTasks; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ task.pickupPlace }}</td>
+          <td>{{ task.deliveryPlace }}</td>
+          <td>{{ task.pickupPersonName }}</td>
+          <td>{{ task.pickupPersonPhoneNumber }}</td>
+          <td>{{ task.deliveryPersonName }}</td>
+          <td>{{ task.deliveryPersonPhoneNumber }}</td>
+          <td>{{ task.description }}</td>
+          <td>{{ task.confirmationCode }}</td>
+          <td>{{ task.status }}</td>
+          <td>{{ task.userId }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>

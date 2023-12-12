@@ -24,12 +24,14 @@ export class TaskByStatusComponent {
   survTasks: SurveillanceTask[] = [];
   pickupTasks: PickupAndDeliveryTask[] = [];
   parsedSurvTasks: SurveillanceTask[] = [];
+  parsedPickTasks: PickupAndDeliveryTask[] = [];
 
   constructor(private taskService: TaskService, private userService: SystemUserService, private buildingService: BuildingService, 
     private floorService: FloorService, private router: Router) { }
 
   closeForm() {
-    this.router.navigate(["/user/searchTask"]);
+    this.isListVisible = false;
+    this.router.navigate(["/task/searchTask"]);
   }
 
   onSubmit() {
@@ -51,6 +53,9 @@ export class TaskByStatusComponent {
       .pipe(
         tap((response) => {
           this.pickupTasks = response;
+          this.parsePickList();
+          this.isFormVisible = false;
+          this.isListVisible = true;
         }),
         catchError((error) => {
           console.error('Error occurred while listing the tasks', error);
@@ -58,9 +63,6 @@ export class TaskByStatusComponent {
         })
       )
       .subscribe()
-
-      this.isFormVisible = false;
-      this.isListVisible = true;
     
   }
 
@@ -118,6 +120,41 @@ export class TaskByStatusComponent {
         })
         )
         .subscribe()
+
+        }),
+        catchError((error) => {
+          console.error('Error occurred while getting the User', error);
+          throw error;
+        })
+      )
+      .subscribe()  
+
+    }
+  }
+
+  parsePickList() {
+    for(let i = 0; i < this.pickupTasks.length; i++) {
+      let user: any;
+
+      this.userService.getUserById(this.survTasks[i].userId)
+      .pipe(
+        tap((response) => {
+          user = response;
+
+          const pickupAndDeliveryTask = ({
+            pickupPlace: this.pickupTasks[i].pickupPlace,
+            deliveryPlace: this.pickupTasks[i].deliveryPlace,
+            pickupPersonName: this.pickupTasks[i].pickupPersonName,
+            pickupPersonPhoneNumber: this.pickupTasks[i].pickupPersonPhoneNumber,
+            deliveryPersonName: this.pickupTasks[i].deliveryPersonName,
+            deliveryPersonPhoneNumber: this.pickupTasks[i].deliveryPersonPhoneNumber,
+            description: this.pickupTasks[i].description,
+            confirmationCode: this.pickupTasks[i].confirmationCode,
+            status: this.pickupTasks[i].status,
+            userId: user.email
+          }) as PickupAndDeliveryTask;
+
+          this.parsedPickTasks.push(pickupAndDeliveryTask);
 
         }),
         catchError((error) => {

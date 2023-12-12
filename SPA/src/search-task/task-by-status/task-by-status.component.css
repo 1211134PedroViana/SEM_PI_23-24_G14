@@ -15,14 +15,11 @@
     font-family: 'Playpen Sans', cursive;
     color: #fff;
     margin-top: 2%;
+    font-size: 20px;
 }
 
 tr:hover {
     cursor: pointer;
-}
-
-.tables {
-    display: flex;
 }
 
 form {
