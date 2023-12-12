@@ -4,9 +4,9 @@
     <button class="close-button" (click)="closeForm()">X</button>
 
     <div class="row g-4">
-      <label class="form-label" for="status">Status</label>
+      <label class="form-label" for="status">Robot Type</label>
         <select class="form-select" id="status" name="selectedType" [(ngModel)]="selectedType">
-            <option *ngFor="let type of robotTypes" [value]="type">{{ type.code }}</option>
+            <option *ngFor="let type of robotTypes" [value]="type.taskTypes">{{ type.code }}</option>
         </select>
         
         <button type="submit" class="btn btn-primary">Search</button>
@@ -63,7 +63,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let task of pickupTasks; let i = index">
+        <tr *ngFor="let task of parsedPickTasks; let i = index">
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ task.pickupPlace }}</td>
           <td>{{ task.deliveryPlace }}</td>
@@ -73,6 +73,7 @@
           <td>{{ task.deliveryPersonPhoneNumber }}</td>
           <td>{{ task.description }}</td>
           <td>{{ task.confirmationCode }}</td>
+          <td>{{ task.status }}</td>
           <td>{{ task.userId }}</td>
         </tr>
       </tbody>

@@ -21,19 +21,20 @@ export class TaskByTypeComponent {
   observables: Observable<any>[] = [];
 
   robotTypes: RobotType[] = [];
-  selectedType: any;
+  selectedType: string = '';
   isFormVisible: boolean = true;
   isSurvVisible: boolean = false;
   isPickVisible: boolean = false;
   survTasks: SurveillanceTask[] = [];
   pickupTasks: PickupAndDeliveryTask[] = [];
   parsedSurvTasks: SurveillanceTask[] = [];
+  parsedPickTasks: PickupAndDeliveryTask[] = [];
 
   constructor(private taskService: TaskService, private userService: SystemUserService, private buildingService: BuildingService, 
     private floorService: FloorService, private robotTypeService: RobotTypeService, private router: Router) { }
 
   closeForm() {
-    this.router.navigate(["/user/searchTask"]);
+    this.router.navigate(["/task/searchTask"]);
   }
 
   ngOnInit() {
@@ -44,8 +45,10 @@ export class TaskByTypeComponent {
 
   onSubmit() {
 
-    if(this.selectedType.taskTypes.length < 2) {
-      this.robotTypeService.getTaskTypeById(this.selectedType.taskTypes[0]).subscribe((taskType) => {
+    let selectedArray: string[] = this.selectedType.split(',');
+
+    if(selectedArray.length < 2) {
+      this.robotTypeService.getTaskTypeById(selectedArray[0]).subscribe((taskType) => {
         if(taskType.name === 'surveillance') {
 
           this.taskService.getAllSurveillanceTask()
@@ -53,6 +56,8 @@ export class TaskByTypeComponent {
           tap((response) => {
           this.survTasks = response;
           this.parseSurvList();
+          this.isFormVisible = false;
+          this.isSurvVisible = true;
           }),
           catchError((error) => {
           console.error('Error occurred while listing the tasks', error);
@@ -67,6 +72,8 @@ export class TaskByTypeComponent {
           .pipe(
           tap((response) => {
           this.pickupTasks = response;
+          this.isFormVisible = false;
+          this.isPickVisible = true;
           }),
           catchError((error) => {
           console.error('Error occurred while listing the tasks', error);
@@ -95,10 +102,14 @@ export class TaskByTypeComponent {
       )
       .subscribe()
 
-    this.taskService.getAllPickupAndDelivery()
+      this.taskService.getAllPickupAndDelivery()
       .pipe(
         tap((response) => {
           this.pickupTasks = response;
+          this.parsePickList();
+          this.isFormVisible = false;
+          this.isSurvVisible = true;
+          this.isPickVisible = true;
         }),
         catchError((error) => {
           console.error('Error occurred while listing the tasks', error);
@@ -165,6 +176,41 @@ export class TaskByTypeComponent {
         })
         )
         .subscribe()
+
+        }),
+        catchError((error) => {
+          console.error('Error occurred while getting the User', error);
+          throw error;
+        })
+      )
+      .subscribe()  
+
+    }
+  }
+
+  parsePickList() {
+    for(let i = 0; i < this.pickupTasks.length; i++) {
+      let user: any;
+
+      this.userService.getUserById(this.survTasks[i].userId)
+      .pipe(
+        tap((response) => {
+          user = response;
+
+          const pickupAndDeliveryTask = ({
+            pickupPlace: this.pickupTasks[i].pickupPlace,
+            deliveryPlace: this.pickupTasks[i].deliveryPlace,
+            pickupPersonName: this.pickupTasks[i].pickupPersonName,
+            pickupPersonPhoneNumber: this.pickupTasks[i].pickupPersonPhoneNumber,
+            deliveryPersonName: this.pickupTasks[i].deliveryPersonName,
+            deliveryPersonPhoneNumber: this.pickupTasks[i].deliveryPersonPhoneNumber,
+            description: this.pickupTasks[i].description,
+            confirmationCode: this.pickupTasks[i].confirmationCode,
+            status: this.pickupTasks[i].status,
+            userId: user.email
+          }) as PickupAndDeliveryTask;
+
+          this.parsedPickTasks.push(pickupAndDeliveryTask);
 
         }),
         catchError((error) => {
