@@ -2,5 +2,7 @@ export default interface SystemUser {
     id: string;
     email: string;
     password: string;
-    role: string;
+    roleId: string;
+    phoneNumber: string;
+    contribuinte: string;
 }
