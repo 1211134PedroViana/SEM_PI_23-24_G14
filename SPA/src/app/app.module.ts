@@ -79,6 +79,7 @@ import { SearchTaskComponent } from '../search-task/search-task.component';
 import { TaskByStatusComponent } from '../search-task/task-by-status/task-by-status.component';
 import { TaskByTypeComponent } from '../search-task/task-by-type/task-by-type.component';
 import { TaskByUserComponent } from '../search-task/task-by-user/task-by-user.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -154,7 +155,8 @@ import { TaskByUserComponent } from '../search-task/task-by-user/task-by-user.co
     SearchTaskComponent,
     TaskByStatusComponent,
     TaskByTypeComponent,
-    TaskByUserComponent
+    TaskByUserComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

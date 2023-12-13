@@ -29,7 +29,6 @@ export class SignInComponent {
   }
 
   startRegistration() {
-    // Navegue para a página de registro. Substitua 'register' pelo caminho da sua página de registro.
     this.router.navigate(['/register']);
   }
 
