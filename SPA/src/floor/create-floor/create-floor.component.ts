@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-create-elevator',
+  selector: 'app-create-floor',
   templateUrl: './create-floor.component.html',
   styleUrls: ['./create-floor.component.css']
 })
