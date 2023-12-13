@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'app-approve-deny-task',
     templateUrl: 'approve-deny-task.component.html',
-    styleUrls: ['./approve-deny-task.css']
+    styleUrls: ['./approve-deny-task.component.css']
 })
 export class ApproveDenyTaskComponent {
 
