@@ -3,6 +3,7 @@ import SystemUser from "../../systemUserService/systemUser";
 import {catchError, tap} from "rxjs/operators";
 import {SystemUserService} from "../../systemUserService/systemUser.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {RegisterService} from "../../registerService/register.service";
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,7 @@ export class RegisterComponent {
   phoneNumber: string = '';
   contribuinte: string = '';
 
-  constructor(private systemUserService: SystemUserService,  private snackBar: MatSnackBar) {}
+  constructor(private systemUserService: SystemUserService,  private snackBar: MatSnackBar, private registerService: RegisterService ) {}
 
   closeForm() {
     this.systemUserService.closeForm();
@@ -32,7 +33,7 @@ export class RegisterComponent {
         contribuinte: this.contribuinte
       }) as SystemUser;
 
-    this.systemUserService.addSystemUser(systemUserData)
+    this.registerService.register(systemUserData)
       .pipe(
         tap((response) => {
           console.log('System User created successfully', response);

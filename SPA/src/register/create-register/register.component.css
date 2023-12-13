@@ -1,0 +1,63 @@
+.body {
+  background-image: url("/SPA/src/assets/images/moon_background.png");
+  background-size: cover;
+}
+
+.app-register {
+  width: 100%;
+  font-family: 'Playpen Sans', cursive;
+  font-size: 15px;
+  text-align: center;
+  color: #fff;
+  padding: 10px;
+  background-color: rgba(188, 183, 177, 0.3);
+}
+
+form {
+  padding: 20px;
+  width: 60%;
+  margin: auto;
+  margin-top: 20px;
+  background-color: rgba(97, 98, 98, 0.7);
+  border-radius: 30px;
+}
+
+.form-label {
+  color: #fff;
+  font-family: 'Playpen Sans', cursive;
+}
+
+.form-control {
+  width: 50%;
+  max-width: 400px;
+  font-size: 14px;
+  padding: 8px;
+}
+
+.form-title {
+  text-align: center;
+  color: #fff;
+  font-family: 'Playpen Sans', cursive;
+}
+
+.form-select {
+  width: 50%; /* Ajuste a largura conforme necessário */
+}
+
+.col-12 {
+  margin: inherit;
+}
+
+.btn-primary {
+  background-color: rgb(162, 174, 174);
+  width: 4rem;
+  border: 1px solid rgb(162, 174, 174);
+}
+
+.btn-primary:hover {
+  background-color: rgb(86, 101, 101);
+}
+
+.row {
+  margin-top: 10px;
+}
