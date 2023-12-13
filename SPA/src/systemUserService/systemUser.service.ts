@@ -2,6 +2,7 @@ import {Component, Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject  } from 'rxjs';
 import SystemUser from "./systemUser";
+import Role from "./role";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class SystemUserService {
   private createUrl = 'http://localhost:5095/api/SystemUsers';
   private getUserByIdUrl = 'http://localhost:5095/api/SystemUsers/';
   private getAllUsersUrl = 'http://localhost:5095/api/SystemUsers';
+  private getAllRolesUrl = 'http://localhost:5095/api/Roles';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private user = new BehaviorSubject<SystemUser>({} as SystemUser);
@@ -25,6 +27,16 @@ export class SystemUserService {
 
   constructor(private http: HttpClient) {
   }
+
+  getAllRoles(): Observable<Role[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    return this.http.get<Role[]>(this.getAllRolesUrl, httpOptions);
+  }
+
+
 
   addSystemUser(user: SystemUser): Observable<SystemUser> {
     const httpOptions = {

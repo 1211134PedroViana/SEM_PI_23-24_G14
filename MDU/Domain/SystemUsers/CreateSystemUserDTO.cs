@@ -11,7 +11,7 @@ namespace Mpt.Domain.SystemUsers
         public string PhoneNumber { get; set; }
         public string Contribuinte { get; set; }
 
-        public CreateSystemUserDTO(string email, string password, string roleId, string phoneNumber, string contribuinte)
+        public CreateSystemUserDTO(string email, string password, String roleId, string phoneNumber, string contribuinte)
         {
             this.Email = email;
             this.Password = password;

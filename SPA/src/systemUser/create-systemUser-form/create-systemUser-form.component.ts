@@ -18,8 +18,25 @@ export class CreateSystemUserFormComponent {
   role: string = " ";
   phoneNumber: string = '';
   contribuinte: string = '';
+  roles: any;
 
   constructor(private systemUserService: SystemUserService, private snackBar: MatSnackBar) { }
+
+  ngOnInit() {
+    // Ao inicializar o componente, buscar os roles
+    this.systemUserService.getAllRoles()
+      .pipe(
+        tap((roles) => {
+          this.roles = roles;
+        }),
+        catchError((error) => {
+          console.error('Error occurred while fetching roles', error);
+          // Handle error as needed
+          return [];
+        })
+      )
+      .subscribe();
+  }
 
   closeForm() {
     this.systemUserService.closeForm();
