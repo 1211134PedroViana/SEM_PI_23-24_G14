@@ -80,6 +80,7 @@ import { TaskByStatusComponent } from '../search-task/task-by-status/task-by-sta
 import { TaskByTypeComponent } from '../search-task/task-by-type/task-by-type.component';
 import { TaskByUserComponent } from '../search-task/task-by-user/task-by-user.component';
 import { RegisterComponent } from './register/register.component';
+import {ApproveDenyTaskComponent} from "../approve-deny-task/approve-deny-task";
 
 
 @NgModule({
@@ -157,7 +158,8 @@ import { RegisterComponent } from './register/register.component';
     TaskByStatusComponent,
     TaskByTypeComponent,
     TaskByUserComponent,
-    RegisterComponent
+    RegisterComponent,
+    ApproveDenyTaskComponent
   ],
   imports: [
     BrowserModule,
