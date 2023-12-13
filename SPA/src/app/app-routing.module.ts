@@ -52,6 +52,7 @@ import { SearchTaskComponent } from 'src/search-task/search-task.component';
 import { TaskByStatusComponent } from 'src/search-task/task-by-status/task-by-status.component';
 import { TaskByTypeComponent } from 'src/search-task/task-by-type/task-by-type.component';
 import { TaskByUserComponent } from 'src/search-task/task-by-user/task-by-user.component';
+import { ApproveDenyTaskComponent } from 'src/approve-deny-task/approve-deny-task';
 
 const routes: Routes = [
 
@@ -112,7 +113,8 @@ const routes: Routes = [
       { path: 'byStatus', component: TaskByStatusComponent },
       { path: 'byType', component: TaskByTypeComponent },
       { path: 'byUser', component: TaskByUserComponent }
-    ]}
+    ]},
+    { path: 'approveOrDenyTask', component: ApproveDenyTaskComponent }
   ]},
 
   //Admin App
