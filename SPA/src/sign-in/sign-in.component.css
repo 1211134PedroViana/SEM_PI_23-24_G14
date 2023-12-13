@@ -1,9 +1,17 @@
+.signup-button {
+  cursor: pointer;
+  color: #4775bd; /* Cor do texto */
+  text-decoration: underline; /* Sublinhado para indicar que é clicável */
+}
 
+.signup-button:hover {
+  color: #208bbb; /* Cor do texto quando hover */
+}
 
   form {
     width: 20%;
     margin: auto;
-    color: #fff;
+    color: #a8a7a7;
     font-family: 'Playpen Sans', cursive;
   }
 
@@ -15,21 +23,21 @@
     background-image: url("/assets/images/moon_background.png");
     background-size: cover;
   }
-  
+
   .form-signin .checkbox {
     font-weight: 400;
   }
-  
+
   .form-signin .form-floating:focus-within {
     z-index: 2;
   }
-  
+
   .form-signin input[type="email"] {
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
   }
-  
+
   .form-signin input[type="password"] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
