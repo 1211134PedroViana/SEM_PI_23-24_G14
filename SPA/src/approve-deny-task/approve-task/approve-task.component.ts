@@ -168,6 +168,9 @@
     }
 
     approveSurveillanceTask(surveillanceTask: SurveillanceTask) {
+      const selectedTask = this.parsedSurvTasks.find(task => task); 
+
+      if (selectedTask) {
         this.taskService.approveSurveillanceTask(surveillanceTask)
           .pipe(
             // catchError((error) => {
@@ -178,6 +181,7 @@
           .subscribe(() => {
             // Lógica adicional após aprovar a tarefa de surveillance
           });
+        }
       }
 
     denySurveillanceTask(surveillanceTask: SurveillanceTask) {
@@ -218,5 +222,7 @@
           // Lógica adicional após aprovar a tarefa de pickUpAndDelivery
         })
     }
+
+      
   }
   
