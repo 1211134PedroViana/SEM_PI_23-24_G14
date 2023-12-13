@@ -22,5 +22,9 @@
     <label for="contribuinte" class="form-label">Contribuinte</label>
     <input id="contribuinte" type="text" class="form-control" name="contribuinte" [(ngModel)]="contribuinte">
   </div>
-  <button id="create" type="submit" class="btn btn-primary">Request Create User</button>
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="acceptTerms" [(ngModel)]="acceptTerms" (change)="onAcceptTermsChange()" required>
+    <label class="form-check-label" for="acceptTerms">I accept the terms and conditions</label>
+  </div>
+  <button id="create" type="submit" class="btn btn-primary" [disabled]="!acceptTerms">Request Create User</button>
 </form>

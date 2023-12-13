@@ -126,7 +126,7 @@ const routes: Routes = [
   //Admin App
   { path: 'admin', component: AppAdminComponent, children: [
       { path: 'user', component: SystemUserComponent, children:[
-          { path: 'create', component: CreateSystemUserComponent}
+          { path: 'create', component: RegisterComponent}
       ]}
   ]},
 

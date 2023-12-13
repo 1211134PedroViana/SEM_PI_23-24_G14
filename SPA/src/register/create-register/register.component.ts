@@ -17,8 +17,13 @@ export class RegisterComponent {
   role: string = "";
   phoneNumber: string = '';
   contribuinte: string = '';
+  acceptTerms: boolean = false;
 
   constructor(private systemUserService: SystemUserService,  private snackBar: MatSnackBar, private registerService: RegisterService ) {}
+
+  onAcceptTermsChange() {
+    this.acceptTerms = true;
+  }
 
   closeForm() {
     this.systemUserService.closeForm();
