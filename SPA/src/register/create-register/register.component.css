@@ -38,10 +38,11 @@ form {
   text-align: center;
   color: #fff;
   font-family: 'Playpen Sans', cursive;
+  font-size: 24px;
 }
 
 .form-select {
-  width: 50%; /* Ajuste a largura conforme necessário */
+  width: 10%;
 }
 
 .col-12 {
@@ -49,8 +50,8 @@ form {
 }
 
 .btn-primary {
-  background-color: rgb(162, 174, 174);
-  width: 4rem;
+  background-color: rgb(44, 71, 197);
+  width: 8rem;
   border: 1px solid rgb(162, 174, 174);
 }
 
