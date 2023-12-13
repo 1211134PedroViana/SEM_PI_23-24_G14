@@ -1,0 +1,45 @@
+@startuml
+!define RECTANGLE class
+!define ACTOR class
+!define ROUNDRECT node
+
+RECTANGLE System {
+  + Recolher e Tratar Dados Pessoais
+}
+
+ACTOR User {
+  + Dar Consentimento
+}
+
+RECTANGLE "Módulo de Cadastro" {
+  + Identificar Utilizador
+  + Autenticar Utilizador
+}
+
+RECTANGLE "Módulo de Personalização" {
+  + Personalizar Experiência
+}
+
+
+RECTANGLE "Módulo de Comunicação" {
+  + Facilitar Comunicação
+  + Prover Suporte
+}
+
+RECTANGLE "Módulo de Segurança" {
+  + Garantir Segurança
+  + Prevenir Fraudes
+}
+
+RECTANGLE "Módulo Legal" {
+  + Cumprir Requisitos Legais
+}
+
+User --> System: Dar Consentimento
+
+System --> "Módulo de Cadastro": Identificar e Autenticar Utilizador
+System --> "Módulo de Personalização": Personalizar Experiência
+System --> "Módulo de Comunicação": Facilitar Comunicação e Prover Suporte
+System --> "Módulo de Segurança": Garantir Segurança e Prevenir Fraudes
+System --> "Módulo Legal": Cumprir Requisitos Legais
+@enduml
