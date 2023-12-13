@@ -91,31 +91,16 @@ namespace Mpt.Controllers
             }
 
             try {
-                dto = await _service.ApproveTask(id, dto);
+                
+                //dto = await _service.ApproveTask(id, dto);
+                dto = null;
 
                 if (dto == null) {
                     return NotFound();
                 }
+                
                 return Ok(dto);
-            } 
-            catch (BusinessRuleValidationException ex) {
-                return BadRequest(new {Message = ex.Message});
-            }
-        }
-
-        // Patch: api/PickUpAndDeliveryTasks/denySurveillanceTask/SurveillanceTaskDTO
-        public async Task<ActionResult<SurveillanceTaskDTO>> Approve(Guid id, SurveillanceTaskDTO dto) {
-            if (id != dto.Id) {
-                return BadRequest();
-            }
-
-            try {
-                dto = await _service.ApproveTask(id, dto);
-
-                if (dto == null) {
-                    return NotFound();
-                }
-                return Ok(dto);
+                
             } 
             catch (BusinessRuleValidationException ex) {
                 return BadRequest(new {Message = ex.Message});

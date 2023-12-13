@@ -1,4 +1,13 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.EntityFrameworkCore;
 using Mpt.Infrastructure;
 using Mpt.Infrastructure.Shared;
 using Mpt.Infrastructure.Roles;
@@ -10,7 +19,8 @@ using Mpt.Domain.Roles;
 using Mpt.Domain.SystemUsers;
 using Mpt.Domain.SurveillanceTasks;
 using Mpt.Domain.PickupAndDeliveryTasks;
-using Microsoft.EntityFrameworkCore;
+using Mpt.Domain.Authentication;
+using System.Text;
 
 
 namespace Mpt
@@ -36,8 +46,27 @@ namespace Mpt
 
             ConfigureMyServices(services);
 
-
             services.AddControllers().AddNewtonsoftJson();
+
+            var secret = Configuration.GetValue<string>("AuthToken:Secret");
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secret)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
+
+            services.AddAuthorization(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +92,8 @@ namespace Mpt
 
             app.UseRouting();
 
+            app.UseMiddleware<JwtMiddleware>();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

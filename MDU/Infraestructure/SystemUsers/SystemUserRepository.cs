@@ -19,5 +19,10 @@ namespace Mpt.Infrastructure.SystemUsers
         {
             throw new NotImplementedException();
         }
+
+        public async Task<SystemUser> Login(string Email)
+        {
+            return await _objs.Where(u => u.Email == Email).FirstOrDefaultAsync();
+        }
     }
 }
