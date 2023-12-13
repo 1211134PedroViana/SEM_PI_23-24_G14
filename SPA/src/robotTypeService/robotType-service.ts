@@ -13,7 +13,9 @@ import Elevator from "../elevatorService/elevator";
 export class RobotTypeService {
 
   private createUrl = 'http://localhost:4000/api/robotTypes/create';
+  private listUrl = 'http://localhost:4000/api/robotTypes/list';
   private getTaskTypeUrl = 'http://localhost:4000/api/taskTypes/getTaskType/';
+  private getTaskTypeByIdUrl = 'http://localhost:4000/api/taskTypes/getTaskTypeNById/';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private robotType = new BehaviorSubject<RobotType>({} as RobotType);
@@ -26,6 +28,17 @@ export class RobotTypeService {
     };
 
     return this.http.post<RobotType>(this.createUrl, robotType, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
+  getAllRobotTypes(): Observable<RobotType[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.http.get<RobotType[]>(this.listUrl, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -51,6 +64,17 @@ export class RobotTypeService {
     };
 
     return this.http.get<TaskType>(this.getTaskTypeUrl + name, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
+  getTaskTypeById(taskTypeId: string): Observable<TaskType> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.http.get<TaskType>(this.getTaskTypeByIdUrl + taskTypeId, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

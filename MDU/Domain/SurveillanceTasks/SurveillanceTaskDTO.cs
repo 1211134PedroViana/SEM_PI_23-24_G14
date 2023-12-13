@@ -17,7 +17,7 @@ namespace Mpt.Domain.SurveillanceTasks
         
         [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public TasksStatus Status { get; set; }
-        public SystemUserId UserId { get; set; }
+        public string UserId { get; set; }
 
         public SurveillanceTaskDTO(Guid Id, string buildingId, string startPlace, string endPlace, string[] floorIds, string phoneNumber, TasksStatus status, SystemUserId userId)
         {
@@ -28,7 +28,7 @@ namespace Mpt.Domain.SurveillanceTasks
             this.EndPlace = endPlace; 
             this.PhoneNumber = phoneNumber;
             this.Status = status;
-            this.UserId = userId;
+            this.UserId = userId.AsString();
         }
     }
 }

@@ -53,7 +53,11 @@ namespace Mpt
                 app.UseHsts();
             }
 
-            app.UseCors("MyPolicy");
+            // Enable CORS
+            app.UseCors(builder =>
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseHttpsRedirection();
 

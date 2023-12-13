@@ -1,8 +1,9 @@
 export default interface SurveillanceTask {
-    buidlingId: string;
+    buildingId: string;
     floorIds: string[];
     startPlace: string;
     endPlace: string;
     phoneNumber: string;
+    status: string;
     userId: string;
 }

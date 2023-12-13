@@ -6,6 +6,7 @@ import { RobotTypeCode } from "./valueObjects/robotTypeCode";
 import { RobotTypeBrand } from "./valueObjects/robotTypebrand";
 import { RobotTypeModel } from "./valueObjects/robotTypeModel";
 import { RobotTypeId } from "./valueObjects/robotTypeId";
+import IRobotTypeDTO from "../dto/IRobotTypeDTO";
 
 interface RobotTypeProps {
     code: RobotTypeCode;
@@ -52,13 +53,17 @@ export class RobotType extends AggregateRoot<RobotTypeProps> {
         super(props, id);
     }
 
-    public static create(props: RobotTypeProps, id?: UniqueEntityID): Result<RobotType> {
+    public static create(robotTypeDTO: IRobotTypeDTO, id?: UniqueEntityID): Result<RobotType> {
+
+        const code = RobotTypeCode.create(robotTypeDTO.code);
+        const brand = RobotTypeBrand.create(robotTypeDTO.brand);
+        const model = RobotTypeModel.create(robotTypeDTO.model);
 
       const guardedProps = [
-        { argument: props.code, argumentName: 'code' },
-        { argument: props.brand, argumentName: 'brand' },
-        { argument: props.model, argumentName: 'model' },
-        { argument: props.taskTypes, argumentName: 'taskTypes' }
+        { argument: robotTypeDTO.code, argumentName: 'code' },
+        { argument: robotTypeDTO.brand, argumentName: 'brand' },
+        { argument: robotTypeDTO.model, argumentName: 'model' },
+        { argument: robotTypeDTO.taskTypes, argumentName: 'taskTypes' }
       ];
 
       const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);
@@ -66,7 +71,7 @@ export class RobotType extends AggregateRoot<RobotTypeProps> {
       if (!guardResult.succeeded) {
         return Result.fail<RobotType>('Must provide a RobotType code, brand, model and a list of type of tasks');
       } else {
-        const robotType = new RobotType({ ...props }, id);
+        const robotType = new RobotType({ code: code.getValue(), brand: brand.getValue(), model: model.getValue(), taskTypes: robotTypeDTO.taskTypes }, id);
         return Result.ok<RobotType>( robotType );
       }
     }

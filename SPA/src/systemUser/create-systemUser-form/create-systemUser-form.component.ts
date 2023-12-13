@@ -16,6 +16,8 @@ export class CreateSystemUserFormComponent {
   email: string = " ";
   password: string = "";
   role: string = " ";
+  phoneNumber: string = '';
+  contribuinte: string = '';
 
   constructor(private systemUserService: SystemUserService, private snackBar: MatSnackBar) { }
 
@@ -27,14 +29,16 @@ export class CreateSystemUserFormComponent {
     const systemUserData = ({
       email: this.email,
       password: this.password,
-      role: this.role
+      roleId: this.role,
+      phoneNumber: this.phoneNumber,
+      contribuinte: this.contribuinte
     }) as SystemUser;
 
     this.systemUserService.addSystemUser(systemUserData)
       .pipe(
         tap((response) => {
           console.log('System User created successfully', response);
-          const message = `System User created successfully! | Email: ${response.email} | Role: ${response.role}`;
+          const message = `System User created successfully! | Email: ${response.email} | Role: ${response.roleId}`;
           this.snackBar.open(message, 'Close', {
             duration: 5000, // 5 seconds
           });

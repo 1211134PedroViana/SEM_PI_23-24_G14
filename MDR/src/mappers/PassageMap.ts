@@ -10,8 +10,8 @@ export class PassageMap extends Mapper<Passage> {
     public static toDTO( passage: Passage): IPassageDTO {
         return {
             id: passage.id.toString(),
-            fromBuildingId: passage.fromFloorId,
-            toBuildingId: passage.toFloorId,
+            fromBuildingId: passage.fromBuildingId,
+            toBuildingId: passage.toBuildingId,
             fromFloorId: passage.fromFloorId,
             toFloorId: passage.toFloorId,
             location: {

@@ -24,5 +24,8 @@ export default( app: Router) => {
         })
       }),
       (req, res, next) => ctrl.createRobotType(req, res, next) );
+
+    //API GET request - list all Robot Types
+    route.get('/list', (req, res, next) => ctrl.getAllRobotTypes(req, res, next));
       
 }

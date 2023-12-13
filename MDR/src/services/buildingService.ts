@@ -88,6 +88,22 @@ export default class BuildingService implements IBuildingService {
       }
     }
 
+    public async getBuildingById( buildingId: string): Promise<Result<IBuildingDTO>> {
+      try {
+        const building = await this.buildingRepo.findByDomainId(buildingId);
+  
+        if (building === null) {
+          return Result.fail<IBuildingDTO>('Building with Building ID "' + buildingId + '" not found');
+        }
+
+        const buildingDTO = BuildingMap.toDTO( building ) as IBuildingDTO;
+  
+        return Result.ok(buildingDTO);
+      } catch (e) {
+        return Result.fail<IBuildingDTO>(e.message);
+      }
+    }
+
     public async getAllBuildings(): Promise<Result<IBuildingDTO[]>> {
       try {
         const buildingList: Building[] = await this.buildingRepo.findAll();

@@ -54,12 +54,7 @@ export default class RobotTypeService implements IRobotTypeService {
             return Result.fail<IRobotTypeDTO>('RobotType already exists with code:' + robotTypeDTO.code);
           }
 
-          const robotTypeOrError = await RobotType.create({
-            code: robotTypeCodeOrError.getValue(),
-            brand: robotTypeBrandOrError.getValue(),
-            model: robotTypeModelOrError.getValue(),
-            taskTypes: robotTypeDTO.taskTypes
-          });
+          const robotTypeOrError = await RobotType.create(robotTypeDTO);
 
           if (robotTypeOrError.isFailure) {
             return Result.fail<IRobotTypeDTO>(robotTypeOrError.errorValue());
@@ -75,5 +70,21 @@ export default class RobotTypeService implements IRobotTypeService {
           } catch (e) {
             throw e;
         }
+    }
+
+    public async getAllRobotTypes(): Promise<Result<IRobotTypeDTO[]>> {
+      try {
+        const robotTypeList: RobotType[] = await this.robotTypeRepo.findAll();
+        let robotTypeDto: IRobotTypeDTO[] = [];
+  
+        if (robotTypeList != null){
+          for (let i = 0; i < robotTypeList.length; i++)
+          robotTypeDto.push(RobotTypeMap.toDTO(robotTypeList[i]));
+          return Result.ok<IRobotTypeDTO[]>(robotTypeDto);
+        }
+        return Result.fail<IRobotTypeDTO[]>("There are no Robot Types to return.");
+      } catch (e) {
+        return Result.fail<IRobotTypeDTO[]>(e.message);
+      }
     }
 }

@@ -7,5 +7,6 @@ export default interface PickupAndDeliveryTask {
     deliveryPersonPhoneNumber: string;
     description: string;
     confirmationCode: string;
+    status: string;
     userId: string;
 }

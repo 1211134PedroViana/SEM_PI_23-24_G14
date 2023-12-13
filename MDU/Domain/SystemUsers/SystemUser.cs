@@ -19,7 +19,7 @@ namespace Mpt.Domain.SystemUsers
         public SystemUser(string email, string password, RoleId roleId, string phoneNumber, string contribuinte)
         {
 
-            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(phoneNumber))
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
                 throw new BusinessRuleValidationException("Email, password are required.");
 
             if (roleId == null)

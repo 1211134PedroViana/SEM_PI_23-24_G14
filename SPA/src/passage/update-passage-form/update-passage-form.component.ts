@@ -16,6 +16,8 @@ import { FloorService } from "../../floorService/floor-service";
 })
 
 export class UpdatePassageFormComponent {
+  selectedPassage: any;
+
   buildings: Building[] = [];
   floors1: Floor[] = [];
   floors2: Floor[] = [];
@@ -30,6 +32,10 @@ export class UpdatePassageFormComponent {
   constructor(private passageService: PassageService,private buildingService: BuildingService, private floorService: FloorService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.passageService.getPassage().subscribe((passage) => {
+      this.selectedPassage = passage;
+    });
+    console.log(this.selectedPassage);
     this.buildingService.getAllBuildings().subscribe((buildings) => {
       this.buildings = buildings;
     });
@@ -41,6 +47,9 @@ export class UpdatePassageFormComponent {
 
   onSubmit() {
     let passageData = ({
+      id: this.selectedPassage.id,
+      fromBuildingId: this.selectedFromBuilding,
+      toBuildingId: this.selectedToBuilding,
       fromFloorId: this.selectedFloor1,
       toFloorId: this.selectedFloor2,
       location: {
@@ -54,7 +63,7 @@ export class UpdatePassageFormComponent {
       .pipe(
         tap((response) => {
           console.log('Passage updated successfully', response);
-          const message = `Passage updated successfully! | Floor ID: ${response.fromFloorId} | Floor ID: ${response.toFloorId} | Location: ${response.location}`;
+          const message = `Passage updated successfully!`;
           this.snackBar.open(message, 'Close', {
             duration: 5000, // 5 seconds
           });

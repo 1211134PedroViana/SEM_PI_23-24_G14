@@ -19,6 +19,7 @@ import Elevator from "./elevator.js";
  *  helpersColor: Color,
  *  isDefault: boolean,
  *  doors: Door[],
+ *  elevator: Elevator,
  *  cell: [number]
  * }
  */
@@ -140,6 +141,7 @@ export default class Maze extends THREE.Group {
                 elevator: description.floorElevator.location,
                 halfSize: this.halfSize,
             });
+            this.elevator = elevator;
             this.add(elevator);
 
             // Create Rooms of the floor and add it to the scene

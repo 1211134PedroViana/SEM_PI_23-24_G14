@@ -49,6 +49,14 @@ export class Passage extends AggregateRoot<PassageProps> {
     return this.props.description;
   }
 
+  set fromBuildingId(value: string) {
+    this.fromBuildingId = value;
+  }
+
+  set toBuildingId(value: string) {
+    this.toBuildingId = value;
+  }
+
   set fromFloorId(value: string) {
     this.fromFloorId = value;
   }
@@ -92,7 +100,7 @@ export class Passage extends AggregateRoot<PassageProps> {
       return Result.fail<Passage>('Must provide the Floor IDs and the Location');
     } else {
       const passage = new Passage(
-        { fromBuildingId: passageDTO.fromBuildingId, toBuildingId: passageDTO.fromBuildingId,fromFloorId: passageDTO.fromFloorId, toFloorId: passageDTO.toFloorId, location: location.getValue(), description: description.getValue() },
+        { fromBuildingId: passageDTO.fromBuildingId, toBuildingId: passageDTO.toBuildingId,fromFloorId: passageDTO.fromFloorId, toFloorId: passageDTO.toFloorId, location: location.getValue(), description: description.getValue() },
         id,
       );
       return Result.ok<Passage>(passage);

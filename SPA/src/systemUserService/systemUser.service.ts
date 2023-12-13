@@ -10,6 +10,8 @@ import SystemUser from "./systemUser";
 export class SystemUserService {
 
   private createUrl = 'http://localhost:5095/api/SystemUsers';
+  private getUserByIdUrl = 'http://localhost:5095/api/SystemUsers/';
+  private getAllUsersUrl = 'http://localhost:5095/api/SystemUsers';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private user = new BehaviorSubject<SystemUser>({} as SystemUser);
@@ -30,6 +32,28 @@ export class SystemUserService {
     };
 
     return this.http.post<SystemUser>(this.createUrl, user, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
+  getUserById(userId: string): Observable<SystemUser> {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
+
+    return this.http.get<SystemUser>(this.getUserByIdUrl + userId, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
+  getAllUsers(): Observable<SystemUser[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
+
+    return this.http.get<SystemUser[]>(this.getAllUsersUrl, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

@@ -70,9 +70,8 @@ namespace mpt.Migrations
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     RoleId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Active = table.Column<bool>(type: "bit", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: false),
-                    Contribuinte = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: false)
+                    PhoneNumber = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
+                    Contribuinte = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true)
                 },
                 constraints: table =>
                 {
