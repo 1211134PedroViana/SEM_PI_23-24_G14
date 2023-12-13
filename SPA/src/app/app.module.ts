@@ -80,8 +80,9 @@ import { TaskByStatusComponent } from '../search-task/task-by-status/task-by-sta
 import { TaskByTypeComponent } from '../search-task/task-by-type/task-by-type.component';
 import { TaskByUserComponent } from '../search-task/task-by-user/task-by-user.component';
 import { RegisterComponent } from './register/register.component';
-import {ApproveDenyTaskComponent} from "../approve-deny-task/approve-deny-task";
-
+import {ApproveDenyTaskComponent} from "../approve-deny-task/approve-deny-task.component";
+import { ApproveTaskComponent } from 'src/approve-deny-task/approve-task/approve-task.component';
+import { DenyTaskComponent } from 'src/approve-deny-task/deny-task/deny-task.component';
 
 @NgModule({
   declarations: [
@@ -159,7 +160,9 @@ import {ApproveDenyTaskComponent} from "../approve-deny-task/approve-deny-task";
     TaskByTypeComponent,
     TaskByUserComponent,
     RegisterComponent,
-    ApproveDenyTaskComponent
+    ApproveDenyTaskComponent,
+    ApproveTaskComponent,
+    DenyTaskComponent
   ],
   imports: [
     BrowserModule,

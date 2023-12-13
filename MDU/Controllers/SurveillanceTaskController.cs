@@ -83,5 +83,43 @@ namespace Mpt.Controllers
                return BadRequest(new {Message = ex.Message});
             }
         }
+
+        // Patch: api/PickUpAndDeliveryTasks/RefuseTask/SurveillanceTaskDTO
+        public async Task<ActionResult<SurveillanceTaskDTO>> Approve(Guid id, SurveillanceTaskDTO dto) {
+            if (id != dto.Id) {
+                return BadRequest();
+            }
+
+            try {
+                dto = await _service.ApproveTask(id, dto);
+
+                if (dto == null) {
+                    return NotFound();
+                }
+                return Ok(dto);
+            } 
+            catch (BusinessRuleValidationException ex) {
+                return BadRequest(new {Message = ex.Message});
+            }
+        }
+
+        // Patch: api/PickUpAndDeliveryTasks/RefuseTask/SurveillanceTaskDTO
+        public async Task<ActionResult<SurveillanceTaskDTO>> Approve(Guid id, SurveillanceTaskDTO dto) {
+            if (id != dto.Id) {
+                return BadRequest();
+            }
+
+            try {
+                dto = await _service.ApproveTask(id, dto);
+
+                if (dto == null) {
+                    return NotFound();
+                }
+                return Ok(dto);
+            } 
+            catch (BusinessRuleValidationException ex) {
+                return BadRequest(new {Message = ex.Message});
+            }
+        }      
     }
 }

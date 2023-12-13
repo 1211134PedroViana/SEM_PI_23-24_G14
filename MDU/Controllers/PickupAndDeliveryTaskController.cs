@@ -92,7 +92,7 @@ namespace Mpt.Controllers
             }
 
             try {
-               // dto = await _service.ApproveTask(id, dto);
+                dto = await _service.ApproveTask(id, dto);
 
                 if (dto == null) {
                     return NotFound();
@@ -111,7 +111,7 @@ namespace Mpt.Controllers
             }
 
             try {
-                //dto = await _service.RefuseTask(id, dto);
+                dto = await _service.RefuseTask(id, dto);
 
                 if (dto == null) {
                     return NotFound();
@@ -122,5 +122,23 @@ namespace Mpt.Controllers
                 return BadRequest(new {Message = ex.Message});
             }
         }
+
+        public async Task<ActionResult<PickupAndDeliveryTaskDTO>> Approve(Guid id, PickupAndDeliveryTaskDTO dto) {
+            if (id != dto.Id) {
+                return BadRequest();
+            }
+
+            try {
+                dto = await _service.ApproveTask(id, dto);
+
+                if (dto == null) {
+                    return NotFound();
+                }
+                return Ok(dto);
+            } 
+            catch (BusinessRuleValidationException ex) {
+                return BadRequest(new {Message = ex.Message});
+            }
+        }   
     }
 }

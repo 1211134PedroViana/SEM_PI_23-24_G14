@@ -5,7 +5,6 @@ import { catchError } from 'rxjs/operators';
 import SurveillanceTask from './surveillanceTask';
 import PickupAndDeliveryTask from './pickupAndDeliveryTask';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -24,9 +23,10 @@ export class TaskService {
   private searchByUserSurveillanceUrl = 'http://localhost:5095/api/SurveillanceTasks/searchByUser/';
   private searchByUserPickupAndDeliveryUrl = 'http://localhost:5095/api/PickupAndDeliveryTasks/searchByUser/';
 
+
   constructor(private http: HttpClient) {
   }
-
+  
   createSurveillanceTask(surveillanceTask: SurveillanceTask): Observable<SurveillanceTask> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -114,4 +114,6 @@ export class TaskService {
       //catchError(this.handleError('addBuilding', building))
     );
   }
+
+
 }
