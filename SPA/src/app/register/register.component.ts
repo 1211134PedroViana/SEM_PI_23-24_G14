@@ -11,29 +11,13 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class RegisterComponent {
 
-  email: string = " ";
+  email: string = "";
   password: string = "";
-  role: string = " ";
+  role: string = "";
   phoneNumber: string = '';
   contribuinte: string = '';
-  roles: any;
 
   constructor(private systemUserService: SystemUserService,  private snackBar: MatSnackBar) {}
-
-  ngOnInit() {
-    this.systemUserService.getAllRoles()
-      .pipe(
-        tap((roles) => {
-          this.roles = roles;
-        }),
-        catchError((error) => {
-          console.error('Error occurred while fetching roles', error);
-          // Handle error as needed
-          return [];
-        })
-      )
-      .subscribe();
-  }
 
   closeForm() {
     this.systemUserService.closeForm();
@@ -43,7 +27,7 @@ export class RegisterComponent {
       const systemUserData = ({
         email: this.email,
         password: this.password,
-        roleId: this.role,
+        roleId: 'User',
         phoneNumber: this.phoneNumber,
         contribuinte: this.contribuinte
       }) as SystemUser;

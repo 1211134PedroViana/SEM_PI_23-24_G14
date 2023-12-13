@@ -1,7 +1,8 @@
-import { RegisterComponent } from './register.component'
+import { mount } from 'cypress/react';
+import { RegisterComponent } from './register.component';
 
 describe('RegisterComponent', () => {
   it('should mount', () => {
-    cy.mount(RegisterComponent)
-  })
-})
+    mount(RegisterComponent);
+  });
+});
