@@ -84,7 +84,7 @@ namespace Mpt.Controllers
             }
         }
 
-        // Patch: api/PickUpAndDeliveryTasks/RefuseTask/SurveillanceTaskDTO
+        // Patch: api/PickUpAndDeliveryTasks/denySurveillanceTask/SurveillanceTaskDTO
         public async Task<ActionResult<SurveillanceTaskDTO>> Approve(Guid id, SurveillanceTaskDTO dto) {
             if (id != dto.Id) {
                 return BadRequest();
@@ -103,7 +103,7 @@ namespace Mpt.Controllers
             }
         }
 
-        // Patch: api/PickUpAndDeliveryTasks/RefuseTask/SurveillanceTaskDTO
+        // Patch: api/PickUpAndDeliveryTasks/denySurveillanceTask/SurveillanceTaskDTO
         public async Task<ActionResult<SurveillanceTaskDTO>> Approve(Guid id, SurveillanceTaskDTO dto) {
             if (id != dto.Id) {
                 return BadRequest();

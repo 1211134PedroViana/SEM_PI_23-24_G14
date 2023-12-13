@@ -23,10 +23,58 @@ export class TaskService {
   private searchByUserSurveillanceUrl = 'http://localhost:5095/api/SurveillanceTasks/searchByUser/';
   private searchByUserPickupAndDeliveryUrl = 'http://localhost:5095/api/PickupAndDeliveryTasks/searchByUser/';
 
+  private approveSurveillanceTaskURrl = 'http://localhost:5095/api/SurveillanceTasks/approveSurveillanceTask/';
+  private denySurveillanceTaskURrl = 'http://localhost:5095/api/SurveillanceTasks/denySurveillanceTask/';
+  private approvePickupAndDeliveryTaskURrl = 'http://localhost:5095/api/PickupAndDeliveryTasks/approvePickupAndDeliveryTask/';
+  private denyPickupAndDeliveryTaskURrl = 'http://localhost:5095/api/PickupAndDeliveryTasks/denyPickupAndDeliveryTask/';
 
   constructor(private http: HttpClient) {
   }
   
+  approveSurveillanceTask(surveillanceTask: SurveillanceTask): Observable<SurveillanceTask> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }) 
+    };
+
+    return this.http.post<SurveillanceTask>(this.approveSurveillanceTaskURrl, surveillanceTask, httpOptions)
+      .pipe(
+        //catchError(this.handleError('approSurveillanceTask', surveillanceTask ))
+      )
+  }
+
+  denySurveillanceTask(surveillanceTask: SurveillanceTask): Observable<SurveillanceTask> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }) 
+    };
+
+    return this.http.post<SurveillanceTask>(this.denySurveillanceTaskURrl, surveillanceTask, httpOptions)
+      .pipe(
+        //catchError(this.handleError('approSurveillanceTask', surveillanceTask ))
+      )
+  }
+
+  approvePickupAndDeliveryTask(pickupAndDeliveryTask: PickupAndDeliveryTask): Observable<PickupAndDeliveryTask> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }) 
+    };
+
+    return this.http.post<PickupAndDeliveryTask>(this.approvePickupAndDeliveryTaskURrl, pickupAndDeliveryTask, httpOptions)
+      .pipe(
+        //catchError(this.handleError('approSurveillanceTask', surveillanceTask ))
+      )
+  }
+
+  denyPickupAndDeliveryTask(pickupAndDeliveryTask: PickupAndDeliveryTask): Observable<PickupAndDeliveryTask> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }) 
+    };
+
+    return this.http.post<PickupAndDeliveryTask>(this.denyPickupAndDeliveryTaskURrl, pickupAndDeliveryTask, httpOptions)
+      .pipe(
+        //catchError(this.handleError('approSurveillanceTask', surveillanceTask ))
+      )
+  }
+
   createSurveillanceTask(surveillanceTask: SurveillanceTask): Observable<SurveillanceTask> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
