@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Mpt.Domain.Authentication;
 using Mpt.Domain.SystemUsers;
+using Mpt.Domain.Roles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,14 @@ namespace Mpt.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
+        private readonly RoleService _roleService;
         private readonly IWebHostEnvironment _env;
         private readonly IConfiguration _config;
 
-        public AuthController(IAuthService authService, IConfiguration config, IWebHostEnvironment env)
+        public AuthController(IAuthService authService, RoleService roleService, IConfiguration config, IWebHostEnvironment env)
         {
             this._authService = authService;
+            this._roleService = roleService;
             this._env = env;
             this._config = config;
         }
@@ -40,7 +43,8 @@ namespace Mpt.Controllers
                 var user = await _authService.Login(newUser.Email, newUser.Password, Response);
                 if (user != null)
                 {
-                    var jwt = _authService.GenerateJwtToken(user);
+                    var role = await _roleService.GetByIdAsync(user.RoleId);
+                    var jwt = _authService.GenerateJwtToken(user, role.Name);
 
                     SetCookie(jwt);
 
@@ -125,6 +129,10 @@ namespace Mpt.Controllers
             }
 
             Response.Cookies.Append(cName, token, cookieOptions);
+        }
+
+        private string GetCookieName() {
+            return _config.GetValue<string>("AppSettings:CookieName");
         }
 
     }

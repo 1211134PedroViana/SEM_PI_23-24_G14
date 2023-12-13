@@ -68,7 +68,7 @@ namespace Mpt.Domain.Authentication
 
 
 
-        public string GenerateJwtToken(SystemUser user)
+        public string GenerateJwtToken(SystemUser user, string role)
         {
             // generate token that is valid for 7 days
             var secret = _config.GetValue<string>("AppSettings:Secret");
@@ -78,7 +78,7 @@ namespace Mpt.Domain.Authentication
             {
                 Subject = new ClaimsIdentity(new[] {
                     new Claim(ClaimTypes.Name, user.Id.ToString()),
-                    new Claim(ClaimTypes.Role, user.Cargo.Nome)}),
+                    new Claim(ClaimTypes.Role, role)}),
                 Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
@@ -135,43 +135,52 @@ namespace Mpt.Domain.Authentication
 
         private bool CheckPassword(string password, string passwordHash)
         {
-            /* Extract the bytes */
             byte[] hashBytes = Convert.FromBase64String(passwordHash);
-            /* Get the salt */
             byte[] salt = new byte[16];
             Array.Copy(hashBytes, 0, salt, 0, 16);
-            /* Compute the hash on the password the user entered */
-            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
-            byte[] hash = pbkdf2.GetBytes(20);
-            /* Compare the results */
-            for (int i = 0; i < 20; i++)
-                if (hashBytes[i + 16] != hash[i])
-                    return false;
-            //throw new UnauthorizedAccessException();
-
-            return true;
+            
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000, HashAlgorithmName.SHA256);
+            byte[] hash = pbkdf2.GetBytes(32); // Using 32 bytes for SHA-256
+            // Use a constant-time comparison to mitigate timing attacks
+            return ConstantTimeCompare(hashBytes, hash);
         }
 
         private byte[] GenSalt()
         {
             byte[] salt;
             new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
-
+            
             return salt;
-
         }
 
         private string HashPassword(string password, byte[] salt)
         {
-            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
-            byte[] hash = pbkdf2.GetBytes(20);
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000, HashAlgorithmName.SHA256);
+            byte[] hash = pbkdf2.GetBytes(32); // Using 32 bytes for SHA-256
 
-            byte[] hashBytes = new byte[36];
+            byte[] hashBytes = new byte[48]; // Adjust size for SHA-256
             Array.Copy(salt, 0, hashBytes, 0, 16);
-            Array.Copy(hash, 0, hashBytes, 16, 20);
+            Array.Copy(hash, 0, hashBytes, 16, 32); // Adjust size for SHA-256
 
             return Convert.ToBase64String(hashBytes);
         }
+
+        private bool ConstantTimeCompare(byte[] a, byte[] b)
+        {
+            if (a.Length != b.Length)
+            {
+                return false;
+            }
+            
+            int result = 0;
+            for (int i = 0; i < a.Length; i++)
+            {
+                result |= a[i] ^ b[i];
+            }
+            
+            return result == 0;
+        }
+
 
         private enum EstadoToken
         {
