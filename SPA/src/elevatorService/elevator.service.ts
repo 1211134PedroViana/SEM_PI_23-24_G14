@@ -21,9 +21,7 @@ export class ElevatorService {
   constructor(private http: HttpClient) { }
 
   addElevator(elevator: Elevator): Observable<Elevator> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.post<Elevator>(this.createUrl, elevator, httpOptions)
       .pipe(
@@ -32,9 +30,7 @@ export class ElevatorService {
   }
 
   updateElevator(elevator: Elevator): Observable<Elevator> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.put<Elevator>(this.updateUrl, elevator, httpOptions)
       .pipe(
@@ -44,9 +40,7 @@ export class ElevatorService {
 
 
   getAllElevators(): Observable<Elevator[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<Elevator[]>(this.listUrl, httpOptions)
       .pipe(
@@ -55,9 +49,7 @@ export class ElevatorService {
   }
 
   getAllFloorsServedByElevator(): Observable<string[]> {
-    const httpOptions = {
-      headers : new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<string[]>(this.listUrl, httpOptions)
       .pipe(
@@ -66,9 +58,7 @@ export class ElevatorService {
   }
 
   getElevatorByBuilding(buildingId: string): Observable<Elevator> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<Elevator>(this.buildingElevatorUrl + buildingId, httpOptions)
       .pipe(

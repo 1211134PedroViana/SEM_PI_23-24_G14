@@ -10,8 +10,8 @@ namespace Mpt.Domain.Authentication
     public interface IAuthService
     {
         Task<SystemUser> Login(string Email, string Password, HttpResponse Response);
+        Task<AuthSystemUserDTO> Auth(string token);
         string GenerateJwtToken(SystemUser user, string role);
-        int ValidateTokenService(string Token);
         void Logout(HttpRequest Request, HttpResponse Response);
     }
 }

@@ -2,9 +2,7 @@ import { Container} from 'typedi';
 
 import winston from 'winston';
 
-import config from '../../../config';
-
-import IUserRepo from '../../services/IRepos/IUserRepo';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 
 /**
  * Attach user to req.user
@@ -15,20 +13,28 @@ import IUserRepo from '../../services/IRepos/IUserRepo';
 const attachCurrentUser = async (req, res, next) => {
   const Logger = Container.get('logger') as winston.Logger;
   try {
-    
-    const userRepo = Container.get(config.repos.user.name) as IUserRepo
 
     if( !req.token || req.token == undefined )
       next( new Error("Token inexistente ou inválido ") );
 
-    const id = req.token.id;
+    const options: AxiosRequestConfig = {
+      withCredentials: true
+    };
 
-    const isFound = await userRepo.exists( id );
+    axios.post('http://localhost:5095/api/Auth/auth/', req.token, options)
+      .then((response: AxiosResponse) => {
+        if(response.data != null) {
+          req.user = response.data;
+          next();
+        }else{
+          next( new Error("Token não corresponde a qualquer utilizador do sistema") );
+        }
+      })
+      .catch((error: AxiosError) => {
+        console.error('Post error:', error.message);
+        next( new Error("Token não corresponde a qualquer utilizador do sistema") );
+      });
 
-    if (isFound)
-      next();
-    else
-      next( new Error("Token não corresponde a qualquer utilizador do sistema") );
   } catch (e) {
     Logger.error('🔥 Error attaching user to req: %o', e);
     return next(e);

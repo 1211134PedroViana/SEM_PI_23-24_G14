@@ -22,9 +22,7 @@ export class RoomService {
   constructor(private http: HttpClient) { }
 
   addRoom(room: Room): Observable<Room> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.post<Room>(this.createUrl, room, httpOptions)
       .pipe(
@@ -33,9 +31,7 @@ export class RoomService {
   }
 
   updateRoom(room: Room): Observable<Room> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.put<Room>(this.updateUrl, room, httpOptions)
       .pipe(
@@ -44,9 +40,7 @@ export class RoomService {
   }
 
   getAllRoom(): Observable<Room[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<Room[]>(this.listUrl, httpOptions)
       .pipe(
@@ -55,9 +49,7 @@ export class RoomService {
   }
 
   getRoomsByFloor(floorId: string): Observable<Room[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<Room[]>(this.floorRoomsUrl + floorId, httpOptions)
       .pipe(
@@ -66,9 +58,7 @@ export class RoomService {
   }
 
   getRoomByDescription(description: string): Observable<Room> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<Room>(this.roomByDescriptionUrl + description, httpOptions)
       .pipe(

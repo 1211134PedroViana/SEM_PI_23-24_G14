@@ -32,9 +32,7 @@ export class TaskService {
   }
   
   approveSurveillanceTask(surveillanceTask: SurveillanceTask): Observable<SurveillanceTask> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }) 
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.post<SurveillanceTask>(this.approveSurveillanceTaskURrl, surveillanceTask, httpOptions)
       .pipe(
@@ -43,9 +41,7 @@ export class TaskService {
   }
 
   denySurveillanceTask(surveillanceTask: SurveillanceTask): Observable<SurveillanceTask> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }) 
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.post<SurveillanceTask>(this.denySurveillanceTaskURrl, surveillanceTask, httpOptions)
       .pipe(
@@ -54,9 +50,7 @@ export class TaskService {
   }
 
   approvePickupAndDeliveryTask(pickupAndDeliveryTask: PickupAndDeliveryTask): Observable<PickupAndDeliveryTask> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }) 
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.post<PickupAndDeliveryTask>(this.approvePickupAndDeliveryTaskURrl, pickupAndDeliveryTask, httpOptions)
       .pipe(
@@ -65,9 +59,7 @@ export class TaskService {
   }
 
   denyPickupAndDeliveryTask(pickupAndDeliveryTask: PickupAndDeliveryTask): Observable<PickupAndDeliveryTask> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }) 
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.post<PickupAndDeliveryTask>(this.denyPickupAndDeliveryTaskURrl, pickupAndDeliveryTask, httpOptions)
       .pipe(
@@ -76,9 +68,7 @@ export class TaskService {
   }
 
   createSurveillanceTask(surveillanceTask: SurveillanceTask): Observable<SurveillanceTask> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.post<SurveillanceTask>(this.createSurveillanceUrl, surveillanceTask, httpOptions)
       .pipe(
@@ -87,9 +77,7 @@ export class TaskService {
   }
 
   createPickupAndDeliveryTask(pickupAndDeliveryTask: PickupAndDeliveryTask): Observable<PickupAndDeliveryTask> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.post<PickupAndDeliveryTask>(this.createPickupAndDeliveryUrl, pickupAndDeliveryTask, httpOptions)
       .pipe(
@@ -98,9 +86,7 @@ export class TaskService {
   }
 
   getByStatusSurveillanceTask(status: string): Observable<SurveillanceTask[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<SurveillanceTask[]>(this.searchByStatusSurveillanceUrl + status, httpOptions)
       .pipe(
@@ -109,9 +95,7 @@ export class TaskService {
   }
 
   getByStatusPickupAndDelivery(status: string): Observable<PickupAndDeliveryTask[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<PickupAndDeliveryTask[]>(this.searchByStatusPickupAndDeliveryUrl + status, httpOptions)
       .pipe(
@@ -120,9 +104,7 @@ export class TaskService {
   }
 
   getAllSurveillanceTask(): Observable<SurveillanceTask[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<SurveillanceTask[]>(this.getAllSurveillanceUrl, httpOptions)
       .pipe(
@@ -131,9 +113,7 @@ export class TaskService {
   }
 
   getAllPickupAndDelivery(): Observable<PickupAndDeliveryTask[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<PickupAndDeliveryTask[]>(this.getAllPickupAndDeliveryUrl, httpOptions)
       .pipe(
@@ -142,9 +122,7 @@ export class TaskService {
   }
 
   getByUserSurveillanceTask(userId: string): Observable<SurveillanceTask[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<SurveillanceTask[]>(this.searchByUserSurveillanceUrl + userId, httpOptions)
       .pipe(
@@ -153,9 +131,7 @@ export class TaskService {
   }
 
   getByUserPickupAndDelivery(userId: string): Observable<PickupAndDeliveryTask[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<PickupAndDeliveryTask[]>(this.searchByUserPickupAndDeliveryUrl + userId, httpOptions)
       .pipe(

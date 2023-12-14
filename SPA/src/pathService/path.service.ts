@@ -15,11 +15,8 @@ export class PathService {
 
   computePath(elementOrig: string, elementDest: string): Observable<Path> {
     let url = `http://localhost:5000/findPath?origem=${elementOrig}&destino=${elementDest}`;
-    console.log("url:" + url)
 
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
     
     return this.http.get<Path>(url)
       .pipe(

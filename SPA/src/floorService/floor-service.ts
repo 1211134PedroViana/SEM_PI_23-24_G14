@@ -26,9 +26,7 @@ export class FloorService {
   constructor(private http: HttpClient) { }
 
   createFloor(floor: Floor): Observable<Floor> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.post<Floor>(this.createUrl, floor, httpOptions)
       .pipe(
@@ -37,20 +35,16 @@ export class FloorService {
   }
 
   updateFloor(floor: Floor): Observable<Floor> {
-    const httpsOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-    };
+    const httpOptions = { withCredentials: true };
 
-    return this.http.put<Floor>(this.listUrl, httpsOptions)
+    return this.http.put<Floor>(this.listUrl, httpOptions)
       .pipe(
         //catchError(this.handleError('addFloor', floor))
       );
   }
 
   getFloorsFromBuilding(buildingId: string): Observable<Floor[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<Floor[]>(this.listFromBuildingUrl + buildingId, httpOptions)
       .pipe(
@@ -58,9 +52,7 @@ export class FloorService {
     );
   }
   getAllFloorsWithPassages(): Observable<Floor[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<Floor[]>(this.listFloorsWithPassages, httpOptions)
       .pipe(
@@ -69,9 +61,7 @@ export class FloorService {
   }
 
   getAllFloorsWithElevator(): Observable<Floor[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<Floor[]>(this.listFloorsWithElevator, httpOptions)
       .pipe(
@@ -80,9 +70,7 @@ export class FloorService {
   }
 
   getFloorById(floorId: string): Observable<Floor> {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<Floor>(this.floorByIdUrl + floorId, httpOptions)
       .pipe(
@@ -106,9 +94,7 @@ export class FloorService {
     this.isVisible.next(false);
   }
   getAllFloors(): Observable<Floor[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<Floor[]>(this.listUrl, httpOptions)
       .pipe(

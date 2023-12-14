@@ -42,6 +42,20 @@ namespace Mpt.Domain.Authentication
 
         }
 
+        public async Task<AuthSystemUserDTO> Auth(string token) {
+            string userId = ValidateToken(token);
+            if(userId == null) {
+                return null;
+            }
+
+            var user = await _repo.GetByIdAsync(new SystemUserId(userId));
+            if(user != null) {
+                return new AuthSystemUserDTO(user.Email, user.Password, user.RoleId.AsString());
+            }else{
+                return null;
+            }
+        }
+
         public void Logout(HttpRequest request, HttpResponse response)
         {
             if (request.Cookies["token"] != null)
@@ -55,19 +69,6 @@ namespace Mpt.Domain.Authentication
             }
 
         }
-
-        public int ValidateTokenService(string token)
-        {
-            return ValidateToken(token) switch
-            {
-                EstadoToken.Valido => 200,
-                EstadoToken.Expirado => 406,
-                EstadoToken.Invalido => 401,
-                _ => 401,
-            };
-        }
-
-
 
         public string GenerateJwtToken(SystemUser user, string role)
         {
@@ -114,14 +115,14 @@ namespace Mpt.Domain.Authentication
             return tokenHandler.WriteToken(token);
         }
 
-        private EstadoToken ValidateToken(string token)
+        private string ValidateToken(string token)
         {
             try
             {
                 var secret = _config.GetValue<string>("AppSettings:Secret");
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(secret);
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                var valToken = tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
@@ -130,19 +131,22 @@ namespace Mpt.Domain.Authentication
                     ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);
 
+                // extract user from token
+                var userIdClaim = valToken.FindFirst(ClaimTypes.Name);
+                if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out var userId))
+                {
+                    return null;
+                }
+
+                return userIdClaim.Value;
+
             }
             catch (Exception e)
             {
                 Console.Write(e);
-                if (e.Message.Contains("expired"))
-                {
-                    return EstadoToken.Expirado;
-                }
-
-                return EstadoToken.Invalido;
-
+                return null;
             }
-            return EstadoToken.Valido;
+            
         }
 
         private bool CheckPassword(string password, string passwordHash)
@@ -174,14 +178,6 @@ namespace Mpt.Domain.Authentication
             Array.Copy(hash, 0, hashBytes, 16, 32); // Adjust size for SHA-256
 
             return Convert.ToBase64String(hashBytes);
-        }
-
-
-        private enum EstadoToken
-        {
-            Expirado = 0,
-            Valido = 1,
-            Invalido = 2
         }
     }
 }

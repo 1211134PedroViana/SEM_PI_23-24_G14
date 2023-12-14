@@ -27,9 +27,7 @@ export class PassageService {
   constructor(private http: HttpClient) { }
 
   createPassage(passage: Passage): Observable<Passage> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.post<Passage>(this.createUrl, passage, httpOptions)
       .pipe(
@@ -37,9 +35,7 @@ export class PassageService {
       );
   }
   updatePassage(passage: Passage): Observable<Passage> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.put<Passage>(this.updateUrl, passage, httpOptions)
       .pipe(
@@ -48,9 +44,7 @@ export class PassageService {
   }
 
   getBuildings(): Observable<Building[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<Building[]>(this.listBuildingsUrl, httpOptions)
         .pipe(
@@ -59,9 +53,7 @@ export class PassageService {
   }
 
   getFloors(): Observable<Floor[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<Floor[]>(this.listFloorsUrl, httpOptions)
         .pipe(
@@ -70,9 +62,7 @@ export class PassageService {
   }
 
   getAllPassages(): Observable<Passage[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<Passage[]>(this.listPassagesUrl, httpOptions)
       .pipe(
@@ -81,9 +71,7 @@ export class PassageService {
   }
 
   getPassagesByFloor(floorId: string): Observable<Passage[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<Passage[]>(this.floorPassagesUrl + floorId, httpOptions)
       .pipe(

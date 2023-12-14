@@ -66,7 +66,7 @@ namespace Mpt.Controllers
 
         [AllowAnonymous]
         [HttpPost("auth/")]
-        public IActionResult Auth()
+        public async Task<ActionResult<AuthSystemUserDTO>> Auth()
         {
             try
             {
@@ -75,8 +75,12 @@ namespace Mpt.Controllers
 
                 if (!string.IsNullOrEmpty(token) || !string.IsNullOrEmpty(tokenRefresh))
                 {
-                    var code = _authService.ValidateTokenService(token);
-                    return StatusCode(code);
+                    var user = await _authService.Auth(token);
+                    if(user != null) {
+                        return user;
+                    }else{
+                        return BadRequest();
+                    }
                 }
                 else
                 {

@@ -23,9 +23,7 @@ export class RobotTypeService {
   constructor(private http: HttpClient) { }
 
   createRobotType(robotType: RobotType): Observable<RobotType> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.post<RobotType>(this.createUrl, robotType, httpOptions)
       .pipe(
@@ -34,9 +32,7 @@ export class RobotTypeService {
   }
 
   getAllRobotTypes(): Observable<RobotType[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<RobotType[]>(this.listUrl, httpOptions)
       .pipe(
@@ -45,9 +41,7 @@ export class RobotTypeService {
   }
 
   addRobotType(robotType: RobotType): Observable<RobotType> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.post<RobotType>(this.createUrl, robotType, httpOptions)
       .pipe(
@@ -59,9 +53,7 @@ export class RobotTypeService {
     this.isVisible.next(false);
   }
   getTaskType(name: string): Observable<TaskType> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<TaskType>(this.getTaskTypeUrl + name, httpOptions)
       .pipe(
@@ -70,9 +62,7 @@ export class RobotTypeService {
   }
 
   getTaskTypeById(taskTypeId: string): Observable<TaskType> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<TaskType>(this.getTaskTypeByIdUrl + taskTypeId, httpOptions)
       .pipe(

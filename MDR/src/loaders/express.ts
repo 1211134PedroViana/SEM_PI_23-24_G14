@@ -23,7 +23,12 @@ export default ({ app }: { app: express.Application }) => {
   // The magic package that prevents frontend developers going nuts
   // Alternate description:
   // Enable Cross Origin Resource Sharing to all origins by default
-  app.use(cors());
+  app.use(
+    cors({
+      origin: 'http://localhost:4200',
+      credentials: true,
+    })
+  );
 
   // Some sauce that always add since 2014
   // "Lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it."

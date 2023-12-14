@@ -23,9 +23,7 @@ export class RobotService {
     constructor(private http: HttpClient) { }
 
     addRobot(robot: Robot): Observable<Robot> {
-        const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-        };
+        const httpOptions = { withCredentials: true };
 
         return this.http.post<Robot>(this.createUrl, robot, httpOptions)
             .pipe(
@@ -34,9 +32,7 @@ export class RobotService {
     }
 
     updateRobot(robot: Robot): Observable<Robot> {
-        const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-        };
+        const httpOptions = { withCredentials: true };
 
         return this.http.put<Robot>(this.updateUrl, robot, httpOptions)
             .pipe(
@@ -45,9 +41,7 @@ export class RobotService {
     }
 
     getAllRobots(): Observable<Robot[]> {
-        const httpOptions = {
-          headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-        };
+        const httpOptions = { withCredentials: true };
 
         return this.http.get<Robot[]>(this.listUrl, httpOptions)
           .pipe(
@@ -56,7 +50,9 @@ export class RobotService {
     }
 
     deactivateRobot(robot: Robot): Observable<Robot> {
-        return this.http.patch<Robot>(this.deactivateUrl, robot)
+        const httpOptions = { withCredentials: true };
+
+        return this.http.patch<Robot>(this.deactivateUrl, robot, httpOptions)
           .pipe(
             //catchError(this.handleError('addRobot', robot))
         );
@@ -80,9 +76,7 @@ export class RobotService {
     }
 
     findRobotsByNicknameOrTaskType(nickname: string, taskType: string): Observable<Robot[]> {
-        const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-        };
+        const httpOptions = { withCredentials: true };
 
         // Adjust the API endpoint and parameters based on your API
         const urlWithParams = `${this.retrieveURL}?nickname=${nickname}&taskType=${taskType}`;

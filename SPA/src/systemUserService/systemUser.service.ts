@@ -31,25 +31,19 @@ export class SystemUserService {
   }
 
   getAllRoles(): Observable<Role[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<Role[]>(this.getAllRolesUrl, httpOptions);
   }
 
   getRoleById(roleId: string): Observable<Role> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<Role>(this.getRoleByIdUrl + roleId, httpOptions);
   }
 
   addSystemUser(user: SystemUser): Observable<SystemUser> {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.post<SystemUser>(this.createUrl, user, httpOptions)
       .pipe(
@@ -58,9 +52,7 @@ export class SystemUserService {
   }
 
   getUserById(userId: string): Observable<SystemUser> {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<SystemUser>(this.getUserByIdUrl + userId, httpOptions)
       .pipe(
@@ -69,9 +61,7 @@ export class SystemUserService {
   }
 
   getAllUsers(): Observable<SystemUser[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<SystemUser[]>(this.getAllUsersUrl, httpOptions)
       .pipe(
@@ -80,9 +70,7 @@ export class SystemUserService {
   }
 
   getUserByEmail(email: string): Observable<SystemUser> {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.get<SystemUser>(this.getUserByEmailUrl + email, httpOptions)
       .pipe(
