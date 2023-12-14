@@ -12,16 +12,16 @@ using System.Threading.Tasks;
 namespace Mpt.Controllers
 {
 
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthService _authService;
+        private readonly AuthService _authService;
         private readonly RoleService _roleService;
         private readonly IWebHostEnvironment _env;
         private readonly IConfiguration _config;
 
-        public AuthController(IAuthService authService, RoleService roleService, IConfiguration config, IWebHostEnvironment env)
+        public AuthController(AuthService authService, RoleService roleService, IConfiguration config, IWebHostEnvironment env)
         {
             this._authService = authService;
             this._roleService = roleService;
@@ -34,6 +34,7 @@ namespace Mpt.Controllers
         [HttpPost("login/")]
         public async Task<ActionResult<SystemUser>> Login(SystemUser newUser)
         {
+
             try
             {
                 if (newUser.Email == null || newUser.Password == null)

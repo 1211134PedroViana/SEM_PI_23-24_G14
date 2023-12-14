@@ -37,6 +37,18 @@ namespace Mpt.Controllers
             return user;
         }
 
+        // GET: api/SystemUsers/searchByEmail/1210825@isep.ipp.pt
+        [HttpGet("searchByEmail/{email}")]
+        public async Task<ActionResult<SystemUserDTO>> GetByEmail(string email)
+        {
+            var user = await _service.GetByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
+        }
+
         // POST: api/SystemUsers
         [HttpPost]
         public async Task<ActionResult<SystemUserDTO>> Create(CreateSystemUserDTO dto)

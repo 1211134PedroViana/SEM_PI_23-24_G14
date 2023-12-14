@@ -15,9 +15,9 @@ namespace Mpt.Infrastructure.SystemUsers
         {
         }
 
-        public Task<SystemUser> GetByEmailAsync(string email)
+        public async Task<SystemUser> GetByEmailAsync(string Email)
         {
-            throw new NotImplementedException();
+            return await _objs.Where(u => u.Email == Email).FirstOrDefaultAsync();
         }
 
         public async Task<SystemUser> Login(string Email)

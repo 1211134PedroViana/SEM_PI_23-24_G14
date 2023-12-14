@@ -14,6 +14,8 @@ export class SystemUserService {
   private getUserByIdUrl = 'http://localhost:5095/api/SystemUsers/';
   private getAllUsersUrl = 'http://localhost:5095/api/SystemUsers';
   private getAllRolesUrl = 'http://localhost:5095/api/Roles';
+  private getRoleByIdUrl = 'http://localhost:5095/api/Roles/';
+  private getUserByEmailUrl = 'http://localhost:5095/api/SystemUsers/searchByEmail/';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private user = new BehaviorSubject<SystemUser>({} as SystemUser);
@@ -36,7 +38,13 @@ export class SystemUserService {
     return this.http.get<Role[]>(this.getAllRolesUrl, httpOptions);
   }
 
+  getRoleById(roleId: string): Observable<Role> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
 
+    return this.http.get<Role>(this.getRoleByIdUrl + roleId, httpOptions);
+  }
 
   addSystemUser(user: SystemUser): Observable<SystemUser> {
     const httpOptions = {
@@ -66,6 +74,17 @@ export class SystemUserService {
     };
 
     return this.http.get<SystemUser[]>(this.getAllUsersUrl, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
+  getUserByEmail(email: string): Observable<SystemUser> {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
+
+    return this.http.get<SystemUser>(this.getUserByEmailUrl + email, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

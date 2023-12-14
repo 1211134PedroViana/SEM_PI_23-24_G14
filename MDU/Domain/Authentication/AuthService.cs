@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Claims;
@@ -34,9 +35,9 @@ namespace Mpt.Domain.Authentication
             if (user == null) return null;
 
             string hashedPassword = HashPassword(user.Password, GenSalt());
-
+    
             if (CheckPassword(Password, hashedPassword) == false) return null;
-
+            
             return user;
 
         }
@@ -70,20 +71,31 @@ namespace Mpt.Domain.Authentication
 
         public string GenerateJwtToken(SystemUser user, string role)
         {
-            // generate token that is valid for 7 days
+            try
+            {
+
+                // generate token that is valid for 7 days
             var secret = _config.GetValue<string>("AppSettings:Secret");
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
+        
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.Name, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Id.AsString()),
                     new Claim(ClaimTypes.Role, role)}),
                 Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+
+            }
+            catch (Exception ex) {
+                Console.WriteLine($"Error generating JWT token: {ex.Message}");
+                throw; 
+            }
+        
         }
 
         private string GenerateRefreshJwtToken(int UserId)
@@ -136,13 +148,12 @@ namespace Mpt.Domain.Authentication
         private bool CheckPassword(string password, string passwordHash)
         {
             byte[] hashBytes = Convert.FromBase64String(passwordHash);
-            byte[] salt = new byte[16];
+            byte[] salt = GenSalt();
             Array.Copy(hashBytes, 0, salt, 0, 16);
             
-            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000, HashAlgorithmName.SHA256);
-            byte[] hash = pbkdf2.GetBytes(32); // Using 32 bytes for SHA-256
-            // Use a constant-time comparison to mitigate timing attacks
-            return ConstantTimeCompare(hashBytes, hash);
+            var pbkdf2 = HashPassword(password, salt);
+            byte[] hash = Convert.FromBase64String(pbkdf2); 
+            return StructuralComparisons.StructuralEqualityComparer.Equals(hash, hashBytes);
         }
 
         private byte[] GenSalt()
@@ -163,22 +174,6 @@ namespace Mpt.Domain.Authentication
             Array.Copy(hash, 0, hashBytes, 16, 32); // Adjust size for SHA-256
 
             return Convert.ToBase64String(hashBytes);
-        }
-
-        private bool ConstantTimeCompare(byte[] a, byte[] b)
-        {
-            if (a.Length != b.Length)
-            {
-                return false;
-            }
-            
-            int result = 0;
-            for (int i = 0; i < a.Length; i++)
-            {
-                result |= a[i] ^ b[i];
-            }
-            
-            return result == 0;
         }
 
 

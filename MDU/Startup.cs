@@ -48,7 +48,7 @@ namespace Mpt
 
             services.AddControllers().AddNewtonsoftJson();
 
-            var secret = Configuration.GetValue<string>("AuthToken:Secret");
+            var secret = Configuration.GetValue<string>("AppSettings:Secret");
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -105,6 +105,8 @@ namespace Mpt
         public void ConfigureMyServices(IServiceCollection services)
         {
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            services.AddTransient<AuthService>();
 
             services.AddTransient<ISystemUserRepository, SystemUserRepository>();
             services.AddTransient<SystemUserService>();
