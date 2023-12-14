@@ -57,4 +57,9 @@ export class RegisterComponent {
       )
       .subscribe();
   }
+
+  openTermsDocument() {
+    const termsDocumentUrl = 'DOCS/RGPD_Grupo14.docx';
+
+    window.open(termsDocumentUrl, 'Terms and Conditions', 'width=600,height=400');  }
 }
