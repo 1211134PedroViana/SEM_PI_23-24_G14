@@ -8,7 +8,7 @@ namespace Mpt.Domain.SystemUsers
     {
         public Guid Id { get; set; }
         public string Email { get; set; }
-        public RoleId RoleId { get; set; }
+        public string RoleId { get; set; }
         public string PhoneNumber { get; set; }
         public string Contribuinte { get; set; }
 
@@ -16,7 +16,7 @@ namespace Mpt.Domain.SystemUsers
         {
             this.Id = id;
             this.Email = email;
-            this.RoleId = roleId;
+            this.RoleId = roleId.AsString();
             this.PhoneNumber = phoneNumber;
             this.Contribuinte = contribuinte;
         }

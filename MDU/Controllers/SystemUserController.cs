@@ -39,7 +39,7 @@ namespace Mpt.Controllers
 
         // GET: api/SystemUsers/searchByEmail/1210825@isep.ipp.pt
         [HttpGet("searchByEmail/{email}")]
-        public async Task<ActionResult<SystemUserDTO>> GetByEmail(string email)
+        public async Task<ActionResult<AuthSystemUserDTO>> GetByEmail(string email)
         {
             var user = await _service.GetByEmailAsync(email);
             if (user == null)

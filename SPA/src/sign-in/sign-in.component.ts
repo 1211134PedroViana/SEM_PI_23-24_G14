@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, switchMap  } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/authService/auth.service';
 import { SystemUserService } from 'src/systemUserService/systemUser.service';
+import AuthSystemUser from 'src/systemUserService/authSystemUser';
 
 @Component({
   selector: 'app-sign-in',
@@ -19,64 +20,46 @@ export class SignInComponent {
     private router: Router, private snackBar: MatSnackBar) {
   }
 
+  
   onSubmit(): void {
-    if(this.email.trim() === "" || this.password.trim() === "") {
-      const message = 'Error: Email and Password cant be empty, Try again';
-      this.snackBar.open(message, 'Close', {
-        duration: 5000, 
-      });
-    }else{
-
-      
-      this.userService.getUserByEmail(this.email)
-      .pipe(
-        tap((response) => {
-
-          this.userService.getRoleById(response.roleId)
-          .pipe(
-            tap((response2) => {
-
-              this.authService.login(response)
-              .pipe(
-                tap((response3) => {
-    
-                  this.navigateToMenu(response2.name);
-    
-                }),
-                catchError((error) => {
-                  console.error('Password is incorrect', error);
-                  this.snackBar.open('Incorrect Password, Try again', 'Close', {
-                  duration: 5000, // 5 seconds
-                });
-                throw error;
-                })
-              )
-              .subscribe();
-
-            }),
+    if (this.email.trim() === "" || this.password.trim() === "") {
+      const message = 'Error: Email and Password can\'t be empty, Try again';
+      this.snackBar.open(message, 'Close', { duration: 5000 });
+      return;
+    }
+  
+    this.userService.getUserByEmail(this.email).pipe(
+      switchMap((response) => this.userService.getRoleById(response.roleId).pipe(
+        switchMap((response2) => {
+          const userDto: AuthSystemUser = {
+            email: response.email,
+            password: response.password,
+            roleId: response.roleId
+          };
+  
+          return this.authService.login(userDto).pipe(
+            tap(() => this.navigateToMenu(response2.name)),
             catchError((error) => {
-              console.error('Role not found', error);
-              this.snackBar.open('User Role not found', 'Close', {
-              duration: 5000, // 5 seconds
-            });
-            throw error;
+              console.error('Password is incorrect', error);
+              this.snackBar.open('Incorrect Password, Try again', 'Close', { duration: 5000 });
+              throw error;
             })
-          )
-          .subscribe();
-          
+          );
         }),
         catchError((error) => {
-          console.error('Error user not found', error);
-          this.snackBar.open('User not found with email:' + this.email, 'Close', {
-            duration: 5000, // 5 seconds
-          });
+          console.error('Role not found', error);
+          this.snackBar.open('User Role not found', 'Close', { duration: 5000 });
           throw error;
         })
-      )
-      .subscribe();
-
-    }
+      )),
+      catchError((error) => {
+        console.error('Error user not found', error);
+        this.snackBar.open('User not found with email:' + this.email, 'Close', { duration: 5000 });
+        throw error;
+      })
+    ).subscribe();
   }
+  
 
   startRegistration() {
     this.router.navigate(['/register']);

@@ -40,14 +40,14 @@ namespace Mpt.Domain.SystemUsers
             return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.RoleId, user.PhoneNumber, user.Contribuinte);
         }
 
-        public async Task<SystemUserDTO> GetByEmailAsync(string email)
+        public async Task<AuthSystemUserDTO> GetByEmailAsync(string email)
         {
             var user = await this._repo.GetByEmailAsync(email);
             if (user == null)
             {
                 return null;
             }
-            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.RoleId, user.PhoneNumber, user.Contribuinte);
+            return new AuthSystemUserDTO(user.Email, user.Password, user.RoleId.AsString());
         }
 
         public async Task<SystemUserDTO> AddAsync(CreateSystemUserDTO dto)

@@ -32,7 +32,7 @@ namespace Mpt.Controllers
 
         [AllowAnonymous]
         [HttpPost("login/")]
-        public async Task<ActionResult<SystemUser>> Login(SystemUser newUser)
+        public async Task<ActionResult<SystemUser>> Login(AuthSystemUserDTO newUser)
         {
 
             try

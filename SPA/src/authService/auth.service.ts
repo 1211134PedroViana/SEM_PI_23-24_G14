@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import SystemUser from 'src/systemUserService/systemUser';
+import AuthSystemUser from 'src/systemUserService/authSystemUser';
 
 
 @Injectable({
@@ -11,12 +12,12 @@ import SystemUser from 'src/systemUserService/systemUser';
 
 export class AuthService {
 
-  private loginUrl = 'http://localhost:5095/api/Authentication/login/';
+  private loginUrl = 'http://localhost:5095/api/Auth/login/';
 
   constructor(private http: HttpClient) {
   }
 
-  login(user: SystemUser): Observable<SystemUser> {
+  login(user: AuthSystemUser): Observable<SystemUser> {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };

@@ -56,6 +56,7 @@ import { ApproveDenyTaskComponent } from 'src/approve-deny-task/approve-deny-tas
 import { ApproveTaskComponent } from 'src/approve-deny-task/approve-task/approve-task.component';
 import { DenyTaskComponent } from 'src/approve-deny-task/deny-task/deny-task.component';
 import {RegisterComponent} from "../register/create-register/register.component";
+import { SignInComponent } from 'src/sign-in/sign-in.component';
 
 const routes: Routes = [
 
@@ -137,6 +138,8 @@ const routes: Routes = [
       { path: 'surveillance', component: SurveillanceTaskFormComponent},
     ]}
   ]},
+
+  { path: 'login', component: SignInComponent },
 
   { path: 'register', component: RegisterComponent },
 ];
