@@ -26,6 +26,7 @@ namespace Mpt.Controllers
         }
 
         // GET: api/PickupAndDeliveryTasks/searchByStatus/Pending
+        [Authorize(Roles = "Task")]
         [HttpGet("searchByStatus/{status}")]
         public async Task<ActionResult<IEnumerable<PickupAndDeliveryTaskDTO>>> GetTasksByStatus(string status)
         {
@@ -33,6 +34,7 @@ namespace Mpt.Controllers
         }
 
         // GET: api/PickupAndDeliveryTasks/searchByUser/userId
+        [Authorize(Roles = "Task, User")]
         [HttpGet("searchByUser/{userId}")]
         public async Task<ActionResult<IEnumerable<PickupAndDeliveryTaskDTO>>> GetTasksByUser(string userId)
         {
@@ -40,6 +42,7 @@ namespace Mpt.Controllers
         }
 
         // GET: api/PickupAndDeliveryTasks/1
+        [Authorize(Roles = "Task")]
         [HttpGet("{id}")]
         public async Task<ActionResult<PickupAndDeliveryTaskDTO>> GetGetById(Guid id)
         {
@@ -54,6 +57,7 @@ namespace Mpt.Controllers
         }
 
         // POST: api/PickupAndDeliveryTasks
+        [Authorize(Roles = "User")]
         [HttpPost]
         public async Task<ActionResult<PickupAndDeliveryTaskDTO>> Create(CreatePickupAndDeliveryTaskDTO dto)
         {
@@ -64,6 +68,7 @@ namespace Mpt.Controllers
 
         
         // DELETE: api/PickupAndDeliveryTasks/1
+        [Authorize(Roles = "Task")]
         [HttpDelete("{id}/hard")]
         public async Task<ActionResult<PickupAndDeliveryTaskDTO>> HardDelete(Guid id)
         {

@@ -6,8 +6,12 @@ import express from 'express';
 
 import Logger from './loaders/logger';
 
+import cookieParser from 'cookie-parser';
+
 async function startServer() {
   const app = express();
+  
+  app.use(cookieParser());
 
   await require('./loaders').default({ expressApp: app });
 

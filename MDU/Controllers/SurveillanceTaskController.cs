@@ -19,6 +19,7 @@ namespace Mpt.Controllers
         }
 
         // GET: api/SurveillanceTasks
+        [Authorize(Roles = "Task")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SurveillanceTaskDTO>>> GetAll()
         {
@@ -26,6 +27,7 @@ namespace Mpt.Controllers
         }
 
         // GET: api/SurveillanceTasks/searchByStatus/Pending
+        [Authorize(Roles = "Task")]
         [HttpGet("searchByStatus/{status}")]
         public async Task<ActionResult<IEnumerable<SurveillanceTaskDTO>>> GetTasksByStatus(string status)
         {
@@ -33,6 +35,7 @@ namespace Mpt.Controllers
         }
 
         // GET: api/SurveillanceTasks/searchByUser/userId
+        [Authorize(Roles = "Task, User")]
         [HttpGet("searchByUser/{userId}")]
         public async Task<ActionResult<IEnumerable<SurveillanceTaskDTO>>> GetTasksByUser(string userId)
         {
@@ -40,6 +43,7 @@ namespace Mpt.Controllers
         }
 
         // GET: api/SurveillanceTasks/1
+        [Authorize(Roles = "Task")]
         [HttpGet("{id}")]
         public async Task<ActionResult<SurveillanceTaskDTO>> GetGetById(Guid id)
         {
@@ -54,6 +58,7 @@ namespace Mpt.Controllers
         }
 
         // POST: api/SurveillanceTasks
+        [Authorize(Roles = "User")]
         [HttpPost]
         public async Task<ActionResult<SurveillanceTaskDTO>> Create(CreateSurveillanceTaskDTO dto)
         {
@@ -64,6 +69,7 @@ namespace Mpt.Controllers
 
         
         // DELETE: api/SurveillanceTasks/1
+        [Authorize(Roles = "Task")]
         [HttpDelete("{id}/hard")]
         public async Task<ActionResult<SurveillanceTaskDTO>> HardDelete(Guid id)
         {

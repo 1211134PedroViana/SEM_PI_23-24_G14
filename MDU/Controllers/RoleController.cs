@@ -19,6 +19,7 @@ namespace Mpt.Controllers
         }
 
         // GET: api/Roles
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RoleDTO>>> GetAll()
         {
@@ -26,6 +27,7 @@ namespace Mpt.Controllers
         }
 
         // GET: api/Roles/1
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<RoleDTO>> GetGetById(Guid id)
         {
@@ -40,6 +42,7 @@ namespace Mpt.Controllers
         }
 
         // POST: api/Roles
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<RoleDTO>> Create(CreateRoleDTO dto)
         {
@@ -50,6 +53,7 @@ namespace Mpt.Controllers
 
         
         // PUT: api/Roles/1
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<RoleDTO>> Update(Guid id, RoleDTO dto)
         {
@@ -75,6 +79,7 @@ namespace Mpt.Controllers
         }
         
         // DELETE: api/Roles/1
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}/hard")]
         public async Task<ActionResult<RoleDTO>> HardDelete(Guid id)
         {

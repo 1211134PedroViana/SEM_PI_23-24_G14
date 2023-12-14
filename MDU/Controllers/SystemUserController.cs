@@ -19,6 +19,7 @@ namespace Mpt.Controllers
         }
 
         // GET: api/SystemUsers
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SystemUserDTO>>> GetAll()
         {
@@ -26,6 +27,7 @@ namespace Mpt.Controllers
         }
 
         // GET: api/SystemUsers/U1
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<ActionResult<SystemUserDTO>> GetGetById(Guid id)
         {
@@ -38,6 +40,7 @@ namespace Mpt.Controllers
         }
 
         // GET: api/SystemUsers/searchByEmail/1210825@isep.ipp.pt
+        [AllowAnonymous]
         [HttpGet("searchByEmail/{email}")]
         public async Task<ActionResult<AuthSystemUserDTO>> GetByEmail(string email)
         {
@@ -50,6 +53,7 @@ namespace Mpt.Controllers
         }
 
         // POST: api/SystemUsers
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<SystemUserDTO>> Create(CreateSystemUserDTO dto)
         {
