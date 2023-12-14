@@ -2,5 +2,6 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    background-image: url("/assets/images/moon_background.png");
+    background-size: cover;
 }
-
