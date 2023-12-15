@@ -4,6 +4,7 @@ import {catchError, tap} from "rxjs/operators";
 import {SystemUserService} from "../../systemUserService/systemUser.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {RegisterService} from "../../registerService/register.service";
+import Register from "../../registerService/register";
 
 @Component({
   selector: 'app-register',
@@ -36,7 +37,7 @@ export class CreateRegisterComponent {
         roleId: 'User',
         phoneNumber: this.phoneNumber,
         contribuinte: this.contribuinte
-      }) as SystemUser;
+      }) as Register;
 
     this.registerService.addRegister(systemUserData)
       .pipe(
