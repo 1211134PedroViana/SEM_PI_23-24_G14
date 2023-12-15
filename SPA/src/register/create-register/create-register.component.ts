@@ -38,7 +38,7 @@ export class CreateRegisterComponent {
         contribuinte: this.contribuinte
       }) as SystemUser;
 
-    this.registerService.register(systemUserData)
+    this.registerService.addRegister(systemUserData)
       .pipe(
         tap((response) => {
           console.log('System User created successfully', response);

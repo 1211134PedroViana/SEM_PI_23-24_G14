@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using System.Collections.Generic;
-using System;
-using System.Threading.Tasks;
 using Mpt.Domain.Register;
 using Mpt.Domain.Shared;
 using Mpt.Domain.SystemUsers;
@@ -21,7 +18,6 @@ namespace Mpt.Controllers
         }
 
         // GET: api/Register
-        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RegisterDTO>>> GetAll()
         {
@@ -29,7 +25,6 @@ namespace Mpt.Controllers
         }
 
         // GET: api/Register/U1
-        [Authorize(Roles = "Admin, Task")]
         [HttpGet("{id}")]
         public async Task<ActionResult<RegisterDTO>> GetGetById(Guid id)
         {
@@ -41,7 +36,7 @@ namespace Mpt.Controllers
             return user;
         }
         
-        // POST: api/Register
+        // POST: api/Registers
         [HttpPost]
         public async Task<ActionResult<RegisterDTO>> Create(CreateRegisterDTO dto)
         {
