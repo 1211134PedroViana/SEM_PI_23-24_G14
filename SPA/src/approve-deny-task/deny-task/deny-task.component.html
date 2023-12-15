@@ -40,6 +40,9 @@
           <td>{{ task.phoneNumber }}</td>
           <td>{{ task.status }}</td>
           <td>{{ task.userId }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="onTaskClick(task)">Negar</button>
+          </td>
         </tr>
       </tbody>
     </table>
