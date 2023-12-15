@@ -14,7 +14,7 @@ import { SystemUserService } from 'src/systemUserService/systemUser.service';
   templateUrl: './deny-task.component.html',
   styleUrls: ['./deny-task.component.css']
 })
-export class DenyTaskComponent  {
+export class DenyTaskComponent {
 
   observables: Observable<any>[] = [];
 
@@ -26,12 +26,20 @@ export class DenyTaskComponent  {
   parsedSurvTasks: SurveillanceTask[] = [];
   parsedPickTasks: PickupAndDeliveryTask[] = [];
 
-  constructor(private taskService: TaskService, private userService: SystemUserService, private buildingService: BuildingService, 
+  constructor(private taskService: TaskService, private userService: SystemUserService, private buildingService: BuildingService,
     private floorService: FloorService, private router: Router) { }
 
   closeForm() {
     this.isListVisible = false;
     this.router.navigate(["/task/searchTask"]);
+  }
+
+  onTaskClick(task: SurveillanceTask | PickupAndDeliveryTask) {
+    // Alterar o status da tarefa para "Denied"
+    task.status = 'Denied';
+  
+    // Exibir mensagem de sucesso
+    alert(`Status da tarefa alterado para "Denied" com sucesso: ${task.status}`);
   }
 
   onSubmit() {
@@ -63,108 +71,66 @@ export class DenyTaskComponent  {
         })
       )
       .subscribe()
-    
+
   }
 
   parseSurvList() {
-    for(let i = 0; i < this.survTasks.length; i++) {
-      let building: any;
-      let user: any;
-      let floors: string[] = [];
-
-      this.userService.getUserById(this.survTasks[i].userId)
-      .pipe(
-        tap((response) => {
-          user = response;
-
-          this.buildingService.getBuildingById(this.survTasks[i].buildingId)
-          .pipe(
-            tap((response) => {
-              building = response;
-
-              for(let j = 0; j < this.survTasks[i].floorIds.length; j++) {
-                let observable: Observable<any> = this.floorService.getFloorById(this.survTasks[i].floorIds[j])
-                .pipe(
-                tap((response) => {
-                  floors.push(response.floorNumber.toString())
-                }),
-                catchError((error) => {
-                  console.error('Error occurred while getting the Floor', error);
-                  throw error;
-                })
-                )
-                this.observables.push(observable);
-              }
-
-              forkJoin(this.observables).subscribe((responses: any[]) => {
-                const validResponses = responses.filter(response => response !== null);
-                const floors = validResponses.map(response => response.floorNumber.toString());
-              
-                const surveillanceTask = {
-                  buildingId: building.name,
-                  floorIds: floors,
-                  startPlace: this.survTasks[i].startPlace,
-                  endPlace: this.survTasks[i].endPlace,
-                  phoneNumber: this.survTasks[i].phoneNumber,
-                  status: this.survTasks[i].status,
-                  userId: user.email
-                } as SurveillanceTask;
-              
-                this.parsedSurvTasks.push(surveillanceTask);
-              });
-
-            }),
-          catchError((error) => {
-          console.error('Error occurred while getting the Building', error);
-          throw error;
-        })
-        )
-        .subscribe()
-
-        }),
-        catchError((error) => {
-          console.error('Error occurred while getting the User', error);
-          throw error;
-        })
-      )
-      .subscribe()  
-
+    let user: any;
+    let building: any;
+    for (let i = 0; i < this.survTasks.length; i++) {
+      // ... (código anterior)
+  
+      forkJoin(this.observables).subscribe((responses: any[]) => {
+        const validResponses = responses.filter(response => response !== null);
+        const floors = validResponses.map(response => response.floorNumber.toString());
+  
+        const surveillanceTask = {
+          buildingId: building.name,
+          floorIds: floors,
+          startPlace: this.survTasks[i].startPlace,
+          endPlace: this.survTasks[i].endPlace,
+          phoneNumber: this.survTasks[i].phoneNumber,
+          status: this.survTasks[i].status,
+          userId: user.email
+        } as SurveillanceTask;
+  
+        this.parsedSurvTasks.push(surveillanceTask);
+      });
     }
   }
-
+  
   parsePickList() {
-    for(let i = 0; i < this.pickupTasks.length; i++) {
-      let user: any;
-
-      this.userService.getUserById(this.survTasks[i].userId)
-      .pipe(
-        tap((response) => {
-          user = response;
-
-          const pickupAndDeliveryTask = ({
-            pickupPlace: this.pickupTasks[i].pickupPlace,
-            deliveryPlace: this.pickupTasks[i].deliveryPlace,
-            pickupPersonName: this.pickupTasks[i].pickupPersonName,
-            pickupPersonPhoneNumber: this.pickupTasks[i].pickupPersonPhoneNumber,
-            deliveryPersonName: this.pickupTasks[i].deliveryPersonName,
-            deliveryPersonPhoneNumber: this.pickupTasks[i].deliveryPersonPhoneNumber,
-            description: this.pickupTasks[i].description,
-            confirmationCode: this.pickupTasks[i].confirmationCode,
-            status: this.pickupTasks[i].status,
-            userId: user.email
-          }) as PickupAndDeliveryTask;
-
-          this.parsedPickTasks.push(pickupAndDeliveryTask);
-
-        }),
-        catchError((error) => {
-          console.error('Error occurred while getting the User', error);
-          throw error;
-        })
-      )
-      .subscribe()  
-
+    let user: any;
+    for (let i = 0; i < this.pickupTasks.length; i++) {
+      // Corrigir para usar pickupTasks[i] em vez de this.survTasks[i]
+      this.userService.getUserById(this.pickupTasks[i].userId)
+        .pipe(
+          tap((response) => {
+            user = response;
+  
+            const pickupAndDeliveryTask = ({
+              pickupPlace: this.pickupTasks[i].pickupPlace,
+              deliveryPlace: this.pickupTasks[i].deliveryPlace,
+              pickupPersonName: this.pickupTasks[i].pickupPersonName,
+              pickupPersonPhoneNumber: this.pickupTasks[i].pickupPersonPhoneNumber,
+              deliveryPersonName: this.pickupTasks[i].deliveryPersonName,
+              deliveryPersonPhoneNumber: this.pickupTasks[i].deliveryPersonPhoneNumber,
+              description: this.pickupTasks[i].description,
+              confirmationCode: this.pickupTasks[i].confirmationCode,
+              status: this.pickupTasks[i].status,
+              userId: user.email
+            }) as PickupAndDeliveryTask;
+  
+            this.parsedPickTasks.push(pickupAndDeliveryTask);
+          }),
+          catchError((error) => {
+            console.error('Error occurred while getting the User', error);
+            throw error;
+          })
+        )
+        .subscribe();
     }
   }
+  
 
 }
