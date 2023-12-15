@@ -2,6 +2,9 @@ import { Router } from 'express';
 import { celebrate, Joi } from 'celebrate';
 
 import { Container } from 'typedi';
+import isAuth from '../middlewares/isAuth';
+import attachCurrentUser from '../middlewares/attachCurrentUser';
+import authorizeRole from '../middlewares/authorizeRole';
 
 import config from '../../../config';
 import IRobotController from '../../controllers/IControllers/IRobotController';
@@ -11,11 +14,15 @@ const route = Router();
 export default (app: Router) => {
   app.use('/robots', route);
 
+  route.use(isAuth);
+  route.use(attachCurrentUser);
+
   const ctrl = Container.get(config.controllers.robot.name) as IRobotController;
 
   //API POST request - create a new Robot
   route.post(
     '/create',
+    authorizeRole(config.permissions.robot.post),
     celebrate({
       body: Joi.object({
         code: Joi.string().required(),
@@ -31,6 +38,7 @@ export default (app: Router) => {
   //API PATCH request - deactivate a Robot
   route.patch(
     '/deactivate',
+    authorizeRole(config.permissions.robot.put),
     celebrate({
       body: Joi.object({
         id: Joi.string().required(),
@@ -40,7 +48,9 @@ export default (app: Router) => {
   );
 
   //API GET request - list all Robots
-  route.get('/list', (req, res, next) => ctrl.listRobots(req, res, next));
+  route.get('/list', 
+  authorizeRole(config.permissions.robot.get),
+  (req, res, next) => ctrl.listRobots(req, res, next));
 
   //API GET request - find robot by nickname
   route.get(

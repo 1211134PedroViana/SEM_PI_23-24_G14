@@ -2,6 +2,9 @@ import { Router } from 'express';
 import { celebrate, Joi } from 'celebrate';
 
 import { Container } from 'typedi';
+import isAuth from '../middlewares/isAuth';
+import attachCurrentUser from '../middlewares/attachCurrentUser';
+import authorizeRole from '../middlewares/authorizeRole';
 
 import config from '../../../config';
 import IPassageController from '../../controllers/IControllers/IPassageController';
@@ -11,11 +14,15 @@ const route = Router();
 export default (app: Router) => {
   app.use('/passages', route);
 
+  route.use(isAuth);
+  route.use(attachCurrentUser);
+
   const ctrl = Container.get(config.controllers.passage.name) as IPassageController;
 
   //API POST request - create a new Floor of an existing Building
   route.post(
     '/create',
+    authorizeRole(config.permissions.passage.post),
     celebrate({
       body: Joi.object({
         fromBuildingId: Joi.string().required(),
@@ -33,7 +40,9 @@ export default (app: Router) => {
   );
 
   //API GET request - list all Passages
-  route.get('/list', (req, res, next) => ctrl.listPassages(req, res, next));
+  route.get('/list', 
+  authorizeRole(config.permissions.passage.get),
+  (req, res, next) => ctrl.listPassages(req, res, next));
 
   //API GET request - list all Passages between 2 buildings
   route.get(
@@ -50,6 +59,7 @@ export default (app: Router) => {
   //API PUT request - edit a Passage
   route.put(
     '/update',
+    authorizeRole(config.permissions.passage.put),
     celebrate({
       body: Joi.object({
         id: Joi.string().required(),
@@ -67,5 +77,7 @@ export default (app: Router) => {
     (req, res, next) => ctrl.updatePassage(req, res, next),
   );
 
-  route.get('/passagesFromFloor/:floorId', (req, res, next) => ctrl.getPassagesByFloor(req, res, next));
+  route.get('/passagesFromFloor/:floorId', 
+  authorizeRole(config.permissions.passage.get),
+  (req, res, next) => ctrl.getPassagesByFloor(req, res, next));
 };

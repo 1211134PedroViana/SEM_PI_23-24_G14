@@ -21,6 +21,7 @@ const authorizeRole = (roles: string[]) => {
                 withCredentials: true
             };
           
+            //fetch role with the id from the request from .NET MDU module
             axios.get('http://localhost:5095/api/Roles/' + req.user.roleId, options)
                 .then((response: AxiosResponse) => {
 

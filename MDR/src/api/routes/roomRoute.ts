@@ -2,6 +2,9 @@ import { Router } from 'express';
 import { celebrate, Joi } from 'celebrate';
 
 import { Container } from 'typedi';
+import isAuth from '../middlewares/isAuth';
+import attachCurrentUser from '../middlewares/attachCurrentUser';
+import authorizeRole from '../middlewares/authorizeRole';
 
 import config from '../../../config';
 import IRoomController from '../../controllers/IControllers/IRoomController';
@@ -11,11 +14,15 @@ const route = Router();
 export default (app: Router) => {
   app.use('/rooms', route);
 
+  route.use(isAuth);
+  route.use(attachCurrentUser);
+
   const ctrl = Container.get(config.controllers.room.name) as IRoomController;
 
   //API POST request - create a new Floor of an existing Building
   route.post(
     '/create',
+    authorizeRole(config.permissions.room.post),
     celebrate({
       body: Joi.object({
         code: Joi.string().required(),
@@ -41,6 +48,7 @@ export default (app: Router) => {
   //API PUT request - update data of a Building
   route.put(
     '/update',
+    authorizeRole(config.permissions.room.put),
     celebrate({
       body: Joi.object({
         id: Joi.string().required(),
@@ -62,9 +70,15 @@ export default (app: Router) => {
   );
 
   //API GET request - list all Passages
-  route.get('/list', (req, res, next) => ctrl.listRoom(req, res, next));
+  route.get('/list', 
+  authorizeRole(config.permissions.room.get),
+  (req, res, next) => ctrl.listRoom(req, res, next));
 
-  route.get('/roomsFromFloor/:floorId', (req, res, next) => ctrl.getRoomsByFloor(req, res, next));
+  route.get('/roomsFromFloor/:floorId',
+  authorizeRole(config.permissions.room.get), 
+  (req, res, next) => ctrl.getRoomsByFloor(req, res, next));
 
-  route.get('/roomFromDescription/:description', (req, res, next) => ctrl.getRoomByDescription(req, res, next));
+  route.get('/roomFromDescription/:description',
+  authorizeRole(config.permissions.room.get), 
+  (req, res, next) => ctrl.getRoomByDescription(req, res, next));
 };

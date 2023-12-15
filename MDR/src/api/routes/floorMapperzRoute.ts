@@ -3,6 +3,9 @@ import multer from 'multer';
 import { celebrate, Joi } from 'celebrate';
 
 import { Container } from 'typedi';
+import isAuth from '../middlewares/isAuth';
+import attachCurrentUser from '../middlewares/attachCurrentUser';
+import authorizeRole from '../middlewares/authorizeRole';
 
 import config from "../../../config";
 import IFloorMapperzController from '../../controllers/IControllers/IFloorMapperzController';
@@ -12,6 +15,9 @@ const route = Router();
 
 export default( app: Router) => {
     app.use('/loadMap', route);
+
+    route.use(isAuth);
+    route.use(attachCurrentUser);
 
     const ctrl = Container.get(config.controllers.floorMapperz.name) as IFloorMapperzController;
 
@@ -30,10 +36,13 @@ export default( app: Router) => {
     const upload = multer({ storage: diskStorage });
 
     //API PATCH request - create a new FloorMap of a existing Floor
-    route.patch('', upload.single('file'),
+    route.patch('', 
+    upload.single('file'),
       (req, res, next) => ctrl.loadFloorMap(req, res, next) );
 
     //API GET request - get Floor Map
-    route.get('/:floorId', (req, res, next) => ctrl.getFloorMap(req, res, next));
+    route.get('/:floorId', 
+    authorizeRole(config.permissions.floorMapperz.get),
+    (req, res, next) => ctrl.getFloorMap(req, res, next));
 
 }

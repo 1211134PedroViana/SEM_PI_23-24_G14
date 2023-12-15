@@ -2,6 +2,9 @@ import { Router } from 'express';
 import { celebrate, Joi } from 'celebrate';
 
 import { Container } from 'typedi';
+import isAuth from '../middlewares/isAuth';
+import attachCurrentUser from '../middlewares/attachCurrentUser';
+import authorizeRole from '../middlewares/authorizeRole';
 
 import config from '../../../config';
 import IElevatorController from '../../controllers/IControllers/IElevatorController';
@@ -11,11 +14,16 @@ const route = Router();
 export default (app: Router) => {
   app.use('/elevators', route);
 
+  route.use(isAuth);
+  route.use(attachCurrentUser);
+
   const ctrl = Container.get(config.controllers.elevator.name) as IElevatorController;
+  
 
   //API POST request - create a new Elevator
   route.post(
     '/create',
+    authorizeRole(config.permissions.elevator.post),
     celebrate({
       body: Joi.object({
         code: Joi.string().required(),
@@ -40,6 +48,7 @@ export default (app: Router) => {
   //API PUT request - update data of a Building
   route.put(
     '/update',
+    authorizeRole(config.permissions.elevator.put),
     celebrate({
       body: Joi.object({
         id: Joi.string().required(),
@@ -61,7 +70,9 @@ export default (app: Router) => {
   );
 
   //API GET request - list all Elevators
-  route.get('/list', (req, res, next) => ctrl.listElevators(req, res, next));
+  route.get('/list', 
+  authorizeRole(config.permissions.elevator.get),
+  (req, res, next) => ctrl.listElevators(req, res, next));
 
   // API GET request - list floors served by an Elevator
   route.get(
@@ -74,5 +85,7 @@ export default (app: Router) => {
     (req, res, next) => ctrl.listAllFloorsServedByElevator(req, res, next),
   );
 
-  route.get('/elevatorFromBuilding/:buildingId', (req, res, next) => ctrl.getElevatorByBuilding(req, res, next));
+  route.get('/elevatorFromBuilding/:buildingId', 
+  authorizeRole(config.permissions.elevator.get),
+  (req, res, next) => ctrl.getElevatorByBuilding(req, res, next));
 };

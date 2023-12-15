@@ -2,6 +2,9 @@ import { Router } from 'express';
 import { celebrate, Joi } from 'celebrate';
 import { Container } from 'typedi';
 import config from "../../../config";
+import isAuth from '../middlewares/isAuth';
+import attachCurrentUser from '../middlewares/attachCurrentUser';
+import authorizeRole from '../middlewares/authorizeRole';
 import ITaskTypeController from '../../controllers/IControllers/ITaskTypeController';
 
 
@@ -9,6 +12,9 @@ const route = Router();
 
 export default( app: Router) => {
     app.use('/taskTypes', route);
+
+    route.use(isAuth);
+    route.use(attachCurrentUser);
 
     const ctrl = Container.get(config.controllers.taskType.name) as ITaskTypeController;
 
