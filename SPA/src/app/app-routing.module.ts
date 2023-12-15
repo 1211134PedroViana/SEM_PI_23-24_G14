@@ -55,7 +55,7 @@ import { TaskByUserComponent } from 'src/search-task/task-by-user/task-by-user.c
 import { ApproveDenyTaskComponent } from 'src/approve-deny-task/approve-deny-task.component';
 import { ApproveTaskComponent } from 'src/approve-deny-task/approve-task/approve-task.component';
 import { DenyTaskComponent } from 'src/approve-deny-task/deny-task/deny-task.component';
-import {RegisterComponent} from "../register/create-register/register.component";
+import {CreateRegisterComponent} from "../register/create-register/create-register.component";
 import { SignInComponent } from 'src/sign-in/sign-in.component';
 
 const routes: Routes = [
@@ -141,7 +141,7 @@ const routes: Routes = [
 
   { path: 'login', component: SignInComponent },
 
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', component: CreateRegisterComponent },
 ];
 
 @NgModule({

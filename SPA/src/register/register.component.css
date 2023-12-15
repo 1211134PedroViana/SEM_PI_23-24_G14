@@ -1,0 +1,28 @@
+.header {
+    text-align: center;
+    color: #fff;
+    font-size: 60px;
+    font-family: 'Playpen Sans', cursive;
+    margin-top: 50px;
+    text-shadow: 0 0 3px #fff;
+}
+
+.group-buttons {
+    display: flex;
+    margin-top: 40px;
+    justify-content: center;
+}
+
+.btn-primary {
+    margin: 20px;
+    background-color: #090430;
+    padding: 15px;
+    border-radius: 25px;
+    font-family: 'Playpen Sans', cursive;
+}
+
+.btn-primary:hover {
+    background-color: #170c6b;
+    box-shadow: 4px 4px 3px rgba(255, 255, 255, 0.5);
+}
+

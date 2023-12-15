@@ -1,7 +1,4 @@
-using System;
-using Mpt.Domain.Register;
 using Mpt.Domain.Shared;
-using Mpt.Domain.SystemUsers;
 using Mpt.Domain.Roles;
 
 namespace Mpt.Domain.Register

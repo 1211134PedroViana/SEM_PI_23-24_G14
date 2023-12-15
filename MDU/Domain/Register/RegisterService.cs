@@ -1,10 +1,6 @@
 using Mpt.Domain.Shared;
-using Mpt.Domain.SystemUsers;
-using Mpt.Infrastructure.SystemUsers;
 using Mpt.Domain.Roles;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+
 using Mpt.Domain.Register;
 
 namespace Mpt.Domain.SystemUsers

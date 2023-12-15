@@ -7,10 +7,10 @@ import {RegisterService} from "../../registerService/register.service";
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  templateUrl: './create-register.component.html',
+  styleUrls: ['./create-register.component.css']
 })
-export class RegisterComponent {
+export class CreateRegisterComponent {
 
   email: string = "";
   password: string = "";
@@ -19,14 +19,14 @@ export class RegisterComponent {
   contribuinte: string = '';
   acceptTerms: boolean = false;
 
-  constructor(private systemUserService: SystemUserService,  private snackBar: MatSnackBar, private registerService: RegisterService ) {}
+  constructor( private snackBar: MatSnackBar, private registerService: RegisterService ) {}
 
   onAcceptTermsChange() {
     this.acceptTerms = true;
   }
 
   closeForm() {
-    this.systemUserService.closeForm();
+    this.registerService.closeForm();
   }
 
   onSubmit() {

@@ -20,7 +20,7 @@ namespace Mpt.Controllers
             _service = service;
         }
 
-        // GET: api/SystemUsers
+        // GET: api/Register
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RegisterDTO>>> GetAll()
@@ -28,7 +28,7 @@ namespace Mpt.Controllers
             return await _service.GetAllAsync();
         }
 
-        // GET: api/SystemUsers/U1
+        // GET: api/Register/U1
         [Authorize(Roles = "Admin, Task")]
         [HttpGet("{id}")]
         public async Task<ActionResult<RegisterDTO>> GetGetById(Guid id)
@@ -41,8 +41,7 @@ namespace Mpt.Controllers
             return user;
         }
         
-        // POST: api/SystemUsers
-        [Authorize(Roles = "Admin")]
+        // POST: api/Register
         [HttpPost]
         public async Task<ActionResult<RegisterDTO>> Create(CreateRegisterDTO dto)
         {
