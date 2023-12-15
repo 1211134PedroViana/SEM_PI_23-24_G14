@@ -65,32 +65,36 @@ namespace Mpt.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("auth/")]
-        public async Task<ActionResult<AuthSystemUserDTO>> Auth()
+        [HttpGet("session/")]
+        public async Task<ActionResult<AuthSystemUserDTO>> Session()
         {
             try
             {
-                using (StreamReader reader = new StreamReader(HttpContext.Request.Body, Encoding.UTF8))
+                var cName = GetCookieName();
+                var token = Request.Cookies[cName];
+
+                if(string.IsNullOrEmpty(token)) {
+                    string authHeader = Request.Headers["Authorization"];
+                    token = authHeader.Substring("Bearer ".Length).Trim();
+                }
+
+                if (!string.IsNullOrEmpty(token))
                 {
-
-                    var token = await reader.ReadToEndAsync();
-                    Console.WriteLine("token: " + token);
-
-                    if (!string.IsNullOrEmpty(token))
+                    var user = await _authService.Auth(token);
+                    if (user != null)
                     {
-                        var user = await _authService.Auth(token);
-                        if(user != null) {
-                            return user;
-                        }else{
-                            return BadRequest();
-                        }
+                        return user;
                     }
                     else
                     {
                         return BadRequest();
                     }
-
                 }
+                else
+                {
+                    return BadRequest();
+                } 
+                   
             }
             catch (Exception)
             {
@@ -98,6 +102,7 @@ namespace Mpt.Controllers
             }
 
         }
+
 
         [AllowAnonymous]
         [HttpPost("logout/")]

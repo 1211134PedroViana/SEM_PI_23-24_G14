@@ -136,7 +136,7 @@ export class TaskByStatusComponent {
     for(let i = 0; i < this.pickupTasks.length; i++) {
       let user: any;
 
-      this.userService.getUserById(this.survTasks[i].userId)
+      this.userService.getUserById(this.pickupTasks[i].userId)
       .pipe(
         tap((response) => {
           user = response;

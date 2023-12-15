@@ -17,11 +17,12 @@ const attachCurrentUser = async (req, res, next) => {
     if( !req.token || req.token == undefined )
       next( new Error("Token inexistente ou inválido ") );
 
-    const options: AxiosRequestConfig = {
-      withCredentials: true
+    const headers = {
+      withCredentials: true,
+      Authorization: `Bearer ${req.token}`
     };
 
-    axios.post('http://localhost:5095/api/Auth/auth/', req.token, options)
+    axios.get('http://localhost:5095/api/Auth/session/', {headers})
       .then((response: AxiosResponse) => {
         if(response.data != null) {
           req.user = response.data;

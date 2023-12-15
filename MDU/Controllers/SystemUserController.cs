@@ -20,7 +20,7 @@ namespace Mpt.Controllers
         }
 
         // GET: api/SystemUsers
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Task")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SystemUserDTO>>> GetAll()
         {
@@ -46,6 +46,19 @@ namespace Mpt.Controllers
         public async Task<ActionResult<AuthSystemUserDTO>> GetByEmail(string email)
         {
             var user = await _service.GetByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
+        }
+
+        // GET: api/SystemUsers/searchByEmail/1210825@isep.ipp.pt
+        [AllowAnonymous]
+        [HttpGet("byEmail/{email}")]
+        public async Task<ActionResult<SystemUserDTO>> GetByEmail2(string email)
+        {
+            var user = await _service.ByEmailAsync(email);
             if (user == null)
             {
                 return NotFound();
