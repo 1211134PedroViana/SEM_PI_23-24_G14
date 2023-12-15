@@ -20,7 +20,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
 
         [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public TasksStatus Status { get; set; }
-        public SystemUserId UserId { get; set; }
+        public string UserId { get; set; }
 
         public PickupAndDeliveryTaskDTO(Guid Id, string pickupPlace, string deliveryPlace, string pickupPersonName,
             string pickupPersonPhoneNumber,
@@ -41,7 +41,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             this.Description = description;
             this.ConfirmationCode = confirmationCode;
             this.Status = status;
-            this.UserId = userId;
+            this.UserId = userId.AsString();
         }
 
     }

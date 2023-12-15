@@ -16,6 +16,7 @@ export class SystemUserService {
   private getAllRolesUrl = 'http://localhost:5095/api/Roles';
   private getRoleByIdUrl = 'http://localhost:5095/api/Roles/';
   private getUserByEmailUrl = 'http://localhost:5095/api/SystemUsers/searchByEmail/';
+  private userByEmailUrl = 'http://localhost:5095/api/SystemUsers/byEmail/';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private user = new BehaviorSubject<SystemUser>({} as SystemUser);
@@ -73,6 +74,15 @@ export class SystemUserService {
     const httpOptions = { withCredentials: true };
 
     return this.http.get<SystemUser>(this.getUserByEmailUrl + email, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
+  userByEmail(email: string): Observable<SystemUser> {
+    const httpOptions = { withCredentials: true };
+
+    return this.http.get<SystemUser>(this.userByEmailUrl + email, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

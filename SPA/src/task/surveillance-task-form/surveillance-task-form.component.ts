@@ -14,6 +14,8 @@ import Room from 'src/roomService/room';
 import { ElevatorService } from 'src/elevatorService/elevator.service';
 import Passage from 'src/passageService/passage';
 import SurveillanceTask from 'src/taskService/surveillanceTask';
+import { AuthService } from 'src/authService/auth.service';
+import { SystemUserService } from 'src/systemUserService/systemUser.service';
 
 @Component({
   selector: 'app-surveillance-task-form',
@@ -22,6 +24,7 @@ import SurveillanceTask from 'src/taskService/surveillanceTask';
 })
 export class SurveillanceTaskFormComponent {
 
+  userId: string = '';
   buildings: Building[] = [];
   floors: Floor[] = [];
   elementsOrig: any[] = [];
@@ -35,10 +38,16 @@ export class SurveillanceTaskFormComponent {
 
   phoneNumber = '';
 
-  constructor(private taskService: TaskService, private router: Router, private pathService: PathService, private passageService: PassageService, private buildingService: BuildingService,
+  constructor(private taskService: TaskService, private authService: AuthService, private userService: SystemUserService, 
+    private router: Router, private pathService: PathService, private passageService: PassageService, private buildingService: BuildingService,
     private floorService: FloorService, private roomService: RoomService, private elevatorService: ElevatorService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.authService.auth().subscribe((authUser) => {
+      this.userService.userByEmail(authUser.email).subscribe((user) => {
+          this.userId = user.id;
+      });
+    });
     this.buildingService.getAllBuildings().subscribe((buildings) => {
       this.buildings = buildings;
     });
@@ -75,6 +84,7 @@ export class SurveillanceTaskFormComponent {
   }
 
   onSubmit() {
+
     let selFloors: string[] = [];
 
     for(let i = 0; i < this.selectedFloors.length; i++) {
@@ -89,7 +99,7 @@ export class SurveillanceTaskFormComponent {
       startPlace: this.selectedOrig,
       endPlace: this.selectedDest,
       phoneNumber: this.phoneNumber,
-      userId: "to do"
+      userId: this.userId
     }) as SurveillanceTask;
 
     this.taskService.createSurveillanceTask(surveillanceTask)

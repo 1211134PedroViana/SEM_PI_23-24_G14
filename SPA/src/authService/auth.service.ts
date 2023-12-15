@@ -13,6 +13,7 @@ import AuthSystemUser from 'src/systemUserService/authSystemUser';
 export class AuthService {
 
   private loginUrl = 'http://localhost:5095/api/Auth/login/';
+  private sessionUrl = 'http://localhost:5095/api/Auth/session/';
 
   constructor(private http: HttpClient) {
   }
@@ -21,6 +22,15 @@ export class AuthService {
     const httpOptions = { withCredentials: true };
 
     return this.http.post<SystemUser>(this.loginUrl, user, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+    );
+  }
+
+  auth(): Observable<AuthSystemUser> {
+    const httpOptions = { withCredentials: true };
+
+    return this.http.get<AuthSystemUser>(this.sessionUrl, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
     );

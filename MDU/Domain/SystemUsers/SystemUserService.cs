@@ -50,6 +50,16 @@ namespace Mpt.Domain.SystemUsers
             return new AuthSystemUserDTO(user.Email, user.Password, user.RoleId.AsString());
         }
 
+        public async Task<SystemUserDTO> ByEmailAsync(string email)
+        {
+            var user = await this._repo.GetByEmailAsync(email);
+            if (user == null)
+            {
+                return null;
+            }
+            return new SystemUserDTO(user.Id.AsGuid(), user.Email, user.RoleId, user.PhoneNumber, user.Contribuinte);
+        }
+
         public async Task<SystemUserDTO> AddAsync(CreateSystemUserDTO dto)
         {
             await checkRoleIdAsync(dto.RoleId);

@@ -14,6 +14,8 @@ import Room from 'src/roomService/room';
 import { ElevatorService } from 'src/elevatorService/elevator.service';
 import Passage from 'src/passageService/passage';
 import PickupAndDeliveryTask from 'src/taskService/pickupAndDeliveryTask';
+import { AuthService } from 'src/authService/auth.service';
+import { SystemUserService } from 'src/systemUserService/systemUser.service';
 
 @Component({
   selector: 'app-pickup-delivery-task-form',
@@ -36,6 +38,7 @@ export class PickupDeliveryTaskFormComponent {
   selectedOrig = '';
   selectedDest = '';
 
+  userId: string = '';
   pickupName: string = '';
   pickupNumber: string = '';
   deliveryName: string = '';
@@ -43,10 +46,18 @@ export class PickupDeliveryTaskFormComponent {
   confirmationCode: string = '';
   description: string = '';
 
-  constructor(private taskService: TaskService, private router: Router, private pathService: PathService, private passageService: PassageService, private buildingService: BuildingService,
-    private floorService: FloorService, private roomService: RoomService, private elevatorService: ElevatorService, private snackBar: MatSnackBar) { }
+  constructor(private taskService: TaskService, private authService: AuthService, private router: Router, private passageService: PassageService, 
+    private buildingService: BuildingService, private floorService: FloorService, private roomService: RoomService, 
+    private elevatorService: ElevatorService, private userService: SystemUserService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+  
+    this.authService.auth().subscribe((authUser) => {
+      this.userService.userByEmail(authUser.email).subscribe((user) => {
+          this.userId = user.id;
+      });
+    });
+    
     this.buildingService.getAllBuildings().subscribe((buildings) => {
       this.buildings = buildings;
     });
@@ -93,7 +104,7 @@ export class PickupDeliveryTaskFormComponent {
       deliveryPersonPhoneNumber: this.deliveryNumber,
       description: this.description,
       confirmationCode: this.confirmationCode,
-      userId: "to do"
+      userId: this.userId
     }) as PickupAndDeliveryTask;
 
     this.taskService.createPickupAndDeliveryTask(pickupAndDeliveryTask)
