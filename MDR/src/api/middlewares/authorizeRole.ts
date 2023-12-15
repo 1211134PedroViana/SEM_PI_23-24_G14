@@ -4,27 +4,38 @@ import winston from 'winston';
 
 import config from '../../../config';
 
-import IRoleRepo from '../../services/IRepos/IRoleRepo';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+
 
 const authorizeRole = (roles: string[]) => {
     return async (req, res, next) => {
         const Logger = Container.get('logger') as winston.Logger;
 
-        const roleRepo = Container.get(config.repos.role.name) as IRoleRepo;
-
         try {
             // Check if req.user has the required role
-            if (!req.user || !req.user.role || !req.user.role.name) {
+            if (!req.user || !req.user.roleId) {
                 return res.status(403).json({ message: 'Forbidden: User not authenticated' });
             }
 
-            const role = await roleRepo.findByDomainId(req.user.roleId);
+            const options: AxiosRequestConfig = {
+                withCredentials: true
+            };
+          
+            axios.get('http://localhost:5095/api/Roles/' + req.user.roleId, options)
+                .then((response: AxiosResponse) => {
 
-            if (roles.includes(role.name)) {
-                next();
-            } else {
-                return res.status(403).json({ message: 'Forbidden: Insufficient permissions' });
-            }
+                    if (roles.includes(response.data.name)) {
+                        next();
+                    } else {
+                        return res.status(403).json({ message: 'Forbidden: Insufficient permissions' });
+                    }
+                    
+                })
+                .catch((error: AxiosError) => {
+                  console.error('Get error:', error.message);
+                  next( new Error("Error getting roles from MDU") );
+                });
+
         } catch (error) {
             Logger.error('🔥 Error authorizing roles: %o', error);
             return next(error);

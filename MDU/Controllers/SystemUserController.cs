@@ -28,7 +28,7 @@ namespace Mpt.Controllers
         }
 
         // GET: api/SystemUsers/U1
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Task")]
         [HttpGet("{id}")]
         public async Task<ActionResult<SystemUserDTO>> GetGetById(Guid id)
         {

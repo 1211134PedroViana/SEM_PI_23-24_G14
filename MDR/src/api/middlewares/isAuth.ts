@@ -7,12 +7,12 @@ const getToken = req => {
   const authHeader = req.headers.authorization;
 
   // check if the JWT is in the Authorization header
-  if (authHeader && (authHeader.split(' ')[0] === 'Token' || authHeader.split(' ')[0] === 'Bearer')) {
+  if (authHeader && (authHeader.split(' ')[0] === 'Token' && authHeader.split(' ')[0] === 'Bearer')) {
       return authHeader.split(' ')[1];
   }
 
   // check if the JWT is in a cookie
-  if (req.cookies[config.cookieName] != undefined || req.cookies[config.cookieName] != null) {
+  if (req.cookies[config.cookieName] != undefined && req.cookies[config.cookieName] != null) {
       return req.cookies[config.cookieName];
   }
 

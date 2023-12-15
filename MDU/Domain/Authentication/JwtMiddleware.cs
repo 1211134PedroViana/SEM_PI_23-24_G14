@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Mpt.Domain.SystemUsers;
 using System;
@@ -15,33 +16,33 @@ namespace Mpt.Domain.Authentication
     {
         private readonly RequestDelegate _next;
         private readonly IConfiguration _config;
+        private readonly IServiceScopeFactory _scopeFactory;
 
-        public JwtMiddleware(RequestDelegate next, IConfiguration config)
+        public JwtMiddleware(RequestDelegate next, IConfiguration config, IServiceScopeFactory scopeFactory)
         {
             _next = next;
             _config = config;
+            _scopeFactory = scopeFactory;
         }
 
-        public async Task Invoke(HttpContext context, SystemUserService systemUserService)
+        public async Task Invoke(HttpContext context)
         {
-            var token = context.Request.Cookies["token"];
-            var tokenRefresh = context.Request.Cookies["tokenRefresh"];
-
-            if (!string.IsNullOrEmpty(token) || !string.IsNullOrEmpty(tokenRefresh))
+            var token = context.Request.Cookies["CookieOnee-chanUwU"];
+            if (!string.IsNullOrEmpty(token))
             {
                 context.Request.Headers.Append("Authorization", "Bearer " + token);
-                AttachUserToContext(context, systemUserService, token, tokenRefresh);
+                AttachUserToContext(context, token);
             }
 
             await _next(context);
-
-
-
         }
 
-        private void AttachUserToContext(HttpContext context, SystemUserService systemUserService, string token, string tokenRefresh)
+        private async Task AttachUserToContext(HttpContext context, string token)
         {
-            //Verifica o token
+            using (var scope = _scopeFactory.CreateScope())
+            {
+
+                //Verifica o token
             try
             {
                 var secret = _config.GetValue<string>("AppSettings:Secret");
@@ -58,43 +59,19 @@ namespace Mpt.Domain.Authentication
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "unique_name").Value);
-
-                // attach user to context on successful jwt validation
-                //context.Items["Utilizador"] = utilizadorService.GetUtilizadorById(userId);
-
+                var userId = Guid.Parse(jwtToken.Claims.First(x => x.Type == "unique_name").Value);
+                var userService = scope.ServiceProvider.GetRequiredService<SystemUserService>();
+                var user = await userService.GetByIdAsync(new SystemUserId(userId));
+                // Attach user to context on successful jwt validation
+                context.Items["user"] = user;
             }
-            catch
+            catch (Exception ex)
             {
-                // do nothing if jwt validation fails
-                // user is not attached to context so request won't have access to secure routes
+                Console.WriteLine($"Failed to validate cookie. {ex.Message}");
             }
 
-            //Verifica o token refresh
-            try
-            {
-                var secret = _config.GetValue<string>("AppSettings:Secret");
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(secret);
-                tokenHandler.ValidateToken(tokenRefresh, new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
-                    ClockSkew = TimeSpan.Zero
-                }, out SecurityToken validatedToken);
-
-                var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
-
             }
-            catch
-            {
-                //Se falhar aqui, remove o user que foi anexado ao context no passo anterior
-                //context.Items["Utilizador"] = null;
-            }
+        
         }
 
     }

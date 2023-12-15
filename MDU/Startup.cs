@@ -83,10 +83,12 @@ namespace Mpt
             }
 
             // Enable CORS
-            app.UseCors(builder =>
-                builder.AllowAnyOrigin()
+            app.UseCors(
+                builder => builder
+                .WithOrigins("http://localhost:4200")
+                .AllowAnyHeader()
                 .AllowAnyMethod()
-                .AllowAnyHeader());
+                .AllowCredentials());
 
             app.UseHttpsRedirection();
 

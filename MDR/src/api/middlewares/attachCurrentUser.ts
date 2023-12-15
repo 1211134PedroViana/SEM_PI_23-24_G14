@@ -27,7 +27,7 @@ const attachCurrentUser = async (req, res, next) => {
           req.user = response.data;
           next();
         }else{
-          next( new Error("Token não corresponde a qualquer utilizador do sistema") );
+          next( new Error("fuck off") );
         }
       })
       .catch((error: AxiosError) => {

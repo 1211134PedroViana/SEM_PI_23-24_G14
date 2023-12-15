@@ -18,9 +18,7 @@ export class AuthService {
   }
 
   login(user: AuthSystemUser): Observable<SystemUser> {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
+    const httpOptions = { withCredentials: true };
 
     return this.http.post<SystemUser>(this.loginUrl, user, httpOptions)
       .pipe(

@@ -5,6 +5,7 @@ using Mpt.Domain.Authentication;
 using Mpt.Domain.SystemUsers;
 using Mpt.Domain.Roles;
 using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,7 +35,6 @@ namespace Mpt.Controllers
         [HttpPost("login/")]
         public async Task<ActionResult<SystemUser>> Login(AuthSystemUserDTO newUser)
         {
-
             try
             {
                 if (newUser.Email == null || newUser.Password == null)
@@ -70,23 +70,27 @@ namespace Mpt.Controllers
         {
             try
             {
-                var token = Request.Cookies["token"];
-                var tokenRefresh = Request.Cookies["token"];
-
-                if (!string.IsNullOrEmpty(token) || !string.IsNullOrEmpty(tokenRefresh))
+                using (StreamReader reader = new StreamReader(HttpContext.Request.Body, Encoding.UTF8))
                 {
-                    var user = await _authService.Auth(token);
-                    if(user != null) {
-                        return user;
-                    }else{
+
+                    var token = await reader.ReadToEndAsync();
+                    Console.WriteLine("token: " + token);
+
+                    if (!string.IsNullOrEmpty(token))
+                    {
+                        var user = await _authService.Auth(token);
+                        if(user != null) {
+                            return user;
+                        }else{
+                            return BadRequest();
+                        }
+                    }
+                    else
+                    {
                         return BadRequest();
                     }
-                }
-                else
-                {
-                    return BadRequest();
-                }
 
+                }
             }
             catch (Exception)
             {
@@ -122,7 +126,7 @@ namespace Mpt.Controllers
                 HttpOnly = true,
                 Expires = DateTime.UtcNow.AddDays(7),
                 SameSite = SameSiteMode.None,
-                Secure = true,
+                Secure = false,
                 Path = "/",
             };
 

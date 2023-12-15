@@ -58,14 +58,9 @@ namespace Mpt.Domain.Authentication
 
         public void Logout(HttpRequest request, HttpResponse response)
         {
-            if (request.Cookies["token"] != null)
+            if (request.Cookies["CookieOnee-chanUwU"] != null)
             {
-                response.Cookies.Delete("token");
-            }
-
-            if (request.Cookies["tokenRefresh"] != null)
-            {
-                response.Cookies.Delete("tokenRefresh");
+                response.Cookies.Delete("CookieOnee-chanUwU");
             }
 
         }
@@ -85,7 +80,7 @@ namespace Mpt.Domain.Authentication
                 Subject = new ClaimsIdentity(new[] {
                     new Claim(ClaimTypes.Name, user.Id.AsString()),
                     new Claim(ClaimTypes.Role, role)}),
-                Expires = DateTime.UtcNow.AddMinutes(30),
+                Expires = DateTime.UtcNow.AddHours(24),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

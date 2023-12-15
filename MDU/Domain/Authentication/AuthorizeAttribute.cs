@@ -13,7 +13,7 @@ namespace Mpt.Domain.Authentication
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var user = (SystemUser)context.HttpContext.Items["SystemUser"];
+            var user = (SystemUserDTO)context.HttpContext.Items["user"];
             if (user == null)
             {
                 // not logged in

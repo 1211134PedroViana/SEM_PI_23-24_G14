@@ -10,6 +10,14 @@ if (!envFound) {
   throw new Error("⚠️  Couldn't find .env file  ⚠️");
 }
 
+const roles = {
+  ADMIN : "Admin",
+  USER: "User",
+  CAMPUS_MANAGER: "Campus",
+  FLEET_MANAGER: "Fleet",
+  TASK_MANAGER: "Task"
+}
+
 export default {
   /**
    * Your favorite port : optional change to 4000 by JRT
@@ -25,6 +33,8 @@ export default {
    * Your secret sauce
    */
   jwtSecret: process.env.JWT_SECRET || 'my sakdfho2390asjod$%jl)!sdjas0i secret',
+
+  cookieName: 'CookieOnee-chanUwU',
 
   /**
    * Used by winston logger
@@ -184,4 +194,55 @@ export default {
       path: '../services/systemUserService',
     },
   },
+
+  permissions: {
+    building: {
+      post: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.TASK_MANAGER],
+      put: [roles.ADMIN, roles.CAMPUS_MANAGER]
+    },
+
+    floor: {
+      post: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.TASK_MANAGER],
+      put: [roles.ADMIN, roles.CAMPUS_MANAGER]
+    },
+
+    passage: {
+      post: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      put: [roles.ADMIN, roles.CAMPUS_MANAGER]
+    },
+
+    room: {
+      post: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      put: [roles.ADMIN, roles.CAMPUS_MANAGER]
+    },
+
+    elevator: {
+      post: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      put: [roles.ADMIN, roles.CAMPUS_MANAGER]
+    },
+
+    robot: {
+      post: [roles.ADMIN, roles.FLEET_MANAGER],
+      get: [roles.ADMIN, roles.FLEET_MANAGER],
+      put: [roles.ADMIN, roles.FLEET_MANAGER]
+    },
+
+    robotType: {
+      post: [roles.ADMIN, roles.FLEET_MANAGER],
+      get: [roles.ADMIN, roles.FLEET_MANAGER, roles.TASK_MANAGER],
+      put: [roles.ADMIN, roles.FLEET_MANAGER]
+    },
+
+    floorMapperz: {
+      post: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      put: [roles.ADMIN, roles.CAMPUS_MANAGER]
+    }
+
+  }
 };
