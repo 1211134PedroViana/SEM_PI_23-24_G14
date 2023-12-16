@@ -126,11 +126,17 @@ find_caminho(ElementoOrigem, ElementoDestino, CaminhoPisos, CaminhosRobot, Total
 
 
 % processa cada par da lista do melhor caminho
-processar_caminho([_], _).     
+processar_caminho(Elementos, Caminhos, TotalCusto) :-
+    processar_caminho_aux(Elementos, Caminhos, 0, TotalCusto).
 
-processar_caminho([Elemento1, Elemento2|Resto], [Cam | CamResto], [Custo | Rest]):-
+% Base case when there are no more elements in the list
+processar_caminho_aux([_], [], TotalCusto, TotalCusto).
+
+% Recursive case
+processar_caminho_aux([Elemento1, Elemento2 | Resto], [Cam | CamResto], PartialCusto, TotalCusto) :-
     processar_par(Elemento1, Elemento2, Cam, Custo),
-    processar_caminho([Elemento2 | Resto], CamResto, Rest).
+    NovoPartialCusto is PartialCusto + Custo,
+    processar_caminho_aux([Elemento2 | Resto], CamResto, NovoPartialCusto, TotalCusto).
 
 % processa pares de elementos da lista retornada pelo predicado melhor_caminho_pisos/3
 processar_par(elev(_, ElevDestino), pass(PassOrigem, PassDestino), Cam, Custo) :-
