@@ -20,7 +20,7 @@ namespace Mpt.Controllers
         }
 
         // GET: api/SystemUsers
-        [Authorize(Roles = "Admin, Task")]
+        //[Authorize(Roles = "Admin, Task")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SystemUserDTO>>> GetAll()
         {

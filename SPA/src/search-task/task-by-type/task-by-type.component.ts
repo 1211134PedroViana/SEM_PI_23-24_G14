@@ -160,6 +160,7 @@ export class TaskByTypeComponent {
                   throw error;
                 })
                 )
+                .subscribe()
 
             }),
           catchError((error) => {

@@ -113,6 +113,7 @@ export class TaskByUserComponent {
                   throw error;
                 })
                 )
+                .subscribe()
  
             }),
           catchError((error) => {

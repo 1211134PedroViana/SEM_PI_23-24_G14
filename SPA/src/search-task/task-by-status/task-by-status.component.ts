@@ -104,6 +104,7 @@ export class TaskByStatusComponent {
                   throw error;
                 })
                 )
+                .subscribe()
             
             }),
           catchError((error) => {
