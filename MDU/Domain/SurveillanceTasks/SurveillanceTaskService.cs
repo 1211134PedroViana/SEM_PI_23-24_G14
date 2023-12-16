@@ -24,7 +24,7 @@ namespace Mpt.Domain.SurveillanceTasks
             var list = await this._repo.GetAllAsync();
             
             List<SurveillanceTaskDTO> listDto = list.ConvertAll<SurveillanceTaskDTO>(task => 
-                new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.StartPlace, task.EndPlace, task.FloorIds, 
+                new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.FloorId, task.StartPlace, task.EndPlace, 
                 task.PhoneNumber, task.Status, task.UserId));
 
             return listDto;
@@ -37,20 +37,20 @@ namespace Mpt.Domain.SurveillanceTasks
             if(task == null)
                 return null;
 
-            return new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.StartPlace, task.EndPlace, task.FloorIds, 
+            return new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.FloorId, task.StartPlace, task.EndPlace, 
             task.PhoneNumber, task.Status, task.UserId);
         }
 
         public async Task<SurveillanceTaskDTO> AddAsync(CreateSurveillanceTaskDTO dto)
         {
             await checkUserIdAsync(dto.UserId);
-            var task = new SurveillanceTask(dto.BuildingId, dto.StartPlace, dto.EndPlace, dto.FloorIds, dto.PhoneNumber, dto.UserId);
+            var task = new SurveillanceTask(dto.BuildingId, dto.FloorId, dto.StartPlace, dto.EndPlace, dto.PhoneNumber, dto.UserId);
 
             await this._repo.AddAsync(task);
 
             await this._unitOfWork.CommitAsync();
 
-            return new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.StartPlace, task.EndPlace, task.FloorIds, 
+            return new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.FloorId, task.StartPlace, task.EndPlace, 
             task.PhoneNumber, task.Status, task.UserId);
         }
 
@@ -64,7 +64,7 @@ namespace Mpt.Domain.SurveillanceTasks
             this._repo.Remove(task);
             await this._unitOfWork.CommitAsync();
 
-            return new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.StartPlace, task.EndPlace, task.FloorIds, 
+            return new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.FloorId, task.StartPlace, task.EndPlace, 
             task.PhoneNumber, task.Status, task.UserId);
         }
 
@@ -75,7 +75,7 @@ namespace Mpt.Domain.SurveillanceTasks
                 var list = await this._repo.GetTasksByStatus(parsedStatus);
 
                 List<SurveillanceTaskDTO> listDto = list.ConvertAll<SurveillanceTaskDTO>(task => 
-                    new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.StartPlace, task.EndPlace, task.FloorIds, 
+                    new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.FloorId, task.StartPlace, task.EndPlace,
                     task.PhoneNumber, task.Status, task.UserId));
 
                 return listDto;
@@ -97,7 +97,7 @@ namespace Mpt.Domain.SurveillanceTasks
                 var list = await this._repo.GetTasksByUser(parsedUserId);
 
                 List<SurveillanceTaskDTO> listDto = list.ConvertAll<SurveillanceTaskDTO>(task => 
-                    new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.StartPlace, task.EndPlace, task.FloorIds, 
+                    new SurveillanceTaskDTO(task.Id.AsGuid(), task.BuildingId, task.FloorId, task.StartPlace, task.EndPlace, 
                     task.PhoneNumber, task.Status, task.UserId));
 
                 return listDto;
