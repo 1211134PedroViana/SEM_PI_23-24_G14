@@ -126,7 +126,7 @@ export class TaskByTypeComponent {
     for(let i = 0; i < this.survTasks.length; i++) {
       let building: any;
       let user: any;
-      let floors: string[] = [];
+      let floor: any;
 
       this.userService.getUserById(this.survTasks[i].userId)
       .pipe(
@@ -138,36 +138,28 @@ export class TaskByTypeComponent {
             tap((response) => {
               building = response;
 
-              for(let j = 0; j < this.survTasks[i].floorIds.length; j++) {
-                let observable: Observable<any> = this.floorService.getFloorById(this.survTasks[i].floorIds[j])
+              this.floorService.getFloorById(this.survTasks[i].floorId)
                 .pipe(
                 tap((response) => {
-                  floors.push(response.floorNumber.toString())
+                  floor =  response;
+
+                  const surveillanceTask = {
+                    buildingId: building.name,
+                    floorId: floor.floorNumber,
+                    startPlace: this.survTasks[i].startPlace,
+                    endPlace: this.survTasks[i].endPlace,
+                    phoneNumber: this.survTasks[i].phoneNumber,
+                    status: this.survTasks[i].status,
+                    userId: user.email
+                  } as SurveillanceTask;
+                
+                  this.parsedSurvTasks.push(surveillanceTask);
                 }),
                 catchError((error) => {
                   console.error('Error occurred while getting the Floor', error);
                   throw error;
                 })
                 )
-                this.observables.push(observable);
-              }
-
-              forkJoin(this.observables).subscribe((responses: any[]) => {
-                const validResponses = responses.filter(response => response !== null);
-                const floors = validResponses.map(response => response.floorNumber.toString());
-              
-                const surveillanceTask = {
-                  buildingId: building.name,
-                  floorIds: floors,
-                  startPlace: this.survTasks[i].startPlace,
-                  endPlace: this.survTasks[i].endPlace,
-                  phoneNumber: this.survTasks[i].phoneNumber,
-                  status: this.survTasks[i].status,
-                  userId: user.email
-                } as SurveillanceTask;
-              
-                this.parsedSurvTasks.push(surveillanceTask);
-              });
 
             }),
           catchError((error) => {

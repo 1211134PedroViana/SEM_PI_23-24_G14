@@ -21,7 +21,7 @@
         <tr>
           <th class="header" scope="col">#</th>
           <th class="header" scope="col">Building</th>
-          <th class="header" scope="col">Floors</th>
+          <th class="header" scope="col">Floor</th>
           <th class="header" scope="col">Start</th>
           <th class="header" scope="col">End</th>
           <th class="header" scope="col">Phone</th>
@@ -33,7 +33,7 @@
         <tr *ngFor="let task of parsedSurvTasks; let i = index">
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ task.buildingId }}</td>
-          <td>{{ task.floorIds }}</td>
+          <td>{{ task.floorId }}</td>
           <td>{{ task.startPlace }}</td>
           <td>{{ task.endPlace }}</td>
           <td>{{ task.phoneNumber }}</td>

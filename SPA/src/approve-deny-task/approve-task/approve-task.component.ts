@@ -80,13 +80,11 @@ export class ApproveTaskComponent {
     for (let i = 0; i < this.survTasks.length; i++) {
       // ... (código anterior)
   
-      forkJoin(this.observables).subscribe((responses: any[]) => {
-        const validResponses = responses.filter(response => response !== null);
-        const floors = validResponses.map(response => response.floorNumber.toString());
+  
   
         const surveillanceTask = {
           buildingId: building.name,
-          floorIds: floors,
+          floorId: 'floor.floorNumber',
           startPlace: this.survTasks[i].startPlace,
           endPlace: this.survTasks[i].endPlace,
           phoneNumber: this.survTasks[i].phoneNumber,
@@ -95,7 +93,7 @@ export class ApproveTaskComponent {
         } as SurveillanceTask;
   
         this.parsedSurvTasks.push(surveillanceTask);
-      });
+      
     }
   }
   

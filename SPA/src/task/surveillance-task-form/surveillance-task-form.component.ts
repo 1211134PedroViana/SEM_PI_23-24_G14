@@ -32,7 +32,7 @@ export class SurveillanceTaskFormComponent {
   selectedTypeOrig = '';
   selectedTypeDest = '';
   selectedBuilding = '';
-  selectedFloors: boolean[] = [];
+  selectedFloor: string = '';
   selectedOrig = '';
   selectedDest = '';
 
@@ -62,7 +62,6 @@ export class SurveillanceTaskFormComponent {
     this.elementsOrig = [];
     this.floorService.getFloorsFromBuilding(this.selectedBuilding).subscribe((floors: Floor[]) => {
         this.floors = floors;
-        this.selectedFloors = new Array(this.floors.length).fill(false);
     });
   }
 
@@ -85,17 +84,9 @@ export class SurveillanceTaskFormComponent {
 
   onSubmit() {
 
-    let selFloors: string[] = [];
-
-    for(let i = 0; i < this.selectedFloors.length; i++) {
-      if(this.selectedFloors[i]) {
-        selFloors.push(this.floors[i].id);
-      }
-    }
-
     const surveillanceTask = ({
       buildingId: this.selectedBuilding,
-      floorIds: selFloors,
+      floorId: this.selectedFloor,
       startPlace: this.selectedOrig,
       endPlace: this.selectedDest,
       phoneNumber: this.phoneNumber,
@@ -127,15 +118,13 @@ export class SurveillanceTaskFormComponent {
 
     switch (type) {
         case "sala":
-          for(let i = 0; i < this.selectedFloors.length; i++) {
-            if(this.selectedFloors[i]) {
-              this.roomService.getRoomsByFloor(this.floors[i].id).subscribe((rooms: Room[]) => {
-                rooms.forEach(room => {
-                  this.elementsOrig.push(room.description);
-                });
-              });
-            }
-          }
+    
+          this.roomService.getRoomsByFloor(this.selectedFloor).subscribe((rooms: Room[]) => {
+            rooms.forEach(room => {
+              this.elementsOrig.push(room.description);
+            });
+          });
+            
           break;
 
         case "elev":
@@ -145,15 +134,14 @@ export class SurveillanceTaskFormComponent {
           break;
 
         case "pass":
-          for(let i = 0; i < this.selectedFloors.length; i++) {
-            if(this.selectedFloors[i]) {
-              this.passageService.getPassagesByFloor(this.floors[i].id).subscribe((passages: Passage[]) => {
-                passages.forEach(passage => {
-                  this.elementsOrig.push(passage.description);
-                });
-              });
-            }
-          }
+          
+          this.passageService.getPassagesByFloor(this.selectedFloor).subscribe((passages: Passage[]) => {
+            passages.forEach(passage => {
+              this.elementsOrig.push(passage.description);
+            });
+          });
+            
+          
           break;
 
         default:
@@ -166,15 +154,14 @@ export class SurveillanceTaskFormComponent {
 
     switch (type) {
         case "sala":
-          for(let i = 0; i < this.selectedFloors.length; i++) {
-            if(this.selectedFloors[i]) {
-              this.roomService.getRoomsByFloor(this.floors[i].id).subscribe((rooms: Room[]) => {
-                rooms.forEach(room => {
-                  this.elementsDest.push(room.description);
-                });
-              });
-            }
-          }
+         
+          this.roomService.getRoomsByFloor(this.selectedFloor).subscribe((rooms: Room[]) => {
+            rooms.forEach(room => {
+              this.elementsDest.push(room.description);
+            });
+          });
+            
+          
           break;
 
         case "elev":
@@ -184,15 +171,13 @@ export class SurveillanceTaskFormComponent {
           break;
 
         case "pass":
-          for(let i = 0; i < this.selectedFloors.length; i++) {
-            if(this.selectedFloors[i]) {
-              this.passageService.getPassagesByFloor(this.floors[i].id).subscribe((passages: Passage[]) => {
-                passages.forEach(passage => {
-                  this.elementsDest.push(passage.description);
-                });
-              });
-            }
-          }
+         
+          this.passageService.getPassagesByFloor(this.selectedFloor).subscribe((passages: Passage[]) => {
+            passages.forEach(passage => {
+              this.elementsDest.push(passage.description);
+            });
+          });
+          
           break;
 
         default:
