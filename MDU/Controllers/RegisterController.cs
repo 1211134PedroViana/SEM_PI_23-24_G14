@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using Mpt.Domain.Register;
-using Mpt.Domain.Registers;
 using Mpt.Domain.Shared;
-using Mpt.Domain.SystemUsers;
 
 namespace Mpt.Controllers
 {
@@ -37,7 +34,7 @@ namespace Mpt.Controllers
             return user;
         }
         
-        // POST: api/Registers
+        // POST: api/Register
         [HttpPost]
         public async Task<ActionResult<RegisterDTO>> Create(CreateRegisterDTO dto)
         {

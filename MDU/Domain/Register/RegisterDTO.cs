@@ -7,15 +7,15 @@ namespace Mpt.Domain.Register
     {
         public Guid Id { get; set; }
         public string Email { get; set; }
-        public string RoleId { get; set; }
+        public string Status { get; set; }
         public string PhoneNumber { get; set; }
         public string Contribuinte { get; set; }
 
-        public RegisterDTO(Guid id, string email, RoleId roleId, string phoneNumber, string contribuinte)
+        public RegisterDTO(Guid id, string email, string status, string phoneNumber, string contribuinte)
         {
             this.Id = id;
             this.Email = email;
-            this.RoleId = roleId.AsString();
+            this.Status = status;
             this.PhoneNumber = phoneNumber;
             this.Contribuinte = contribuinte;
         }

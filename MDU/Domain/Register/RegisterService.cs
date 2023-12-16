@@ -3,7 +3,7 @@ using Mpt.Domain.Roles;
 
 using Mpt.Domain.Register;
 
-namespace Mpt.Domain.Registers
+namespace Mpt.Domain.Register
 {
     public class RegisterService
     {
@@ -22,7 +22,7 @@ namespace Mpt.Domain.Registers
         {
             var list = await this._repo.GetAllAsync();
             List<RegisterDTO> listDto = list.ConvertAll<RegisterDTO>(user =>
-                new RegisterDTO(user.Id.AsGuid(), user.Email, user.RoleId, user.PhoneNumber, user.Contribuinte));
+                new RegisterDTO(user.Id.AsGuid(), user.Email, user.Status, user.PhoneNumber, user.Contribuinte));
                 
             return listDto;
         }
@@ -34,16 +34,15 @@ namespace Mpt.Domain.Registers
             {
                 return null;
             }
-            return new RegisterDTO(user.Id.AsGuid(), user.Email, user.RoleId, user.PhoneNumber, user.Contribuinte);
+            return new RegisterDTO(user.Id.AsGuid(), user.Email, user.Status, user.PhoneNumber, user.Contribuinte);
         }
         
         public async Task<RegisterDTO> AddAsync(CreateRegisterDTO dto)
         {
-            await checkRoleIdAsync(dto.RoleId);
-            var register = new Register.Register(dto.Email, dto.Password, dto.RoleId, dto.PhoneNumber, dto.Contribuinte);
+            var register = new Register(dto.Email, dto.Password, dto.Status, dto.PhoneNumber, dto.Contribuinte);
             await this._repo.AddAsync(register);
             await this._unitOfWork.CommitAsync();
-            return new RegisterDTO(register.Id.AsGuid(), register.Email, register.RoleId, register.PhoneNumber, register.Contribuinte);
+            return new RegisterDTO(register.Id.AsGuid(), register.Email, register.Status, register.PhoneNumber, register.Contribuinte);
         }
         
 
