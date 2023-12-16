@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { ConfigService } from '../config.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CampusSideBarComponent } from '../campus-side-bar/campus-side-bar.component';
@@ -178,7 +178,7 @@ import { UpdateSystemUserFormComponent } from 'src/systemUser/update-systemUser-
     BrowserAnimationsModule,
     MatSnackBarModule
   ],
-  providers: [],
+  providers: [ConfigService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

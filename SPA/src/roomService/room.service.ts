@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import Room from './room';
+import { ConfigService } from '../config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,21 +11,21 @@ import Room from './room';
 
 export class RoomService {
 
-  private createUrl = 'http://localhost:4000/api/rooms/create';
-  private updateUrl = 'http://localhost:4000/api/rooms/update';
-  private listUrl = 'http://localhost:4000/api/rooms/list';
-  private floorRoomsUrl = 'http://localhost:4000/api/rooms/roomsFromFloor/';
-  private roomByDescriptionUrl = 'http://localhost:4000/api/rooms/roomFromDescription/';
+  private createUrl = 'api/rooms/create';
+  private updateUrl = 'api/rooms/update';
+  private listUrl = 'api/rooms/list';
+  private floorRoomsUrl = 'api/rooms/roomsFromFloor/';
+  private roomByDescriptionUrl = 'api/rooms/roomFromDescription/';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private elevator = new BehaviorSubject<Room>({} as Room);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private configService: ConfigService) { }
 
   addRoom(room: Room): Observable<Room> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<Room>(this.createUrl, room, httpOptions)
+    return this.http.post<Room>(this.configService.mdrUrl + this.createUrl, room, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -33,7 +34,7 @@ export class RoomService {
   updateRoom(room: Room): Observable<Room> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.put<Room>(this.updateUrl, room, httpOptions)
+    return this.http.put<Room>(this.configService.mdrUrl + this.updateUrl, room, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -42,7 +43,7 @@ export class RoomService {
   getAllRoom(): Observable<Room[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Room[]>(this.listUrl, httpOptions)
+    return this.http.get<Room[]>(this.configService.mdrUrl + this.listUrl, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -51,7 +52,7 @@ export class RoomService {
   getRoomsByFloor(floorId: string): Observable<Room[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Room[]>(this.floorRoomsUrl + floorId, httpOptions)
+    return this.http.get<Room[]>(this.configService.mdrUrl + this.floorRoomsUrl + floorId, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -60,7 +61,7 @@ export class RoomService {
   getRoomByDescription(description: string): Observable<Room> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Room>(this.roomByDescriptionUrl + description, httpOptions)
+    return this.http.get<Room>(this.configService.mdrUrl + this.roomByDescriptionUrl + description, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

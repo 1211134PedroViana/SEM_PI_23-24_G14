@@ -6,6 +6,7 @@ import Passage from './passage';
 import Elevator from "../elevatorService/elevator";
 import Building from "../buildingService/building";
 import Floor from "../floorService/floor";
+import { ConfigService } from '../config.service';
 
 
 @Injectable({
@@ -14,22 +15,22 @@ import Floor from "../floorService/floor";
 
 export class PassageService {
 
-  private createUrl = 'http://localhost:4000/api/passages/create';
-  private updateUrl = 'http://localhost:4000/api/passages/update';
-  private listPassagesUrl = 'http://localhost:4000/api/passages/list';
-  private listBuildingsUrl = 'http://localhost:4000/api/buildings/list';
-  private listFloorsUrl = 'http://localhost:4000/api/floors/list';
-  private floorPassagesUrl = 'http://localhost:4000/api/passages/passagesFromFloor/';
+  private createUrl = 'api/passages/create';
+  private updateUrl = 'api/passages/update';
+  private listPassagesUrl = 'api/passages/list';
+  private listBuildingsUrl = 'api/buildings/list';
+  private listFloorsUrl = 'api/floors/list';
+  private floorPassagesUrl = 'api/passages/passagesFromFloor/';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private passage = new BehaviorSubject<Passage>({} as Passage);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private configService: ConfigService) { }
 
   createPassage(passage: Passage): Observable<Passage> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<Passage>(this.createUrl, passage, httpOptions)
+    return this.http.post<Passage>(this.configService.mdrUrl + this.createUrl, passage, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -37,7 +38,7 @@ export class PassageService {
   updatePassage(passage: Passage): Observable<Passage> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.put<Passage>(this.updateUrl, passage, httpOptions)
+    return this.http.put<Passage>(this.configService.mdrUrl + this.updateUrl, passage, httpOptions)
       .pipe(
         //catchError(this.handleError('addPassage', passage))
       );
@@ -46,7 +47,7 @@ export class PassageService {
   getBuildings(): Observable<Building[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Building[]>(this.listBuildingsUrl, httpOptions)
+    return this.http.get<Building[]>(this.configService.mdrUrl + this.listBuildingsUrl, httpOptions)
         .pipe(
             //catchError(this.handleError('addBuilding', building))
         );
@@ -55,7 +56,7 @@ export class PassageService {
   getFloors(): Observable<Floor[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Floor[]>(this.listFloorsUrl, httpOptions)
+    return this.http.get<Floor[]>(this.configService.mdrUrl + this.listFloorsUrl, httpOptions)
         .pipe(
             //catchError(this.handleError('addBuilding', building))
         );
@@ -64,7 +65,7 @@ export class PassageService {
   getAllPassages(): Observable<Passage[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Passage[]>(this.listPassagesUrl, httpOptions)
+    return this.http.get<Passage[]>(this.configService.mdrUrl + this.listPassagesUrl, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -73,7 +74,7 @@ export class PassageService {
   getPassagesByFloor(floorId: string): Observable<Passage[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Passage[]>(this.floorPassagesUrl + floorId, httpOptions)
+    return this.http.get<Passage[]>(this.configService.mdrUrl + this.floorPassagesUrl + floorId, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

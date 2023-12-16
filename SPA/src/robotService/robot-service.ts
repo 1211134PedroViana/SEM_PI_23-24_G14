@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import Robot from './robot';
+import { ConfigService } from '../config.service';
 
 @Injectable({
     providedIn: 'root'
@@ -10,22 +11,22 @@ import Robot from './robot';
 
 export class RobotService {
 
-    private createUrl = 'http://localhost:4000/api/robots/create';
-    private updateUrl = 'http://localhost:4000/api/robots/update';
-    private listUrl = 'http://localhost:4000/api/robots/list';
-    private deactivateUrl = 'http://localhost:4000/api/robots/deactivate';
+    private createUrl = 'api/robots/create';
+    private updateUrl = 'api/robots/update';
+    private listUrl = 'api/robots/list';
+    private deactivateUrl = 'api/robots/deactivate';
     private retrieveURL = 'http://localhost:4000/api/robots/retrieve';
 
 
     private isVisible = new BehaviorSubject<boolean>(false);
     private robot = new BehaviorSubject<Robot>({} as Robot);
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private configService: ConfigService) { }
 
     addRobot(robot: Robot): Observable<Robot> {
         const httpOptions = { withCredentials: true };
 
-        return this.http.post<Robot>(this.createUrl, robot, httpOptions)
+        return this.http.post<Robot>(this.configService.mdrUrl + this.createUrl, robot, httpOptions)
             .pipe(
               //catchError(this.handleError('addRobot', robot))
             );
@@ -34,7 +35,7 @@ export class RobotService {
     updateRobot(robot: Robot): Observable<Robot> {
         const httpOptions = { withCredentials: true };
 
-        return this.http.put<Robot>(this.updateUrl, robot, httpOptions)
+        return this.http.put<Robot>(this.configService.mdrUrl + this.updateUrl, robot, httpOptions)
             .pipe(
                 //catchError(this.handleError('addRobot', robot))
             )
@@ -43,7 +44,7 @@ export class RobotService {
     getAllRobots(): Observable<Robot[]> {
         const httpOptions = { withCredentials: true };
 
-        return this.http.get<Robot[]>(this.listUrl, httpOptions)
+        return this.http.get<Robot[]>(this.configService.mdrUrl + this.listUrl, httpOptions)
           .pipe(
             //catchError(this.handleError('addRobot', robot))
         );
@@ -52,7 +53,7 @@ export class RobotService {
     deactivateRobot(robot: Robot): Observable<Robot> {
         const httpOptions = { withCredentials: true };
 
-        return this.http.patch<Robot>(this.deactivateUrl, robot, httpOptions)
+        return this.http.patch<Robot>(this.configService.mdrUrl + this.deactivateUrl, robot, httpOptions)
           .pipe(
             //catchError(this.handleError('addRobot', robot))
         );
