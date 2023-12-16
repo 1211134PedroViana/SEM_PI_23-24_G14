@@ -15,7 +15,7 @@ export class CreateRegisterComponent {
 
   email: string = "";
   password: string = "";
-  role: string = "";
+  status: string = "Pending";
   phoneNumber: string = '';
   contribuinte: string = '';
   acceptTerms: boolean = false;
@@ -34,7 +34,7 @@ export class CreateRegisterComponent {
       const systemUserData = ({
         email: this.email,
         password: this.password,
-        roleId: 'User',
+        status: 'Pending',
         phoneNumber: this.phoneNumber,
         contribuinte: this.contribuinte
       }) as Register;
@@ -42,15 +42,15 @@ export class CreateRegisterComponent {
     this.registerService.addRegister(systemUserData)
       .pipe(
         tap((response) => {
-          console.log('System User created successfully', response);
-          const message = `System User requested successfully! | Email: ${response.email} | Role: ${response.roleId}`;
+          console.log(' Register created successfully', response);
+          const message = `System User requested successfully! | Email: ${response.email} | Phone Number: ${response.phoneNumber}`;
           this.snackBar.open(message, 'Close', {
             duration: 5000, // 5 seconds
           });
         }),
         catchError((error) => {
           console.error('Error occurred while request to create the System User', error);
-          this.snackBar.open('Failed to create System User, returned code:' + error.status, 'Close', {
+          this.snackBar.open('Failed to create Register, returned code:' + error.status, 'Close', {
             duration: 5000, // 5 seconds
           });
           throw error;

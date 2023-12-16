@@ -6,18 +6,15 @@ namespace Mpt.Domain.Registers
     {
         public string Email { get; set; }
         public string Password { get; set; }
-        public RoleId RoleId { get; set; }
+        public string Status { get; set; }
         public string PhoneNumber { get; set; }
         public string Contribuinte { get; set; }
 
-        public CreateRegisterDTO(string email, string password, String roleId, string phoneNumber, string contribuinte)
+        public CreateRegisterDTO(string email, string password, String status, string phoneNumber, string contribuinte)
         {
             this.Email = email;
             this.Password = password;
-            if (Guid.TryParse(roleId, out Guid roleIdGuid))
-            {
-                this.RoleId = new RoleId(roleIdGuid);
-            }
+            this.Status = status;
             this.PhoneNumber = phoneNumber;
             this.Contribuinte = contribuinte;
         }
