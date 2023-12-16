@@ -14,12 +14,14 @@ using Mpt.Infrastructure.Roles;
 using Mpt.Infrastructure.SystemUsers;
 using Mpt.Infrastructure.SurveillanceTasks;
 using Mpt.Infrastructure.PickupAndDeliveryTasks;
+using Mpt.Infrastructure.Registers;
 using Mpt.Domain.Shared;
 using Mpt.Domain.Roles;
 using Mpt.Domain.SystemUsers;
 using Mpt.Domain.SurveillanceTasks;
 using Mpt.Domain.PickupAndDeliveryTasks;
 using Mpt.Domain.Authentication;
+using Mpt.Domain.Registers;
 using System.Text;
 
 
@@ -121,6 +123,9 @@ namespace Mpt
 
             services.AddTransient<IPickupAndDeliveryTaskRepository, PickupAndDeliveryTaskRepository>();
             services.AddTransient<PickupAndDeliveryTaskService>();
+
+            services.AddTransient<IRegisterRepository, RegisterRepository>();
+            services.AddTransient<RegisterService>();
         }
     }
 }

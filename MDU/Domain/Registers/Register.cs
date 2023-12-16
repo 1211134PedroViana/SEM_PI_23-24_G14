@@ -1,7 +1,7 @@
 using Mpt.Domain.Shared;
 using Mpt.Domain.Roles;
 
-namespace Mpt.Domain.Register
+namespace Mpt.Domain.Registers
 {
     public class Register : Entity<RegisterId>, IAggregateRoot
     {
@@ -11,6 +11,7 @@ namespace Mpt.Domain.Register
         public RoleId RoleId { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Contribuinte { get; private set; }
+        public TasksStatus Status { get; private set; }
 
         private Register(){}
 
@@ -29,6 +30,7 @@ namespace Mpt.Domain.Register
             this.RoleId = roleId;
             this.PhoneNumber = phoneNumber;
             this.Contribuinte = contribuinte;
+            this.Status = TasksStatus.Pending;
         }
         public void ChangePassword(string newPassword)
         {

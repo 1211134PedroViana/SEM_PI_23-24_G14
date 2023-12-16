@@ -1,6 +1,6 @@
 using Mpt.Domain.Roles;
 
-namespace Mpt.Domain.Register
+namespace Mpt.Domain.Registers
 {
     public class CreateRegisterDTO
     {

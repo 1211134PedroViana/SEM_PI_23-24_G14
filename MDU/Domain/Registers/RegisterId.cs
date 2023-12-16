@@ -2,7 +2,7 @@ using System;
 using Mpt.Domain.Shared;
 using Newtonsoft.Json;
 
-namespace Mpt.Domain.Register
+namespace Mpt.Domain.Registers
 {
     public class RegisterId : EntityId
     {

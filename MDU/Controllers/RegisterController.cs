@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Mpt.Domain.Register;
 using Mpt.Domain.Registers;
 using Mpt.Domain.Shared;
 using Mpt.Domain.SystemUsers;
@@ -18,14 +17,14 @@ namespace Mpt.Controllers
             _service = service;
         }
 
-        // GET: api/Register
+        // GET: api/Registers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RegisterDTO>>> GetAll()
         {
             return await _service.GetAllAsync();
         }
 
-        // GET: api/Register/U1
+        // GET: api/Registers/U1
         [HttpGet("{id}")]
         public async Task<ActionResult<RegisterDTO>> GetGetById(Guid id)
         {
