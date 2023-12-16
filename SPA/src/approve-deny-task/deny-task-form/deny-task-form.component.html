@@ -1,0 +1,15 @@
+<div *ngIf="task">
+    <h2>Deny Task</h2>
+    <form [formGroup]="denyTaskForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="reason">Reason for Denial:</label>
+        <textarea id="reason" formControlName="reason" rows="4"></textarea>
+        <div *ngIf="denyTaskForm.get('reason').hasError('required') && denyTaskForm.get('reason').touched" class="error">
+          Reason is required.
+        </div>
+      </div>
+  
+      <button type="submit" class="bn btn-danger">Deny Task</button>
+    </form>
+  </div>
+  

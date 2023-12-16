@@ -26,13 +26,8 @@ export class ApproveTaskComponent {
   parsedSurvTasks: SurveillanceTask[] = [];
   parsedPickTasks: PickupAndDeliveryTask[] = [];
 
-  constructor(
-    private taskService: TaskService,
-    private userService: SystemUserService,
-    private buildingService: BuildingService,
-    private floorService: FloorService,
-    private router: Router
-  ) { }
+  constructor(private taskService: TaskService, private userService: SystemUserService, private buildingService: BuildingService,
+    private floorService: FloorService, private router: Router) { }
 
   closeForm() {
     this.isListVisible = false;
@@ -40,14 +35,15 @@ export class ApproveTaskComponent {
   }
 
   onTaskClick(task: SurveillanceTask | PickupAndDeliveryTask) {
-    // Alterar o status da tarefa para "Approved"
-    task.status = 'Approved';
-
+    // Alterar o status da tarefa para "Denied"
+    task.status = 'Denied';
+  
     // Exibir mensagem de sucesso
-    alert(`Status da tarefa alterado para "Approved" com sucesso: ${task.status}`);
+    alert(`Status da tarefa alterado para "Denied" com sucesso: ${task.status}`);
   }
 
   onSubmit() {
+
     this.taskService.getByStatusSurveillanceTask(this.selectedStatus)
       .pipe(
         tap((response) => {
@@ -59,7 +55,7 @@ export class ApproveTaskComponent {
           throw error;
         })
       )
-      .subscribe();
+      .subscribe()
 
     this.taskService.getByStatusPickupAndDelivery(this.selectedStatus)
       .pipe(
@@ -74,7 +70,8 @@ export class ApproveTaskComponent {
           throw error;
         })
       )
-      .subscribe();
+      .subscribe()
+
   }
 
   parseSurvList() {
@@ -82,11 +79,11 @@ export class ApproveTaskComponent {
     let building: any;
     for (let i = 0; i < this.survTasks.length; i++) {
       // ... (código anterior)
-
+  
       forkJoin(this.observables).subscribe((responses: any[]) => {
         const validResponses = responses.filter(response => response !== null);
         const floors = validResponses.map(response => response.floorNumber.toString());
-
+  
         const surveillanceTask = {
           buildingId: building.name,
           floorIds: floors,
@@ -96,12 +93,12 @@ export class ApproveTaskComponent {
           status: this.survTasks[i].status,
           userId: user.email
         } as SurveillanceTask;
-
+  
         this.parsedSurvTasks.push(surveillanceTask);
       });
     }
   }
-
+  
   parsePickList() {
     let user: any;
     for (let i = 0; i < this.pickupTasks.length; i++) {
@@ -110,7 +107,7 @@ export class ApproveTaskComponent {
         .pipe(
           tap((response) => {
             user = response;
-
+  
             const pickupAndDeliveryTask = ({
               pickupPlace: this.pickupTasks[i].pickupPlace,
               deliveryPlace: this.pickupTasks[i].deliveryPlace,
@@ -123,7 +120,7 @@ export class ApproveTaskComponent {
               status: this.pickupTasks[i].status,
               userId: user.email
             }) as PickupAndDeliveryTask;
-
+  
             this.parsedPickTasks.push(pickupAndDeliveryTask);
           }),
           catchError((error) => {
@@ -134,56 +131,6 @@ export class ApproveTaskComponent {
         .subscribe();
     }
   }
+  
 
-  approveSurveillanceTask(surveillanceTask: SurveillanceTask) {
-    this.taskService.approveSurveillanceTask(surveillanceTask)
-      .pipe(
-        catchError((error) => {
-          console.error('Erro ao aprovar a tarefa de vigilância', error);
-          throw error;
-        })
-      )
-      .subscribe(() => {
-        // Lógica adicional após aprovar a tarefa de surveillance
-      });
-  }
-
-  denySurveillanceTask(surveillanceTask: SurveillanceTask) {
-    this.taskService.denySurveillanceTask(surveillanceTask)
-      .pipe(
-        catchError((error) => {
-          console.error('Erro ao recusar a tarefa de vigilância', error);
-          throw error;
-        })
-      )
-      .subscribe(() => {
-        // Lógica adicional após recusar a tarefa de surveillance
-      });
-  }
-
-  approvePickupAndDeliveryTask(pickupAndDeliveryTask: PickupAndDeliveryTask) {
-    this.taskService.approvePickupAndDeliveryTask(pickupAndDeliveryTask)
-      .pipe(
-        catchError((error) => {
-          console.error('Erro ao aprovar a tarefa de entrega e coleta', error);
-          throw error;
-        })
-      )
-      .subscribe(() => {
-        // Lógica adicional após aprovar a tarefa de pickUpAndDelivery
-      });
-  }
-
-  denyPickupAndDeliveryTask(pickupAndDeliveryTask: PickupAndDeliveryTask) {
-    this.taskService.denyPickupAndDeliveryTask(pickupAndDeliveryTask)
-      .pipe(
-        catchError((error) => {
-          console.error('Erro ao recusar a tarefa de entrega e coleta', error);
-          throw error;
-        })
-      )
-      .subscribe(() => {
-        // Lógica adicional após recusar a tarefa de pickUpAndDelivery
-      });
-  }
 }
