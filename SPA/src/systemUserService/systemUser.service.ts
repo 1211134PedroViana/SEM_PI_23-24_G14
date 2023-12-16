@@ -17,6 +17,7 @@ export class SystemUserService {
   private getRoleByIdUrl = 'http://localhost:5095/api/Roles/';
   private getUserByEmailUrl = 'http://localhost:5095/api/SystemUsers/searchByEmail/';
   private userByEmailUrl = 'http://localhost:5095/api/SystemUsers/byEmail/';
+  private updateUrl = 'http://localhost:5095/api/updateSystemUser'
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private user = new BehaviorSubject<SystemUser>({} as SystemUser);
@@ -47,6 +48,15 @@ export class SystemUserService {
     const httpOptions = { withCredentials: true };
 
     return this.http.post<SystemUser>(this.createUrl, user, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
+  updateSystemUser(user: SystemUser): Observable<SystemUser> {
+    const httpOptions = { withCredentials: true };
+
+    return this.http.patch<SystemUser>(this.updateUrl, user, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -99,6 +109,10 @@ export class SystemUserService {
 
   getFormVisibility() {
     return this.isVisible.asObservable();
+  }
+
+  getSystemUser() {
+    return this.user.asObservable();
   }
 
 }

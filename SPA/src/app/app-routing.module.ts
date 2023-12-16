@@ -57,6 +57,8 @@ import { ApproveTaskComponent } from 'src/approve-deny-task/approve-task/approve
 import { DenyTaskComponent } from 'src/approve-deny-task/deny-task/deny-task.component';
 import {CreateRegisterComponent} from "../register/create-register/create-register.component";
 import { SignInComponent } from 'src/sign-in/sign-in.component';
+import { UpdateSystemUserComponent } from 'src/systemUser/update-systemUser/update-systemUser.component';
+import { UpdateSystemUserFormComponent } from 'src/systemUser/update-systemUser-form/update-systemUser-form.component';
 
 const routes: Routes = [
 
@@ -136,7 +138,8 @@ const routes: Routes = [
     { path: 'requestTask', component: RequestTaskComponent, children:[
       { path: 'pickup', component: PickupDeliveryTaskFormComponent},
       { path: 'surveillance', component: SurveillanceTaskFormComponent},
-    ]}
+    ]},
+    { path: 'updateData', component: UpdateSystemUserComponent}
   ]},
 
   { path: 'login', component: SignInComponent },

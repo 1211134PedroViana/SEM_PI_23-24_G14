@@ -84,6 +84,8 @@ import {ApproveDenyTaskComponent} from "../approve-deny-task/approve-deny-task.c
 import { ApproveTaskComponent } from 'src/approve-deny-task/approve-task/approve-task.component';
 import { DenyTaskComponent } from 'src/approve-deny-task/deny-task/deny-task.component';
 import {RegisterComponent} from "../register/register.component";
+import { UpdateSystemUserComponent } from 'src/systemUser/update-systemUser/update-systemUser.component';
+import { UpdateSystemUserFormComponent } from 'src/systemUser/update-systemUser-form/update-systemUser-form.component';
 
 @NgModule({
   declarations: [
@@ -164,7 +166,9 @@ import {RegisterComponent} from "../register/register.component";
     ApproveDenyTaskComponent,
     ApproveTaskComponent,
     DenyTaskComponent,
-    RegisterComponent
+    RegisterComponent,
+    UpdateSystemUserComponent,
+    UpdateSystemUserFormComponent
   ],
   imports: [
     BrowserModule,
