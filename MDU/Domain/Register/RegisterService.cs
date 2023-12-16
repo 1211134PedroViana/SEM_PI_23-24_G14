@@ -3,7 +3,7 @@ using Mpt.Domain.Roles;
 
 using Mpt.Domain.Register;
 
-namespace Mpt.Domain.SystemUsers
+namespace Mpt.Domain.Registers
 {
     public class RegisterService
     {
