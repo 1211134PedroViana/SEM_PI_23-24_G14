@@ -8,14 +8,13 @@ namespace Mpt.Domain.Registers
 
         public string Email { get; private set; }
         public string Password { get; private set; }
-        public string Status { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Contribuinte { get; private set; }
         public TasksStatus Status { get; private set; }
 
         private Register(){}
 
-        public Register(string email, string password, string status, string phoneNumber, string contribuinte)
+        public Register(string email, string password, string phoneNumber, string contribuinte)
         {
 
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
@@ -24,7 +23,6 @@ namespace Mpt.Domain.Registers
             this.Id = new RegisterId(Guid.NewGuid());
             this.Email = email;
             this.Password = password; 
-            this.Status = status;
             this.PhoneNumber = phoneNumber;
             this.Contribuinte = contribuinte;
             this.Status = TasksStatus.Pending;
