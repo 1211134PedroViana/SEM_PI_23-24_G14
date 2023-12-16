@@ -43,13 +43,13 @@ export class CreateRegisterComponent {
       .pipe(
         tap((response) => {
           console.log(' Register created successfully', response);
-          const message = `System User requested successfully! | Email: ${response.email} | Phone Number: ${response.phoneNumber}`;
+          const message = `Register requested successfully! | Email: ${response.email} | Phone Number: ${response.phoneNumber}`;
           this.snackBar.open(message, 'Close', {
             duration: 5000, // 5 seconds
           });
         }),
         catchError((error) => {
-          console.error('Error occurred while request to create the System User', error);
+          console.error('Error occurred while request to create the Register', error);
           this.snackBar.open('Failed to create Register, returned code:' + error.status, 'Close', {
             duration: 5000, // 5 seconds
           });

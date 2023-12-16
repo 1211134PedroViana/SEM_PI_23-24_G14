@@ -32,6 +32,22 @@ namespace mpt.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Registers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: false),
+                    Contribuinte = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Registers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -50,7 +66,7 @@ namespace mpt.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     BuildingId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FloorIds = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FloorId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartPlace = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EndPlace = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: false),
@@ -84,6 +100,9 @@ namespace mpt.Migrations
         {
             migrationBuilder.DropTable(
                 name: "PickupAndDeliveryTasks");
+
+            migrationBuilder.DropTable(
+                name: "Registers");
 
             migrationBuilder.DropTable(
                 name: "Roles");

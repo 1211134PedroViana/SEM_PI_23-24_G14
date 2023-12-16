@@ -11,7 +11,7 @@ using Mpt.Infrastructure;
 namespace mpt.Migrations
 {
     [DbContext(typeof(MptDbContext))]
-    [Migration("20231212094035_Database")]
+    [Migration("20231216121758_Database")]
     partial class Database
     {
         /// <inheritdoc />
@@ -78,6 +78,37 @@ namespace mpt.Migrations
                     b.ToTable("PickupAndDeliveryTasks", (string)null);
                 });
 
+            modelBuilder.Entity("Mpt.Domain.Registers.Register", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Contribuinte")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Registers", (string)null);
+                });
+
             modelBuilder.Entity("Mpt.Domain.Roles.Role", b =>
                 {
                     b.Property<string>("Id")
@@ -111,7 +142,7 @@ namespace mpt.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FloorIds")
+                    b.Property<string>("FloorId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

@@ -7,7 +7,7 @@ namespace Mpt.Domain.SurveillanceTasks
     public class SurveillanceTask : Entity<SurveillanceTaskId>, IAggregateRoot
     {
         public string BuildingId { get; private set; }
-        public string[] FloorIds { get; set; }
+        public string FloorId { get; set; }
         public string StartPlace { get; set; }
         public string EndPlace { get; set; }
         public string PhoneNumber { get; set; }
@@ -19,21 +19,18 @@ namespace Mpt.Domain.SurveillanceTasks
             // Construtor privado para uso do Entity Framework ou mecanismos de persistência semântica semelhantes
         }
 
-        public SurveillanceTask(string buildingId, string startPlace, string endPlace, string[] floorIds, string phoneNumber, SystemUserId userId)
+        public SurveillanceTask(string buildingId, string floorId, string startPlace, string endPlace, string phoneNumber, SystemUserId userId)
         {
             if (string.IsNullOrWhiteSpace(buildingId) || string.IsNullOrWhiteSpace(startPlace)
             || string.IsNullOrWhiteSpace(endPlace) || string.IsNullOrWhiteSpace(phoneNumber))
                 throw new BusinessRuleValidationException("Building, Start, End and Phone number are required.");
-
-            if(floorIds.Length == 0) 
-                throw new BusinessRuleValidationException("Floors are required.");
 
             if (userId == null)
                 throw new BusinessRuleValidationException("Task requires a user.");
 
             this.Id = new SurveillanceTaskId(Guid.NewGuid());
             this.BuildingId = buildingId;
-            this.FloorIds = floorIds; 
+            this.FloorId = floorId; 
             this.StartPlace = startPlace;
             this.EndPlace = endPlace;
             this.PhoneNumber = phoneNumber;

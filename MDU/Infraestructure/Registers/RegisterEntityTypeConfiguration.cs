@@ -15,7 +15,6 @@ namespace Mpt.Infrastructure.Registers
 
             builder.Property(b => b.Email).IsRequired();
             builder.Property(b => b.Password).IsRequired();
-            builder.Property(b => b.RoleId).IsRequired();
             builder.Property(b => b.PhoneNumber).IsRequired().HasMaxLength(9);
             builder.Property(b => b.Contribuinte).IsRequired().HasMaxLength(9);
             builder.Property(b => b.Status).IsRequired();
