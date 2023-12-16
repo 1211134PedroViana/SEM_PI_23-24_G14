@@ -1,9 +1,7 @@
 import {Component, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
-import SystemUser from "../systemUserService/systemUser";
 import Register from "./register";
-import Role from "../systemUserService/role";
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +28,6 @@ export class RegisterService {
 
     return this.http.post<Register>(this.createUrl, user, httpOptions)
       .pipe(
-        //catchError(this.handleError('addBuilding', building))
       );
   }
 

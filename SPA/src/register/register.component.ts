@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-systemUser',
+  selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 
 export class RegisterComponent {
 
-  titleText = 'SystemUser Management';
+  titleText = 'Register Management';
   feature1ButtonText = 'Create Register';
-  feature1Route = '/register/create';
+  feature1Route = '/register';
 
 }
