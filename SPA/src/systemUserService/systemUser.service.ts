@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject  } from 'rxjs';
 import SystemUser from "./systemUser";
 import Role from "./role";
+import { ConfigService } from '../config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +11,14 @@ import Role from "./role";
 
 export class SystemUserService {
 
-  private createUrl = 'http://localhost:5095/api/SystemUsers';
-  private getUserByIdUrl = 'http://localhost:5095/api/SystemUsers/';
-  private getAllUsersUrl = 'http://localhost:5095/api/SystemUsers';
-  private getAllRolesUrl = 'http://localhost:5095/api/Roles';
-  private getRoleByIdUrl = 'http://localhost:5095/api/Roles/';
-  private getUserByEmailUrl = 'http://localhost:5095/api/SystemUsers/searchByEmail/';
-  private userByEmailUrl = 'http://localhost:5095/api/SystemUsers/byEmail/';
-  private updateUrl = 'http://localhost:5095/api/updateSystemUser'
+  private createUrl = 'api/SystemUsers';
+  private getUserByIdUrl = 'api/SystemUsers/';
+  private getAllUsersUrl = 'api/SystemUsers';
+  private getAllRolesUrl = 'api/Roles';
+  private getRoleByIdUrl = 'api/Roles/';
+  private getUserByEmailUrl = 'api/SystemUsers/searchByEmail/';
+  private userByEmailUrl = 'api/SystemUsers/byEmail/';
+  private updateUrl = 'api/updateSystemUser'
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private user = new BehaviorSubject<SystemUser>({} as SystemUser);
@@ -29,25 +30,25 @@ export class SystemUserService {
     styleUrls: ['./create-systemUser-form.component.css']
   })
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private configService: ConfigService) {
   }
 
   getAllRoles(): Observable<Role[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Role[]>(this.getAllRolesUrl, httpOptions);
+    return this.http.get<Role[]>(this.configService.mduUrl + this.getAllRolesUrl, httpOptions);
   }
 
   getRoleById(roleId: string): Observable<Role> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Role>(this.getRoleByIdUrl + roleId, httpOptions);
+    return this.http.get<Role>(this.configService.mduUrl + this.getRoleByIdUrl + roleId, httpOptions);
   }
 
   addSystemUser(user: SystemUser): Observable<SystemUser> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<SystemUser>(this.createUrl, user, httpOptions)
+    return this.http.post<SystemUser>(this.configService.mduUrl + this.createUrl, user, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -56,7 +57,7 @@ export class SystemUserService {
   updateSystemUser(user: SystemUser): Observable<SystemUser> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.patch<SystemUser>(this.updateUrl, user, httpOptions)
+    return this.http.patch<SystemUser>(this.configService.mduUrl + this.updateUrl, user, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -65,7 +66,7 @@ export class SystemUserService {
   getUserById(userId: string): Observable<SystemUser> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<SystemUser>(this.getUserByIdUrl + userId, httpOptions)
+    return this.http.get<SystemUser>(this.configService.mduUrl + this.getUserByIdUrl + userId, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -74,7 +75,7 @@ export class SystemUserService {
   getAllUsers(): Observable<SystemUser[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<SystemUser[]>(this.getAllUsersUrl, httpOptions)
+    return this.http.get<SystemUser[]>(this.configService.mduUrl + this.getAllUsersUrl, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -83,7 +84,7 @@ export class SystemUserService {
   getUserByEmail(email: string): Observable<SystemUser> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<SystemUser>(this.getUserByEmailUrl + email, httpOptions)
+    return this.http.get<SystemUser>(this.configService.mduUrl + this.getUserByEmailUrl + email, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -92,7 +93,7 @@ export class SystemUserService {
   userByEmail(email: string): Observable<SystemUser> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<SystemUser>(this.userByEmailUrl + email, httpOptions)
+    return this.http.get<SystemUser>(this.configService.mduUrl + this.userByEmailUrl + email, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

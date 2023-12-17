@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import SurveillanceTask from './surveillanceTask';
 import PickupAndDeliveryTask from './pickupAndDeliveryTask';
+import { ConfigService } from '../config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,30 +12,30 @@ import PickupAndDeliveryTask from './pickupAndDeliveryTask';
 
 export class TaskService {
 
-  private createSurveillanceUrl = 'http://localhost:5095/api/SurveillanceTasks';
-  private createPickupAndDeliveryUrl = 'http://localhost:5095/api/PickupAndDeliveryTasks';
+  private createSurveillanceUrl = 'api/SurveillanceTasks';
+  private createPickupAndDeliveryUrl = 'api/PickupAndDeliveryTasks';
 
-  private searchByStatusSurveillanceUrl = 'http://localhost:5095/api/SurveillanceTasks/searchByStatus/';
-  private searchByStatusPickupAndDeliveryUrl = 'http://localhost:5095/api/PickupAndDeliveryTasks/searchByStatus/';
+  private searchByStatusSurveillanceUrl = 'api/SurveillanceTasks/searchByStatus/';
+  private searchByStatusPickupAndDeliveryUrl = 'api/PickupAndDeliveryTasks/searchByStatus/';
 
-  private getAllSurveillanceUrl = 'http://localhost:5095/api/SurveillanceTasks';
-  private getAllPickupAndDeliveryUrl = 'http://localhost:5095/api/PickupAndDeliveryTasks';
+  private getAllSurveillanceUrl = 'api/SurveillanceTasks';
+  private getAllPickupAndDeliveryUrl = 'api/PickupAndDeliveryTasks';
 
-  private searchByUserSurveillanceUrl = 'http://localhost:5095/api/SurveillanceTasks/searchByUser/';
-  private searchByUserPickupAndDeliveryUrl = 'http://localhost:5095/api/PickupAndDeliveryTasks/searchByUser/';
+  private searchByUserSurveillanceUrl = 'api/SurveillanceTasks/searchByUser/';
+  private searchByUserPickupAndDeliveryUrl = 'api/PickupAndDeliveryTasks/searchByUser/';
 
-  private approveSurveillanceTaskURrl = 'http://localhost:5095/api/SurveillanceTasks/approveSurveillanceTask/';
-  private denySurveillanceTaskURrl = 'http://localhost:5095/api/SurveillanceTasks/denySurveillanceTask/';
-  private approvePickupAndDeliveryTaskURrl = 'http://localhost:5095/api/PickupAndDeliveryTasks/approvePickupAndDeliveryTask/';
-  private denyPickupAndDeliveryTaskURrl = 'http://localhost:5095/api/PickupAndDeliveryTasks/denyPickupAndDeliveryTask/';
+  private approveSurveillanceTaskURrl = 'api/SurveillanceTasks/approveSurveillanceTask/';
+  private denySurveillanceTaskURrl = 'api/SurveillanceTasks/denySurveillanceTask/';
+  private approvePickupAndDeliveryTaskURrl = 'api/PickupAndDeliveryTasks/approvePickupAndDeliveryTask/';
+  private denyPickupAndDeliveryTaskURrl = 'api/PickupAndDeliveryTasks/denyPickupAndDeliveryTask/';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private configService: ConfigService) {
   }
   
   approveSurveillanceTask(surveillanceTask: SurveillanceTask): Observable<SurveillanceTask> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<SurveillanceTask>(this.approveSurveillanceTaskURrl, surveillanceTask, httpOptions)
+    return this.http.post<SurveillanceTask>(this.configService.mduUrl + this.approveSurveillanceTaskURrl, surveillanceTask, httpOptions)
       .pipe(
         //catchError(this.handleError('approSurveillanceTask', surveillanceTask ))
       )
@@ -43,7 +44,7 @@ export class TaskService {
   denySurveillanceTask(surveillanceTask: SurveillanceTask): Observable<SurveillanceTask> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<SurveillanceTask>(this.denySurveillanceTaskURrl, surveillanceTask, httpOptions)
+    return this.http.post<SurveillanceTask>(this.configService.mduUrl + this.denySurveillanceTaskURrl, surveillanceTask, httpOptions)
       .pipe(
         //catchError(this.handleError('approSurveillanceTask', surveillanceTask ))
       )
@@ -52,7 +53,7 @@ export class TaskService {
   approvePickupAndDeliveryTask(pickupAndDeliveryTask: PickupAndDeliveryTask): Observable<PickupAndDeliveryTask> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<PickupAndDeliveryTask>(this.approvePickupAndDeliveryTaskURrl, pickupAndDeliveryTask, httpOptions)
+    return this.http.post<PickupAndDeliveryTask>(this.configService.mduUrl + this.approvePickupAndDeliveryTaskURrl, pickupAndDeliveryTask, httpOptions)
       .pipe(
         //catchError(this.handleError('approSurveillanceTask', surveillanceTask ))
       )
@@ -61,7 +62,7 @@ export class TaskService {
   denyPickupAndDeliveryTask(pickupAndDeliveryTask: PickupAndDeliveryTask): Observable<PickupAndDeliveryTask> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<PickupAndDeliveryTask>(this.denyPickupAndDeliveryTaskURrl, pickupAndDeliveryTask, httpOptions)
+    return this.http.post<PickupAndDeliveryTask>(this.configService.mduUrl + this.denyPickupAndDeliveryTaskURrl, pickupAndDeliveryTask, httpOptions)
       .pipe(
         //catchError(this.handleError('approSurveillanceTask', surveillanceTask ))
       )
@@ -70,7 +71,7 @@ export class TaskService {
   createSurveillanceTask(surveillanceTask: SurveillanceTask): Observable<SurveillanceTask> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<SurveillanceTask>(this.createSurveillanceUrl, surveillanceTask, httpOptions)
+    return this.http.post<SurveillanceTask>(this.configService.mduUrl + this.createSurveillanceUrl, surveillanceTask, httpOptions)
       .pipe(
       //catchError(this.handleError('addBuilding', building))
     );
@@ -79,7 +80,7 @@ export class TaskService {
   createPickupAndDeliveryTask(pickupAndDeliveryTask: PickupAndDeliveryTask): Observable<PickupAndDeliveryTask> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<PickupAndDeliveryTask>(this.createPickupAndDeliveryUrl, pickupAndDeliveryTask, httpOptions)
+    return this.http.post<PickupAndDeliveryTask>(this.configService.mduUrl + this.createPickupAndDeliveryUrl, pickupAndDeliveryTask, httpOptions)
       .pipe(
       //catchError(this.handleError('addBuilding', building))
     );
@@ -88,7 +89,7 @@ export class TaskService {
   getByStatusSurveillanceTask(status: string): Observable<SurveillanceTask[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<SurveillanceTask[]>(this.searchByStatusSurveillanceUrl + status, httpOptions)
+    return this.http.get<SurveillanceTask[]>(this.configService.mduUrl + this.searchByStatusSurveillanceUrl + status, httpOptions)
       .pipe(
       //catchError(this.handleError('addBuilding', building))
     );
@@ -97,7 +98,7 @@ export class TaskService {
   getByStatusPickupAndDelivery(status: string): Observable<PickupAndDeliveryTask[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<PickupAndDeliveryTask[]>(this.searchByStatusPickupAndDeliveryUrl + status, httpOptions)
+    return this.http.get<PickupAndDeliveryTask[]>(this.configService.mduUrl + this.searchByStatusPickupAndDeliveryUrl + status, httpOptions)
       .pipe(
       //catchError(this.handleError('addBuilding', building))
     );
@@ -106,7 +107,7 @@ export class TaskService {
   getAllSurveillanceTask(): Observable<SurveillanceTask[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<SurveillanceTask[]>(this.getAllSurveillanceUrl, httpOptions)
+    return this.http.get<SurveillanceTask[]>(this.configService.mduUrl + this.getAllSurveillanceUrl, httpOptions)
       .pipe(
       //catchError(this.handleError('addBuilding', building))
     );
@@ -115,7 +116,7 @@ export class TaskService {
   getAllPickupAndDelivery(): Observable<PickupAndDeliveryTask[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<PickupAndDeliveryTask[]>(this.getAllPickupAndDeliveryUrl, httpOptions)
+    return this.http.get<PickupAndDeliveryTask[]>(this.configService.mduUrl + this.getAllPickupAndDeliveryUrl, httpOptions)
       .pipe(
       //catchError(this.handleError('addBuilding', building))
     );
@@ -124,7 +125,7 @@ export class TaskService {
   getByUserSurveillanceTask(userId: string): Observable<SurveillanceTask[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<SurveillanceTask[]>(this.searchByUserSurveillanceUrl + userId, httpOptions)
+    return this.http.get<SurveillanceTask[]>(this.configService.mduUrl + this.searchByUserSurveillanceUrl + userId, httpOptions)
       .pipe(
       //catchError(this.handleError('addBuilding', building))
     );
@@ -133,7 +134,7 @@ export class TaskService {
   getByUserPickupAndDelivery(userId: string): Observable<PickupAndDeliveryTask[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<PickupAndDeliveryTask[]>(this.searchByUserPickupAndDeliveryUrl + userId, httpOptions)
+    return this.http.get<PickupAndDeliveryTask[]>(this.configService.mduUrl + this.searchByUserPickupAndDeliveryUrl + userId, httpOptions)
       .pipe(
       //catchError(this.handleError('addBuilding', building))
     );

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import Elevator from './elevator';
+import { ConfigService } from '../config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class ElevatorService {
   private isVisible = new BehaviorSubject<boolean>(false);
   private elevator = new BehaviorSubject<Elevator>({} as Elevator);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private configService: ConfigService) { }
 
   addElevator(elevator: Elevator): Observable<Elevator> {
     const httpOptions = { withCredentials: true };

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import Floor from './floor';
-import Building from "../buildingService/building";
+import { ConfigService } from '../config.service';
 
 
 @Injectable({
@@ -12,23 +12,23 @@ import Building from "../buildingService/building";
 
 export class FloorService {
 
-  private createUrl = 'http://localhost:4000/api/floors/create';
-  private updateUrl = 'http://localhost:4000/api/floors/update';
-  private listUrl = 'http://localhost:4000/api/floors/list';
-  private listFromBuildingUrl = 'http://localhost:4000/api/floors/fromBuilding/';
-  private listFloorsWithPassages = 'http://localhost:4000/api/floors/withPassages/';
-  private listFloorsWithElevator = 'http://localhost:4000/api/floors/withElevator/';
-  private floorByIdUrl = 'http://localhost:4000/api/floors/floorById/';
+  private createUrl = 'api/floors/create';
+  private updateUrl = 'api/floors/update';
+  private listUrl = 'api/floors/list';
+  private listFromBuildingUrl = 'api/floors/fromBuilding/';
+  private listFloorsWithPassages = 'api/floors/withPassages/';
+  private listFloorsWithElevator = 'api/floors/withElevator/';
+  private floorByIdUrl = 'api/floors/floorById/';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private floor = new BehaviorSubject<Floor>({} as Floor);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private configService: ConfigService) { }
 
   createFloor(floor: Floor): Observable<Floor> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<Floor>(this.createUrl, floor, httpOptions)
+    return this.http.post<Floor>(this.configService.mdrUrl + this.createUrl, floor, httpOptions)
       .pipe(
       //catchError(this.handleError('addBuilding', building))
     );
@@ -37,7 +37,7 @@ export class FloorService {
   updateFloor(floor: Floor): Observable<Floor> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.put<Floor>(this.listUrl, httpOptions)
+    return this.http.put<Floor>(this.configService.mdrUrl + this.listUrl, httpOptions)
       .pipe(
         //catchError(this.handleError('addFloor', floor))
       );
@@ -46,7 +46,7 @@ export class FloorService {
   getFloorsFromBuilding(buildingId: string): Observable<Floor[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Floor[]>(this.listFromBuildingUrl + buildingId, httpOptions)
+    return this.http.get<Floor[]>(this.configService.mdrUrl + this.listFromBuildingUrl + buildingId, httpOptions)
       .pipe(
       //catchError(this.handleError('addBuilding', building))
     );
@@ -54,7 +54,7 @@ export class FloorService {
   getAllFloorsWithPassages(): Observable<Floor[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Floor[]>(this.listFloorsWithPassages, httpOptions)
+    return this.http.get<Floor[]>(this.configService.mdrUrl + this.listFloorsWithPassages, httpOptions)
       .pipe(
       //catchError(this.handleError('addFloor', floor))
     );
@@ -63,7 +63,7 @@ export class FloorService {
   getAllFloorsWithElevator(): Observable<Floor[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Floor[]>(this.listFloorsWithElevator, httpOptions)
+    return this.http.get<Floor[]>(this.configService.mdrUrl + this.listFloorsWithElevator, httpOptions)
       .pipe(
       //catchError(this.handleError('addFloor', floor))
     );
@@ -72,7 +72,7 @@ export class FloorService {
   getFloorById(floorId: string): Observable<Floor> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Floor>(this.floorByIdUrl + floorId, httpOptions)
+    return this.http.get<Floor>(this.configService.mdrUrl + this.floorByIdUrl + floorId, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -96,7 +96,7 @@ export class FloorService {
   getAllFloors(): Observable<Floor[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Floor[]>(this.listUrl, httpOptions)
+    return this.http.get<Floor[]>(this.configService.mdrUrl + this.listUrl, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

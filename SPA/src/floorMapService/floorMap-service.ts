@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import FloorMap from './floorMap';
-
+import { ConfigService } from '../config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,10 @@ import FloorMap from './floorMap';
 
 export class FloorMapService {
 
-  private loadMapUrl = 'http://localhost:4000/api/loadMap';
-  private getFloorMapUrl = 'http://localhost:4000/api/loadMap/'
+  private loadMapUrl = 'api/loadMap';
+  private getFloorMapUrl = 'api/loadMap/'
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private configService: ConfigService) { }
 
   loadFloorMap(floorMap: File | null): Observable<any> {
     if (!floorMap) {
@@ -23,7 +23,7 @@ export class FloorMapService {
     const formData = new FormData();
     formData.append('file', floorMap);
 
-    return this.http.patch<any>(this.loadMapUrl, formData)
+    return this.http.patch<any>(this.configService.mdrUrl + this.loadMapUrl, formData)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -34,7 +34,7 @@ export class FloorMapService {
       return throwError('Floor ID is missing');
     }
 
-    return this.http.get<FloorMap>(this.getFloorMapUrl + floorId)
+    return this.http.get<FloorMap>(this.configService.mdrUrl + this.getFloorMapUrl + floorId)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

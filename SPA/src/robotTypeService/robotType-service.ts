@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import RobotType from './robotType';
 import TaskType from './taskType';
 import Elevator from "../elevatorService/elevator";
+import { ConfigService } from '../config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,20 +13,20 @@ import Elevator from "../elevatorService/elevator";
 
 export class RobotTypeService {
 
-  private createUrl = 'http://localhost:4000/api/robotTypes/create';
-  private listUrl = 'http://localhost:4000/api/robotTypes/list';
-  private getTaskTypeUrl = 'http://localhost:4000/api/taskTypes/getTaskType/';
-  private getTaskTypeByIdUrl = 'http://localhost:4000/api/taskTypes/getTaskTypeNById/';
+  private createUrl = 'api/robotTypes/create';
+  private listUrl = 'api/robotTypes/list';
+  private getTaskTypeUrl = 'api/taskTypes/getTaskType/';
+  private getTaskTypeByIdUrl = 'api/taskTypes/getTaskTypeNById/';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private robotType = new BehaviorSubject<RobotType>({} as RobotType);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private configService: ConfigService) { }
 
   createRobotType(robotType: RobotType): Observable<RobotType> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<RobotType>(this.createUrl, robotType, httpOptions)
+    return this.http.post<RobotType>(this.configService.mdrUrl + this.createUrl, robotType, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -34,7 +35,7 @@ export class RobotTypeService {
   getAllRobotTypes(): Observable<RobotType[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<RobotType[]>(this.listUrl, httpOptions)
+    return this.http.get<RobotType[]>(this.configService.mdrUrl + this.listUrl, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -43,7 +44,7 @@ export class RobotTypeService {
   addRobotType(robotType: RobotType): Observable<RobotType> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<RobotType>(this.createUrl, robotType, httpOptions)
+    return this.http.post<RobotType>(this.configService.mdrUrl + this.createUrl, robotType, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -55,7 +56,7 @@ export class RobotTypeService {
   getTaskType(name: string): Observable<TaskType> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<TaskType>(this.getTaskTypeUrl + name, httpOptions)
+    return this.http.get<TaskType>(this.configService.mdrUrl + this.getTaskTypeUrl + name, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -64,7 +65,7 @@ export class RobotTypeService {
   getTaskTypeById(taskTypeId: string): Observable<TaskType> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<TaskType>(this.getTaskTypeByIdUrl + taskTypeId, httpOptions)
+    return this.http.get<TaskType>(this.configService.mdrUrl + this.getTaskTypeByIdUrl + taskTypeId, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

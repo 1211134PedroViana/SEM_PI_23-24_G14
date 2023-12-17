@@ -1,4 +1,5 @@
 import {Component, Injectable} from '@angular/core';
+import { ConfigService } from '../config.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -11,16 +12,16 @@ import Floor from 'src/floorService/floor';
 
 export class BuildingService {
 
-  private createUrl = 'http://localhost:4000/api/buildings/create';
-  private updateUrl = 'http://localhost:4000/api/buildings/update';
-  private listUrl = 'http://localhost:4000/api/buildings/list';
-  private listUrlBuildingsWithMinAndMaxFloors = 'http://localhost:4000/api/buildings/listAllBuildignsWithMinAndMaxFloors/Min/:min/Max/:max';
-  private buildingByIdUrl = 'http://localhost:4000/api/buildings/buildingById/';
+  private createUrl = 'api/buildings/create';
+  private updateUrl = 'api/buildings/update';
+  private listUrl = 'api/buildings/list';
+  private listUrlBuildingsWithMinAndMaxFloors = 'api/buildings/listAllBuildignsWithMinAndMaxFloors/Min/:min/Max/:max';
+  private buildingByIdUrl = 'api/buildings/buildingById/';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private building = new BehaviorSubject<Building>({} as Building);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private configService: ConfigService) {
   }
 
   buildings: Building[] = [];
@@ -28,7 +29,7 @@ export class BuildingService {
   addBuilding(building: Building): Observable<Building> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<Building>(this.createUrl, building, httpOptions)
+    return this.http.post<Building>(this.configService.mdrUrl + this.createUrl, building, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -37,7 +38,7 @@ export class BuildingService {
   updateBuilding(building: Building): Observable<Building> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.put<Building>(this.updateUrl, building, httpOptions)
+    return this.http.put<Building>(this.configService.mdrUrl + this.updateUrl, building, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -46,7 +47,7 @@ export class BuildingService {
   getAllBuildings(): Observable<Building[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Building[]>(this.listUrl, httpOptions)
+    return this.http.get<Building[]>(this.configService.mdrUrl + this.listUrl, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -55,7 +56,7 @@ export class BuildingService {
   getBuildingById(buildingId: string): Observable<Building> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Building>(this.buildingByIdUrl + buildingId, httpOptions)
+    return this.http.get<Building>(this.configService.mdrUrl + this.buildingByIdUrl + buildingId, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -81,7 +82,7 @@ export class BuildingService {
   getAllFloors(): Observable<Floor[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Floor[]>(this.listUrl, httpOptions)
+    return this.http.get<Floor[]>(this.configService.mdrUrl + this.listUrl, httpOptions)
     .pipe(
       //catchError(this.handleError('listFloors', floor))
     );
