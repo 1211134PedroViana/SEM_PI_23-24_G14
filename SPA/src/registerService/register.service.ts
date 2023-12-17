@@ -8,7 +8,7 @@ import Register from "./register";
 })
 export class RegisterService {
 
-  private createUrl = 'http://localhost:5095/api/Registers';
+  private createUrl = 'http://localhost:5095/api/Register';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private user = new BehaviorSubject<Register>({} as Register);

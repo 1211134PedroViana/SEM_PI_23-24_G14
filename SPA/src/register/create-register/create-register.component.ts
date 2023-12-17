@@ -11,6 +11,7 @@ import Register from "../../registerService/register";
   templateUrl: './create-register.component.html',
   styleUrls: ['./create-register.component.css']
 })
+
 export class CreateRegisterComponent {
 
   email: string = "";
@@ -60,7 +61,7 @@ export class CreateRegisterComponent {
   }
 
   openTermsDocument() {
-    const termsDocumentUrl = 'DOCS/RGPD_Grupo14.docx';
+    const termsDocumentUrl = 'RGPD_Grupo14.docx';
 
     window.open(termsDocumentUrl, 'Terms and Conditions', 'width=600,height=400');  }
 }
