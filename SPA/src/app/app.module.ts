@@ -86,6 +86,7 @@ import { DenyTaskComponent } from 'src/approve-deny-task/deny-task/deny-task.com
 import {RegisterComponent} from "../register/register.component";
 import { UpdateSystemUserComponent } from 'src/systemUser/update-systemUser/update-systemUser.component';
 import { UpdateSystemUserFormComponent } from 'src/systemUser/update-systemUser-form/update-systemUser-form.component';
+import { TermsAndConditionsComponent } from '../terms-and-conditions/terms-and-conditions.component';
 
 @NgModule({
   declarations: [
@@ -168,7 +169,8 @@ import { UpdateSystemUserFormComponent } from 'src/systemUser/update-systemUser-
     DenyTaskComponent,
     RegisterComponent,
     UpdateSystemUserComponent,
-    UpdateSystemUserFormComponent
+    UpdateSystemUserFormComponent,
+    TermsAndConditionsComponent
   ],
   imports: [
     BrowserModule,

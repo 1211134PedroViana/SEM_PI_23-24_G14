@@ -209,5 +209,5 @@ export const cameraData = {
 }
 
 export const pathData = {
-
+    hasStarted: false
 }

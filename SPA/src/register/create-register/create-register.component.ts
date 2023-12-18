@@ -61,7 +61,7 @@ export class CreateRegisterComponent {
   }
 
   openTermsDocument() {
-    const termsDocumentUrl = 'RGPD_Grupo14.docx';
+    const termsDocumentUrl = 'localhost:4200/RGPD';
 
-    window.open(termsDocumentUrl, 'Terms and Conditions', 'width=600,height=400');  }
+    window.open(termsDocumentUrl, 'Terms and Conditions', 'width=1400,height=1400');  }
 }

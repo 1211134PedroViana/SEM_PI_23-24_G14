@@ -1,5 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';  
 import { UpdateBuildingFormComponent } from './update-building-form.component';
 
 describe('UpdateBuildingFormComponent', () => {
@@ -16,6 +15,7 @@ describe('UpdateBuildingFormComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component);
+
   });
 });

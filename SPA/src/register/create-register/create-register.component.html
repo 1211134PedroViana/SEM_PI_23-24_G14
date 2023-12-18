@@ -18,7 +18,10 @@
   </div>
   <div class="mb-3 form-check">
     <input type="checkbox" class="form-check-input" id="acceptTerms" name="acceptTerms" [(ngModel)]="acceptTerms" (change)="onAcceptTermsChange()" required>
-    <label class="form-check-label" for="acceptTerms">I accept the <a href="#" (click)="openTermsDocument()">terms and conditions</a></label>
+    <label class="form-check-label" for="acceptTerms">
+      I accept the <a routerLink="/RGPD">terms and conditions</a>.
+    </label>
   </div>
   <button id="create" type="submit" class="btn btn-primary" [disabled]="!acceptTerms">Request Create User</button>
+
 </form>

@@ -24,6 +24,8 @@ export class AutomaticPathViewerComponent implements OnDestroy {
   @Input() cellsPath: Cell[][] = [];
 
   locations: Location[] = [];
+  fromRoomId: string = '';
+  isStartVisible: boolean = true;
 
   constructor(private floorMapService: FloorMapService, private passageService: PassageService, private floorService: FloorService, 
     private roomService: RoomService, private elevatorService: ElevatorService) { }
@@ -33,14 +35,16 @@ export class AutomaticPathViewerComponent implements OnDestroy {
 
       this.roomService.getRoomByDescription(this.path[i]).subscribe((fromRoom: Room) => {
         this.locations.push(fromRoom.location);
+        this.fromRoomId = fromRoom.floorId;
 
         this.roomService.getRoomByDescription(this.path[i+1]).subscribe((toRoom: Room) => {
           this.locations.push(toRoom.location);
-
-          this.floorMapService.getFloorMap(fromRoom.floorId).subscribe((map: FloorMap) => {
-            this.loadFloorMap(map.fileUrl, this.locations, this.cellsPath[i]);
-
-          });
+          
+          for(let i = 0; i < this.path.length - 1; i++) {
+            this.floorMapService.getFloorMap(this.fromRoomId).subscribe((map: FloorMap) => {
+                this.loadFloorMap(map.fileUrl, this.locations, this.cellsPath[i]);
+            });
+          }
         });
       });
     }
@@ -65,6 +69,11 @@ export class AutomaticPathViewerComponent implements OnDestroy {
     // For example, you can stop the animation loop and remove event listeners
     cancelAnimationFrame(this.animationFrameId); // Make sure to store the animationFrameId when starting the animation
     this.floorViewer.dispose(); // Dispose of any Three.js resources
+  }
+
+  startPath() {
+    this.isStartVisible = false;
+    this.floorViewer.startPath();
   }
 
   async loadFloorMap(mapUrl: string, locations: Location[], cells: Cell[]) {
@@ -317,7 +326,10 @@ export class AutomaticPathViewerComponent implements OnDestroy {
         { view: "top", initialViewport: new THREE.Vector4(1.0, 0.0, 0.45, 0.5), initialOrientation: new Orientation(0.0, -90.0), initialDistance: 4.0, distanceMin: 1.0, distanceMax: 16.0, initialFogDensity: 0.2, containerWidth: this.container.clientWidth, containerHeight: this.container.clientHeight }, // Top view camera parameters
         { view: "mini-map", initialViewport: new THREE.Vector4(0.5, 0.5, 0.3, 0.3), initialOrientation: new Orientation(180.0, -90.0), initialZoom: 0.64, zoomMin: 0.64, zoomMax: 5.12, containerWidth: this.container.clientWidth, containerHeight: this.container.clientHeight  }, // Mini-map view camera parameters
 
-        { location: locations, cells: cells },
+        {
+            hasStarted: false, 
+            location: locations, cells: cells 
+        },
 
     );
 

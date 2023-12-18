@@ -1,0 +1,7 @@
+.terms-container {
+  color: #fff; /* Cor do texto branco */
+  font-size: 12px; /* Tamanho da fonte reduzido */
+  padding: 20px; /* Adapte conforme necessário */
+  border-radius: 8px; /* Adapte conforme necessário */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Adapte conforme necessário */
+}
