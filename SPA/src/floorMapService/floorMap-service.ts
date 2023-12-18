@@ -30,11 +30,12 @@ export class FloorMapService {
   }
 
   getFloorMap(floorId: string): Observable<FloorMap> {
+    const httpOptions = { withCredentials: true };
     if (floorId === null) {
       return throwError('Floor ID is missing');
     }
 
-    return this.http.get<FloorMap>(this.configService.mdrUrl + this.getFloorMapUrl + floorId)
+    return this.http.get<FloorMap>(this.configService.mdrUrl + this.getFloorMapUrl + floorId, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

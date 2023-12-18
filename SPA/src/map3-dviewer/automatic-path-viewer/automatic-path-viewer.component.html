@@ -21,18 +21,21 @@
         color: white;
     }
 
-    #building_floor {
-        display: flex;
-        flex-direction: row;
+    .btn-primary {
         position: absolute;
-        left:30%;
-        width: 230px;
+        left:55%;
+        top: 50%;
+        width: 10%;
         padding: 5px;
-        font-size: 12px;
-        background-color: rgb(197, 197, 197, 0);
+        font-size: 18px;
+        font-family: 'Playpen Sans', cursive;
+        background-color: rgba(130, 137, 128);
         color: #fff;
-        border-radius: 6px;
-        border: 1px solid black;
+        border-radius: 10px;
+    } 
+
+    .btn-primary:hover {
+        background-color: rgb(184, 193, 181);
     } 
 
     .dropdown {
@@ -442,6 +445,15 @@
                     </td>
                 </tr>
             </table>
+        </div>
+        <div *ngIf="isStartVisible">
+            <button id="create" type="submit" class="btn btn-primary" (click)="startPath()">
+                Start
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-joystick" viewBox="0 0 16 16">
+                    <path d="M10 2a2 2 0 0 1-1.5 1.937v5.087c.863.083 1.5.377 1.5.726 0 .414-.895.75-2 .75s-2-.336-2-.75c0-.35.637-.643 1.5-.726V3.937A2 2 0 1 1 10 2"/>
+                    <path d="M0 9.665v1.717a1 1 0 0 0 .553.894l6.553 3.277a2 2 0 0 0 1.788 0l6.553-3.277a1 1 0 0 0 .553-.894V9.665c0-.1-.06-.19-.152-.23L9.5 6.715v.993l5.227 2.178a.125.125 0 0 1 .001.23l-5.94 2.546a2 2 0 0 1-1.576 0l-5.94-2.546a.125.125 0 0 1 .001-.23L6.5 7.708l-.013-.988L.152 9.435a.25.25 0 0 0-.152.23z"/>
+                </svg>
+            </button>
         </div>
     </div>
 </div>

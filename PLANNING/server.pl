@@ -38,7 +38,7 @@ find_path_handler(Request) :-
     parse_ponto_acesso(Destino, ParsedDestino),
 
     % Calling the predicate with the fixed values
-    find_caminho(ParsedOrigem, ParsedDestino, ListaCaminho, ListaMovimentos),
+    find_caminho(ParsedOrigem, ParsedDestino, ListaCaminho, ListaMovimentos, CustoTotal),
 
     convert_lista_caminho(ListaCaminho, CaminhoJson),
     convert_lista_movimentos(ListaMovimentos, MovimentosJson),

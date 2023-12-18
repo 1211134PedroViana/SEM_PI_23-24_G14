@@ -1,7 +1,13 @@
 
 {
+ 
+  "exclude": [
+    "node_modules/cypress"
+  ],
   "compileOnSave": false,
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -23,7 +29,8 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "types": ["jasmine"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -31,4 +38,5 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   }
+  
 }

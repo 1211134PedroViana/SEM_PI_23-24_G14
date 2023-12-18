@@ -210,19 +210,19 @@ export default {
 
     passage: {
       post: [roles.ADMIN, roles.CAMPUS_MANAGER],
-      get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.USER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.USER, roles.TASK_MANAGER],
       put: [roles.ADMIN, roles.CAMPUS_MANAGER]
     },
 
     room: {
       post: [roles.ADMIN, roles.CAMPUS_MANAGER],
-      get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.USER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.USER, roles.TASK_MANAGER],
       put: [roles.ADMIN, roles.CAMPUS_MANAGER]
     },
 
     elevator: {
       post: [roles.ADMIN, roles.CAMPUS_MANAGER],
-      get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.USER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.USER, roles.TASK_MANAGER],
       put: [roles.ADMIN, roles.CAMPUS_MANAGER]
     },
 
@@ -240,7 +240,7 @@ export default {
 
     floorMapperz: {
       post: [roles.ADMIN, roles.CAMPUS_MANAGER],
-      get: [roles.ADMIN, roles.CAMPUS_MANAGER],
+      get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.TASK_MANAGER],
       put: [roles.ADMIN, roles.CAMPUS_MANAGER]
     }
 

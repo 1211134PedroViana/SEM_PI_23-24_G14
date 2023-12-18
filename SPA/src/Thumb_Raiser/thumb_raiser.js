@@ -360,6 +360,7 @@ import Elevator from './elevator'; // Substitua pelo caminho real do seu arquivo
  * }
  *
  * automaticPathingParameters = {
+ *   hasStarted: Boolean,
  *   location: [{ positionX: number, positionY: number, direction: String}],
  *   cells: [{ col: number, lin: number}]
  * }
@@ -1314,15 +1315,17 @@ export default class ThumbRaiser {
         }
         else {
 
-            const destiny = [];
-            let len = this.automaticPathingParameters.cells.length;
-            destiny.push(this.automaticPathingParameters.cells[len-1].lin);
-            destiny.push(this.automaticPathingParameters.cells[len-1].col);
-            const dPosition = this.maze.cellToCartesian(destiny);
-
             if(this.generalParameters.isAutomaticPathing) {
 
-                // Update the model animations
+                const destiny = [];
+                let len = this.automaticPathingParameters.cells.length;
+                destiny.push(this.automaticPathingParameters.cells[len-1].lin);
+                destiny.push(this.automaticPathingParameters.cells[len-1].col);
+                const dPosition = this.maze.cellToCartesian(destiny);
+
+                if(this.automaticPathingParameters.hasStarted) {
+
+                    // Update the model animations
                 const deltaT = this.clock.getDelta();
                 this.animations.update(deltaT);
 
@@ -1333,7 +1336,6 @@ export default class ThumbRaiser {
                     this.finalSequence();
                 } else {
 
-                    console.log("ax:" + this.automaticPathingParameters.cells)
                 let arr1 = [];
                 arr1.push(this.automaticPathingParameters.cells[0].lin);
                 arr1.push(this.automaticPathingParameters.cells[0].col);
@@ -1351,7 +1353,7 @@ export default class ThumbRaiser {
                 directionIncrement *= this.player.runningFactor;
 
                 if(arr2[1] === arr1[1] && arr2[0] === arr1[0] + 1) {
-                    await this.sleep(50);
+                    //await this.sleep(50);
 
                     if(this.player.direction != 0) {
                          this.player.direction = 0;
@@ -1376,7 +1378,7 @@ export default class ThumbRaiser {
                 }
 
                 if(arr2[1] === arr1[1] && arr2[0] === arr1[0] - 1 ) {
-                    await this.sleep(5);
+                    //await this.sleep(5);
                     if(this.player.direction != 180) {
                         this.player.direction = 180;
                     }
@@ -1396,7 +1398,7 @@ export default class ThumbRaiser {
                 }
 
                 if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0]) {
-                    await this.sleep(5);
+                    //await this.sleep(5);
                     if(this.player.direction != 90) {
                          this.player.direction = 90;
                     }
@@ -1416,7 +1418,7 @@ export default class ThumbRaiser {
                 }
 
                 if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0]) {
-                    await this.sleep(50);
+                    //await this.sleep(50);
                     if(this.player.direction != 270) {
                         this.player.direction = 270;
                     }
@@ -1437,7 +1439,7 @@ export default class ThumbRaiser {
                 }
 
                 if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0] + 1) {
-                    await this.sleep(15);
+                    //await this.sleep(15);
                     if(this.player.direction != 45) {
                         this.player.direction = 45;
                     }
@@ -1459,7 +1461,7 @@ export default class ThumbRaiser {
                 }
 
                 if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0] + 1) {
-                    await this.sleep(5);
+                    //await this.sleep(5);
                     if(this.player.direction != 315) {
                         this.player.direction = 315;
                     }
@@ -1480,7 +1482,7 @@ export default class ThumbRaiser {
                 }
 
                 if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0] - 1) {
-                    await this.sleep(5);
+                    //await this.sleep(5);
                     if(this.player.direction != 225) {
                         this.player.direction = 225;
                     }
@@ -1500,7 +1502,7 @@ export default class ThumbRaiser {
                 }
 
                 if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0] - 1) {
-                    await this.sleep(5);
+                    //await this.sleep(5);
                     if(this.player.direction != 135) {
                         this.player.direction = 135;
                     }
@@ -1518,6 +1520,8 @@ export default class ThumbRaiser {
                     }
 
                     this.player.rotation.y = directionRad - this.player.defaultDirection;
+
+                }
 
                 }
 
@@ -1753,10 +1757,13 @@ export default class ThumbRaiser {
 
       // Remove the canvas
       this.renderer.domElement.remove();
+    }
 
-      sleep(ms)
-      {
+    sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
-      }
+    }
+
+    startPath() {
+        this.automaticPathingParameters.hasStarted = true;
     }
 }
