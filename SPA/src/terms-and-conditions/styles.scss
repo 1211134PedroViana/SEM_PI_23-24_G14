@@ -1,20 +1,26 @@
 /* styles.css */
 
-.small-text {
-  font-size: small;
+.terms-container {
+  color: #fff; /* Cor do texto */
+  background-color: #000; /* Cor de fundo */
+  padding: 20px; /* Adicione o preenchimento desejado */
 }
 
-.terms-container {
-  font-size: 14px;
+/* Estilize os elementos de texto conforme necessário */
+.terms-container h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.terms-container p {
+  font-size: 16px;
   line-height: 1.5;
-  color: #fff; /* Cor do texto branca */
+  margin-bottom: 15px;
 }
 
 .terms-container a {
-  color: #fff; /* Cor do link branca */
-}
-
-/* Estilo adicional para destacar o link quando o mouse passa por cima */
-.terms-container a:hover {
+  color: #007bff; /* Cor do link */
   text-decoration: underline;
+  cursor: pointer;
 }
