@@ -59,8 +59,11 @@ import {CreateRegisterComponent} from "../register/create-register/create-regist
 import { SignInComponent } from 'src/sign-in/sign-in.component';
 import { UpdateSystemUserComponent } from 'src/systemUser/update-systemUser/update-systemUser.component';
 import { UpdateSystemUserFormComponent } from 'src/systemUser/update-systemUser-form/update-systemUser-form.component';
+import { TermsAndConditionsComponent } from '../terms-and-conditions/terms-and-conditions.component';
 
 const routes: Routes = [
+
+  { path: 'RGPD', component: TermsAndConditionsComponent },
 
   //Campus Manager App
   { path: 'campus', component: AppCampusComponent, children: [
