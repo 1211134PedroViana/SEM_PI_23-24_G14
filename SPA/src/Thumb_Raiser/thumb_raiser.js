@@ -1348,6 +1348,7 @@ export default class ThumbRaiser {
 
                 let coveredDistance = this.player.walkingSpeed * deltaT;
                 let directionIncrement = this.player.turningSpeed * deltaT;
+                
 
                 coveredDistance *= this.player.runningFactor;
                 directionIncrement *= this.player.runningFactor;

@@ -1,16 +1,13 @@
+:- consult('algoritmos.pl').
+
 :-dynamic geracoes/1.
 :-dynamic populacao/1.
 :-dynamic prob_cruzamento/1.
 :-dynamic prob_mutacao/1.
 
-tarefa(t1, entrega, Orig, Dest).
-
-calc([T1, T2 | Res], Eval):-
-   tarefa(T1, entrega, Orig1, Dest1),
-   tarefa(T2, entrega, Orig2, Dest2),
-   calcTemp(Dest1, Orig2, EvalA),
-   calc([T2 | Res], EvalB),
-   Eval is EvalA + EvalB.
+tarefa(t1, entrega, sala(k1), sala(r1)).
+tarefa(t2, entrega, sala(apn), sala(r2)).
+tarefa(t3, entrega, sala(b201), sala(b204)).
 
 
 %% ALGORITMO GENÉTICO
@@ -79,23 +76,21 @@ retira(N,[G1|Resto],G,[G1|Resto1]):-
 
 avalia_populacao([],[]).
 avalia_populacao([Ind|Resto],[Ind*V|Resto1]):-
-	avalia(Ind,V),
+	calc(Ind,V),
 	avalia_populacao(Resto,Resto1).
 
-avalia(Seq,V):-
-	avalia(Seq,0,V).
+calc(List, Eval):-
+   calc_helper(List, 0, Eval).
 
-avalia([],_,0).
-avalia([T|Resto],Inst,V):-
-	tarefa(T,Dur,Prazo,Pen),
-	InstFim is Inst+Dur,
-	avalia(Resto,InstFim,VResto),
-	(
-		(InstFim =< Prazo,!, VT is 0)
-  ;
-		(VT is (InstFim-Prazo)*Pen)
-	),
-	V is VT+VResto.
+calc_helper([_], Total, Total).
+
+calc_helper([T1, T2 | Res], Acc, Eval):-
+   tarefa(T1, entrega, Orig1, Dest1),
+   tarefa(T2, entrega, Orig2, Dest2),
+   find_caminho(Dest1, Orig2, _, _, EvalA),
+   NewAcc is Acc + EvalA,
+   calc_helper([T2 | Res], NewAcc, Eval).
+
 
 ordena_populacao(PopAv,PopAvOrd):-
 	bsort(PopAv,PopAvOrd).
