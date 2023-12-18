@@ -139,7 +139,7 @@ const routes: Routes = [
       { path: 'pickup', component: PickupDeliveryTaskFormComponent},
       { path: 'surveillance', component: SurveillanceTaskFormComponent},
     ]},
-    { path: 'updateData', component: UpdateSystemUserComponent}
+    { path: 'updateSystemUser', component: UpdateSystemUserFormComponent }
   ]},
 
   { path: 'login', component: SignInComponent },

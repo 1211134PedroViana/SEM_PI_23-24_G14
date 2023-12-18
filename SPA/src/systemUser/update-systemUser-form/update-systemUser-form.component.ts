@@ -25,11 +25,20 @@ export class UpdateSystemUserFormComponent {
 
     constructor(private systemUserService: SystemUserService, private authService: AuthService,private snackBar: MatSnackBar) { }
 
+    /*
     ngOnInit() {
-        this.systemUserService.getSystemUser().subscribe((systemUser) => {
+        this.systemUserService.getSystemUser().subscribe((this.authService.auth) => {
             this.selectedSystemUser = this.authService.auth;
         });
         console.log(this.selectedSystemUser);
+    }
+    */
+
+    ngOnInit() {
+      this.authService.auth().subscribe((systemUser) => {
+        this.selectedSystemUser = systemUser;
+        console.log(this.selectedSystemUser);
+    })
     }
 
     closeForm() {

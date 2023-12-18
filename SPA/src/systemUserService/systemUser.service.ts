@@ -18,7 +18,7 @@ export class SystemUserService {
   private getRoleByIdUrl = 'api/Roles/';
   private getUserByEmailUrl = 'api/SystemUsers/searchByEmail/';
   private userByEmailUrl = 'api/SystemUsers/byEmail/';
-  private updateUrl = 'api/updateSystemUser'
+  private updateUrl = 'api/SystemUsers/UpdateSystemUser/';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private user = new BehaviorSubject<SystemUser>({} as SystemUser);
