@@ -96,4 +96,20 @@ export default class PassageController implements IPassageController {
           return next(e);
         }
     }
+
+    public async getPassageByDescription(req: Request, res: Response, next: NextFunction) {
+        try {
+          let description = req.params.description;
+          const passagesOrError = await this.passageServiceInstance.getPassageByDescription(description) as Result<IPassageDTO>;
+      
+          if (passagesOrError.isFailure) {
+            return res.status(404).send(passagesOrError.errorValue());
+          }
+      
+          const passage = passagesOrError.getValue();
+          return res.json(passage).status(200);
+        } catch (e) {
+          return next(e);
+        }
+    }
 }

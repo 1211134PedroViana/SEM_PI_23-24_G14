@@ -88,4 +88,8 @@ export default (app: Router) => {
   route.get('/elevatorFromBuilding/:buildingId', 
   authorizeRole(config.permissions.elevator.get),
   (req, res, next) => ctrl.getElevatorByBuilding(req, res, next));
+
+  route.get('/elevatorFromDescription/:description',
+  authorizeRole(config.permissions.elevator.get), 
+  (req, res, next) => ctrl.getElevatorByDescription(req, res, next));
 };

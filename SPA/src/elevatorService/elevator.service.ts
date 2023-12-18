@@ -11,10 +11,11 @@ import { ConfigService } from '../config.service';
 
 export class ElevatorService {
 
-  private createUrl = 'http://localhost:4000/api/elevators/create';
-  private updateUrl = 'http://localhost:4000/api/elevators/update';
-  private listUrl = 'http://localhost:4000/api/elevators/list';
-  private buildingElevatorUrl = 'http://localhost:4000/api/elevators/elevatorFromBuilding/';
+  private createUrl = 'api/elevators/create';
+  private updateUrl = 'api/elevators/update';
+  private listUrl = 'api/elevators/list';
+  private buildingElevatorUrl = 'api/elevators/elevatorFromBuilding/';
+  private elevByDescriptionUrl = 'api/elevators/elevatorFromDescription/';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private elevator = new BehaviorSubject<Elevator>({} as Elevator);
@@ -24,7 +25,7 @@ export class ElevatorService {
   addElevator(elevator: Elevator): Observable<Elevator> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<Elevator>(this.createUrl, elevator, httpOptions)
+    return this.http.post<Elevator>(this.configService.mdrUrl + this.createUrl, elevator, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -33,7 +34,7 @@ export class ElevatorService {
   updateElevator(elevator: Elevator): Observable<Elevator> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.put<Elevator>(this.updateUrl, elevator, httpOptions)
+    return this.http.put<Elevator>(this.configService.mdrUrl + this.updateUrl, elevator, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -43,7 +44,7 @@ export class ElevatorService {
   getAllElevators(): Observable<Elevator[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Elevator[]>(this.listUrl, httpOptions)
+    return this.http.get<Elevator[]>(this.configService.mdrUrl + this.listUrl, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -52,7 +53,7 @@ export class ElevatorService {
   getAllFloorsServedByElevator(): Observable<string[]> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<string[]>(this.listUrl, httpOptions)
+    return this.http.get<string[]>(this.configService.mdrUrl + this.listUrl, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
@@ -61,7 +62,16 @@ export class ElevatorService {
   getElevatorByBuilding(buildingId: string): Observable<Elevator> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<Elevator>(this.buildingElevatorUrl + buildingId, httpOptions)
+    return this.http.get<Elevator>(this.configService.mdrUrl + this.buildingElevatorUrl + buildingId, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
+  getElevatorByDescription(description: string): Observable<Elevator> {
+    const httpOptions = { withCredentials: true };
+
+    return this.http.get<Elevator>(this.configService.mdrUrl + this.elevByDescriptionUrl + description, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

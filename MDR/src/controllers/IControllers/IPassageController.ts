@@ -6,4 +6,5 @@ export default interface IPassageController {
   listPassagesBetweenBuildings(req: Request, res: Response, next: NextFunction);
   updatePassage(req: Request, res: Response, next: NextFunction);
   getPassagesByFloor(req: Request, res: Response, next: NextFunction);
+  getPassageByDescription(req: Request, res: Response, next: NextFunction);
 }

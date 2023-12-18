@@ -11,6 +11,7 @@ import ThumbRaiser from 'src/Thumb_Raiser/thumb_raiser';
 import * as THREE from "three";
 import Orientation from 'src/Thumb_Raiser/orientation';
 import Cell from 'src/pathService/cell';
+import Elevator from 'src/Thumb_Raiser/elevator';
 
 @Component({
   selector: 'app-automatic-path-viewer',
@@ -25,30 +26,56 @@ export class AutomaticPathViewerComponent implements OnDestroy {
 
   locations: Location[] = [];
   fromRoomId: string = '';
-  isStartVisible: boolean = true;
+  isStartVisible: boolean = false;
+  auxArr: string[] = [];
 
   constructor(private floorMapService: FloorMapService, private passageService: PassageService, private floorService: FloorService, 
     private roomService: RoomService, private elevatorService: ElevatorService) { }
 
   ngOnInit() {
+    this.extractFirstWord(this.path);
     for(let i = 0; i < this.path.length - 1; i++) {
 
       this.roomService.getRoomByDescription(this.path[i]).subscribe((fromRoom: Room) => {
         this.locations.push(fromRoom.location);
         this.fromRoomId = fromRoom.floorId;
 
-        this.roomService.getRoomByDescription(this.path[i+1]).subscribe((toRoom: Room) => {
-          this.locations.push(toRoom.location);
-          
-          for(let i = 0; i < this.path.length - 1; i++) {
-            this.floorMapService.getFloorMap(this.fromRoomId).subscribe((map: FloorMap) => {
-                this.loadFloorMap(map.fileUrl, this.locations, this.cellsPath[i]);
+        if(this.auxArr[i+1] === 'sala') {
+            this.roomService.getRoomByDescription(this.path[i+1]).subscribe((toRoom: Room) => {
+                this.locations.push(toRoom.location);
+                for(let i = 0; i < this.path.length - 1; i++) {
+                    this.floorMapService.getFloorMap(this.fromRoomId).subscribe((map: FloorMap) => {
+                        this.loadFloorMap(map.fileUrl, this.locations, this.cellsPath[i]);
+                    });
+                }
             });
-          }
-        });
+        }else if(this.auxArr[i+1] === 'elev') {
+            this.elevatorService.getElevatorByDescription(this.path[i+1]).subscribe((elev: any) => {
+                this.locations.push(elev.location);
+                for(let i = 0; i < this.path.length - 1; i++) {
+                    this.floorMapService.getFloorMap(this.fromRoomId).subscribe((map: FloorMap) => {
+                        this.loadFloorMap(map.fileUrl, this.locations, this.cellsPath[i]);
+                    });
+                }
+            });
+
+        }else{
+            
+        }
       });
     }
   }
+
+  extractFirstWord(input: string[]) {
+    for (const str of input) {
+        const match = str.match(/(\w+)\(/);
+        if (match) {
+            this.auxArr.push(match[1]);
+        }
+    }
+  }
+    
+  
 
   ngOnDestroy() {
     this.cleanup();
@@ -334,5 +361,7 @@ export class AutomaticPathViewerComponent implements OnDestroy {
     );
 
     this.render(this.floorViewer);
+    this.isStartVisible = true;
   }
+  
 }

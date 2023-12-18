@@ -169,4 +169,19 @@ export default class PassageService implements IPassageService {
       return Result.fail<IPassageDTO[]>(error.message);
     }
   }
+
+  public async getPassageByDescription(description: string): Promise<Result<IPassageDTO>> {
+    try {
+      const passage: Passage = await this.passageRepo.findByDescription(description);
+
+      if (passage === null) {
+        return Result.fail<IPassageDTO>("Elevator not found with description:" + description);
+      }
+      const passageDTO = PassageMap.toDTO(passage);
+      return Result.ok<IPassageDTO>(passageDTO);
+      
+    } catch (error) {
+      return Result.fail<IPassageDTO>(error.message);
+    }
+  }
 }

@@ -152,5 +152,20 @@ export default class ElevatorService implements IElevatorService {
       return Result.fail<IElevatorDTO>(error.message);
     }
   }
+
+  public async getElevatorByDescription(description: string): Promise<Result<IElevatorDTO>> {
+    try {
+      const elevator: Elevator = await this.elevatorRepo.findByDescription(description);
+
+      if (elevator === null) {
+        return Result.fail<IElevatorDTO>("Elevator not found with description:" + description);
+      }
+      const elevatorDTO = ElevatorMap.toDTO(elevator);
+      return Result.ok<IElevatorDTO>(elevatorDTO);
+      
+    } catch (error) {
+      return Result.fail<IElevatorDTO>(error.message);
+  }
+}
   
 }

@@ -1232,7 +1232,7 @@ export default class ThumbRaiser {
                 // Set the player's position and direction
                 if(this.generalParameters.isAutomaticPathing) {
                     let initialCell = [];
-                    initialCell.push(this.automaticPathingParameters.location[0].positionY)
+                    initialCell.push(this.automaticPathingParameters.location[0].positionY - 0.2)
                     initialCell.push(this.automaticPathingParameters.location[0].positionX)
                     let coords = this.maze.cellToCartesian(initialCell);
                     this.player.position.set(coords.x, coords.y, coords.z);
@@ -1353,7 +1353,6 @@ export default class ThumbRaiser {
                 directionIncrement *= this.player.runningFactor;
 
                 if(arr2[1] === arr1[1] && arr2[0] === arr1[0] + 1) {
-                    //await this.sleep(50);
 
                     if(this.player.direction != 0) {
                          this.player.direction = 0;
@@ -1361,7 +1360,7 @@ export default class ThumbRaiser {
 
                     const directionRad = THREE.MathUtils.degToRad(this.player.direction);
 
-                    if(position.z > fPosition.z) {
+                    if(this.maze.foundCell(position, fPosition)) {
                         if(this.check) {
                             this.automaticPathingParameters.cells.shift();
                             this.check = false;
@@ -1378,7 +1377,7 @@ export default class ThumbRaiser {
                 }
 
                 if(arr2[1] === arr1[1] && arr2[0] === arr1[0] - 1 ) {
-                    //await this.sleep(5);
+                   
                     if(this.player.direction != 180) {
                         this.player.direction = 180;
                     }
@@ -1398,7 +1397,7 @@ export default class ThumbRaiser {
                 }
 
                 if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0]) {
-                    //await this.sleep(5);
+                
                     if(this.player.direction != 90) {
                          this.player.direction = 90;
                     }
@@ -1418,15 +1417,15 @@ export default class ThumbRaiser {
                 }
 
                 if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0]) {
-                    //await this.sleep(50);
+                   
                     if(this.player.direction != 270) {
                         this.player.direction = 270;
                     }
 
                     const directionRad = THREE.MathUtils.degToRad(this.player.direction);
 
-                    //position.x < fPosition.x && position.z === fPosition.z
-                    if(position.x <= fPosition.x) {
+                    
+                    if(this.maze.foundCell(position, fPosition)) {
                         this.automaticPathingParameters.cells.shift();
                     } else {
                         position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));
@@ -1439,14 +1438,14 @@ export default class ThumbRaiser {
                 }
 
                 if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0] + 1) {
-                    //await this.sleep(15);
+                   
                     if(this.player.direction != 45) {
                         this.player.direction = 45;
                     }
 
                     const directionRad = THREE.MathUtils.degToRad(this.player.direction);
 
-                    if(position.z > fPosition.z || position.x > fPosition.x) {
+                    if(this.maze.foundCell(position, fPosition)) {
                         this.automaticPathingParameters.cells.shift();
 
                     } else {
@@ -1469,7 +1468,7 @@ export default class ThumbRaiser {
                     const directionRad = THREE.MathUtils.degToRad(this.player.direction);
 
                     //position.x > fPosition.x && position.z > fPosition.z
-                    if(position.x < fPosition.x || position.z >= fPosition.z) {
+                    if(this.maze.foundCell(position, fPosition)) {
                         this.automaticPathingParameters.cells.shift();
                     } else {
                         position.add(new THREE.Vector3(coveredDistance * Math.sin(directionRad), 0.0, coveredDistance * Math.cos(directionRad)));

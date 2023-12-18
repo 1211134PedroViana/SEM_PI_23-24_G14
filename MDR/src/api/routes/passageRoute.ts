@@ -80,4 +80,8 @@ export default (app: Router) => {
   route.get('/passagesFromFloor/:floorId', 
   authorizeRole(config.permissions.passage.get),
   (req, res, next) => ctrl.getPassagesByFloor(req, res, next));
+
+  route.get('/passageFromDescription/:description',
+  authorizeRole(config.permissions.passage.get), 
+  (req, res, next) => ctrl.getPassageByDescription(req, res, next));
 };

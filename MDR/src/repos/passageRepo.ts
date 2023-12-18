@@ -102,4 +102,15 @@ export default class PassageRepo implements IPassageRepo {
           return null;
         }
     }
+
+    public async findByDescription(description: string): Promise<Passage> {
+        const query = { description: description};
+        const passageRecord = await this.passageSchema.findOne( query as FilterQuery<IPassagePersistence & Document> );
+    
+        if( passageRecord != null) {
+            return PassageMap.toDomain(passageRecord);
+        }
+        else
+            return null;
+    }
 }

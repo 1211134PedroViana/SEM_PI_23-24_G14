@@ -9,4 +9,5 @@ export default interface IPassageService {
     updatePassage(passageDTO: IPassageDTO): Promise<Result<IPassageDTO>>;
     allPassagesBetweenBuildings(fromBuildingID: string, toBuildingID: string, passageDTO: IPassageDTO[]): Promise<Result<IPassageDTO[]>>;
     getPassageByFloorId(floorId: string): Promise<Result<IPassageDTO[]>>;
+    getPassageByDescription(description: string): Promise<Result<IPassageDTO>>;
 }
