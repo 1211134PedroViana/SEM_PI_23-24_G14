@@ -1,24 +1,20 @@
-// styles.scss
+/* styles.css */
 
-@import '~@angular/material/theming';
+.small-text {
+  font-size: small;
+}
 
-// Define your custom snackbar theme
-$custom-snackbar-theme: mat.define-dark-theme((
-  color: (
-    primary: rgb(13, 10, 103)3, 243), // Customize the primary color
-  ),
-);
+.terms-container {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #fff; /* Cor do texto branca */
+}
 
-// Include the custom snackbar theme in the global application theme
-$global-theme: mat.define-light-theme((
-  // ... other theme settings
-  'snackbar-custom-theme': mat.map-get($custom-snackbar-theme)
-));
+.terms-container a {
+  color: #fff; /* Cor do link branca */
+}
 
-@include mat.all-component-themes($global-theme);
-
-// Define a CSS class to style error messages with a red background
-.error-snackbar {
-  background-color: red;
-  color: white;
+/* Estilo adicional para destacar o link quando o mouse passa por cima */
+.terms-container a:hover {
+  text-decoration: underline;
 }

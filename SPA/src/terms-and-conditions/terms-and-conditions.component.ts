@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import {Router} from "@angular/router";
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-terms-and-conditions',
   templateUrl: './terms-and-conditions.component.html',
@@ -8,6 +7,7 @@ import {Router} from "@angular/router";
 })
 export class TermsAndConditionsComponent {
   constructor(private router: Router) {}
+
   navigateToTerms() {
     this.router.navigate(['/RGPD']);
   }
