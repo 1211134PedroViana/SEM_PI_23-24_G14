@@ -62,6 +62,9 @@ import {
     ListNotApprovedSurTaskComponent } from "../notApproved/list-notApprovedSurTasks/list-notApprovedSurTask.component";
 import {ApproveTaskComponent} from "../approve-deny-task/approve-task/approve-task.component";
 import {NotApprovedComponent} from "../notApproved/notApproved.component";
+import {
+  ListNotApprovedPicTaskComponent
+} from "../notApproved/list-notApprovedPicTasks/list-notApprovedPicTask.component";
 
 const routes: Routes = [
 
@@ -131,7 +134,7 @@ const routes: Routes = [
     ]},
     { path: 'listTasks', component: NotApprovedComponent, children:[
         { path: 'surTasks', component: ListNotApprovedSurTaskComponent },
-        { path: 'picTasks', component: DenyTaskComponent }
+        { path: 'picTasks', component: ListNotApprovedPicTaskComponent }
         ]}
   ]},
 

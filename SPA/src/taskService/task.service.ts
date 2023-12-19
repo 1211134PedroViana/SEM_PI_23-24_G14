@@ -16,8 +16,7 @@ export class TaskService {
     private isVisible = new BehaviorSubject<boolean>(false);
 
     private taskSur = new BehaviorSubject<SurveillanceTask>({} as SurveillanceTask);
-
-
+  private taskPic = new BehaviorSubject<PickupAndDeliveryTask>({} as PickupAndDeliveryTask);
 
     private createSurveillanceUrl = 'api/SurveillanceTasks';
   private createPickupAndDeliveryUrl = 'api/PickupAndDeliveryTasks';
@@ -149,6 +148,11 @@ export class TaskService {
 
   openForm(task: SurveillanceTask) {
     this.taskSur.next(task);
+    this.isVisible.next(true);
+  }
+
+  openForm1(task: PickupAndDeliveryTask) {
+    this.taskPic.next(task);
     this.isVisible.next(true);
   }
 

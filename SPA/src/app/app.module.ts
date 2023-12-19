@@ -89,6 +89,9 @@ import { UpdateSystemUserFormComponent } from 'src/systemUser/update-systemUser-
 import { TermsAndConditionsComponent } from '../terms-and-conditions/terms-and-conditions.component';
 import {ListNotApprovedSurTaskComponent} from "../notApproved/list-notApprovedSurTasks/list-notApprovedSurTask.component";
 import {NotApprovedComponent} from "../notApproved/notApproved.component";
+import {
+  ListNotApprovedPicTaskComponent
+} from "../notApproved/list-notApprovedPicTasks/list-notApprovedPicTask.component";
 
 @NgModule({
   declarations: [
@@ -173,8 +176,9 @@ import {NotApprovedComponent} from "../notApproved/notApproved.component";
     UpdateSystemUserComponent,
     UpdateSystemUserFormComponent,
     TermsAndConditionsComponent,
+    NotApprovedComponent,
     ListNotApprovedSurTaskComponent,
-    NotApprovedComponent
+    ListNotApprovedPicTaskComponent
   ],
   imports: [
     BrowserModule,
