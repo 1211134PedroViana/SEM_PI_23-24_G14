@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import SurveillanceTask from './surveillanceTask';
 import PickupAndDeliveryTask from './pickupAndDeliveryTask';
 import { ConfigService } from '../config.service';
+import Elevator from "../elevatorService/elevator";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,13 @@ import { ConfigService } from '../config.service';
 
 export class TaskService {
 
-  private createSurveillanceUrl = 'api/SurveillanceTasks';
+    private isVisible = new BehaviorSubject<boolean>(false);
+
+    private taskSur = new BehaviorSubject<SurveillanceTask>({} as SurveillanceTask);
+
+
+
+    private createSurveillanceUrl = 'api/SurveillanceTasks';
   private createPickupAndDeliveryUrl = 'api/PickupAndDeliveryTasks';
 
   private searchByStatusSurveillanceUrl = 'api/SurveillanceTasks/searchByStatus/';
@@ -31,7 +38,7 @@ export class TaskService {
 
   constructor(private http: HttpClient, private configService: ConfigService) {
   }
-  
+
   approveSurveillanceTask(surveillanceTask: SurveillanceTask): Observable<SurveillanceTask> {
     const httpOptions = { withCredentials: true };
 
@@ -139,6 +146,12 @@ export class TaskService {
       //catchError(this.handleError('addBuilding', building))
     );
   }
+
+  openForm(task: SurveillanceTask) {
+    this.taskSur.next(task);
+    this.isVisible.next(true);
+  }
+
 
 
 }

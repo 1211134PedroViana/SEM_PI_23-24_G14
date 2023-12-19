@@ -53,13 +53,15 @@ import { TaskByStatusComponent } from 'src/search-task/task-by-status/task-by-st
 import { TaskByTypeComponent } from 'src/search-task/task-by-type/task-by-type.component';
 import { TaskByUserComponent } from 'src/search-task/task-by-user/task-by-user.component';
 import { ApproveDenyTaskComponent } from 'src/approve-deny-task/approve-deny-task.component';
-import { ApproveTaskComponent } from 'src/approve-deny-task/approve-task/approve-task.component';
 import { DenyTaskComponent } from 'src/approve-deny-task/deny-task/deny-task.component';
 import {CreateRegisterComponent} from "../register/create-register/create-register.component";
 import { SignInComponent } from 'src/sign-in/sign-in.component';
-import { UpdateSystemUserComponent } from 'src/systemUser/update-systemUser/update-systemUser.component';
 import { UpdateSystemUserFormComponent } from 'src/systemUser/update-systemUser-form/update-systemUser-form.component';
 import { TermsAndConditionsComponent } from '../terms-and-conditions/terms-and-conditions.component';
+import {
+    ListNotApprovedSurTaskComponent } from "../notApproved/list-notApprovedSurTasks/list-notApprovedSurTask.component";
+import {ApproveTaskComponent} from "../approve-deny-task/approve-task/approve-task.component";
+import {NotApprovedComponent} from "../notApproved/notApproved.component";
 
 const routes: Routes = [
 
@@ -126,7 +128,11 @@ const routes: Routes = [
     { path: 'approveOrDenyTask', component: ApproveDenyTaskComponent, children:[
       { path: 'approveTask', component: ApproveTaskComponent },
       { path: 'denyTask', component: DenyTaskComponent }
-    ]}
+    ]},
+    { path: 'listTasks', component: NotApprovedComponent, children:[
+        { path: 'surTasks', component: ListNotApprovedSurTaskComponent },
+        { path: 'picTasks', component: DenyTaskComponent }
+        ]}
   ]},
 
   //Admin App

@@ -87,6 +87,8 @@ import {RegisterComponent} from "../register/register.component";
 import { UpdateSystemUserComponent } from 'src/systemUser/update-systemUser/update-systemUser.component';
 import { UpdateSystemUserFormComponent } from 'src/systemUser/update-systemUser-form/update-systemUser-form.component';
 import { TermsAndConditionsComponent } from '../terms-and-conditions/terms-and-conditions.component';
+import {ListNotApprovedSurTaskComponent} from "../notApproved/list-notApprovedSurTasks/list-notApprovedSurTask.component";
+import {NotApprovedComponent} from "../notApproved/notApproved.component";
 
 @NgModule({
   declarations: [
@@ -170,7 +172,9 @@ import { TermsAndConditionsComponent } from '../terms-and-conditions/terms-and-c
     RegisterComponent,
     UpdateSystemUserComponent,
     UpdateSystemUserFormComponent,
-    TermsAndConditionsComponent
+    TermsAndConditionsComponent,
+    ListNotApprovedSurTaskComponent,
+    NotApprovedComponent
   ],
   imports: [
     BrowserModule,
