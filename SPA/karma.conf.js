@@ -5,6 +5,6 @@ module.exports = function(config) {
         require('karma-jasmine'),
         require('@angular/cli/plugins/karma'),
       ],
-      browsers: ['Chrome'],
+      browsers: ['Chrome']
     });
   };

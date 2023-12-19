@@ -5,22 +5,15 @@
 :-dynamic prob_cruzamento/1.
 :-dynamic prob_mutacao/1.
 
-tarefa(t1, entrega, sala(k1), sala(r1)).
-tarefa(t2, entrega, sala(apn), sala(r2)).
-tarefa(t3, entrega, sala(b201), sala(b204)).
+tarefa(t1, sala(k1), sala(apn)).
+tarefa(t2, sala(beng), sala(k2)).
+tarefa(t3, sala(r1), sala(r2)).
 
 
 %% ALGORITMO GENÉTICO
 
-% tarefa(Id,TempoProcessamento,TempConc,PesoPenalizacao).
-tarefa(t1,2,5,1).
-tarefa(t2,4,7,6).
-tarefa(t3,1,11,2).
-tarefa(t4,3,9,3).
-tarefa(t5,3,8,2).
-
 % tarefas(NTarefas).
-tarefas(5).
+tarefas(3).
 
 % parameteriza��o
 inicializa:-write('Numero de novas Geracoes: '),read(NG), 			(retract(geracoes(_));true), asserta(geracoes(NG)),
@@ -47,7 +40,7 @@ gera:-
 gera_populacao(Pop):-
 	populacao(TamPop),
 	tarefas(NumT),
-	findall(Tarefa,tarefa(Tarefa,_,_,_),ListaTarefas),
+	findall(Tarefa,tarefa(Tarefa,_,_),ListaTarefas),
 	gera_populacao(TamPop,ListaTarefas,NumT,Pop).
 
 gera_populacao(0,_,_,[]):-!.
@@ -85,8 +78,8 @@ calc(List, Eval):-
 calc_helper([_], Total, Total).
 
 calc_helper([T1, T2 | Res], Acc, Eval):-
-   tarefa(T1, entrega, Orig1, Dest1),
-   tarefa(T2, entrega, Orig2, Dest2),
+   tarefa(T1, Orig1, Dest1),
+   tarefa(T2, Orig2, Dest2),
    find_caminho(Dest1, Orig2, _, _, EvalA),
    NewAcc is Acc + EvalA,
    calc_helper([T2 | Res], NewAcc, Eval).
@@ -111,10 +104,10 @@ btroca([X|L1],[X|L2]):-btroca(L1,L2).
 
 
 gera_geracao(G,G,Pop):-!,
-	write('Gera��o '), write(G), write(':'), nl, write(Pop), nl.
+	write('Geracao '), write(G), write(':'), nl, write(Pop), nl.
 
 gera_geracao(N,G,Pop):-
-	write('Gera��o '), write(N), write(':'), nl, write(Pop), nl,
+	write('Geracao '), write(N), write(':'), nl, write(Pop), nl,
 	cruzamento(Pop,NPop1),
 	mutacao(NPop1,NPop),
 	avalia_populacao(NPop,NPopAv),
@@ -142,8 +135,9 @@ cruzamento([Ind1*_,Ind2*_|Resto],[NInd1,NInd2|Resto1]):-
 	gerar_pontos_cruzamento(P1,P2),
 	prob_cruzamento(Pcruz),random(0.0,1.0,Pc),
 	((Pc =< Pcruz,!,
-        cruzar(Ind1,Ind2,P1,P2,NInd1),
-	  cruzar(Ind2,Ind1,P1,P2,NInd2))
+	    random_permutation(Ind1, RandInd1), random_permutation(Ind2, RandInd2),
+        cruzar(RandInd1,RandInd2,P1,P2,NInd1),
+	    cruzar(RandInd2,RandInd1,P1,P2,NInd2))
 	;
 	(NInd1=Ind1,NInd2=Ind2)),
 	cruzamento(Resto,Resto1).

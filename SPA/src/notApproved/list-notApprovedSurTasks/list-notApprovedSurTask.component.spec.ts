@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListNotApprovedTaskComponent } from './list-notApprovedSurTask.component';
+import { ListNotApprovedSurTaskComponent } from './list-notApprovedSurTask.component';
 
 describe('ListBuildingsComponent', () => {
-  let component: ListNotApprovedTaskComponent;
-  let fixture: ComponentFixture<ListNotApprovedTaskComponent>;
+  let component: ListNotApprovedSurTaskComponent;
+  let fixture: ComponentFixture<ListNotApprovedSurTaskComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ListNotApprovedTaskComponent]
+      declarations: [ListNotApprovedSurTaskComponent]
     });
-    fixture = TestBed.createComponent(ListNotApprovedTaskComponent);
+    fixture = TestBed.createComponent(ListNotApprovedSurTaskComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
