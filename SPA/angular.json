@@ -66,10 +66,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "SPA:build:production"
+              "buildTarget": "SPA:build:production"
             },
             "development": {
-              "browserTarget": "SPA:build:development"
+              "buildTarget": "SPA:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -77,7 +77,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "SPA:build"
+            "buildTarget": "SPA:build"
           }
         },
         "test": {
@@ -103,60 +103,8 @@
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           }
-        },
-        "cypress-run": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "SPA:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "SPA:serve:production"
-            }
-          }
-        },
-        "cypress-open": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "watch": true,
-            "headless": false
-          }
-        },
-        "ct": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "SPA:serve",
-            "watch": true,
-            "headless": false,
-            "testingType": "component"
-          },
-          "configurations": {
-            "development": {
-              "devServerTarget": "SPA:serve:development"
-            }
-          }
-        },
-        "e2e": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "SPA:serve",
-            "watch": true,
-            "headless": false
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "SPA:serve:production"
-            }
-          }
         }
       }
     }
-  },
-  "cli": {
-    "analytics": false,
-    "schematicCollections": [
-      "@cypress/schematic",
-      "@schematics/angular"
-    ]
   }
 }
