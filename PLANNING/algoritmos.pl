@@ -265,7 +265,7 @@ encontra_caminho(sala(SalaOrig), elev(Piso), Cam, Custo) :-
     coordenadas(SalaOrig, Piso, SalaCol, SalaLin),
     coordenadas(Piso, ElevCol, ElevLin), 
     aStar(cel(SalaCol,SalaLin), cel(ElevCol,ElevLin), Cam, Custo, Piso).  
-    %dfs(Piso, cel(SalaCol,SalaLin), cel(ElevCol,ElevLin), Cam),
+    %dfs(Piso, cel(SalaCol,SalaLin), cel(ElevCol,ElevLin), Cam).
     %write_piso(Piso, sala(SalaOrig), elev(Piso), Cam).
 
 % Encontra o caminho entre uma passagem e um elevador se for destino através do algoritmo DFS ou ASTAR
