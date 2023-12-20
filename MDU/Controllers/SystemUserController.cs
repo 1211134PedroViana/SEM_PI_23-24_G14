@@ -85,11 +85,11 @@ namespace Mpt.Controllers
 
         // PUT: api/SystemUsers/Update
         [AllowAnonymous]
-        [HttpPut("Update/{id}")]
+        [HttpPut("Update/{email}")]
         public async Task<ActionResult<SystemUserDTO>> Update(Guid id, SystemUserDTO dto)
         {
             try {
-                var user = await _service.GetByIdAsync(id);
+                var user = await _service.GetByEmailAsync(dto.email);
 
                 if (user == null) {
                     return NotFound();

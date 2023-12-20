@@ -57,7 +57,7 @@ export class SystemUserService {
   updateSystemUser(user: SystemUser): Observable<SystemUser> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.put<SystemUser>(this.configService.mduUrl + this.updateUrl + user.id, user, httpOptions)
+    return this.http.put<SystemUser>(this.configService.mduUrl + this.updateUrl + user.email, user, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

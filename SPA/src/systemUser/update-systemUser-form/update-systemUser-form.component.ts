@@ -25,15 +25,6 @@ export class UpdateSystemUserFormComponent {
 
     constructor(private systemUserService: SystemUserService, private authService: AuthService,private snackBar: MatSnackBar) { }
 
-    /*
-    ngOnInit() {
-        this.systemUserService.getSystemUser().subscribe((this.authService.auth) => {
-            this.selectedSystemUser = this.authService.auth;
-        });
-        console.log(this.selectedSystemUser);
-    }
-    */
-
     ngOnInit() {
       this.authService.auth().subscribe((systemUser) => {
         this.selectedSystemUser = systemUser;
@@ -46,12 +37,22 @@ export class UpdateSystemUserFormComponent {
     }
 
     onSubmit() {
+        /*
         const systemUserData = ({
             email: this.email,
             password: this.password,
             roleId: this.role,
             phoneNumber: this.phoneNumber,
             contribuinte: this.contribuinte
+        }) as SystemUser;
+        */
+
+        const systemUserData = ({
+            email: this.selectedSystemUser.email,
+            password: this.selectedSystemUser.password,
+            roleId: this.selectedSystemUser.roleId,
+            phoneNumber: this.selectedSystemUser.phoneNumber,
+            contribuinte: this.selectedSystemUser.contribuinte
         }) as SystemUser;
       
         this.systemUserService.updateSystemUser(systemUserData)
@@ -64,6 +65,11 @@ export class UpdateSystemUserFormComponent {
                     });
                 }),
                 catchError((error) => {
+                    console.log(systemUserData.email);
+                    console.log(systemUserData.password);
+                    console.log(systemUserData.roleId);
+                    console.log(systemUserData.phoneNumber);
+                    console.log(systemUserData.contribuinte);
                     console.error('Error occurred while updating the systemUser, returned code:' + error.status);
                     this.snackBar.open('Failed to update systemUser, returend code:' + error.status, 'Close', {
                         duration:  5000, //5 seconds
