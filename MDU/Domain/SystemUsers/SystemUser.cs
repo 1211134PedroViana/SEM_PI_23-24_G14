@@ -1,4 +1,4 @@
-using System;
+    using System;
 using Mpt.Domain.Shared;
 using Mpt.Domain.SystemUsers;
 using Mpt.Domain.Roles;
@@ -45,6 +45,11 @@ namespace Mpt.Domain.SystemUsers
         public void ChangeContribuinte(string newContribuinte)
         {
             this.Contribuinte = newContribuinte;
+        }
+
+        public void ChangeEmail(string newEmail) 
+        {
+            this.Email = newEmail;
         }
     }
 }

@@ -82,5 +82,24 @@ namespace Mpt.Controllers
                 return BadRequest(new {Message = ex.Message});
             }
         }
+
+        // PUT: api/SystemUsers/Update
+        [AllowAnonymous]
+        [HttpPut("Update/{id}")]
+        public async Task<ActionResult<SystemUserDTO>> Update(Guid id, SystemUserDTO dto)
+        {
+            try {
+                var user = await _service.GetByIdAsync(id);
+
+                if (user == null) {
+                    return NotFound();
+                }
+                return Ok(user);
+
+            } catch(BusinessRuleValidationException ex) {
+                return BadRequest(new {Message = ex.Message});
+            }
+        }
+
     }
 }

@@ -18,7 +18,7 @@ export class SystemUserService {
   private getRoleByIdUrl = 'api/Roles/';
   private getUserByEmailUrl = 'api/SystemUsers/searchByEmail/';
   private userByEmailUrl = 'api/SystemUsers/byEmail/';
-  private updateUrl = 'api/SystemUsers/UpdateSystemUser/';
+  private updateUrl = 'api/SystemUsers/Update/';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private user = new BehaviorSubject<SystemUser>({} as SystemUser);
@@ -57,7 +57,7 @@ export class SystemUserService {
   updateSystemUser(user: SystemUser): Observable<SystemUser> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.patch<SystemUser>(this.configService.mduUrl + this.updateUrl, user, httpOptions)
+    return this.http.put<SystemUser>(this.configService.mduUrl + this.updateUrl + user.id, user, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

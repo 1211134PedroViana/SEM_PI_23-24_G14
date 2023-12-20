@@ -85,5 +85,22 @@ namespace Mpt.Domain.SystemUsers
            if (role == null)
                 throw new BusinessRuleValidationException("Invalid Role Id.");
         }
+
+        public async Task<SystemUserDTO> UpdateAsync(SystemUserDTO dto)
+        {
+            var systemUser = await this._repo.GetByIdAsync(id);
+
+            if (systemUser == null) {
+                throw new BusinessRuleValidationException("Invalid email");
+            } else {
+                systemUser.ChangeEmail(dto.Email);
+                systemUser.ChangePhoneNumber(dto.PhoneNumber);
+                systemUser.ChangeContribuinte(dto.Contribuinte);
+            }
+
+            await this._unitOfWork.CommitAsync();
+
+            return new SystemUserDTO(systemUser.Id.AsGuid(), systemUser.Email, systemUser.RoleId, systemUser.PhoneNumber, systemUser.Contribuinte);
+        } 
     }
 }
