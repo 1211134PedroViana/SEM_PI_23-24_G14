@@ -8,12 +8,13 @@
 tarefa(t1, sala(k1), sala(apn)).
 tarefa(t2, sala(beng), sala(k2)).
 tarefa(t3, sala(r1), sala(r2)).
+tarefa(t4, sala(k2), sala(r1)).
 
 
 %% ALGORITMO GENÉTICO
 
 % tarefas(NTarefas).
-tarefas(3).
+tarefas(4).
 
 % parameteriza��o
 inicializa:-write('Numero de novas Geracoes: '),read(NG), 			(retract(geracoes(_));true), asserta(geracoes(NG)),
@@ -102,21 +103,30 @@ btroca([X*VX,Y*VY|L1],[Y*VY|L2]):-
 
 btroca([X|L1],[X|L2]):-btroca(L1,L2).
 
+% remove_repetidos/2 remove elementos repetidos de uma lista
+remove_repetidos(Lista, ListaSemRepeticao) :-
+    sort(Lista, ListaSemRepeticao).
 
 gera_geracao(G,G,Pop):-!,
 	write('Geracao '), write(G), write(':'), nl, write(Pop), nl.
 
 gera_geracao(N,G,Pop):-
 	write('Geracao '), write(N), write(':'), nl, write(Pop), nl,
-	melhores_individuos(Pop, Melhores),
 	cruzamento(Pop,NPop1),
 	mutacao(NPop1,NPop),
 	avalia_populacao(NPop,NPopAv),
-	ordena_populacao(NPopAv,NPopOrd),
-	remove_duplicados(NPopOrd, Melhores, PopSemDuplicados),
-	append(Melhores, PopSemDuplicados, NovaPop),
+	append(Pop, NPopAv, PopComb),
+	list_to_set(PopComb, PopJuntasSemRepetidos),
+	ordena_populacao(PopJuntasSemRepetidos,NPopOrd),
+	seleciona_melhores(NPopOrd, Melhores),
+	remove_melhores(NPopOrd, Melhores, Restantes),
+	associa_produto_avaliacao(Restantes, PopComProduto),
+	ordena_populacao_produto(PopComProduto,PopOrdenadaComProduto),				% ordena a populacao com produto
+	restantes_melhores(PopOrdenadaComProduto, Pop, Melhores, RMelhoresComProd),	% extrai os N-P primeiros individuos para a geracao seguinte
+	remover_produtos(RMelhoresComProd, RMelhores),								% remover os produtos dos individuos
+	append(Melhores, RMelhores, PopNova),
 	N1 is N+1,
-	gera_geracao(N1,G,NovaPop).
+	gera_geracao(N1,G,PopNova).
 
 gerar_pontos_cruzamento(P1,P2):-
 	gerar_pontos_cruzamento1(P1,P2).
@@ -248,28 +258,80 @@ mutacao23(G1,P,[G|Ind],G2,[G|NInd]):-
 	P1 is P-1,
 	mutacao23(G1,P1,Ind,G2,NInd).
 
-% Encontrar os melhores indivíduos
-melhores_individuos(Pop, Melhores):-
-    length(Pop, NumIndividuos),
-    MelhoresIndividuos is round(NumIndividuos * 0.2), % 20% dos melhores indivíduos
-    take_best(MelhoresIndividuos, Pop, Melhores).
-
-% Pegar os melhores indivíduos
-take_best(0, _, []).
-take_best(N, [Ind*V|Resto], [Ind*V|Melhores]):-
-    N > 0,
-    N1 is N - 1,
-    take_best(N1, Resto, Melhores).
-
-take_best(N, [_|Resto], Melhores):-
-    N > 0,
-    take_best(N, Resto, Melhores).
-
 % Remover duplicados entre a nova população e os melhores indivíduos
 remove_duplicados([], _, []).
+
 remove_duplicados([Ind*V|Resto], Melhores, NovaPop):-
     member(Ind*_, Melhores),
     !,
     remove_duplicados(Resto, Melhores, NovaPop).
 remove_duplicados([Ind*V|Resto], Melhores, [Ind*V|NovaPop]):-
     remove_duplicados(Resto, Melhores, NovaPop).
+
+% associar a cada individuo o produto da sua avaliação por um num aleatorio entre 0 e 1
+associa_produto_avaliacao([], []).
+associa_produto_avaliacao([Ind*V|Resto], [Ind*V*RMult|RestoComProduto]) :-
+    random(0.0, 1.0, Random),
+	RMult is V * Random,
+    associa_produto_avaliacao(Resto, RestoComProduto).
+
+% passar os N-P primeiros individuos para a geracao seguinte
+restantes_melhores(PopOrdenadaComProduto, Pop, Melhores, NovaPopulacao) :-
+    length(Pop, N),
+    length(Melhores, P),
+    R is N - P,
+	sublista2(PopOrdenadaComProduto, 1, R, NovaPopulacao).	% extrai os N-P primeiros individuos
+
+% remover os produtos dos individuos
+remover_produtos([], []).
+remover_produtos([Ind*A*_|Resto], [Ind*A|RestoSemProdutos]) :-
+	remover_produtos(Resto, RestoSemProdutos).
+
+% sort para populacao com produto
+ordena_populacao_produto(PopAv,PopAvOrd):-
+	bsort2(PopAv,PopAvOrd).
+
+bsort2([X],[X]):-!.
+bsort2([X|Xs],Ys):-
+    bsort2(Xs,Zs),
+    btroca2([X|Zs],Ys).
+
+btroca2([X],[X]):-!.
+
+btroca2([X*VX*VI,Y*VY*VJ|L1],[Y*VY*VJ|L2]):-
+    VI > VJ,!, 
+    btroca2([X*VX*VI|L1],L2).
+
+btroca2([X|L1],[X|L2]):-btroca2(L1,L2).
+
+% obtem a sublista de uma lista a partir do indice inicio ate o indice fim
+sublista2(Lista, Inicio, Fim, Sublista) :-
+    length(Lista, Tamanho),
+    between(1, Tamanho, Inicio),
+    between(Inicio, Tamanho, Fim),
+    sublista_aux2(Lista, Inicio, Fim, Sublista).
+
+% predicado auxiliar para construir a sublista
+sublista_aux2([], _, _, []).
+
+sublista_aux2([H|T], Inicio, Fim, [H|Resto]) :-
+    between(Inicio, Fim, Pos),
+    PosInicio is Inicio,
+    PosFim is Fim,
+    Pos >= PosInicio,
+    Pos =< PosFim,
+    NovoInicio is Inicio + 1,
+    sublista_aux2(T, NovoInicio, Fim, Resto).
+sublista_aux2([_|T], Inicio, Fim, Sublista) :-
+    NovoInicio is Inicio + 1,
+    sublista_aux2(T, NovoInicio, Fim, Sublista).
+
+% selecionar os P primeiros individuos (20% de N, mas no min 1)
+seleciona_melhores(PopOrdenada, MelhoresPop) :-
+    length(PopOrdenada, T),
+    P1 is max(1, round(0.2 * T)),
+    sublista2(PopOrdenada, 1, P1, MelhoresPop).	% extrai os P primeiros individuos
+
+% extrair os mlhrs individuos da lista original
+remove_melhores(PopOrdenada, MelhoresPop, PopRestantes) :-
+    subtract(PopOrdenada, MelhoresPop, PopRestantes).
