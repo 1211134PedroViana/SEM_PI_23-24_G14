@@ -78,8 +78,8 @@ calc(List, Eval):-
 calc_helper([_], Total, Total).
 
 calc_helper([T1, T2 | Res], Acc, Eval):-
-   tarefa(T1, Orig1, Dest1),
-   tarefa(T2, Orig2, Dest2),
+   tarefa(T1, _, Dest1),
+   tarefa(T2, Orig2, _),
    find_caminho(Dest1, Orig2, _, _, EvalA),
    NewAcc is Acc + EvalA,
    calc_helper([T2 | Res], NewAcc, Eval).
@@ -108,12 +108,15 @@ gera_geracao(G,G,Pop):-!,
 
 gera_geracao(N,G,Pop):-
 	write('Geracao '), write(N), write(':'), nl, write(Pop), nl,
+	melhores_individuos(Pop, Melhores),
 	cruzamento(Pop,NPop1),
 	mutacao(NPop1,NPop),
 	avalia_populacao(NPop,NPopAv),
 	ordena_populacao(NPopAv,NPopOrd),
+	remove_duplicados(NPopOrd, Melhores, PopSemDuplicados),
+	append(Melhores, PopSemDuplicados, NovaPop),
 	N1 is N+1,
-	gera_geracao(N1,G,NPopOrd).
+	gera_geracao(N1,G,NovaPop).
 
 gerar_pontos_cruzamento(P1,P2):-
 	gerar_pontos_cruzamento1(P1,P2).
@@ -244,3 +247,29 @@ mutacao23(G1,1,[G2|Ind],G2,[G1|Ind]):-!.
 mutacao23(G1,P,[G|Ind],G2,[G|NInd]):-
 	P1 is P-1,
 	mutacao23(G1,P1,Ind,G2,NInd).
+
+% Encontrar os melhores indivíduos
+melhores_individuos(Pop, Melhores):-
+    length(Pop, NumIndividuos),
+    MelhoresIndividuos is round(NumIndividuos * 0.2), % 20% dos melhores indivíduos
+    take_best(MelhoresIndividuos, Pop, Melhores).
+
+% Pegar os melhores indivíduos
+take_best(0, _, []).
+take_best(N, [Ind*V|Resto], [Ind*V|Melhores]):-
+    N > 0,
+    N1 is N - 1,
+    take_best(N1, Resto, Melhores).
+
+take_best(N, [_|Resto], Melhores):-
+    N > 0,
+    take_best(N, Resto, Melhores).
+
+% Remover duplicados entre a nova população e os melhores indivíduos
+remove_duplicados([], _, []).
+remove_duplicados([Ind*V|Resto], Melhores, NovaPop):-
+    member(Ind*_, Melhores),
+    !,
+    remove_duplicados(Resto, Melhores, NovaPop).
+remove_duplicados([Ind*V|Resto], Melhores, [Ind*V|NovaPop]):-
+    remove_duplicados(Resto, Melhores, NovaPop).
