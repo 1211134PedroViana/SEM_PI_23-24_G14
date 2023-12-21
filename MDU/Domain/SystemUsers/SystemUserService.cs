@@ -88,7 +88,7 @@ namespace Mpt.Domain.SystemUsers
 
         public async Task<SystemUserDTO> UpdateAsync(SystemUserDTO dto)
         {
-            var systemUser = await this._repo.GetByEmailAsync(dto.email);
+            var systemUser = await this._repo.GetByEmailAsync(dto.Email);
 
             if (systemUser == null) {
                 throw new BusinessRuleValidationException("Invalid email");

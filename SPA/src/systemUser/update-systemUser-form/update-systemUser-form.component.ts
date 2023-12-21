@@ -59,7 +59,7 @@ export class UpdateSystemUserFormComponent {
             .pipe(
                 tap((response) => {
                     console.log('SystemUser updated successfully', response);
-                    const message = `SystemUser updated successfully! | Email: ${response.email} | Password: ${response.password} | RoleId: ${response.roleId} | PhoneNumber: ${response.phoneNumber} | Contribuinte: ${response.contribuinte}`;
+                    const message = `SystemUser updated successfully! | Email: ${response.email} | RoleId: ${response.roleId} | PhoneNumber: ${response.phoneNumber} | Contribuinte: ${response.contribuinte}`;
                     this.snackBar.open(message, 'Close', {
                         duration: 5000, //5 seconds
                     });
