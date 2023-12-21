@@ -84,15 +84,15 @@ namespace Mpt.Controllers
         }
 
         
-        // Put: api/SystemUsers/Remove
+        // DELETE: api/SystemUsers/Remove
         [AllowAnonymous]
         [HttpDelete]
-        public async Task<ActionResult<SystemUserDTO>> Remove(SystemUserDTO dto)
+        public async Task<ActionResult<SystemUserDTO>> Remove(SystemUserId id)
         {
             try {
 
-                var user = await _service.DeleteAsync(dto);
-            
+                var user = await _service.DeleteAsync(id);
+                return Ok(user);
             } catch (BusinessRuleValidationException ex) {
                 return BadRequest(new {Message = ex.Message});
             }

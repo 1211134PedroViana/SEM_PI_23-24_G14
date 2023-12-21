@@ -48,14 +48,16 @@ export class UpdateSystemUserFormComponent {
         */
 
         const systemUserData = ({
+            id: this.selectedSystemUser.id,
             email: this.selectedSystemUser.email,
             password: this.selectedSystemUser.password,
             roleId: this.selectedSystemUser.roleId,
             phoneNumber: this.selectedSystemUser.phoneNumber,
             contribuinte: this.selectedSystemUser.contribuinte
         }) as SystemUser;
-      
-        this.systemUserService.updateSystemUser(systemUserData)
+        
+
+        this.systemUserService.updateSystemUser(this.selectedSystemUser.id)
             .pipe(
                 tap((response) => {
                     console.log('SystemUser updated successfully', response);
