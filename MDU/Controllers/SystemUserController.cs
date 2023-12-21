@@ -85,7 +85,7 @@ namespace Mpt.Controllers
 
         // PUT: api/SystemUsers/Update
         [AllowAnonymous]
-        [HttpPut("Update/{email}")]
+        [HttpPut("Update")]
         public async Task<ActionResult<SystemUserDTO>> Update(SystemUserDTO dto)
         {
             try {

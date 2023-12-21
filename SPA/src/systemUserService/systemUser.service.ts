@@ -4,7 +4,6 @@ import { Observable, BehaviorSubject  } from 'rxjs';
 import SystemUser from "./systemUser";
 import Role from "./role";
 import { ConfigService } from '../config.service';
-import SystemUserDTO from './systemUserDTO';
 
 
 @Injectable({
@@ -56,10 +55,10 @@ export class SystemUserService {
       );
   }
 
-  updateSystemUser(user: SystemUserDTO): Observable<SystemUserDTO> {
+  updateSystemUser(user: SystemUser): Observable<SystemUser> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.put<SystemUserDTO>(this.configService.mduUrl + this.updateUrl + user.email, user, httpOptions)
+    return this.http.put<SystemUser>(this.configService.mduUrl + this.updateUrl, user, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );
