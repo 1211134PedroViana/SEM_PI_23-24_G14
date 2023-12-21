@@ -92,6 +92,8 @@ import {NotApprovedComponent} from "../notApproved/notApproved.component";
 import {
   ListNotApprovedPicTaskComponent
 } from "../notApproved/list-notApprovedPicTasks/list-notApprovedPicTask.component";
+import { RemoveSystemUserComponent } from 'src/systemUser/remove-systemUser/remove-systemUser.component';
+import { RemoveSystemUserFormComponent } from 'src/systemUser/remove-systemUser-form/remove-systemUser-form.component';
 
 @NgModule({
   declarations: [
@@ -178,7 +180,9 @@ import {
     TermsAndConditionsComponent,
     NotApprovedComponent,
     ListNotApprovedSurTaskComponent,
-    ListNotApprovedPicTaskComponent
+    ListNotApprovedPicTaskComponent,
+    RemoveSystemUserComponent,
+    RemoveSystemUserFormComponent
   ],
   imports: [
     BrowserModule,

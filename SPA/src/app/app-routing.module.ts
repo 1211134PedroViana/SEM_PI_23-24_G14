@@ -65,6 +65,9 @@ import {NotApprovedComponent} from "../notApproved/notApproved.component";
 import {
   ListNotApprovedPicTaskComponent
 } from "../notApproved/list-notApprovedPicTasks/list-notApprovedPicTask.component";
+import { RemoveSystemUserComponent } from 'src/systemUser/remove-systemUser/remove-systemUser.component';
+import { RemoveSystemUserFormComponent } from 'src/systemUser/remove-systemUser-form/remove-systemUser-form.component';
+
 
 const routes: Routes = [
 
@@ -151,7 +154,8 @@ const routes: Routes = [
       { path: 'pickup', component: PickupDeliveryTaskFormComponent},
       { path: 'surveillance', component: SurveillanceTaskFormComponent},
     ]},
-    { path: 'updateSystemUser', component: UpdateSystemUserFormComponent }
+    { path: 'updateSystemUser', component: UpdateSystemUserFormComponent },
+    { path: 'removeSystemUser', component: RemoveSystemUserFormComponent }
   ]},
 
   { path: 'login', component: SignInComponent },

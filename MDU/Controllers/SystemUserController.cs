@@ -83,6 +83,22 @@ namespace Mpt.Controllers
             }
         }
 
+        
+        // Put: api/SystemUsers/Remove
+        [AllowAnonymous]
+        [HttpDelete]
+        public async Task<ActionResult<SystemUserDTO>> Remove(SystemUserDTO dto)
+        {
+            try {
+
+                var user = await _service.DeleteAsync(dto);
+            
+            } catch (BusinessRuleValidationException ex) {
+                return BadRequest(new {Message = ex.Message});
+            }
+        }
+
+
         // PUT: api/SystemUsers/Update
         [AllowAnonymous]
         [HttpPut("Update")]
@@ -100,6 +116,7 @@ namespace Mpt.Controllers
                 return BadRequest(new {Message = ex.Message});
             }
         }
+
 
     }
 }

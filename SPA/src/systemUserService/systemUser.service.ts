@@ -20,6 +20,7 @@ export class SystemUserService {
   private getUserByEmailUrl = 'api/SystemUsers/searchByEmail/';
   private userByEmailUrl = 'api/SystemUsers/byEmail/';
   private updateUrl = 'api/SystemUsers/Update/';
+  private removeUrl = 'api/SystemUsers/Remove/';
 
   private isVisible = new BehaviorSubject<boolean>(false);
   private user = new BehaviorSubject<SystemUser>({} as SystemUser);
@@ -50,6 +51,15 @@ export class SystemUserService {
     const httpOptions = { withCredentials: true };
 
     return this.http.post<SystemUser>(this.configService.mduUrl + this.createUrl, user, httpOptions)
+      .pipe(
+        //catchError(this.handleError('addBuilding', building))
+      );
+  }
+
+  removeSystemUser(user: SystemUser): Observable<SystemUser> {
+    const httpOptions = { withCredentials: true };
+
+    return this.http.delete<SystemUser>(this.configService.mduUrl + this.removeUrl, httpOptions)
       .pipe(
         //catchError(this.handleError('addBuilding', building))
       );

@@ -1,0 +1,8 @@
+<form (ngSubmit)="onSubmit()">
+    <p class="form-title">Remove this User</p>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" class="form-control" name="email" placeholder={{selectedSystemUser.email}} [(ngModel)]="selectedSystemUser.email" disabled>
+    </div>
+    <button id="remove" type="submit" class="btn btn-danger">Remove User</button>
+</form>
