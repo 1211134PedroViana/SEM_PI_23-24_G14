@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { ListPassageComponent } from './list-passage.component';
 
@@ -8,6 +10,7 @@ describe('ListPassagesComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientModule, FormsModule],
       declarations: [ListPassageComponent]
     });
     fixture = TestBed.createComponent(ListPassageComponent);

@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
 import { ListFloorsFromABuildingComponent } from './list-floorsFromABuilding.component';
 
 describe('ListFloorsFromABuilding', () => {
@@ -7,6 +10,7 @@ describe('ListFloorsFromABuilding', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
+            imports: [HttpClientModule, FormsModule],
             declarations: [ListFloorsFromABuildingComponent]
         });
         fixture = TestBed.createComponent(ListFloorsFromABuildingComponent);

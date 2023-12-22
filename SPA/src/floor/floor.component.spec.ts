@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { FloorComponent } from './floor.component';
+import { Featuresv6Component } from '../featuresv6/featuresv6.component';
 
 describe('FloorComponent', () => {
   let component: FloorComponent;
@@ -8,7 +10,8 @@ describe('FloorComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FloorComponent]
+      imports: [RouterTestingModule],
+      declarations: [FloorComponent, Featuresv6Component]
     });
     fixture = TestBed.createComponent(FloorComponent);
     component = fixture.componentInstance;

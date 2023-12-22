@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { RobotTypeComponent } from './robot-type.component';
 
@@ -8,6 +9,7 @@ describe('RobotTypeComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
       declarations: [RobotTypeComponent]
     });
     fixture = TestBed.createComponent(RobotTypeComponent);

@@ -1,14 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { UpdatePassageComponent } from './update-passage.component';
+import { ListPassageComponent } from '../list-passages/list-passage.component';
 
-describe('UpdateBuildingComponent', () => {
+describe('UpdatePassageComponent', () => {
   let component: UpdatePassageComponent;
   let fixture: ComponentFixture<UpdatePassageComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UpdatePassageComponent]
+      imports: [HttpClientModule, FormsModule],
+      declarations: [UpdatePassageComponent, ListPassageComponent]
     });
     fixture = TestBed.createComponent(UpdatePassageComponent);
     component = fixture.componentInstance;

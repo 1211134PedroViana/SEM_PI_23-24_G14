@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { UpdateFloorComponent } from './update-floor.component';
+import { ListFloorComponent } from '../list-floors/list-floor.component';
 
 describe('UpdateFloorComponent', () => {
     let component: UpdateFloorComponent;
@@ -8,7 +11,8 @@ describe('UpdateFloorComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [UpdateFloorComponent]
+            imports: [HttpClientModule, FormsModule],
+            declarations: [UpdateFloorComponent, ListFloorComponent]
         });
         fixture = TestBed.createComponent(UpdateFloorComponent);
         component = fixture.componentInstance;

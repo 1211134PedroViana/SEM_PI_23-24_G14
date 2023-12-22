@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { UpdateElevatorComponent } from './update-elevator.component';
+import { ListElevatorComponent } from '../list-elevators/list-elevator.component';
 
 describe('UpdateElevatorComponent', () => {
   let component: UpdateElevatorComponent;
@@ -8,7 +11,8 @@ describe('UpdateElevatorComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UpdateElevatorComponent]
+      imports: [HttpClientModule, FormsModule],
+      declarations: [UpdateElevatorComponent, ListElevatorComponent]
     });
     fixture = TestBed.createComponent(UpdateElevatorComponent);
     component = fixture.componentInstance;
