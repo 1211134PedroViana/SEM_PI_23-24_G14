@@ -1348,7 +1348,7 @@ export default class ThumbRaiser {
 
                 let coveredDistance = this.player.walkingSpeed * deltaT;
                 let directionIncrement = this.player.turningSpeed * deltaT;
-                
+
 
                 coveredDistance *= this.player.runningFactor;
                 directionIncrement *= this.player.runningFactor;
@@ -1378,7 +1378,7 @@ export default class ThumbRaiser {
                 }
 
                 if(arr2[1] === arr1[1] && arr2[0] === arr1[0] - 1 ) {
-                   
+
                     if(this.player.direction != 180) {
                         this.player.direction = 180;
                     }
@@ -1398,7 +1398,7 @@ export default class ThumbRaiser {
                 }
 
                 if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0]) {
-                
+
                     if(this.player.direction != 90) {
                          this.player.direction = 90;
                     }
@@ -1418,14 +1418,14 @@ export default class ThumbRaiser {
                 }
 
                 if(arr2[1] === arr1[1] - 1 && arr2[0] === arr1[0]) {
-                   
+
                     if(this.player.direction != 270) {
                         this.player.direction = 270;
                     }
 
                     const directionRad = THREE.MathUtils.degToRad(this.player.direction);
 
-                    
+
                     if(this.maze.foundCell(position, fPosition)) {
                         this.automaticPathingParameters.cells.shift();
                     } else {
@@ -1439,7 +1439,7 @@ export default class ThumbRaiser {
                 }
 
                 if(arr2[1] === arr1[1] + 1 && arr2[0] === arr1[0] + 1) {
-                   
+
                     if(this.player.direction != 45) {
                         this.player.direction = 45;
                     }
@@ -1766,4 +1766,15 @@ export default class ThumbRaiser {
     startPath() {
         this.automaticPathingParameters.hasStarted = true;
     }
+
+  transitarParaPisoSelecionado() {
+    // Obtenha o valor selecionado no menu
+    const pisoSelecionado = document.getElementById("pisoDropdown").value;
+
+    // Converta o valor para um número (pode ser necessário, dependendo do seu uso)
+    const numeroPiso = parseInt(pisoSelecionado);
+
+    // Chame o método transitarParaPiso com o número do piso desejado
+    elevator.enterElevator(numeroPiso);
+  }
 }
