@@ -10,6 +10,8 @@ export class ApproveDenyTaskComponent {
     titleText = 'Approve or Deny a Task';
     feature1ButtonText = 'Approve a Task';
     feature2ButtonText = 'Deny a Task';
+    feature3ButtonText = 'Surveillance Tasks';
     feature1Route = '/task/approveOrDenyTask/approveTask';  
-    feature2Route = '/task/approveOrDenyTask/denyTask';  
+    feature2Route = '/task/approveOrDenyTask/denyTask';
+    feature3Route = '/task/approveOrDenyTask/surveillanceTasks'; 
 }

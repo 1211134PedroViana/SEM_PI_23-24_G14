@@ -83,6 +83,7 @@ import { CreateRegisterComponent } from '../register/create-register/create-regi
 import {ApproveDenyTaskComponent} from "../approve-deny-task/approve-deny-task.component";
 import { ApproveTaskComponent } from 'src/approve-deny-task/approve-task/approve-task.component';
 import { DenyTaskComponent } from 'src/approve-deny-task/deny-task/deny-task.component';
+import { ApproveDenySurveillanceTasksComponent } from 'src/approve-deny-task/surveillance-tasks/surveillance-tasks.component';
 import {RegisterComponent} from "../register/register.component";
 import { UpdateSystemUserComponent } from 'src/systemUser/update-systemUser/update-systemUser.component';
 import { UpdateSystemUserFormComponent } from 'src/systemUser/update-systemUser-form/update-systemUser-form.component';
@@ -174,6 +175,7 @@ import { RemoveSystemUserFormComponent } from 'src/systemUser/remove-systemUser-
     ApproveDenyTaskComponent,
     ApproveTaskComponent,
     DenyTaskComponent,
+    ApproveDenySurveillanceTasksComponent,
     RegisterComponent,
     UpdateSystemUserComponent,
     UpdateSystemUserFormComponent,

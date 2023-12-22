@@ -54,6 +54,7 @@ import { TaskByTypeComponent } from 'src/search-task/task-by-type/task-by-type.c
 import { TaskByUserComponent } from 'src/search-task/task-by-user/task-by-user.component';
 import { ApproveDenyTaskComponent } from 'src/approve-deny-task/approve-deny-task.component';
 import { DenyTaskComponent } from 'src/approve-deny-task/deny-task/deny-task.component';
+import { ApproveDenySurveillanceTasksComponent } from 'src/approve-deny-task/surveillance-tasks/surveillance-tasks.component';
 import {CreateRegisterComponent} from "../register/create-register/create-register.component";
 import { SignInComponent } from 'src/sign-in/sign-in.component';
 import { UpdateSystemUserFormComponent } from 'src/systemUser/update-systemUser-form/update-systemUser-form.component';
@@ -133,7 +134,8 @@ const routes: Routes = [
     ]},
     { path: 'approveOrDenyTask', component: ApproveDenyTaskComponent, children:[
       { path: 'approveTask', component: ApproveTaskComponent },
-      { path: 'denyTask', component: DenyTaskComponent }
+      { path: 'denyTask', component: DenyTaskComponent },
+      { path: 'surveillanceTasks', component: ApproveDenySurveillanceTasksComponent }
     ]},
     { path: 'list', component: NotApprovedComponent, children:[
         { path: 'surTasks', component: ListNotApprovedSurTaskComponent },
