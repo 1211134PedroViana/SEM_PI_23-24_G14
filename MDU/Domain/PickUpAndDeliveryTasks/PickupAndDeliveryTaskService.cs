@@ -152,6 +152,13 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
 
             pickupAndDeliveryTask.Status = TasksStatus.Refused;
         }
+        
+        public async Task<List<PickupAndDeliveryTask>> GetNotApprovedTasks()
+        {
+            // Lógica para obter tarefas por status "Pending" e "Refused"
+            // Certifique-se de implementar essa lógica de acordo com suas necessidades
+            return await _repo.GetTasksByNotApprovedStatus();
+        }
        
     }
 

@@ -8,5 +8,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
         Task<List<PickupAndDeliveryTask>> GetTasksByStatus(TasksStatus status);
         Task<List<PickupAndDeliveryTask>> GetTasksByUser(SystemUserId userId);
 
+        Task<List<PickupAndDeliveryTask>> GetTasksByNotApprovedStatus();
+
     }
 }
