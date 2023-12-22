@@ -10,11 +10,11 @@ import PickupAndDeliveryTask from 'src/taskService/pickupAndDeliveryTask';
 import { SystemUserService } from 'src/systemUserService/systemUser.service';
 
 @Component({
-  selector: 'app-surveillance-task-form',
-  templateUrl: './surveillance-task-form.component.html',
-  styleUrls: ['./surveillance-task-form.component.css']
+  selector: 'app-pickup-delivery-form',
+  templateUrl: './pickup-delivery-form.component.html',
+  styleUrls: ['./pickup-delivery-form.component.css']
 })
-export class ApproveDenySurveillanceTaskFormComponent {
+export class ApproveDenyPickupDeliveryTaskFormComponent {
   @Input() task: any; // Propriedade de entrada para receber a tarefa selecionada
   @Output() formSubmit: EventEmitter<void> = new EventEmitter<void>();
 
@@ -38,10 +38,10 @@ export class ApproveDenySurveillanceTaskFormComponent {
 
   updateTaskStatus() {
     if (this.selectedStatus === 'Approved') {
-      this.taskService.approveSurveillanceTask(this.task);
+      this.taskService.approvePickupAndDeliveryTask(this.task);
       this.successMessage = 'Task successfully approved!';
     } else if (this.selectedStatus === 'Deny') {
-      this.taskService.denySurveillanceTask(this.task);
+      this.taskService.denyPickupAndDeliveryTask(this.task);
       this.successMessage = 'Task successfully dennied!';
     } else {
       this.successMessage = 'Impossible to update task!';
