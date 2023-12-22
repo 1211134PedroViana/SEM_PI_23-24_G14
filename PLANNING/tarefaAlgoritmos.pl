@@ -112,6 +112,8 @@ gera_geracao(G,G,Pop):-!,
 
 gera_geracao(N,G,Pop):-
 	write('Geracao '), write(N), write(':'), nl, write(Pop), nl,
+	verifica_avaliacao(Pop, Aval),
+	Aval <= 10,
 	cruzamento(Pop,NPop1),
 	mutacao(NPop1,NPop),
 	avalia_populacao(NPop,NPopAv),
@@ -127,6 +129,8 @@ gera_geracao(N,G,Pop):-
 	append(Melhores, RMelhores, PopNova),
 	N1 is N+1,
 	gera_geracao(N1,G,PopNova).
+
+verifica_avaliacao([Ind*V | Rest], Aval):- Aval is V.
 
 gerar_pontos_cruzamento(P1,P2):-
 	gerar_pontos_cruzamento1(P1,P2).

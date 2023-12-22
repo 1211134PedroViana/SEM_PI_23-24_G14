@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { SystemUserComponent } from './systemUser.component';
 
@@ -8,6 +9,7 @@ describe('SystemUserComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
       declarations: [SystemUserComponent]
     });
     fixture = TestBed.createComponent(SystemUserComponent);

@@ -1,0 +1,26 @@
+@charset "UTF-8";
+/* styles.css */
+.terms-container {
+  color: #fff; /* Cor do texto */
+  background-color: #000; /* Cor de fundo */
+  padding: 20px; /* Adicione o preenchimento desejado */
+}
+
+/* Estilize os elementos de texto conforme necessário */
+.terms-container h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.terms-container p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.terms-container a {
+  color: #007bff; /* Cor do link */
+  text-decoration: underline;
+  cursor: pointer;
+}/*# sourceMappingURL=styles.css.map */

@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormsModule } from '@angular/forms';
 
 import { CreateBuildingComponent } from './create-building.component';
+import { CreateBuildingFormComponent } from '../create-building-form/create-building-form.component';
 
 describe('CreateBuildingComponent', () => {
   let component: CreateBuildingComponent;
@@ -8,7 +12,8 @@ describe('CreateBuildingComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CreateBuildingComponent]
+      imports: [HttpClientModule, MatSnackBarModule, FormsModule],
+      declarations: [CreateBuildingComponent, CreateBuildingFormComponent]
     });
     fixture = TestBed.createComponent(CreateBuildingComponent);
     component = fixture.componentInstance;
