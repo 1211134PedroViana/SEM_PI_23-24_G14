@@ -143,10 +143,10 @@ gera_geracao(N,G,Pop):-
 verifica_condicao_termino(Pop, Ind * Aval):- 
     avaliacao_termino(Av),
     member(Ind * Aval, Pop),
-    Aval > Av.
+    Aval =< Av.
 
 termina(Ind):- 
-    write('Melhor Individuo: '), write(Ind), nl.
+    write('Melhor Individuo: '), write(Ind), nl, halt.
 
 gerar_pontos_cruzamento(P1,P2):-
 	gerar_pontos_cruzamento1(P1,P2).
