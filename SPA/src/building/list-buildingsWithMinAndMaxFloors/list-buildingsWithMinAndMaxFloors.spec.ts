@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { ListBuildingsWithMinAndMaxFloorsComponent } from './list-buildingsWithMinAndMaxFloors';
 
@@ -8,6 +10,7 @@ describe('ListBuildingsWithMinAndMaxFloors', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
+            imports: [HttpClientModule, FormsModule],
             declarations: [ListBuildingsWithMinAndMaxFloorsComponent]
         });
         fixture = TestBed.createComponent(ListBuildingsWithMinAndMaxFloorsComponent);

@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormsModule } from '@angular/forms';
 
 import { CreateSystemUserComponent } from './create-systemUser.component';
+import {CreateSystemUserFormComponent} from "../create-systemUser-form/create-systemUser-form.component";
 
 describe('CreateSystemUserComponent', () => {
   let component: CreateSystemUserComponent;
@@ -8,7 +12,8 @@ describe('CreateSystemUserComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CreateSystemUserComponent]
+      imports: [HttpClientModule, MatSnackBarModule, FormsModule],
+      declarations: [CreateSystemUserComponent, CreateSystemUserFormComponent]
     });
     fixture = TestBed.createComponent(CreateSystemUserComponent);
     component = fixture.componentInstance;

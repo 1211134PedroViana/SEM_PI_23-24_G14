@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { ListBuildingsComponent } from './list-buildings.component';
 
@@ -8,6 +10,7 @@ describe('ListBuildingsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientModule, FormsModule],
       declarations: [ListBuildingsComponent]
     });
     fixture = TestBed.createComponent(ListBuildingsComponent);
@@ -19,3 +22,4 @@ describe('ListBuildingsComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

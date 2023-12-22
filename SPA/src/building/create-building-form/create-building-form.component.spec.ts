@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormsModule } from '@angular/forms';
 
 import { CreateBuildingFormComponent } from './create-building-form.component';
 
@@ -8,6 +11,7 @@ describe('CreateBuildingFormComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientModule, MatSnackBarModule, FormsModule],
       declarations: [CreateBuildingFormComponent]
     });
     fixture = TestBed.createComponent(CreateBuildingFormComponent);
@@ -16,6 +20,6 @@ describe('CreateBuildingFormComponent', () => {
   });
 
   it('should create', () => {
-    
+    expect(component).toBeTruthy();
   });
 });
