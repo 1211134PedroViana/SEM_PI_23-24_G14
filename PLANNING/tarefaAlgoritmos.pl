@@ -121,7 +121,7 @@ gera_geracao(G,G,Pop):-!,
 
 gera_geracao(N,G,Pop):-
 	write('Geracao '), write(N), write(':'), nl, write(Pop), nl,
-	(verifica_condicao_termino(Pop, IndivAv), termina(IndivAv), ! ; true),       % verifica se a condicao de termino foi atingida
+	(verifica_condicao_termino(Pop, IndivAv), termina(IndivAv), ! ; true), % verifica se a condicao de termino foi atingida
     (verifica_tempo_limite(Pop, IndivAv), termina(IndivAv), ! ; true),           % verifica se ultrapassou o tempo limite
 	cruzamento(Pop,NPop1),
 	mutacao(NPop1,NPop),
@@ -140,12 +140,13 @@ gera_geracao(N,G,Pop):-
 	N1 is N+1,
 	gera_geracao(N1,G,PopNovaOrd).
 
-verifica_condicao_termino([Ind*V | _], Aval):- 
+verifica_condicao_termino(Pop, Ind * Aval):- 
     avaliacao_termino(Av),
-    V =< Av, Aval is Ind*V.
+    member(Ind * Aval, Pop),
+    Aval > Av.
 
 termina(Ind):- 
-    write('Melhor Individuo: '), write(Ind), halt.
+    write('Melhor Individuo: '), write(Ind), nl.
 
 gerar_pontos_cruzamento(P1,P2):-
 	gerar_pontos_cruzamento1(P1,P2).
