@@ -4,6 +4,9 @@
 :-dynamic populacao/1.
 :-dynamic prob_cruzamento/1.
 :-dynamic prob_mutacao/1.
+:-dynamic avaliacao_termino/1.
+:-dynamic tempo_inicio/1.
+:-dynamic tempo_limite/1.
 
 tarefa(t1, sala(k1), sala(apn)).
 tarefa(t2, sala(beng), sala(k2)).
@@ -25,7 +28,13 @@ inicializa:-write('Numero de novas Geracoes: '),read(NG), 			(retract(geracoes(_
 	(retract(prob_cruzamento(_));true), 	asserta(prob_cruzamento(PC)),
 	write('Probabilidade de Mutacao (%):'), read(P2),
 	PM is P2/100, 
-	(retract(prob_mutacao(_));true), asserta(prob_mutacao(PM)).
+	(retract(prob_mutacao(_));true), asserta(prob_mutacao(PM)),
+	write('Avaliação Ideal:'), read(AT),
+	(retract(avaliacao_termino(_));true), asserta(avaliacao_termino(AT)),
+	write('Tempo limite de execução:'), read(TL),
+	(retract(tempo_limite(_));true), asserta(tempo_limite(TL)),
+	get_time(Tempo),
+	(retract(tempo_inicio(_));true), asserta(tempo_inicio(Tempo)).
 
 
 gera:-
@@ -112,8 +121,8 @@ gera_geracao(G,G,Pop):-!,
 
 gera_geracao(N,G,Pop):-
 	write('Geracao '), write(N), write(':'), nl, write(Pop), nl,
-	verifica_avaliacao(Pop, Aval),
-	Aval <= 10,
+	(verifica_condicao_termino(Pop, IndivAv), termina(IndivAv), ! ; true),       % verifica se a condicao de termino foi atingida
+    (verifica_tempo_limite(Pop, IndivAv), termina(IndivAv), ! ; true),           % verifica se ultrapassou o tempo limite
 	cruzamento(Pop,NPop1),
 	mutacao(NPop1,NPop),
 	avalia_populacao(NPop,NPopAv),
@@ -127,10 +136,16 @@ gera_geracao(N,G,Pop):-
 	restantes_melhores(PopOrdenadaComProduto, Pop, Melhores, RMelhoresComProd),	% extrai os N-P primeiros individuos para a geracao seguinte
 	remover_produtos(RMelhoresComProd, RMelhores),								% remover os produtos dos individuos
 	append(Melhores, RMelhores, PopNova),
+	ordena_populacao(PopNova,PopNovaOrd),
 	N1 is N+1,
-	gera_geracao(N1,G,PopNova).
+	gera_geracao(N1,G,PopNovaOrd).
 
-verifica_avaliacao([Ind*V | Rest], Aval):- Aval is V.
+verifica_condicao_termino([Ind*V | _], Aval):- 
+    avaliacao_termino(Av),
+    V =< Av, Aval is Ind*V.
+
+termina(Ind):- 
+    write('Melhor Individuo: '), write(Ind), halt.
 
 gerar_pontos_cruzamento(P1,P2):-
 	gerar_pontos_cruzamento1(P1,P2).
@@ -339,3 +354,17 @@ seleciona_melhores(PopOrdenada, MelhoresPop) :-
 % extrair os mlhrs individuos da lista original
 remove_melhores(PopOrdenada, MelhoresPop, PopRestantes) :-
     subtract(PopOrdenada, MelhoresPop, PopRestantes).
+
+
+% verifica se o tempo decorrido é maior que o limite estabelecido
+verifica_tempo_limite(Pop, IndivAv) :-
+    tempo_decorrido(TempoDecorrido),
+    tempo_limite(Limite),
+    TempoDecorrido >= Limite,!,
+    select(IndivAv, Pop, _).                    % obtem o melhor individuo da populacao (o primeiro, pois a populacao esta ordenada)
+
+% calcula o tempo decorrido desde o inicio da execucao do algoritmo
+tempo_decorrido(TempoDecorrido) :-
+    tempo_inicio(TempoInicio),
+    get_time(TempoAtual),
+    TempoDecorrido is TempoAtual - TempoInicio.
