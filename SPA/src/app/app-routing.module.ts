@@ -135,7 +135,7 @@ const routes: Routes = [
       { path: 'approveTask', component: ApproveTaskComponent },
       { path: 'denyTask', component: DenyTaskComponent }
     ]},
-    { path: 'listTasks', component: NotApprovedComponent, children:[
+    { path: 'list', component: NotApprovedComponent, children:[
         { path: 'surTasks', component: ListNotApprovedSurTaskComponent },
         { path: 'picTasks', component: ListNotApprovedPicTaskComponent }
         ]}
