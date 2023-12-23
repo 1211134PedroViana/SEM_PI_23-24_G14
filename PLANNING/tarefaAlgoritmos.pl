@@ -7,11 +7,29 @@
 :-dynamic avaliacao_termino/1.
 :-dynamic tempo_inicio/1.
 :-dynamic tempo_limite/1.
+:-dynamic transita/3.
+
 
 tarefa(t1, sala(k1), sala(apn)).
 tarefa(t2, sala(beng), sala(k2)).
 tarefa(t3, sala(r1), sala(r2)).
 tarefa(t4, sala(k2), sala(r1)).
+
+
+% gera dinamicamente todas as transicoes entre tarefas de uma só vez
+gera_transicoes :-
+    findall((IdOrigem, IdDestino, Avaliacao),
+    (tarefa(IdOrigem, _, Destino1), tarefa(IdDestino, Origem2, _),
+    IdOrigem \= IdDestino,             % garante que as tarefas não são as mesmas
+    (find_caminho(Destino1, Origem2, _, _, Avaliacao) -> true ; fail)), Transicoes), % write(Transicoes),nl,
+    retractall(transita(_, _, _)),              % remover factos existentes
+    assert_transicoes(Transicoes).
+
+assert_transicoes([]).
+assert_transicoes([(IdOrigem, IdDestino, Eval) | Resto]) :-
+    % write(IdOrigem), write(' '), write(IdDestino), write(' '), write(Eval), nl,
+    assertz(transita(IdOrigem, IdDestino, Eval)),
+    assert_transicoes(Resto).
 
 
 %% ALGORITMO GENÉTICO
@@ -90,7 +108,8 @@ calc_helper([_], Total, Total).
 calc_helper([T1, T2 | Res], Acc, Eval):-
    tarefa(T1, _, Dest1),
    tarefa(T2, Orig2, _),
-   find_caminho(Dest1, Orig2, _, _, EvalA),
+   %find_caminho(Dest1, Orig2, _, _, EvalA),
+   transita(T1, T2, EvalA),
    NewAcc is Acc + EvalA,
    calc_helper([T2 | Res], NewAcc, Eval).
 
@@ -369,3 +388,11 @@ tempo_decorrido(TempoDecorrido) :-
     tempo_inicio(TempoInicio),
     get_time(TempoAtual),
     TempoDecorrido is TempoAtual - TempoInicio.
+
+
+% encontra todas as permutacoes possiveis e guarda a melhor. Alternativa ao AG
+gera_permutacoes(Tarefas, MelhorSequencia) :-
+    findall(Seq, permutation(Tarefas, Seq), TodasSequencias),
+    avalia_populacao(TodasSequencias, TodasSequenciasAvaliadas),
+    ordena_populacao(TodasSequenciasAvaliadas, TodasSequenciasAvaliadasOrdenadas),
+    select(MelhorSequencia, TodasSequenciasAvaliadasOrdenadas, _).             % a melhor sequencia é a primeira da lista ordenada
