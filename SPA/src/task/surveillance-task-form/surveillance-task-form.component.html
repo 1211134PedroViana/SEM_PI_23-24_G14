@@ -1,22 +1,20 @@
 <form (ngSubmit)="onSubmit()">
   <p class="form-title">Request new PickUp & Delivery Task</p>
 
-  <button class="close-button" (click)="closeForm()">X</button>
+  <button data-test="close" class="close-button" (click)="closeForm()">X</button>
 
   <div class="row g-4">
 
     <div class="col-md-2">
         <label class="form-label" for="building">Building</label>
-        <select class="form-select" id="building" name="selectedBuilding" [(ngModel)]="selectedBuilding" (change)="onBuildingChange()">
+        <select data-test="building" class="form-select" id="building" name="selectedBuilding" [(ngModel)]="selectedBuilding" (change)="onBuildingChange()">
           <option *ngFor="let building of buildings" [value]="building.id">{{ building.code }}</option>
         </select>
     </div>
 
-    <hr>
-
     <div class="col-md-2">
       <label class="form-label" for="floor">Floor</label>
-      <select class="form-select" id="floor" name="selectedFloor" [(ngModel)]="selectedFloor" (change)="onFloorChange()">
+      <select data-test="floor" class="form-select" id="floor" name="selectedFloor" [(ngModel)]="selectedFloor" (change)="onFloorChange()">
         <option *ngFor="let floor of floors" [value]="floor.id">{{ floor.floorNumber }}</option>
       </select>
     </div>
@@ -27,7 +25,7 @@
 
     <div class="col-md-2">
         <label class="form-label" for="acessPoint">Type</label>
-        <select class="form-select" id="acessPoint1" name="selectedTypeOrig" [(ngModel)]="selectedTypeOrig" (change)="onTypeChange1()">
+        <select data-test="startType" class="form-select" id="acessPoint1" name="selectedTypeOrig" [(ngModel)]="selectedTypeOrig" (change)="onTypeChange1()">
             <option value="sala">Sala</option>
             <option value="elev">Elevador</option>
             <option value="pass">Passagem</option>
@@ -36,7 +34,7 @@
 
     <div class="col-md-2">
       <label class="form-label" for="building">Acess point</label>
-      <select class="form-select" id="element1" name="selectedOrig" [(ngModel)]="selectedOrig">
+      <select data-test="startAcessPoint" class="form-select" id="element1" name="selectedOrig" [(ngModel)]="selectedOrig">
         <option *ngFor="let orig of elementsOrig" [value]="orig">{{ orig }}</option>
       </select>
     </div>
@@ -46,7 +44,7 @@
     <p class="sectionTitle">End Place:</p>
     <div class="col-md-2">
       <label class="form-label" for="acessPoint">Type</label>
-      <select class="form-select" id="acessPoint2" name="selectedTypeDest" [(ngModel)]="selectedTypeDest" (change)="onTypeChange2()">
+      <select data-test="endType" class="form-select" id="acessPoint2" name="selectedTypeDest" [(ngModel)]="selectedTypeDest" (change)="onTypeChange2()">
           <option value="sala">Sala</option>
           <option value="elev">Elevador</option>
           <option value="pass">Passagem</option>
@@ -55,7 +53,7 @@
 
     <div class="col-md-2">
       <label class="form-label" for="building">Acess point</label>
-      <select class="form-select" id="element2" name="selectedDest" [(ngModel)]="selectedDest">
+      <select data-test="endAcessPoint" class="form-select" id="element2" name="selectedDest" [(ngModel)]="selectedDest">
         <option *ngFor="let orig of elementsOrig" [value]="orig">{{ orig }}</option>
       </select>
     </div>
@@ -66,10 +64,10 @@
 
   <div class="col-md-2">
     <label class="form-label" for="phoneNumber">Phone Number</label>
-    <input id="phoneNumber" type="text" class="form-control" name="phoneNumber" [(ngModel)]="phoneNumber">
+    <input data-test="phoneNumber" id="phoneNumber" type="text" class="form-control" name="phoneNumber" [(ngModel)]="phoneNumber">
   </div> 
 
   <div class="col-12">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button data-test="submit" type="submit" class="btn btn-primary">Submit</button>
   </div>
 </form>
