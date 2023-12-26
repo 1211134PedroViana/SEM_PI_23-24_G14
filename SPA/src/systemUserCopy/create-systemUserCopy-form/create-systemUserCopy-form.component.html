@@ -1,0 +1,29 @@
+<form (ngSubmit)="onSubmit">
+    <p class="form-title">Create a users data copy</p>
+    <button class="close-button" (click)="closeForm()">X</button>
+    <div class="mb-3">
+        <label for="date" class="form-label">Date</label>
+        <input type="text" class="form-control" name="date" placeholder="{{selectedSystemUser.date}}" [(ngModel)]="selectedSystemUser.date" disabled>
+    </div>
+    <div class="mb-3">
+        <label for="hour" class="form-label">Hour</label>
+        <input type="text" class="form-control" name="hour" placeholder="{{selectedSystemUser.hour}}" [(ngModel)]="selectedSystemUser.hour" disabled>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" class="form-control" name="email" placeholder="selectedSystemUser.email" [(ngModel)]="selectedSystemUser.email" disabled>
+    </div>
+    <div class="mb-3">
+        <label for="roleId" class="form-label">RoleId</label>
+        <input type="text" class="form-control" name="roleId" placeholder={{selectedSystemUser.roleId}} [(ngModel)]="selectedSystemUser.roleId" disabled>
+    </div>
+    <div class="mb-3">
+        <label for="phoneNumber" class="form-label">PhoneNumber</label>
+        <input type="number" class="form-control" name="phoneNumber" placeholder={{selectedSystemUser.phoneNumber}} [(ngModel)]="selectedSystemUser.phoneNumber" disabled>
+    </div>
+    <div class="mb-3">
+        <label for="contribuinte" class="form-label">Contribuinte</label>
+        <input type="number" class="form-control" name="contribuinte" placeholder={{selectedSystemUser.contribuinte}} [(ngModel)]="selectedSystemUser.contribuinte" disabled>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

@@ -69,6 +69,8 @@ import {
 } from "../notApproved/list-notApprovedPicTasks/list-notApprovedPicTask.component";
 import { RemoveSystemUserComponent } from 'src/systemUser/remove-systemUser/remove-systemUser.component';
 import { RemoveSystemUserFormComponent } from 'src/systemUser/remove-systemUser-form/remove-systemUser-form.component';
+import { CreateSystemUserCopyComponent } from 'src/systemUserCopy/create-systemUserCopy/create-systemUserCopy.component';
+import { CreateSystemUserCopyFormComponent } from 'src/systemUserCopy/create-systemUserCopy-form/create-systemUserCopy-form.component';
 
 
 const routes: Routes = [
@@ -159,7 +161,8 @@ const routes: Routes = [
       { path: 'surveillance', component: SurveillanceTaskFormComponent},
     ]},
     { path: 'updateSystemUser', component: UpdateSystemUserFormComponent },
-    { path: 'removeSystemUser', component: RemoveSystemUserFormComponent }
+    { path: 'removeSystemUser', component: RemoveSystemUserFormComponent },
+    { path: 'createSystemUserCopy', component: CreateSystemUserCopyFormComponent }
   ]},
 
   { path: 'login', component: SignInComponent },
