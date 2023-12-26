@@ -1,14 +1,14 @@
 <form (ngSubmit)="onSubmit()">
     <p class="form-title">Request new PickUp & Delivery Task</p>
 
-    <button class="close-button" (click)="closeForm()">X</button>
+    <button data-test="close" class="close-button" (click)="closeForm()">X</button>
 
     <div class="row g-4">
 
         <p class="sectionTitle">PickUp Place:</p>
         <div class="col-md-2">
             <label class="form-label" for="acessPoint">Type</label>
-            <select class="form-select" id="acessPoint" name="selectedTypeOrig" [(ngModel)]="selectedTypeOrig">
+            <select data-test="typeFromAccessPoint" class="form-select" id="acessPoint" name="selectedTypeOrig" [(ngModel)]="selectedTypeOrig">
                 <option value="sala">Sala</option>
                 <option value="elev">Elevador</option>
                 <option value="pass">Passagem</option>
@@ -17,21 +17,21 @@
   
       <div class="col-md-2">
         <label class="form-label" for="building">From Building</label>
-        <select class="form-select" id="building1" name="selectedBuildingOrig" [(ngModel)]="selectedBuildingOrig" (change)="onBuildingOrigChange()">
+        <select data-test="fromBuilding" class="form-select" id="building1" name="selectedBuildingOrig" [(ngModel)]="selectedBuildingOrig" (change)="onBuildingOrigChange()">
           <option *ngFor="let building of buildings" [value]="building.id">{{ building.code }}</option>
         </select>
       </div>
 
       <div class="col-md-2">
         <label class="form-label" for="floor">From Floor</label>
-        <select *ngIf="selectedTypeOrig && selectedBuildingOrig" class="form-select" id="floor1" name="selectedFloorOrig" [(ngModel)]="selectedFloorOrig" (change)="onFloorOrigChange()">
+        <select data-test="fromFloor" *ngIf="selectedTypeOrig && selectedBuildingOrig" class="form-select" id="floor1" name="selectedFloorOrig" [(ngModel)]="selectedFloorOrig" (change)="onFloorOrigChange()">
           <option *ngFor="let floor of floorsOrig" [value]="floor.id">{{ floor.floorNumber }}</option>
         </select>
       </div>
 
       <div class="col-md-2">
         <label class="form-label" for="building">Acess point</label>
-        <select *ngIf="selectedTypeOrig && selectedBuildingOrig" class="form-select" id="element1" name="selectedOrig" [(ngModel)]="selectedOrig">
+        <select data-test="fromAccessPoint" *ngIf="selectedTypeOrig && selectedBuildingOrig" class="form-select" id="element1" name="selectedOrig" [(ngModel)]="selectedOrig">
           <option *ngFor="let orig of elementsOrig" [value]="orig">{{ orig }}</option>
         </select>
       </div>
@@ -44,7 +44,7 @@
         <p class="sectionTitle">Delivery Place:</p>
         <div class="col-md-2">
             <label class="form-label" for="acessPoint">Type</label>
-            <select class="form-select" id="acessPoint2" name="selectedTypeDest" [(ngModel)]="selectedTypeDest">
+            <select data-test="typeToAccessPoint" class="form-select" id="acessPoint2" name="selectedTypeDest" [(ngModel)]="selectedTypeDest">
                 <option value="sala">Sala</option>
                 <option value="elev">Elevador</option>
                 <option value="pass">Passagem</option>
@@ -52,19 +52,19 @@
         </div>   
         <div class="col-md-2">
             <label class="form-label" for="building">To Building</label>
-            <select class="form-select" id="building2" name="selectedBuildingDest" [(ngModel)]="selectedBuildingDest" (change)="onBuildingDestChange()">
+            <select data-test="toBuilding" class="form-select" id="building2" name="selectedBuildingDest" [(ngModel)]="selectedBuildingDest" (change)="onBuildingDestChange()">
                 <option *ngFor="let building of buildings" [value]="building.id">{{ building.code }}</option>
             </select>
         </div>
         <div class="col-md-2">
             <label class="form-label" for="floor">To Floor</label>
-            <select *ngIf="selectedTypeDest && selectedBuildingDest" class="form-select" id="floor2" name="selectedFloorDest" [(ngModel)]="selectedFloorDest" (change)="onFloorDestChange()">
+            <select data-test="toFloor" *ngIf="selectedTypeDest && selectedBuildingDest" class="form-select" id="floor2" name="selectedFloorDest" [(ngModel)]="selectedFloorDest" (change)="onFloorDestChange()">
               <option *ngFor="let floor of floorsDest" [value]="floor.id">{{ floor.floorNumber }}</option>
             </select>
           </div>
         <div class="col-md-2">
             <label class="form-label" for="element2">Acess point</label>
-            <select *ngIf="selectedTypeDest && selectedBuildingDest" class="form-select" id="element2" name="selectedTypeOrig" [(ngModel)]="selectedDest">
+            <select data-test="toAccessPoint" *ngIf="selectedTypeDest && selectedBuildingDest" class="form-select" id="element2" name="selectedTypeOrig" [(ngModel)]="selectedDest">
               <option *ngFor="let dest of elementsDest" [value]="dest">{{ dest }}</option>
             </select>
         </div>
@@ -74,19 +74,19 @@
     <div class="row g-4">
         <div class="col-md-2">
             <label class="form-label" for="acessPoint">PickUp Name</label>
-            <input id="pickupName" type="text" class="form-control" name="pickupName" [(ngModel)]="pickupName">
+            <input data-test="pickupName" id="pickupName" type="text" class="form-control" name="pickupName" [(ngModel)]="pickupName">
         </div>   
         <div class="col-md-2">
             <label class="form-label" for="building">PickUp Number</label>
-            <input id="pickupNumber" type="text" class="form-control" name="pickupNumber" [(ngModel)]="pickupNumber">
+            <input data-test="pickupNumber" id="pickupNumber" type="text" class="form-control" name="pickupNumber" [(ngModel)]="pickupNumber">
         </div>
         <div class="col-md-2">
             <label class="form-label" for="floor">Delivery Name</label>
-            <input id="deliveryName" type="text" class="form-control" name="deliveryName" [(ngModel)]="deliveryName">
+            <input data-test="deliveryName" id="deliveryName" type="text" class="form-control" name="deliveryName" [(ngModel)]="deliveryName">
           </div>
         <div class="col-md-2">
             <label class="form-label" for="element2">Delivery Number</label>
-            <input id="deliveryNumber" type="text" class="form-control" name="deliveryNumber" [(ngModel)]="deliveryNumber">
+            <input data-test="deliveryNumber" id="deliveryNumber" type="text" class="form-control" name="deliveryNumber" [(ngModel)]="deliveryNumber">
         </div>
     </div>
 
@@ -95,15 +95,15 @@
     <div class="row g-2">
         <div class="col-md-2">
             <label class="form-label" for="floor">Confirmation Code</label>
-            <input id="confirmationCode" type="text" class="form-control" name="confirmationCode" [(ngModel)]="confirmationCode">
+            <input data-test="confirmationCode" id="confirmationCode" type="text" class="form-control" name="confirmationCode" [(ngModel)]="confirmationCode">
           </div>
         <div class="col-md-6">
             <label class="form-label" for="element2">Description</label>
-            <textarea type="description" class="form-control" name="description" [(ngModel)]="description"></textarea>
+            <textarea data-test="description" type="description" class="form-control" name="description" [(ngModel)]="description"></textarea>
         </div>
     </div>
 
     <div class="col-12">
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button data-test="submit" type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
