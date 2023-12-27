@@ -16,7 +16,9 @@ import SystemUserCopy from 'src/systemUserCopyService/systemUserCopy';
 
 export class CreateSystemUserCopyFormComponent {
 
-    date: string = " ";
+    now = new Date();
+
+    date: string= " ";
     hour: string = " ";
     email: string = " ";
     role: string = " ";
@@ -24,14 +26,21 @@ export class CreateSystemUserCopyFormComponent {
     contribuinte: string = '';
 
     selectedSystemUser: any;
+    selectedDate: any;
+    selectedTime: any;
 
     constructor(private systemUserCopyService: SystemUserCopyService, private authService: AuthService,private snackBar: MatSnackBar) { }
 
     ngOnInit() {
+        this.selectedDate = this.now.toLocaleDateString();
+
         this.authService.auth().subscribe((systemUser) => {
             this.selectedSystemUser = systemUser;
             console.log(this.selectedSystemUser);
         })
+        console.log("aaa");
+        console.log(this.now.toLocaleDateString());
+        console.log(this.now.getHours() + this.now.getMinutes() + this.now.getSeconds());
     }
 
     closeForm() {
@@ -41,15 +50,15 @@ export class CreateSystemUserCopyFormComponent {
     onSubmit() {
         const systemUserCopyData = ({
             id: this.selectedSystemUser.id,
-            //date: this.systemUserCopyService.getDateString(),
-            //hour: this.systemUserCopyService.getTimeString(),
-            date: "2",
-            hour: "2",
+            date: this.now.toLocaleDateString(),
+            hour: this.now.getHours() + this.now.getMinutes() + this.now.getSeconds(),
+            //date: "2",
+            //hour: "2",
             email: this.selectedSystemUser.email,
             roleId: this.selectedSystemUser.roleId,
             phoneNumber: this.selectedSystemUser.phoneNumber,
             contribuinte: this.selectedSystemUser.contribuinte
-        }) as SystemUserCopy;
+        }) as unknown as SystemUserCopy;
 
         this.systemUserCopyService.addSystemUserCopy(systemUserCopyData)
             .pipe(
