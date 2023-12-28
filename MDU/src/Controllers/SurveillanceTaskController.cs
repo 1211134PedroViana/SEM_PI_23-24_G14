@@ -68,7 +68,7 @@ namespace Mpt.Controllers
             return CreatedAtAction(nameof(GetGetById), new { id = task.Id }, task);
         }
 
-        
+
         // DELETE: api/SurveillanceTasks/1
         [Authorize(Roles = "Task")]
         [HttpDelete("{id}/hard")]
@@ -85,33 +85,67 @@ namespace Mpt.Controllers
 
                 return Ok(task);
             }
-            catch(BusinessRuleValidationException ex)
+            catch (BusinessRuleValidationException ex)
             {
-               return BadRequest(new {Message = ex.Message});
+                return BadRequest(new { Message = ex.Message });
             }
         }
 
-        // Patch: api/PickUpAndDeliveryTasks/denySurveillanceTask/SurveillanceTaskDTO
-        public async Task<ActionResult<SurveillanceTaskDTO>> Approve(Guid id, SurveillanceTaskDTO dto) {
-            if (id != dto.Id) {
+        // Patch: api/SurveillanceTasks/approveSurveillanceTask/SurveillanceTask
+        [HttpPatch]
+        public async Task<ActionResult<SurveillanceTaskDTO>> Approve(/*Guid id,*/ SurveillanceTaskDTO dto)
+        {
+            /*if (id != dto.Id)
+            {
                 return BadRequest();
             }
+            */
+            try
+            {
 
-            try {
-                
-                //dto = await _service.ApproveTask(id, dto);
-                dto = null;
+                dto = await _service.ApproveTask(/*id,*/ dto);
+                //dto = null;
 
-                if (dto == null) {
+                if (dto == null)
+                {
                     return NotFound();
                 }
-                
+
                 return Ok(dto);
-                
-            } 
-            catch (BusinessRuleValidationException ex) {
-                return BadRequest(new {Message = ex.Message});
+
             }
-        }      
-    }
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+
+        // Patch: api/SurveillanceTasks/denySurveillanceTask/SurveillanceTask
+        [HttpPatch]
+        public async Task<ActionResult<SurveillanceTaskDTO>> Refused(/*Guid id,*/ SurveillanceTaskDTO dto)
+        {
+            /*if (id != dto.Id) {
+                return BadRequest();
+            }
+            */
+
+            try
+            {
+
+                dto = await _service.RefuseTask(/*id,*/ dto);
+                //dto = null;
+
+                if (dto == null)
+                {
+                    return NotFound();
+                }
+                return Ok(dto);
+
+            }
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+    } 
 }

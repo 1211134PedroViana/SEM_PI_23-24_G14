@@ -13,10 +13,9 @@ import Elevator from "../elevatorService/elevator";
 
 export class TaskService {
 
-    private isVisible = new BehaviorSubject<boolean>(false);
-
-    private taskSur = new BehaviorSubject<SurveillanceTask>({} as SurveillanceTask);
-  private taskPic = new BehaviorSubject<PickupAndDeliveryTask>({} as PickupAndDeliveryTask);
+  private isVisible = new BehaviorSubject<boolean>(false);
+  private survTask = new BehaviorSubject<SurveillanceTask>({} as SurveillanceTask);
+  private picTask = new BehaviorSubject<PickupAndDeliveryTask>({} as PickupAndDeliveryTask);
 
     private createSurveillanceUrl = 'api/SurveillanceTasks';
   private createPickupAndDeliveryUrl = 'api/PickupAndDeliveryTasks';
@@ -147,15 +146,29 @@ export class TaskService {
   }
 
   openForm(task: SurveillanceTask) {
-    this.taskSur.next(task);
+    this.survTask.next(task);
     this.isVisible.next(true);
   }
 
   openForm1(task: PickupAndDeliveryTask) {
-    this.taskPic.next(task);
+    this.picTask.next(task);
     this.isVisible.next(true);
   }
 
+  closeForm() {
+    this.isVisible.next(false);
+  }
 
+  getFormVisibility() {
+    return this.isVisible.asObservable();
+  }
+
+  getSurveillanceTask() {
+    return this.survTask.asObservable();
+  }
+
+  getPickupAndDelivery() {
+    return this.picTask.asObservable();
+  }
 
 }

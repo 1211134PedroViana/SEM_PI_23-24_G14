@@ -11,5 +11,7 @@ namespace Mpt.Domain.SurveillanceTasks
         Task<SurveillanceTaskDTO> DeleteAsync(SurveillanceTaskId id);
         Task<List<SurveillanceTaskDTO>> GetByStatusAsync(string status);
         Task<List<SurveillanceTaskDTO>> GetByUserAsync(string userId);
+        Task<SurveillanceTaskDTO> ApproveTask(/*SystemUserId userId,*/ SurveillanceTaskDTO surveillanceTask);
+        Task<SurveillanceTaskDTO> RefuseTask(/*SystemUserId userId,*/ SurveillanceTaskDTO surveillanceTask);
     }
 }

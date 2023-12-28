@@ -108,6 +108,38 @@ namespace Mpt.Domain.SurveillanceTasks
             
         }
 
+        
+        public async Task<SurveillanceTaskDTO> ApproveTask(/*SystemUserId userId,*/ SurveillanceTaskDTO surveillanceTask) {
+            /*var user = await _userRepo.GetByIdAsync(userId);
+            //TaskStatus taskStatus;
+
+            if (userId == null) {
+                throw new BusinessRuleValidationException("Invalid User Id.");
+            }
+            
+            /*
+            Falta verificar se o user é admin
+            */
+
+            surveillanceTask.Status = TasksStatus.Approved;
+            return surveillanceTask;
+        }
+
+        public async Task<SurveillanceTaskDTO> RefuseTask(/*SystemUserId userId,*/ SurveillanceTaskDTO surveillanceTask) {
+            /*var user = await _userRepo.GetByIdAsync(userId);
+
+            if (userId == null) {
+                throw new BusinessRuleValidationException("Invalid User Id.");
+            }
+                        
+            /*
+            Falta verificar se o user é admin
+            */
+
+            surveillanceTask.Status = TasksStatus.Refused;
+            return surveillanceTask;
+        }
+
         private async Task checkUserIdAsync(SystemUserId userId)
         {
            var user = await _userRepo.GetByIdAsync(userId);

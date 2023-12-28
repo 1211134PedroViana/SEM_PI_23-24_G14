@@ -1,51 +1,73 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component} from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
 import { forkJoin, Observable } from 'rxjs';
-import { Router } from '@angular/router';
-import { BuildingService } from 'src/buildingService/building.service';
-import { FloorService } from 'src/floorService/floor-service';
 import { TaskService } from 'src/taskService/task.service';
-import SurveillanceTask from 'src/taskService/surveillanceTask';
-import PickupAndDeliveryTask from 'src/taskService/pickupAndDeliveryTask';
-import { SystemUserService } from 'src/systemUserService/systemUser.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
-  selector: 'app-surveillance-task-form',
-  templateUrl: './surveillance-task-form.component.html',
-  styleUrls: ['./surveillance-task-form.component.css']
+  selector: 'app-surveillance-tasks-form',
+  templateUrl: './surveillance-tasks-form.component.html',
+  styleUrls: ['./surveillance-tasks-form.component.css']
 })
 export class ApproveDenySurveillanceTaskFormComponent {
-  @Input() task: any; // Propriedade de entrada para receber a tarefa selecionada
-  @Output() formSubmit: EventEmitter<void> = new EventEmitter<void>();
-
-  successMessage: string = ''; // Variável para armazenar a mensagem de sucesso
   selectedTask: any;
-  selectedStatus: string = ''; 
+  selectedStatus: string = '';
 
-  constructor(private taskService: TaskService, private userService: SystemUserService, private buildingService: BuildingService,
-    private floorService: FloorService, private router: Router) { }
+  constructor(private taskService: TaskService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    /*this.taskService.getTask().subscribe((task) => {
+    this.taskService.getSurveillanceTask().subscribe((task) => {
       this.selectedTask = task;
     });
-    console.log(this.selectedTask);*/
+    console.log(this.selectedTask);
+  }
+
+  closeForm() {
+    this.taskService.closeForm();
   }
 
   onSubmit() {
-    this.updateTaskStatus();
-  }
-
-  updateTaskStatus() {
     if (this.selectedStatus === 'Approved') {
-      this.taskService.approveSurveillanceTask(this.task);
-      this.successMessage = 'Task successfully approved!';
-    } else if (this.selectedStatus === 'Deny') {
-      this.taskService.denySurveillanceTask(this.task);
-      this.successMessage = 'Task successfully dennied!';
-    } else {
-      this.successMessage = 'Impossible to update task!';
+      this.taskService.approveSurveillanceTask(this.selectedTask)
+        .pipe(
+          tap((response) => {
+            console.log('Surveillance task approved sucessfully!', response);
+            const message = `Surveillance task approved sucessfully!`;
+            this.snackBar.open(message, 'Close', {
+              duration: 5000, // 5 seconds
+            });
+          }),
+          catchError((error) => {
+            console.error('Error occurred while approved Surveillance task', error);
+            this.snackBar.open('Failed to approved Surveillance task, returned code:' + error.status, 'Close', {
+              duration: 5000, // 5 seconds
+            });
+            throw error;
+          }))
+        .subscribe();
+      console.log(this.selectedTask);
+
+    } else if (this.selectedStatus === 'Refused') {
+      this.taskService.denySurveillanceTask(this.selectedTask).pipe(
+        tap((response) => {
+          console.log('Surveillance task dennied sucessfully!', response);
+          const message = `Surveillance task dennied sucessfully!`;
+          this.snackBar.open(message, 'Close', {
+            duration: 5000, // 5 seconds
+          });
+        }),
+        catchError((error) => {
+          console.error('Error occurred while dennied Surveillance task', error);
+          this.snackBar.open('Failed to dennied Surveillance task, returned code:' + error.status, 'Close', {
+            duration: 5000, // 5 seconds
+          });
+          throw error;
+        }))
+        .subscribe();
+      console.log(this.selectedTask);
     }
-    this.formSubmit.emit();
   }
 }
+
+ 

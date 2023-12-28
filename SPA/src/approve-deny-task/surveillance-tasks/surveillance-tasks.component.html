@@ -17,7 +17,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let task of parsedSurvTasks; let i = index">
+    <tr *ngFor="let task of parsedSurvTasks; let i = index" (click)="openForm(task)">
       <th scope="row">{{ i + 1 }}</th>
       <td>{{ task.buildingId }}</td>
       <td>{{ task.floorId }}</td>
@@ -29,3 +29,4 @@
     </tr>
   </tbody>
 </table>
+<app-surveillance-tasks-form *ngIf="isVisible"></app-surveillance-tasks-form>
