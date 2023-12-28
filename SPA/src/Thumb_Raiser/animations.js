@@ -44,7 +44,6 @@ export default class Animations {
             }
         }
     }
-
     actionFinished() {
         if (this.actionInProgress) {
             this.actionInProgress = false;
@@ -71,6 +70,32 @@ export default class Animations {
         }
         if (this.activeName == "Idle") {
             this.updateIdleTime(deltaT);
+        }
+    }
+    fadeOut(name, duration) {
+        if (this.activeName !== name && !this.actionInProgress) {
+            const previousName = this.activeName;
+            this.activeName = name;
+
+            // Fade Out the previous action
+            this.actions[previousName].crossFadeTo(this.actions[name], duration, true);
+
+            // Set up the new action
+            this.actions[name]
+                .reset()
+                .setEffectiveTimeScale(1)
+                .setEffectiveWeight(1)
+                .play();
+
+            // Some actions must not be interrupted
+            if (this.activeName !== "Idle" && this.activeName !== "Walking" && this.activeName !== "Running") {
+                this.mixer.addEventListener("finished", this.actionFinished.bind(this));
+                this.actionInProgress = true;
+            }
+
+            if (this.activeName !== "Idle") {
+                this.resetIdleTime();
+            }
         }
     }
 }

@@ -1777,4 +1777,91 @@ export default class ThumbRaiser {
     // Chame o método transitarParaPiso com o número do piso desejado
     elevator.enterElevator(numeroPiso);
   }
+
+    foundElevator() {
+        this.setActiveViewCamera(this.thirdPersonViewCamera);
+        this.thirdPersonViewCamera.setOrientation(new Orientation(0.0, -10.0));
+        this.thirdPersonViewCamera.setDistance(2.0);
+        this.thirdPersonViewCamera.zoom = 2.0;
+        this.thirdPersonViewCamera.projection = "perspective";
+        this.thirdPersonViewCamera.object.position.copy(new THREE.Vector3(this.exit.coordinates.x, this.activeViewCamera.object.position.y, this.exit.coordinates.z));
+
+        console.log(this.thirdPersonViewCamera);
+        console.log(this.activeViewCamera.object.position.x);
+        const elevatorFound = this.elevators.find(elevator => elevator.object.position.x == this.exit.coordinates.x && elevator.object.position.z == this.exit.coordinates.z);
+        const elevatorIndex = this.elevators.indexOf(elevatorFound);
+        this.animateExit = true;
+        const startPosition = { x: this.player.object.position.x, y: this.player.object.position.y, z: this.player.object.position.z };
+        const endPosition = { x: this.exit.coordinates.x, y: 0, z: this.exit.coordinates.z };
+        new TWEEN.Tween(startPosition)
+            .to(endPosition, 400)
+            .onUpdate(() => {
+                this.playerAnimations.fadeToAction("Walking", 0.2);
+                this.player.object.position.copy(startPosition);
+            })
+            .onComplete(() => {
+            })
+            .start();
+        // Update the tween in the animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            TWEEN.update();
+            // Additional rendering or other tasks can be added here
+        }
+        animate();
+        setTimeout(() => {
+            this.player.object.position.copy(endPosition+2);
+            const endRotation = this.exit.orientation;
+            this.player.object.rotation.y = endRotation + 90.0;
+            this.playerAnimations.fadeToAction("Idle", 0.2);
+        },700);
+        this.elevatorAnimations[elevatorIndex].fadeToAction("Fecha", 0.2);
+
+        if (!this.elevatorAnimations[elevatorIndex].actionInProgress){
+            this.animateExit = false;
+        }
+    }
+    openElevators(newPosition) {
+        const frontElevators = this.maze.isInFrontOfElevator(this.maze.cartesianToCell(newPosition));
+        if (frontElevators.length > 0) {
+            for (const frontElevator of frontElevators) {
+                const elevatorFound = this.elevators.find(elevator => elevator.object.position.x == frontElevator.coordinates.x && elevator.object.position.z == frontElevator.coordinates.z);
+                const elevatorIndex = this.elevators.indexOf(elevatorFound);
+                this.elevatorAnimations[elevatorIndex].fadeToAction("Abre", 0.2);
+            }
+        }
+        //get other elevators and close them
+        const otherElevators = this.maze.exitLocation
+            .filter(exitLocation => exitLocation.type === "elevator")
+            .filter(elevator => !frontElevators.some(frontElevator =>
+                frontElevator.coordinates.x === elevator.coordinates.x &&
+                frontElevator.coordinates.z === elevator.coordinates.z
+            ));
+        if (otherElevators.length > 0) {
+            for (const otherElevator of otherElevators) {
+                const elevatorFound = this.elevators.find(elevator => elevator.object.position.x == otherElevator.coordinates.x && elevator.object.position.z == otherElevator.coordinates.z);
+                const elevatorIndex = this.elevators.indexOf(elevatorFound);
+                this.elevatorAnimations[elevatorIndex].fadeToAction("Fecha", 0.2);
+            }
+        }
+    }
+
+    positionElevators(){
+        for(let i=0; i<this.maze.exitLocation.filter(exitLocation => exitLocation.type == "elevator").length; i++){
+            this.elevators[i].object.position.set
+            (this.maze.exitLocation[i].coordinates.x,
+                0,
+                this.maze.exitLocation[i].coordinates.z);
+            this.elevators[i].object.rotation.y = (this.maze.exitLocation[i].orientation);
+        }
+    }
+
+    collision(position) {
+        return (this.maze.distanceToWestWall(position) < this.player.radius
+            ||this.maze.distanceToEastWall(position) < this.player.radius ||
+            this.maze.distanceToNorthWall(position) < this.player.radius ||
+            this.maze.distanceToSouthWall(position) < this.player.radius||
+            this.distanceToElevator(position) < this.player.radius+0.5||
+            this.distanceToDoor(position) < this.player.radius);
+    }
 }

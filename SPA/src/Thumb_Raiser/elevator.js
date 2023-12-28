@@ -2,7 +2,8 @@ import * as THREE from "three";
 import { merge } from "./merge.js";
 import { OBJLoader } from "three/examples/jsm/Addons.js";
 import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
-import Animations from './animations'; // Certifique-se de importar corretamente o arquivo de animações
+import Animations from './animations';
+import ThumbRaiser from "./thumb_raiser";
 
 /*
  * parameters = {
@@ -13,18 +14,20 @@ import Animations from './animations'; // Certifique-se de importar corretamente
  */
 export default class Elevator extends THREE.Group {
 
-  enterElevator() {
-    if (this.loaded) {
-      const animations = new Animations(this.children[0]);
+    enterElevator() {
+        if (this.loaded) {
+            const animations = new Animations(this.children[0]);
 
-      const elevatorEnterAnimation = 'YourEnterAnimation';
+            const elevatorEnterAnimation = 'fadeOut';
 
-      const transitionDuration = 1.0;
+            const transitionDuration = 1.0;
 
-      animations.fadeToAction(elevatorEnterAnimation, transitionDuration);
+            animations.fadeToAction(elevatorEnterAnimation, transitionDuration);
+
+        }
     }
-  }
-  constructor(parameters) {
+
+    constructor(parameters) {
     super();
     merge(this, parameters);
 

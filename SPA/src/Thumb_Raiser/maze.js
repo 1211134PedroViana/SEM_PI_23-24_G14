@@ -484,6 +484,39 @@ export default class Maze extends THREE.Group {
         return false;
     }
 
+    elevatorCollision1(indices, offsets, orientation, position, delta, radius, name) {
+        const row = indices[0] + offsets[0];
+        const column = indices[1] + offsets[1];
+
+        for (let i = 0; i < this.elevators.length; i++) {
+            const elevator = this.elevators[i];
+            if (
+                elevator.positionX === column &&
+                elevator.positionY === row
+            ) {
+                if (orientation !== 0) {
+                    if (
+                        Math.abs(position.x - (this.cellToCartesian([row, column]).x + delta.x * this.scale.x)) < radius
+                    ) {
+                        console.log('Collision with ' + name + ' on elevator.');
+                        this.enterElevator(elevator); // Implement this function to handle elevator entry
+                        return true;
+                    }
+                } else {
+                    if (
+                        Math.abs(position.z - (this.cellToCartesian([row, column]).z + delta.z * this.scale.z)) < radius
+                    ) {
+                        console.log('Collision with ' + name + ' on elevator.');
+                        this.enterElevator(elevator); // Implement this function to handle elevator entry
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+
     async changeDoor(currentDoor) {
         let door;
 
@@ -524,13 +557,68 @@ export default class Maze extends THREE.Group {
     foundCell(actual, destiny) {
         // Define an offset to determine the proximity to the center of the cell
         const offset = 0.45; // You can adjust this value based on your requirements
-    
+
         // Calculate the distance from the center of the cell
         const deltaX = Math.abs(actual.x - destiny.x);
         const deltaZ = Math.abs(actual.z - destiny.z);
-    
+
         // Check if the robot is within the specified offset from the center of the cell
         return deltaX < (0.5 - offset) * this.scale.x && deltaZ < (0.5 - offset) * this.scale.z;
     };
-    
+
+    distanceToElevator(position, elevator) {
+        const indices = this.cartesianToCell(position);
+        if (elevator.cells[0] == indices[0] && elevator.cells[1] == indices[1]) {
+            return Infinity;
+        }
+        else if( elevator.orientation==0){
+            //check collisions with the elevator
+            // if elevator.z<player.z cant collide
+            if(elevator.cells[1]<indices[1] && elevator.cells[0]==indices[0] && !elevator.isAnimating){
+                return Infinity;
+            }
+            return position.distanceTo(elevator.coordinates);
+        }
+        else if( elevator.orientation==Math.PI/2){
+            //check collisions with the elevator
+            // if elevator.x>player.x cant collide
+            if(elevator.cells[0]>indices[0] && elevator.cells[1]==indices[1] && !elevator.isAnimating){
+                return Infinity;
+            }
+            return position.distanceTo(elevator.coordinates);
+
+        }
+        else if( elevator.orientation==Math.PI){
+            //check collisions with the elevator
+            // if elevator.y>player.y cant collide
+            if(elevator.cells[1]>indices[1] && elevator.cells[0]==indices[0] && !elevator.isAnimating){
+                return Infinity;
+            }
+            return position.distanceTo(elevator.coordinates);
+        }
+        else if( elevator.orientation==-Math.PI/2){
+            //check collisions with the elevator
+            // if elevator.x<player.x cant collide
+            if(elevator.cells[0]<indices[0] && elevator.cells[1]==indices[1] && !elevator.isAnimating){
+                return Infinity;
+            }
+            //calculate distance to elevator
+            return position.distanceTo(elevator.coordinates);
+        }
+        return Infinity;
+    }
+
+    isInFrontOfElevator(cell){
+        const southElevator= this.exitLocation.find(exit => exit.type == 'elevator'
+            && exit.cells[0] == cell[0]-1 && exit.cells[1] == cell[1] && exit.orientation == -Math.PI/2);
+        const westElevator= this.exitLocation.find(exit => exit.type == 'elevator'
+            && exit.cells[0] == cell[0] && exit.cells[1] == cell[1]-1 && exit.orientation == 0);
+        const northElevator= this.exitLocation.find(exit => exit.type == 'elevator'
+            && exit.cells[0] == cell[0]+1 && exit.cells[1] == cell[1] && exit.orientation == Math.PI/2);
+        const eastElevator= this.exitLocation.find(exit => exit.type == 'elevator'
+            && exit.cells[0] == cell[0] && exit.cells[1] == cell[1]+1 && exit.orientation == Math.PI);
+        //return all elevators in front of the cell
+        return [southElevator,westElevator,northElevator,eastElevator].filter(elevator => elevator != null);
+    }
+
 }
