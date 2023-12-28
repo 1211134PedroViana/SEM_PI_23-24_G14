@@ -12,9 +12,9 @@ namespace Mpt.Controllers
     [ApiController]
     public class SurveillanceTasksController : ControllerBase
     {
-        private readonly SurveillanceTaskService _service;
+        private readonly ISurveillanceTaskService _service;
 
-        public SurveillanceTasksController(SurveillanceTaskService service)
+        public SurveillanceTasksController(ISurveillanceTaskService service)
         {
             _service = service;
         }

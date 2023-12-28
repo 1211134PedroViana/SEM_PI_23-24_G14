@@ -33,6 +33,14 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             string confirmationCode,
             SystemUserId userId)
         {
+            if (string.IsNullOrWhiteSpace(pickupPlace) || string.IsNullOrWhiteSpace(deliveryPlace)
+            || string.IsNullOrWhiteSpace(pickupPersonName) || string.IsNullOrWhiteSpace(pickupPersonPhoneNumber) || string.IsNullOrWhiteSpace(deliveryPersonName)
+            || string.IsNullOrWhiteSpace(confirmationCode) || string.IsNullOrWhiteSpace(deliveryPersonPhoneNumber) || string.IsNullOrWhiteSpace(description))
+                throw new BusinessRuleValidationException("All data is required.");
+
+            if (userId == null)
+                throw new BusinessRuleValidationException("Task requires a user.");
+
             Id = new PickupAndDeliveryTaskId(Guid.NewGuid());
             this.PickupPlace = pickupPlace;
             this.DeliveryPlace = deliveryPlace;

@@ -6,7 +6,7 @@ using Mpt.Domain.SystemUsers;
 
 namespace Mpt.Domain.SurveillanceTasks
 {
-    public class SurveillanceTaskService
+    public class SurveillanceTaskService : ISurveillanceTaskService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISurveillanceTaskRepository _repo;
