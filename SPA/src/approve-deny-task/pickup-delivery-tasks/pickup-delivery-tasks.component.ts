@@ -23,6 +23,8 @@ export class ApproveDenyPickupDeliveryTasksComponent {
   tasks: PickupAndDeliveryTask[] = [];
   parsedTasks: PickupAndDeliveryTask[] = [];
 
+  isVisible: boolean = false;
+
   constructor(private taskService: TaskService, private userService: SystemUserService, private buildingService: BuildingService,
     private floorService: FloorService, private router: Router) { }
 
@@ -33,6 +35,9 @@ export class ApproveDenyPickupDeliveryTasksComponent {
 
   ngOnInit() {
     this.loadSurvTasks();
+    this.taskService.getFormVisibility().subscribe((isVisible) => {
+      this.isVisible = isVisible;
+    });
   }
 
   loadSurvTasks() {

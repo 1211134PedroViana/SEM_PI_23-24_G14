@@ -85,6 +85,8 @@ import { ApproveTaskComponent } from 'src/approve-deny-task/approve-task/approve
 import { DenyTaskComponent } from 'src/approve-deny-task/deny-task/deny-task.component';
 import { ApproveDenySurveillanceTasksComponent } from 'src/approve-deny-task/surveillance-tasks/surveillance-tasks.component';
 import { ApproveDenyPickupDeliveryTasksComponent } from 'src/approve-deny-task/pickup-delivery-tasks/pickup-delivery-tasks.component';
+import { ApproveDenySurveillanceTaskFormComponent } from 'src/approve-deny-task/surveillance-tasks-form/surveillance-tasks-form.component';
+import { ApproveDenyPickupDeliveryTaskFormComponent } from 'src/approve-deny-task/pickup-delivery-tasks-form/pickup-delivery-tasks-form.component';
 import {RegisterComponent} from "../register/register.component";
 import { UpdateSystemUserComponent } from 'src/systemUser/update-systemUser/update-systemUser.component';
 import { UpdateSystemUserFormComponent } from 'src/systemUser/update-systemUser-form/update-systemUser-form.component';
@@ -180,6 +182,8 @@ import { CreateSystemUserCopyFormComponent } from 'src/systemUserCopy/create-sys
     DenyTaskComponent,
     ApproveDenySurveillanceTasksComponent,
     ApproveDenyPickupDeliveryTasksComponent,
+    ApproveDenySurveillanceTaskFormComponent,
+    ApproveDenyPickupDeliveryTaskFormComponent,
     RegisterComponent,
     UpdateSystemUserComponent,
     UpdateSystemUserFormComponent,

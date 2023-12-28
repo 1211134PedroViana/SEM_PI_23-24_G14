@@ -124,8 +124,8 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
                 throw new BusinessRuleValidationException("Invalid User Id.");
         }
 
-        private async void approveTask(SystemUserId userId, PickupAndDeliveryTaskDTO pickupAndDeliveryTask) {
-            var user = await _userRepo.GetByIdAsync(userId);
+        public async Task<PickupAndDeliveryTaskDTO> approveTask(/*SystemUserId userId,*/ PickupAndDeliveryTaskDTO pickupAndDeliveryTask) {
+            /*var user = await _userRepo.GetByIdAsync(userId);
             //TaskStatus taskStatus;
 
             if (userId == null) {
@@ -137,10 +137,11 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             */
 
             pickupAndDeliveryTask.Status = TasksStatus.Approved;
+            return pickupAndDeliveryTask;
         }
 
-        private async void refuseTask(SystemUserId userId, PickupAndDeliveryTaskDTO pickupAndDeliveryTask) {
-            var user = await _userRepo.GetByIdAsync(userId);
+        public async Task<PickupAndDeliveryTaskDTO> refuseTask(/*SystemUserId userId,*/ PickupAndDeliveryTaskDTO pickupAndDeliveryTask) {
+            /*var user = await _userRepo.GetByIdAsync(userId);
 
             if (userId == null) {
                 throw new BusinessRuleValidationException("Invalid User Id.");
@@ -151,6 +152,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             */
 
             pickupAndDeliveryTask.Status = TasksStatus.Refused;
+            return pickupAndDeliveryTask;
         }
         
         public async Task<List<PickupAndDeliveryTask>> GetNotApprovedTasks()

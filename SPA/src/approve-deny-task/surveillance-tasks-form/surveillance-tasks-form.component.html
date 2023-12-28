@@ -1,28 +1,17 @@
-<form *ngIf="isFormVisible" (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit()">
+
+  <button data-test="close" class="close-button" (click)="closeForm()">X</button>
+
   <p class="form-title">Choose Task Status:</p>
+  
   <div class="row g-4">
     <label class="form-label" for="status">Status</label>
       <select class="form-select" id="status" name="selectedStatus" [(ngModel)]="selectedStatus">
         <option value="Approved">Approved</option>
-        <option value="Pending">Deny</option>
+        <option value="Refused">Refused</option>
       </select>
-      <button type="submit" class="btn btn-primary">Submit</button>
-      
   </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-<div *ngIf="task">
-    <h2>Approve Task</h2>
-    <form [formGroup]="approveTaskForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="reason">Reason for Approval:</label>
-        <textarea id="reason" formControlName="reason" rows="4"></textarea>
-        <div *ngIf="approveTaskForm.get('reason').hasError('required') && approveTaskForm.get('reason').touched" class="error">
-          Reason is required.
-        </div>
-      </div>
-  
-      <button type="submit" class="bn btn-danger">Deny Task</button>
-    </form>
-  </div>
   

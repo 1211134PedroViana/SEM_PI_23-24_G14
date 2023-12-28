@@ -22,6 +22,7 @@ export class ApproveDenySurveillanceTasksComponent {
   isListVisible: boolean = false;
   survTasks: SurveillanceTask[] = [];
   parsedSurvTasks: SurveillanceTask[] = [];
+  isVisible: boolean = false;
 
   constructor(private taskService: TaskService, private userService: SystemUserService, private buildingService: BuildingService,
     private floorService: FloorService, private router: Router) { }
@@ -33,6 +34,9 @@ export class ApproveDenySurveillanceTasksComponent {
 
   ngOnInit() {
     this.loadSurvTasks();
+    this.taskService.getFormVisibility().subscribe((isVisible) => {
+      this.isVisible = isVisible;
+    });
   }
 
   loadSurvTasks() {

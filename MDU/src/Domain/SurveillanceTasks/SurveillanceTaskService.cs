@@ -6,7 +6,7 @@ using Mpt.Domain.SystemUsers;
 
 namespace Mpt.Domain.SurveillanceTasks
 {
-    public class SurveillanceTaskService
+    public class SurveillanceTaskService : ISurveillanceTaskService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISurveillanceTaskRepository _repo;
@@ -106,6 +106,38 @@ namespace Mpt.Domain.SurveillanceTasks
                 return null;
             }
             
+        }
+
+        
+        public async Task<SurveillanceTaskDTO> ApproveTask(/*SystemUserId userId,*/ SurveillanceTaskDTO surveillanceTask) {
+            /*var user = await _userRepo.GetByIdAsync(userId);
+            //TaskStatus taskStatus;
+
+            if (userId == null) {
+                throw new BusinessRuleValidationException("Invalid User Id.");
+            }
+            
+            /*
+            Falta verificar se o user é admin
+            */
+
+            surveillanceTask.Status = TasksStatus.Approved;
+            return surveillanceTask;
+        }
+
+        public async Task<SurveillanceTaskDTO> RefuseTask(/*SystemUserId userId,*/ SurveillanceTaskDTO surveillanceTask) {
+            /*var user = await _userRepo.GetByIdAsync(userId);
+
+            if (userId == null) {
+                throw new BusinessRuleValidationException("Invalid User Id.");
+            }
+                        
+            /*
+            Falta verificar se o user é admin
+            */
+
+            surveillanceTask.Status = TasksStatus.Refused;
+            return surveillanceTask;
         }
 
         private async Task checkUserIdAsync(SystemUserId userId)
