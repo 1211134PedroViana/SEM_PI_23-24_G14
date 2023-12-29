@@ -10,10 +10,11 @@
 :-dynamic transita/3.
 
 
-tarefa(t1, sala(k1), sala(apn)).
-tarefa(t2, sala(beng), sala(k2)).
-tarefa(t3, sala(r1), sala(r2)).
-tarefa(t4, sala(k2), sala(r1)).
+%tarefa(t1, sala(k1), sala(apn)).
+%tarefa(t2, sala(beng), sala(k2)).
+%tarefa(t3, sala(r1), sala(r2)).
+%tarefa(t4, sala(k2), sala(r1)).
+
 
 
 % gera dinamicamente todas as transicoes entre tarefas de uma só vez
@@ -392,7 +393,31 @@ tempo_decorrido(TempoDecorrido) :-
 
 % encontra todas as permutacoes possiveis e guarda a melhor. Alternativa ao AG
 gera_permutacoes(Tarefas, MelhorSequencia) :-
-    findall(Seq, permutation(Tarefas, Seq), TodasSequencias),
+    retractall(tarefa(_, _, _)),
+    gera_tarefas(Tarefas, TarefasIds),
+	gera_transicoes,
+    findall(Seq, permutation(TarefasIds, Seq), TodasSequencias),
     avalia_populacao(TodasSequencias, TodasSequenciasAvaliadas),
     ordena_populacao(TodasSequenciasAvaliadas, TodasSequenciasAvaliadasOrdenadas),
-    select(MelhorSequencia, TodasSequenciasAvaliadasOrdenadas, _).             % a melhor sequencia é a primeira da lista ordenada
+    seleciona_primeiro(TodasSequenciasAvaliadasOrdenadas, MelhorSequencia).          % a melhor sequencia é a primeira da lista ordenada
+
+
+% Create dynamic facts for each task and return a list of task IDs
+gera_tarefas(Tasks, TaskIds) :-
+    gera_tarefas(Tasks, [], TaskIds).
+
+gera_tarefas([], TaskIds, TaskIds).
+gera_tarefas([Task | Rest], Acc, TaskIds) :-
+    Task = task{taskId: TaskId, startPlace: StartPlace, endPlace: EndPlace},
+	term_string(ParsedStart, StartPlace, []),
+	term_string(ParsedEnd, EndPlace, []),
+    assertz(tarefa(TaskId, ParsedStart, ParsedEnd)),
+    gera_tarefas(Rest, [TaskId | Acc], TaskIds).
+
+seleciona_primeiro(List, First):-
+    List = [First|_].
+
+
+
+
+

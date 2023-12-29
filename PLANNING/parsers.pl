@@ -40,4 +40,4 @@ convert_lista_caminho(Input, JsonOutput) :-
 %%%%%%%%%%%%%%%%%%%%%% PARAMETROS GET /findCaminho %%%%%%%%%%%%%%%%%%%%%%
 % converte de string para termo prolog
 parse_ponto_acesso(PontoAcesso, ParsedPontoAcesso) :-
-                    term_string(ParsedPontoAcesso, PontoAcesso, []).
+    term_string(ParsedPontoAcesso, PontoAcesso, []).

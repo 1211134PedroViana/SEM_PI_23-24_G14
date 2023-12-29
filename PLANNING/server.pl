@@ -10,6 +10,7 @@
 
 % Algoritmos
 :- consult('algoritmos.pl').
+:- consult('tarefaAlgoritmos.pl').
 :- consult('parsers.pl').
 
 :- set_setting(http:cors, [*]).
@@ -49,20 +50,22 @@ find_path_handler(Request) :-
 :- http_handler('/tasksPath', best_tasks_path, []).
 
 best_tasks_path(Request) :-
-    cors_enable(Request,
-                [ methods([get]),
-                  origin('http://localhost:4200')
-                ]), 
-    % Extract parameters from the request
-    http_parameters(Request, [origem(Origem,[]),destino(Destino,[])]),
+    http_read_json_dict(Request, JSON),
+    maplist(json_to_task, JSON, TaskList),
+    gera_permutacoes(TaskList, MelhorSequencia),
+    debug('api', 'Melhor Sequencia: ~w', [MelhorSequencia]),
+    remove_product(MelhorSequencia, Sequence),
+    debug('api', 'Melhor Sequencia: ~w', [Sequence]),
+    reply_json(json{sequence: Sequence},[json_object(dict)]).
 
-    parse_ponto_acesso(Origem, ParsedOrigem),
-    parse_ponto_acesso(Destino, ParsedDestino),
+json_to_task(JSON, Task) :-
+    Task = task{
+        taskId: JSON.get('taskId'),
+        startPlace: JSON.get('startPlace'),
+        endPlace: JSON.get('endPlace')
+    }.
 
-    % Calling the predicate with the fixed values
-    find_caminho(ParsedOrigem, ParsedDestino, ListaCaminho, ListaMovimentos, CustoTotal),
+remove_product(List*_, List).
 
-    convert_lista_caminho(ListaCaminho, CaminhoJson),
-    convert_lista_movimentos(ListaMovimentos, MovimentosJson),
-
-    reply_json(json{caminho: CaminhoJson, movimentos: MovimentosJson},[json_object(dict)]).
+task_id_to_json(TaskId * _, TaskIdString) :-
+    term_string(TaskId, TaskIdString).

@@ -34,6 +34,10 @@ export class TaskSequenceComponent {
           }) as Task;
           this.approvedTasks.push(task);
         }
+        
+        this.taskService.getTasksSequence(this.approvedTasks).subscribe((sequence) => {
+          
+        });
       });
     });
   }

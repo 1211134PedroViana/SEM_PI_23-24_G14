@@ -6,6 +6,8 @@ import SurveillanceTask from './surveillanceTask';
 import PickupAndDeliveryTask from './pickupAndDeliveryTask';
 import { ConfigService } from '../config.service';
 import Elevator from "../elevatorService/elevator";
+import Task from './task';
+import Tasks from './tasks';
 
 @Injectable({
   providedIn: 'root'
@@ -147,10 +149,10 @@ export class TaskService {
     );
   }
 
-  getTasksSequence(): Observable<string[]> {
+  getTasksSequence(tasks: Task[]): Observable<Tasks> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.get<string[]>(this.configService.planUrl + this.getTasksSequenceUrl, httpOptions)
+    return this.http.post<Tasks>(this.configService.planUrl + this.getTasksSequenceUrl, tasks, httpOptions)
       .pipe(
       //catchError(this.handleError('addBuilding', building))
     );
