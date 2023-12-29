@@ -17,5 +17,10 @@ namespace Mpt.Infrastructure.SystemUsersCopy
         {
             return await _objs.Where(u => u.Email == Email).FirstOrDefaultAsync();
         }
+
+        public async Task<SystemUserCopy> Login(string Email)
+        {
+            return await _objs.Where(u => u.Email == Email).FirstOrDefaultAsync();
+        }
     }
 }
