@@ -17,12 +17,11 @@ namespace Mpt.Infrastructure
     public class MptDbContext : DbContext
     {
         public DbSet<SystemUser> SystemUsers { get; set; }
-        public DbSet<SystemUserCopy> SystemUsersCopy { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<SurveillanceTask> SurveillanceTasks { get; set; }
         public DbSet<PickupAndDeliveryTask> PickupAndDeliveryTasks { get; set; }
         public DbSet<Register> Registers { get; set; }
-
+        public DbSet<SystemUserCopy> SystemUsersCopy { get; set; }
 
         public MptDbContext(DbContextOptions options) : base(options)
         {
