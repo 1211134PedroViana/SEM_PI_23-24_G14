@@ -71,6 +71,7 @@ import { RemoveSystemUserComponent } from 'src/systemUser/remove-systemUser/remo
 import { RemoveSystemUserFormComponent } from 'src/systemUser/remove-systemUser-form/remove-systemUser-form.component';
 import { CreateSystemUserCopyComponent } from 'src/systemUserCopy/create-systemUserCopy/create-systemUserCopy.component';
 import { CreateSystemUserCopyFormComponent } from 'src/systemUserCopy/create-systemUserCopy-form/create-systemUserCopy-form.component';
+import { TaskSequenceComponent } from 'src/task/task-sequence/task-sequence.component';
 
 
 const routes: Routes = [
@@ -144,7 +145,8 @@ const routes: Routes = [
     { path: 'list', component: NotApprovedComponent, children:[
         { path: 'surTasks', component: ListNotApprovedSurTaskComponent },
         { path: 'picTasks', component: ListNotApprovedPicTaskComponent }
-        ]}
+    ]},
+    { path: 'taskSequence', component: TaskSequenceComponent },
   ]},
 
   //Admin App

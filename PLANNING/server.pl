@@ -44,3 +44,25 @@ find_path_handler(Request) :-
     convert_lista_movimentos(ListaMovimentos, MovimentosJson),
 
     reply_json(json{caminho: CaminhoJson, movimentos: MovimentosJson},[json_object(dict)]).
+
+
+:- http_handler('/tasksPath', best_tasks_path, []).
+
+best_tasks_path(Request) :-
+    cors_enable(Request,
+                [ methods([get]),
+                  origin('http://localhost:4200')
+                ]), 
+    % Extract parameters from the request
+    http_parameters(Request, [origem(Origem,[]),destino(Destino,[])]),
+
+    parse_ponto_acesso(Origem, ParsedOrigem),
+    parse_ponto_acesso(Destino, ParsedDestino),
+
+    % Calling the predicate with the fixed values
+    find_caminho(ParsedOrigem, ParsedDestino, ListaCaminho, ListaMovimentos, CustoTotal),
+
+    convert_lista_caminho(ListaCaminho, CaminhoJson),
+    convert_lista_movimentos(ListaMovimentos, MovimentosJson),
+
+    reply_json(json{caminho: CaminhoJson, movimentos: MovimentosJson},[json_object(dict)]).
