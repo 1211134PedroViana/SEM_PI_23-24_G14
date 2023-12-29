@@ -7,6 +7,7 @@ import SystemUser from 'src/systemUserService/systemUser';
 import { AuthService } from 'src/authService/auth.service';
 import { SystemUserCopyService } from 'src/systemUserCopyService/systemUserCopy.service';
 import SystemUserCopy from 'src/systemUserCopyService/systemUserCopy';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-create-systemUserCopy-form',
@@ -29,18 +30,16 @@ export class CreateSystemUserCopyFormComponent {
     selectedDate: any;
     selectedTime: any;
 
-    constructor(private systemUserCopyService: SystemUserCopyService, private authService: AuthService,private snackBar: MatSnackBar) { }
+    constructor(private systemUserCopyService: SystemUserCopyService, private authService: AuthService, private router: Router, private snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.selectedDate = this.now.toLocaleDateString();
+        this.selectedTime = this.now.toLocaleTimeString();
 
         this.authService.auth().subscribe((systemUser) => {
             this.selectedSystemUser = systemUser;
             console.log(this.selectedSystemUser);
         })
-        console.log("aaa");
-        console.log(this.now.toLocaleDateString());
-        console.log(this.now.getHours() + this.now.getMinutes() + this.now.getSeconds());
     }
 
     closeForm() {
@@ -51,14 +50,12 @@ export class CreateSystemUserCopyFormComponent {
         const systemUserCopyData = ({
             id: this.selectedSystemUser.id,
             date: this.now.toLocaleDateString(),
-            hour: this.now.getHours() + this.now.getMinutes() + this.now.getSeconds(),
-            //date: "2",
-            //hour: "2",
+            hour: this.now.toLocaleTimeString(),
             email: this.selectedSystemUser.email,
             roleId: this.selectedSystemUser.roleId,
             phoneNumber: this.selectedSystemUser.phoneNumber,
             contribuinte: this.selectedSystemUser.contribuinte
-        }) as unknown as SystemUserCopy;
+        }) as SystemUserCopy;
 
         this.systemUserCopyService.addSystemUserCopy(systemUserCopyData)
             .pipe(

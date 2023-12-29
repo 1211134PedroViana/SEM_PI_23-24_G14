@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit">
+<form (ngSubmit)="onSubmit()">
     <p class="form-title">Create a users data copy</p>
     <button class="close-button" (click)="closeForm()">X</button>
     <div class="mb-3">
@@ -7,7 +7,7 @@
     </div>
     <div class="mb-3">
         <label for="hour" class="form-label">Hour</label>
-        <input type="text" class="form-control" name="hour" placeholder="{{selectedSystemUser.hour}}" [(ngModel)]="selectedSystemUser.hour" disabled>
+        <input type="text" class="form-control" name="hour" placeholder="{{selectedTime}}" [(ngModel)]="selectedTime" disabled>
     </div>
     <div class="mb-3">
         <label for="email" class="form-label">Email</label>
