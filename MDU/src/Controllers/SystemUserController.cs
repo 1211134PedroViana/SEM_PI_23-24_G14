@@ -105,7 +105,8 @@ namespace Mpt.Controllers
         public async Task<ActionResult<SystemUserDTO>> Update(SystemUserDTO dto)
         {
             try {
-                var user = await _service.GetByEmailAsync(dto.Email);
+                var user = await _service.ByEmailAsync(dto.Email);
+                _service.UpdateAsync(user);
 
                 if (user == null) {
                     return NotFound();

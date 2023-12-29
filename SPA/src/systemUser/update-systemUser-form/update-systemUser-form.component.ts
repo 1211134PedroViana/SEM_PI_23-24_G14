@@ -57,7 +57,7 @@ export class UpdateSystemUserFormComponent {
         }) as SystemUser;
         
 
-        this.systemUserService.updateSystemUser(this.selectedSystemUser.id)
+        this.systemUserService.updateSystemUser(this.selectedSystemUser)
             .pipe(
                 tap((response) => {
                     console.log('SystemUser updated successfully', response);
