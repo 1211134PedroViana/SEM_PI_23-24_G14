@@ -53,8 +53,8 @@ namespace Mpt.Domain.SystemUsersCopy
 
         public async Task<SystemUserCopyDTO> AddAsync(CreateSystemUserCopyDTO dto)
         {
-            await checkRoleIdAsync(dto.RoleId);
-            var user = new SystemUserCopy(dto.Email, dto.Date, dto.Hour, dto.RoleId, dto.PhoneNumber, dto.Contribuinte);
+            //await checkRoleIdAsync(dto.RoleId);
+            var user = new SystemUserCopy(dto.Date, dto.Hour, dto.Email, dto.RoleId, dto.PhoneNumber, dto.Contribuinte);
             await this._repo.AddAsync(user);
             await this._unitOfWork.CommitAsync();
             return new SystemUserCopyDTO(user.Id.AsGuid(), user.Date, user.Hour, user.Email, user.RoleId, user.PhoneNumber, user.Contribuinte);

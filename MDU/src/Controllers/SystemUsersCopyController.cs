@@ -30,7 +30,6 @@ namespace Mpt.Controllers
         }
 
         // GET: api/SystemUsersCopy/U1
-        //[Authorize(Roles = "Admin, Task")]
         [HttpGet("{id}")]
         public async Task<ActionResult<SystemUserCopyDTO>> GetGetById(Guid id)
         {
@@ -56,7 +55,6 @@ namespace Mpt.Controllers
         }
 
         // POST: api/SystemUsersCopy
-        // [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<SystemUserCopyDTO>> Create(CreateSystemUserCopyDTO dto)
         {

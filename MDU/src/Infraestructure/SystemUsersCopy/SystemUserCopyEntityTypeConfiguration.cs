@@ -16,9 +16,9 @@ namespace Mpt.Infrastructure.SystemUsersCopy
             builder.Property(b => b.Date).IsRequired().HasMaxLength(30);
             builder.Property(b => b.Hour).IsRequired().HasMaxLength(30);
             builder.Property(b => b.Email).IsRequired().HasMaxLength(100);
+            builder.Property(b => b.RoleId).IsRequired();
             builder.Property(b => b.PhoneNumber).IsRequired(false).HasMaxLength(9);
             builder.Property(b => b.Contribuinte).IsRequired(false).HasMaxLength(9);
-            builder.Property(b => b.RoleId).IsRequired();
         }
     }
 }

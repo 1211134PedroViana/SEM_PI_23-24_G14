@@ -30,7 +30,7 @@ export class CreateSystemUserCopyFormComponent {
     selectedDate: any;
     selectedTime: any;
 
-    constructor(private systemUserCopyService: SystemUserCopyService, private authService: AuthService, private router: Router, private snackBar: MatSnackBar) { }
+    constructor(private systemUserCopyService: SystemUserCopyService, private authService: AuthService, private snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.selectedDate = this.now.toLocaleDateString();
@@ -48,13 +48,12 @@ export class CreateSystemUserCopyFormComponent {
 
     onSubmit() {
         const systemUserCopyData = ({
-            id: this.selectedSystemUser.id,
             date: this.now.toLocaleDateString(),
             hour: this.now.toLocaleTimeString(),
             email: this.selectedSystemUser.email,
             roleId: this.selectedSystemUser.roleId,
-            phoneNumber: this.selectedSystemUser.phoneNumber,
-            contribuinte: this.selectedSystemUser.contribuinte
+            phoneNumber: "123456789",
+            contribuinte: "123456789"
         }) as SystemUserCopy;
 
         this.systemUserCopyService.addSystemUserCopy(systemUserCopyData)

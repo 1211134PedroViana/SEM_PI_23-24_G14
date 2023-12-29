@@ -15,6 +15,7 @@ using Mpt.Infrastructure.SystemUsers;
 using Mpt.Infrastructure.SurveillanceTasks;
 using Mpt.Infrastructure.PickupAndDeliveryTasks;
 using Mpt.Infrastructure.Registers;
+using Mpt.Infrastructure.SystemUsersCopy;
 using Mpt.Domain.Shared;
 using Mpt.Domain.Roles;
 using Mpt.Domain.SystemUsers;
@@ -22,8 +23,8 @@ using Mpt.Domain.SurveillanceTasks;
 using Mpt.Domain.PickupAndDeliveryTasks;
 using Mpt.Domain.Authentication;
 using Mpt.Domain.Registers;
+using Mpt.Domain.SystemUsersCopy;
 using System.Text;
-
 
 namespace Mpt
 {
@@ -126,6 +127,9 @@ namespace Mpt
 
             services.AddTransient<IRegisterRepository, RegisterRepository>();
             services.AddTransient<RegisterService>();
+
+            services.AddTransient<ISystemUserCopyRepository, SystemUserCopyRepository>();
+            services.AddTransient<SystemUserCopyService>();
         }
     }
 }
