@@ -47,11 +47,11 @@ export const mazeData = {
 }
 
 export const playerData = {
-    url: "./models/gltf/RobotExpressive/RobotExpressive.glb",
-    credits: "Model and related code snippets created by <a href='https://www.patreon.com/quaternius' target='_blank' rel='noopener'>Tomás Laulhé</a>. CC0 1.0. Modified by <a href='https://donmccurdy.com/' target='_blank' rel='noopener'>Don McCurdy</a>.",
+    url: "./models/gltf/NewRobot/mini_robot.glb",
+  credits: "Model and related code snippets created by <a href='https://sketchfab.com/3d-models/grandpa-83d8d29ae74e4eb89775c9c0c7bc5e45",
     scale: new THREE.Vector3(0.1, 0.1, 0.1),
-    helpersColor: new THREE.Color(0xffffff),
-    walkingSpeed: 0.75,
+    eyeHeight: 0.3, // fraction of character height
+    walkingSpeed: 2,
     defaultDirection: 0.0, // Expressed in degrees
     turningSpeed: 75.0, // Expressed in degrees / second
     runningFactor: 2.0, // Affects walking speed and turning speed

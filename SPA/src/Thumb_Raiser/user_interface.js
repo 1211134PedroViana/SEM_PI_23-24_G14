@@ -191,4 +191,70 @@ export default class UserInterface extends GUI {
             }
         }
     }
+
+  selectFloor(numFloors, currentBuilding, playerPosition) {
+    // Remover todos os elementos com a classe 'floorSelectionRect'
+    const existingRects = document.querySelectorAll('.floorSelectionRect');
+    existingRects.forEach(rect => rect.parentNode.removeChild(rect));
+
+    // Remover a sobreposição
+    const existingOverlay = document.querySelector('.overlay');
+    if (existingOverlay) {
+      existingOverlay.parentNode.removeChild(existingOverlay);
+    }
+
+    // Criar um elemento de sobreposição para cobrir a página
+    const overlay = document.createElement('div');
+    overlay.classList.add('overlay'); // Adicionar a classe 'overlay'
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.background = 'rgba(0, 0, 0, 0.0)'; // Cor de fundo com transparência para um efeito de sobreposição
+    overlay.style.backdropFilter = 'blur(10px)'; // Ajuste o valor conforme necessário
+    document.body.appendChild(overlay);
+
+    // Calcular a altura do retângulo com base no número de botões
+    const rectHeight = 20 + numFloors * 60; // Ajuste conforme necessário
+
+    // Criar um retângulo para a seleção do piso
+    const floorSelectionRect = document.createElement('div');
+    floorSelectionRect.classList.add('floorSelectionRect'); // Adicionar a classe 'floorSelectionRect'
+    floorSelectionRect.style.width = '300px'; // Ajuste a largura conforme necessário
+    floorSelectionRect.style.height = `${rectHeight}px`; // Altura proporcional aos botões
+    floorSelectionRect.style.backgroundColor = '#808080'; // Cor cinza
+    floorSelectionRect.style.position = 'absolute';
+    floorSelectionRect.style.top = '50%'; // Centralizar verticalmente
+    floorSelectionRect.style.left = '50%'; // Centralizar horizontalmente
+    floorSelectionRect.style.transform = 'translate(-50%, -50%)'; // Ajustar para centralizar corretamente
+    floorSelectionRect.style.cursor = 'pointer';
+    floorSelectionRect.style.display = 'flex'; // Usar flexbox para organizar os botões
+    floorSelectionRect.style.flexDirection = 'column'; // Empilhar os botões verticalmente
+    floorSelectionRect.style.alignItems = 'center'; // Centralizar os botões horizontalmente
+    floorSelectionRect.style.textAlign = 'center'; // Centralizar o texto
+
+    // Adicionar um parágrafo para a frase informativa
+    const floorSelectionText = document.createElement('p');
+    floorSelectionText.innerText = 'Escolha o piso que quer aceder';
+    floorSelectionText.style.fontSize = '20px'; // Ajuste o tamanho da fonte conforme necessário
+    floorSelectionText.style.marginBottom = '10px'; // Ajuste a margem conforme necessário
+    floorSelectionRect.appendChild(floorSelectionText);
+
+    for (let i = 1; i <= numFloors; i++) {
+      const floorButton = document.createElement('button');
+      floorButton.innerText = 'Piso ' + i;
+      floorButton.addEventListener('click', () => {
+        this.changeFloor(i, currentBuilding, playerPosition);
+        document.body.removeChild(floorSelectionRect); // Remover o retângulo de seleção ao clicar em um botão de piso
+        document.body.removeChild(overlay); // Remover a sobreposição ao clicar em um botão de piso
+      });
+      floorButton.style.fontSize = '16px'; // Ajuste o tamanho da fonte conforme necessário
+      floorButton.style.padding = '10px 80px'; // Ajuste o preenchimento conforme necessário
+      floorSelectionRect.appendChild(floorButton);
+    }
+
+    // Adicionar o retângulo à página
+    document.body.appendChild(floorSelectionRect);
+  }
 }

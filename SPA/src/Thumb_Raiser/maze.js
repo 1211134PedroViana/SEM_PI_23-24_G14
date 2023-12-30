@@ -47,63 +47,35 @@ export default class Maze extends THREE.Group {
             this.helper = new THREE.Group();
 
             // Create the ground
-            const ground = new Ground({
-                size: new THREE.Vector3(description.ground.size.width, description.ground.size.height, description.ground.size.depth),
-                segments: new THREE.Vector3(description.ground.segments.width, description.ground.segments.height, description.ground.segments.depth),
-                materialParameters: {
-                    color: new THREE.Color(parseInt(description.ground.primaryColor, 16)),
-                    mapUrl: description.ground.maps.color.url,
-                    aoMapUrl: description.ground.maps.ao.url,
-                    aoMapIntensity: description.ground.maps.ao.intensity,
-                    displacementMapUrl: description.ground.maps.displacement.url,
-                    displacementScale: description.ground.maps.displacement.scale,
-                    displacementBias: description.ground.maps.displacement.bias,
-                    normalMapUrl: description.ground.maps.normal.url,
-                    normalMapType: normalMapTypes[description.ground.maps.normal.type],
-                    normalScale: new THREE.Vector2(description.ground.maps.normal.scale.x, description.ground.maps.normal.scale.y),
-                    bumpMapUrl: description.ground.maps.bump.url,
-                    bumpScale: description.ground.maps.bump.scale,
-                    roughnessMapUrl: description.ground.maps.roughness.url,
-                    roughness: description.ground.maps.roughness.rough,
-                    wrapS: wrappingModes[description.ground.wrapS],
-                    wrapT: wrappingModes[description.ground.wrapT],
-                    repeat: new THREE.Vector2(description.ground.repeat.u, description.ground.repeat.v),
-                    magFilter: magnificationFilters[description.ground.magFilter],
-                    minFilter: minificationFilters[description.ground.minFilter]
-                },
-                secondaryColor: new THREE.Color(parseInt(description.ground.secondaryColor, 16))
-            });
-            this.add(ground);
+          const ground = new Ground({
+            size: new THREE.Vector3(description.ground.size.width, description.ground.size.height, description.ground.size.depth),
+            segments: new THREE.Vector3(description.ground.segments.width, description.ground.segments.height, description.ground.segments.depth),
+            materialParameters: {
+              color: new THREE.Color(0xCCCCCC),
+              repeat: new THREE.Vector2(2, 2), // Repete a textura 2 vezes na direção U e V
+              magFilter: magnificationFilters[description.ground.magFilter],
+              minFilter: minificationFilters[description.ground.minFilter]
+            },
+            secondaryColor: new THREE.Color(0xCCCCCC) // Altera a cor secundária para verde
+          });
+          this.add(ground);
 
-            // Create a wall
-            const wall = new Wall({
-                groundHeight: description.ground.size.height,
-                segments: new THREE.Vector2(description.wall.segments.width, description.wall.segments.height),
-                materialParameters: {
-                    color: new THREE.Color(parseInt(description.wall.primaryColor, 16)),
-                    mapUrl: description.wall.maps.color.url,
-                    aoMapUrl: description.wall.maps.ao.url,
-                    aoMapIntensity: description.wall.maps.ao.intensity,
-                    displacementMapUrl: description.wall.maps.displacement.url,
-                    displacementScale: description.wall.maps.displacement.scale,
-                    displacementBias: description.wall.maps.displacement.bias,
-                    normalMapUrl: description.wall.maps.normal.url,
-                    normalMapType: normalMapTypes[description.wall.maps.normal.type],
-                    normalScale: new THREE.Vector2(description.wall.maps.normal.scale.x, description.wall.maps.normal.scale.y),
-                    bumpMapUrl: description.wall.maps.bump.url,
-                    bumpScale: description.wall.maps.bump.scale,
-                    roughnessMapUrl: description.wall.maps.roughness.url,
-                    roughness: description.wall.maps.roughness.rough,
-                    wrapS: wrappingModes[description.wall.wrapS],
-                    wrapT: wrappingModes[description.wall.wrapT],
-                    repeat: new THREE.Vector2(description.wall.repeat.u, description.wall.repeat.v),
-                    magFilter: magnificationFilters[description.wall.magFilter],
-                    minFilter: minificationFilters[description.wall.minFilter]
-                },
-                secondaryColor: new THREE.Color(parseInt(description.wall.secondaryColor, 16))
-            });
+          // Criar uma parede
+          const wall = new Wall({
+            groundHeight: description.ground.size.height,
+            segments: new THREE.Vector2(description.wall.segments.width, description.wall.segments.height),
+            materialParameters: {
+              color: new THREE.Color(0xCCCCCC),
+              mapUrl: 'ground.jpg',
+              aoMapIntensity: description.wall.maps.ao.intensity,
+              displacementMapUrl: description.wall.maps.displacement.url,
+            },
+            secondaryColor: new THREE.Color(parseInt(0xCCCCCC, 16))
+          });
 
-            // Build the maze
+
+
+          // Build the maze
             let clonedWall;
             this.aabb = [];
             for (let i = 0; i <= this.size.depth; i++) { // In order to represent the southmost walls, the map depth is one row greater than the actual maze depth
@@ -156,7 +128,7 @@ export default class Maze extends THREE.Group {
             });
 
 
-            var pngFiles = [
+            /*var pngFiles = [
                 'assets/models/artorias/textures/Mat_Chainmail_Base_Color.png', 'assets/models/artorias/textures/Mat_Chainmail_Metallic.png',
                 'assets/models/artorias/textures/Mat_Chainmail_Normal_OpenGL.png','assets/models/artorias/textures/Mat_Chainmail_Roughness.png',
                 'assets/models/artorias/textures/Mat_Circle_Base_Color.png','assets/models/artorias/textures/Mat_Circle_Roughness.png',
@@ -169,6 +141,8 @@ export default class Maze extends THREE.Group {
                 'assets/models/artorias/textures/Sword_albedo.jpg', 'assets/models/artorias/textures/Sword_metallic.jpg',
                 'assets/models/artorias/textures/Sword_roughness.jpg', 'assets/models/artorias/textures/Sword_normal.jpg'
             ];
+
+             */
 
 
 
