@@ -1,3 +1,3 @@
 export default interface Tasks {
-    taskIds: string[];
+    sequence: string[];
 }

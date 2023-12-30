@@ -13,6 +13,7 @@ namespace Mpt.Infrastructure.SurveillanceTasks
 
             builder.HasKey(b => b.Id);
 
+            builder.Property(b => b.Code).IsRequired();
             builder.Property(b => b.BuildingId).IsRequired();
             builder.Property(b => b.FloorId).IsRequired();
             builder.Property(b => b.StartPlace).IsRequired();

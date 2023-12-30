@@ -26,6 +26,10 @@ namespace mpt.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConfirmationCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -132,6 +136,10 @@ namespace mpt.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BuildingId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Code")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

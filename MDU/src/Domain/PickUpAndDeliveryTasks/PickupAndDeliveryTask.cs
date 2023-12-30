@@ -6,6 +6,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
 {
     public class PickupAndDeliveryTask : Entity<PickupAndDeliveryTaskId>, IAggregateRoot
     {
+        public string Code { get; set; }
         public string PickupPlace { get; set; }
         public string DeliveryPlace { get; set; }
         public string PickupPersonName { get; set; }
@@ -42,6 +43,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
                 throw new BusinessRuleValidationException("Task requires a user.");
 
             Id = new PickupAndDeliveryTaskId(Guid.NewGuid());
+            this.Code = this.GenerateRandomCode();
             this.PickupPlace = pickupPlace;
             this.DeliveryPlace = deliveryPlace;
             this.PickupPersonName = pickupPersonName;
@@ -52,6 +54,15 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             this.ConfirmationCode = confirmationCode;
             this.Status = TasksStatus.Pending;
             this.UserId = userId;
+        }
+
+        private string GenerateRandomCode()
+        {
+            // Generate a random code of numbers and capital letters with a length of 4
+            Random random = new Random();
+            const string chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            return new string(Enumerable.Repeat(chars, 4)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
     

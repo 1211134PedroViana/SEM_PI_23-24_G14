@@ -15,6 +15,7 @@ namespace mpt.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PickupPlace = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DeliveryPlace = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PickupPersonName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
@@ -65,6 +66,7 @@ namespace mpt.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BuildingId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FloorId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartPlace = table.Column<string>(type: "nvarchar(max)", nullable: false),
