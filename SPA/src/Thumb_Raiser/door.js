@@ -20,25 +20,46 @@ export default class Door extends THREE.Group {
     this.loaded = false;
 
     this.onLoad = function (object) {
-  
+
       if(this.isOpen) {
         object.scale.set(0.006, 0.004, 0.005);
       }else{
-        object.scale.set(0.16, 0.15, 0.1);
-      }
+        object.scale.set(0.006, 0.004, 0.003);
+        }
 
-      if (this.door.direction === "north") {
+      if (this.isOpen && this.door.direction === "north") {
+        // Ajuste as coordenadas de posição para centralizar a porta aberta
         object.position.set(
-            this.door.positionX - this.halfSize.width + 0.5, 
-            0, 
-            this.door.positionY - this.halfSize.depth);
-      } else {
+          this.door.positionX - this.halfSize.width + 0.5,
+          0,
+          this.door.positionY - this.halfSize.depth
+        );
+      } else if (this.isOpen && this.door.direction !== "north") {
+        // Adicione a condição para a porta aberta quando a direção não é "north"
         object.rotateY(Math.PI / 2.0);
         object.position.set(
-            this.door.positionX - this.halfSize.width, 
-            0, 
-            this.door.positionY - this.halfSize.depth + 0.5);
+          this.door.positionX - this.halfSize.width,
+          0,
+          this.door.positionY - this.halfSize.depth + 0.5
+        );
+      } else if (this.door.direction === "north") {
+        // Ajuste as coordenadas de posição para centralizar a porta fechada
+        object.position.set(
+          this.door.positionX - this.halfSize.width + 1,
+          0,
+          this.door.positionY - this.halfSize.depth
+        );
+      } else {
+        // Ajuste as coordenadas de posição para centralizar a porta fechada
+        object.rotateY(Math.PI / 2.0);
+        object.position.set(
+          this.door.positionX - this.halfSize.width,
+          0,
+          this.door.positionY - this.halfSize.depth
+        );
       }
+
+
 
       // Add the door object to the scene
       this.add(object);
@@ -70,13 +91,13 @@ export default class Door extends THREE.Group {
       secDoorLoader.load(
         //Resource URL
         this.url,
-    
+
         // onLoad callback
         (object) => this.onLoad(object),
-    
+
         // onProgress callback
         (xhr) => onProgress(this.url, xhr),
-    
+
         // onError callback
         (error) => onError(this.url, error)
       );
@@ -84,28 +105,27 @@ export default class Door extends THREE.Group {
     }else {
 
       // Load a model description resource file
-      this.url = "assets/models/WoodDoubleDoor/WoodDoubleDoor.obj";
-
-      mtlLoader.load('assets/models/WoodDoubleDoor/WoodDoubleDoor.mtl', (materials) => {
+      this.url = "assets/models/WoodDoubleDoor/double_door_2.obj";
+      mtlLoader.load('assets/models/WoodDoubleDoor/double_door_2.mtl', (materials) => {
         materials.preload();
         loader.setMaterials(materials);
         loader.load(
           //Resource URL
           this.url,
-      
+
           // onLoad callback
           (object) => this.onLoad(object),
-      
+
           // onProgress callback
           (xhr) => onProgress(this.url, xhr),
-      
+
           // onError callback
           (error) => onError(this.url, error)
-        ); 
+        );
       });
 
     }
 
-    
+
   }
 }
