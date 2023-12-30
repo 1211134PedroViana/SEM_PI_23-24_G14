@@ -1855,13 +1855,4 @@ export default class ThumbRaiser {
             this.elevators[i].object.rotation.y = (this.maze.exitLocation[i].orientation);
         }
     }
-
-    collision(position) {
-        return (this.maze.distanceToWestWall(position) < this.player.radius
-            ||this.maze.distanceToEastWall(position) < this.player.radius ||
-            this.maze.distanceToNorthWall(position) < this.player.radius ||
-            this.maze.distanceToSouthWall(position) < this.player.radius||
-            this.distanceToElevator(position) < this.player.radius+0.5||
-            this.distanceToDoor(position) < this.player.radius);
-    }
 }
