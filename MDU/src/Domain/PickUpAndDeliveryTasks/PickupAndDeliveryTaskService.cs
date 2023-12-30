@@ -24,7 +24,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             var list = await this._repo.GetAllAsync();
             
             List<PickupAndDeliveryTaskDTO> listDto = list.ConvertAll<PickupAndDeliveryTaskDTO>(task => 
-                new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
+                new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.Code, task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
                 task.PickupPersonPhoneNumber, task.DeliveryPersonName, task.DeliveryPersonPhoneNumber, task.Description,
                 task.ConfirmationCode, task.Status, task.UserId));
 
@@ -38,7 +38,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             if(task == null)
                 return null;
 
-            return new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
+            return new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.Code, task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
                 task.PickupPersonPhoneNumber, task.DeliveryPersonName, task.DeliveryPersonPhoneNumber, task.Description,
                 task.ConfirmationCode, task.Status, task.UserId);
         }
@@ -55,7 +55,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
 
             await this._unitOfWork.CommitAsync();
 
-            return new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
+            return new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.Code, task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
                 task.PickupPersonPhoneNumber, task.DeliveryPersonName, task.DeliveryPersonPhoneNumber, task.Description,
                 task.ConfirmationCode, task.Status, task.UserId);
         }
@@ -70,7 +70,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             this._repo.Remove(task);
             await this._unitOfWork.CommitAsync();
 
-            return new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
+            return new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.Code, task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
                 task.PickupPersonPhoneNumber, task.DeliveryPersonName, task.DeliveryPersonPhoneNumber, task.Description,
                 task.ConfirmationCode, task.Status, task.UserId);
         }
@@ -82,7 +82,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
                 var list = await this._repo.GetTasksByStatus(parsedStatus);
 
                 List<PickupAndDeliveryTaskDTO> listDto = list.ConvertAll<PickupAndDeliveryTaskDTO>(task =>           
-                    new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
+                    new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.Code, task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
                     task.PickupPersonPhoneNumber, task.DeliveryPersonName, task.DeliveryPersonPhoneNumber, task.Description,
                     task.ConfirmationCode, task.Status, task.UserId));
 
@@ -105,7 +105,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
                 var list = await this._repo.GetTasksByUser(parsedUserId);
 
                 List<PickupAndDeliveryTaskDTO> listDto = list.ConvertAll<PickupAndDeliveryTaskDTO>(task => 
-                    new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
+                    new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.Code, task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
                     task.PickupPersonPhoneNumber, task.DeliveryPersonName, task.DeliveryPersonPhoneNumber, task.Description,
                     task.ConfirmationCode, task.Status, task.UserId));
 

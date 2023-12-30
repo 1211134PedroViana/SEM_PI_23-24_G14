@@ -9,6 +9,7 @@ namespace Mpt.Domain.SurveillanceTasks
     public class SurveillanceTaskDTO
     {
         public Guid Id { get; set; }
+        public string Code { get; private set; }
         public string BuildingId { get; private set; }
         public string FloorId { get; set; }
         public string StartPlace { get; set; }
@@ -19,9 +20,10 @@ namespace Mpt.Domain.SurveillanceTasks
         public TasksStatus Status { get; set; }
         public string UserId { get; set; }
 
-        public SurveillanceTaskDTO(Guid Id, string buildingId, string floorId, string startPlace, string endPlace, string phoneNumber, TasksStatus status, SystemUserId userId)
+        public SurveillanceTaskDTO(Guid Id, string code, string buildingId, string floorId, string startPlace, string endPlace, string phoneNumber, TasksStatus status, SystemUserId userId)
         {
             this.Id = Id;
+            this.Code = code;
             this.BuildingId = buildingId;
             this.FloorId = floorId; 
             this.StartPlace = startPlace;

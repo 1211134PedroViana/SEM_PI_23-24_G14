@@ -9,6 +9,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
     public class PickupAndDeliveryTaskDTO
     {
         public Guid Id { get; set; }
+        public string Code { get; set; }
         public string PickupPlace { get; set; }
         public string DeliveryPlace { get; set; }
         public string PickupPersonName { get; set; }
@@ -22,7 +23,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
         public TasksStatus Status { get; set; }
         public string UserId { get; set; }
 
-        public PickupAndDeliveryTaskDTO(Guid Id, string pickupPlace, string deliveryPlace, string pickupPersonName,
+        public PickupAndDeliveryTaskDTO(Guid Id, string code, string pickupPlace, string deliveryPlace, string pickupPersonName,
             string pickupPersonPhoneNumber,
             string deliveryPersonName,
             string deliveryPersonPhoneNumber,
@@ -32,6 +33,7 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
             SystemUserId userId)
         {
             this.Id = Id;
+            this.Code = code;
             this.PickupPlace = pickupPlace;
             this.DeliveryPlace = deliveryPlace;
             this.PickupPersonName = pickupPersonName;

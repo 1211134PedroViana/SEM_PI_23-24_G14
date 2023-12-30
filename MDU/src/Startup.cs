@@ -120,7 +120,7 @@ namespace Mpt
             services.AddTransient<RoleService>();
 
             services.AddTransient<ISurveillanceTaskRepository, SurveillanceTaskRepository>();
-            services.AddTransient<SurveillanceTaskService>();
+            services.AddTransient<ISurveillanceTaskService, SurveillanceTaskService>();
 
             services.AddTransient<IPickupAndDeliveryTaskRepository, PickupAndDeliveryTaskRepository>();
             services.AddTransient<PickupAndDeliveryTaskService>();
