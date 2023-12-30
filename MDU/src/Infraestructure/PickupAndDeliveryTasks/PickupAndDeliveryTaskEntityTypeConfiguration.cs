@@ -13,6 +13,7 @@ namespace Mpt.Infrastructure.PickupAndDeliveryTasks
 
             builder.HasKey(b => b.Id);
 
+            builder.Property(b => b.Code).IsRequired();
             builder.Property(b => b.PickupPlace).IsRequired();
             builder.Property(b => b.DeliveryPlace).IsRequired();
             builder.Property(b => b.PickupPersonName).IsRequired().HasMaxLength(30);

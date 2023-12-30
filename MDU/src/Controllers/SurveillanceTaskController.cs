@@ -59,7 +59,7 @@ namespace Mpt.Controllers
         }
 
         // POST: api/SurveillanceTasks
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         [HttpPost]
         public async Task<ActionResult<SurveillanceTaskDTO>> Create(CreateSurveillanceTaskDTO dto)
         {

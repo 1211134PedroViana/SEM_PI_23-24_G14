@@ -6,6 +6,7 @@ namespace Mpt.Domain.SurveillanceTasks
 {
     public class SurveillanceTask : Entity<SurveillanceTaskId>, IAggregateRoot
     {
+        public string Code { get; set; }
         public string BuildingId { get; private set; }
         public string FloorId { get; set; }
         public string StartPlace { get; set; }
@@ -29,6 +30,7 @@ namespace Mpt.Domain.SurveillanceTasks
                 throw new BusinessRuleValidationException("Task requires a user.");
 
             this.Id = new SurveillanceTaskId(Guid.NewGuid());
+            this.Code = this.GenerateRandomCode();
             this.BuildingId = buildingId;
             this.FloorId = floorId; 
             this.StartPlace = startPlace;
@@ -37,6 +39,15 @@ namespace Mpt.Domain.SurveillanceTasks
             this.Status = TasksStatus.Pending;
             this.UserId = userId;
           
+        }
+
+        private string GenerateRandomCode()
+        {
+            // Generate a random code of numbers and capital letters with a length of 4
+            Random random = new Random();
+            const string chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            return new string(Enumerable.Repeat(chars, 4)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }
