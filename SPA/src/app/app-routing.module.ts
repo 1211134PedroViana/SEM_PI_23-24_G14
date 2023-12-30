@@ -72,6 +72,7 @@ import { RemoveSystemUserFormComponent } from 'src/systemUser/remove-systemUser-
 import { CreateSystemUserCopyComponent } from 'src/systemUserCopy/create-systemUserCopy/create-systemUserCopy.component';
 import { CreateSystemUserCopyFormComponent } from 'src/systemUserCopy/create-systemUserCopy-form/create-systemUserCopy-form.component';
 import { TaskSequenceComponent } from 'src/task/task-sequence/task-sequence.component';
+import { ListSystemUserCopyComponent } from 'src/systemUserCopy/list-systemUserCopy/list-systemUserCopy.component';
 
 
 const routes: Routes = [
@@ -164,7 +165,8 @@ const routes: Routes = [
     ]},
     { path: 'updateSystemUser', component: UpdateSystemUserFormComponent },
     { path: 'removeSystemUser', component: RemoveSystemUserFormComponent },
-    { path: 'createSystemUserCopy', component: CreateSystemUserCopyFormComponent }
+    { path: 'createSystemUserCopy', component: CreateSystemUserCopyFormComponent },
+    { path: 'listSystemUserCopies', component: ListSystemUserCopyComponent}
   ]},
 
   { path: 'login', component: SignInComponent },

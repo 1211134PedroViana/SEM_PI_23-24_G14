@@ -101,6 +101,7 @@ import { RemoveSystemUserFormComponent } from 'src/systemUser/remove-systemUser-
 import { CreateSystemUserCopyComponent } from 'src/systemUserCopy/create-systemUserCopy/create-systemUserCopy.component';
 import { CreateSystemUserCopyFormComponent } from 'src/systemUserCopy/create-systemUserCopy-form/create-systemUserCopy-form.component';
 import { TaskSequenceComponent } from '../task/task-sequence/task-sequence.component';
+import { ListSystemUserCopyComponent } from 'src/systemUserCopy/list-systemUserCopy/list-systemUserCopy.component';
 
 @NgModule({
   declarations: [

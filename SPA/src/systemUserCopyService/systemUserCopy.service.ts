@@ -15,6 +15,7 @@ export class SystemUserCopyService {
     private userByEmailUrl = 'api/SystemUsersCopy/byEmail/';
     private dayUrl = 'api/SystemUsersCopy/GetDay/';
     private timeUrl = 'api/SystemUsersCopy/GetTime/';
+    private getAllCopiesUrl = 'api/SystemUsersCopy';
 
     private isVisible = new BehaviorSubject<boolean>(false);
     private user = new BehaviorSubject<SystemUserCopy>({} as SystemUserCopy);
@@ -47,6 +48,15 @@ export class SystemUserCopyService {
         const httpOptions = { withCredentials: true };
 
         return this.http.get<string>(this.configService.mduUrl + this.timeUrl, httpOptions);
+    }
+
+    getAllCopies(): Observable<SystemUserCopy[]> {
+        const httpOptions =  { withCredentials: true };
+
+        return this.http.get<SystemUserCopy[]>(this.configService.mduUrl + this.getAllCopiesUrl, httpOptions)
+            .pipe(
+             //catchError(this.handleError('addBuilding', building))
+          );
     }
 
     closeForm() {
