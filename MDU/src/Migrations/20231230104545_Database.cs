@@ -93,6 +93,23 @@ namespace mpt.Migrations
                 {
                     table.PrimaryKey("PK_SystemUsers", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "SystemUsersCopy",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Date = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Hour = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    RoleId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
+                    Contribuinte = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SystemUsersCopy", x => x.Id);
+                });
         }
 
         /// <inheritdoc />
@@ -112,6 +129,9 @@ namespace mpt.Migrations
 
             migrationBuilder.DropTable(
                 name: "SystemUsers");
+
+            migrationBuilder.DropTable(
+                name: "SystemUsersCopy");
         }
     }
 }
