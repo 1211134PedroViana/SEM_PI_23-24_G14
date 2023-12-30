@@ -27,11 +27,15 @@ export default class Elevator extends THREE.Group {
         }
     }
 
+
+
     constructor(parameters) {
     super();
     merge(this, parameters);
 
     this.loaded = false;
+
+
 
     this.onLoad = function (object) {
         object.scale.set(0.0054, 0.0032, 0.005);
@@ -85,7 +89,7 @@ export default class Elevator extends THREE.Group {
     const mtlLoader = new MTLLoader();
 
     // Load a model description resource file
-    this.url = "assets/models/Elevator/3d-elevator.obj";
+    this.url = "assets/models/Elevator/elevator.obj";
 
     mtlLoader.load('assets/models/Elevator/elevator.mtl', (materials) => {
         materials.preload();
