@@ -6,6 +6,19 @@
     font-size: 12px;
 }
 
+form {
+    width: 25%;
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(97, 98, 98, 0.8);
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
 .title {
     text-align: center;
     font-family: 'Playpen Sans', cursive;
@@ -16,4 +29,35 @@
 
 tr:hover {
     cursor: pointer;
+}
+
+.form-title {
+    text-align: center;
+    color: #fff;
+    font-family: 'Playpen Sans', cursive;
+}
+
+.form-label {
+    color: #fff;
+    font-family: 'Playpen Sans', cursive;
+}
+
+.form-select {
+    width: 65%;
+    margin: auto;
+}
+
+.btn-primary {
+    background-color: rgb(162, 174, 174);
+    width: 20%;
+    border: 1px solid rgb(162, 174, 174);
+    margin: auto;
+}
+
+.btn-primary:hover {
+    background-color: rgb(86, 101, 101);
+}
+
+.g-4 {
+    margin-top: 20px;
 }

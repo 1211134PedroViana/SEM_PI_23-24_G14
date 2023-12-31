@@ -160,14 +160,12 @@ export class TaskService {
     );
   }
 
-  getByCodePickupAndDelivery(code: string): Observable<PickupAndDeliveryTask | null> {
+  getByCodePickupAndDelivery(code: string): Observable<PickupAndDeliveryTask> {
     const httpOptions = { withCredentials: true };
 
     return this.http.get<PickupAndDeliveryTask>(this.configService.mduUrl + this.getPickupTaskByCodeUrl + code, httpOptions)
       .pipe(
-        catchError(error => {
-          return of(null);
-        })
+        
     );
   }
 

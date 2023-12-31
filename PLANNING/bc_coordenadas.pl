@@ -2,7 +2,7 @@
 coordenadas(apn, a1, 10, 5).
 coordenadas(beng, a1, 12, 2).
 coordenadas(k1, a1, 16, 2).
-coordenadas(k2, a1, 18, 4).
+coordenadas(k2, a1, 19, 2).
 coordenadas(r1, a1, 12, 8).
 coordenadas(r2, a1, 20, 8).
 

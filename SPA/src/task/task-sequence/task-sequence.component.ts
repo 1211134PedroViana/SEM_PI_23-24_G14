@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
+import { concatMap, catchError, tap } from 'rxjs/operators';
+import { of, map, from  } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TaskService } from 'src/taskService/task.service';
 import Task from 'src/taskService/task';
 import TaskSequence from 'src/taskService/taskSequence';
+import { PathService } from 'src/pathService/path.service';
+import Cell from 'src/pathService/cell';
 
 @Component({
   selector: 'app-task-sequence',
@@ -14,8 +19,16 @@ export class TaskSequenceComponent {
   approvedTasks: Task[] = [];
   sequenceTasks: TaskSequence[] = [];
   isListVisible: boolean = false;
+  selectedTask: any;
 
-  constructor(private taskService: TaskService) { }
+  path: string[] = [];
+  cellsPath: Cell[][] = [];
+
+  isTasksVisible: boolean = true;
+  isViewerVisible: boolean = false;
+  isFormVisible: boolean = false;
+
+  constructor(private taskService: TaskService, private pathService: PathService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.taskService.getByStatusSurveillanceTask("Approved").subscribe((survTasks) => {
@@ -40,34 +53,71 @@ export class TaskSequenceComponent {
 
         console.log("tasks:" + JSON.stringify(this.approvedTasks));
         
-        this.taskService.getTasksSequence(JSON.stringify(this.approvedTasks)).subscribe((tasks) => {
-          for(let i = 0; i < tasks.sequence.length; i++) {
-            this.taskService.getByCodePickupAndDelivery(tasks.sequence[i]).subscribe((task) => {
-              if(task === null) {
-                this.taskService.getByCodeSurveillanceTask(tasks.sequence[i]).subscribe((task) => {
-                  let temp = ({
-                    code: task.code,
+        this.taskService.getTasksSequence(JSON.stringify(this.approvedTasks)).pipe(
+          concatMap((tasks) => from(tasks.sequence)),
+          concatMap((currentTask) => {
+            return this.taskService.getByCodePickupAndDelivery(currentTask).pipe(
+              map((pickupDeliveryTask) => ({      
+                code: pickupDeliveryTask.code,
+                type: "PickUp & Delivery",
+                startPlace: pickupDeliveryTask.pickupPlace,
+                endPlace: pickupDeliveryTask.deliveryPlace
+              })),
+              catchError(() => {
+                return this.taskService.getByCodeSurveillanceTask(currentTask).pipe(
+                  map((surveillanceTask) => ({
+                    code: surveillanceTask.code,
                     type: "Surveillance",
-                    startPlace: task.startPlace,
-                    endPlace: task.endPlace
-                  }) as TaskSequence;
-                  this.sequenceTasks.push(temp);
-                });
-                
-              }else{
-                let temp = ({
-                  code: task.code,
-                  type: "PickUp & Delivery",
-                  startPlace: task.pickupPlace,
-                  endPlace: task.deliveryPlace
-                }) as TaskSequence;
-                this.sequenceTasks.push(temp);
-              }
-            });
-          }
+                    startPlace: surveillanceTask.startPlace,
+                    endPlace: surveillanceTask.endPlace
+                  })),
+                );
+              })
+            );
+          })
+        ).subscribe((result) => {
+          this.sequenceTasks.push(result);
         });
       });
     });
     this.isListVisible = true;
+  }
+
+  onSubmit() {
+    this.isTasksVisible = false;
+    this.pathService.computePath(this.selectedTask.startPlace, this.selectedTask.endPlace)
+      .pipe(
+        tap((response) => {
+          console.log('Path found sucessfully!', response);
+          const message = `Path found successfully!`;
+          this.snackBar.open(message, 'Close', {
+            duration: 5000, // 5 seconds
+          });
+
+          this.path = response.caminho;
+          this.cellsPath = response.movimentos;
+
+          this.isFormVisible = false;
+          this.isViewerVisible = true;
+
+        }),
+        catchError((error) => {
+          console.error('Error occurred while find the Path', error);
+          this.snackBar.open('Failed to find Path, returned code:' + error.status, 'Close', {
+            duration: 5000, // 5 seconds
+          });
+          throw error;
+        })
+      )
+      .subscribe();
+  }
+
+  closeForm() {
+    this.isFormVisible = false;
+  }
+
+  openForm(task: Task) {
+    this.selectedTask = task;
+    this.isFormVisible = true;
   }
 }
