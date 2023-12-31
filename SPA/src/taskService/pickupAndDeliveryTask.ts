@@ -1,4 +1,5 @@
 export default interface PickupAndDeliveryTask {
+    code: string;
     pickupPlace: string;
     deliveryPlace: string;
     pickupPersonName: string;

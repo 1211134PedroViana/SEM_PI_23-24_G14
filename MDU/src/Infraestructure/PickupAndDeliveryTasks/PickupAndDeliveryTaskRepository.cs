@@ -34,5 +34,10 @@ namespace Mpt.Infrastructure.PickupAndDeliveryTasks
             return await _objs.Where(task => task.Status == TasksStatus.Pending || task.Status == TasksStatus.Refused)
                 .ToListAsync();
         }
+
+        public async Task<PickupAndDeliveryTask> GetTaskByCode(string code)
+        {
+            return await _objs.Where(task => task.Code == code).FirstOrDefaultAsync();
+        }
     }
 }

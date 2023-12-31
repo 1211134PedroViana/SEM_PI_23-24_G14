@@ -43,6 +43,18 @@ namespace Mpt.Domain.PickupAndDeliveryTasks
                 task.ConfirmationCode, task.Status, task.UserId);
         }
 
+        public async Task<PickupAndDeliveryTaskDTO> GetByCodeAsync(string code)
+        {
+            var task = await this._repo.GetTaskByCode(code);
+            
+            if(task == null)
+                return null;
+
+            return new PickupAndDeliveryTaskDTO(task.Id.AsGuid(), task.Code, task.PickupPlace, task.DeliveryPlace, task.PickupPersonName, 
+                task.PickupPersonPhoneNumber, task.DeliveryPersonName, task.DeliveryPersonPhoneNumber, task.Description,
+                task.ConfirmationCode, task.Status, task.UserId);
+        }
+
         public async Task<PickupAndDeliveryTaskDTO> AddAsync(CreatePickupAndDeliveryTaskDTO dto)
         {
             await checkUserIdAsync(dto.UserId);

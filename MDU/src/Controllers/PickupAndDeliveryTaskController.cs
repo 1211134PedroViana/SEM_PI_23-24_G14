@@ -57,8 +57,23 @@ namespace Mpt.Controllers
             return task;
         }
 
+        // GET: api/PickupAndDeliveryTasks/getByCode/code
+        [Authorize(Roles = "Task")]
+        [HttpGet("getByCode/{code}")]
+        public async Task<ActionResult<PickupAndDeliveryTaskDTO>> GetTaskByCode(string code)
+        {
+            var task = await _service.GetByCodeAsync(code);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            return task;
+        }
+
         // POST: api/PickupAndDeliveryTasks
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         [HttpPost]
         public async Task<ActionResult<PickupAndDeliveryTaskDTO>> Create(CreatePickupAndDeliveryTaskDTO dto)
         {

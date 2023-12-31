@@ -7,6 +7,6 @@ namespace Mpt.Domain.SurveillanceTasks
     {
         Task<List<SurveillanceTask>> GetTasksByStatus(TasksStatus status);
         Task<List<SurveillanceTask>> GetTasksByUser(SystemUserId userId);
-
+        Task<SurveillanceTask> GetTaskByCode(string code);
     }
 }
