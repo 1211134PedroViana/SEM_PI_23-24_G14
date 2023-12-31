@@ -36,8 +36,8 @@ export class ApproveTaskComponent {
 
   onTaskClick(task: SurveillanceTask | PickupAndDeliveryTask) {
     // Alterar o status da tarefa para "Denied"
-    task.status = 'Denied';
-  
+    task.status = 'Approved';
+
     // Exibir mensagem de sucesso
     alert(`Status da tarefa alterado para "Denied" com sucesso: ${task.status}`);
   }
@@ -79,9 +79,9 @@ export class ApproveTaskComponent {
     let building: any;
     for (let i = 0; i < this.survTasks.length; i++) {
       // ... (código anterior)
-  
-  
-  
+
+
+
         const surveillanceTask = {
           buildingId: building.name,
           floorId: 'floor.floorNumber',
@@ -91,12 +91,12 @@ export class ApproveTaskComponent {
           status: this.survTasks[i].status,
           userId: user.email
         } as SurveillanceTask;
-  
+
         this.parsedSurvTasks.push(surveillanceTask);
-      
+
     }
   }
-  
+
   parsePickList() {
     let user: any;
     for (let i = 0; i < this.pickupTasks.length; i++) {
@@ -105,7 +105,7 @@ export class ApproveTaskComponent {
         .pipe(
           tap((response) => {
             user = response;
-  
+
             const pickupAndDeliveryTask = ({
               pickupPlace: this.pickupTasks[i].pickupPlace,
               deliveryPlace: this.pickupTasks[i].deliveryPlace,
@@ -118,7 +118,7 @@ export class ApproveTaskComponent {
               status: this.pickupTasks[i].status,
               userId: user.email
             }) as PickupAndDeliveryTask;
-  
+
             this.parsedPickTasks.push(pickupAndDeliveryTask);
           }),
           catchError((error) => {
@@ -129,6 +129,6 @@ export class ApproveTaskComponent {
         .subscribe();
     }
   }
-  
+
 
 }
