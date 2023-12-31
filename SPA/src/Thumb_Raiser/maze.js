@@ -52,7 +52,21 @@ export default class Maze extends THREE.Group {
             segments: new THREE.Vector3(description.ground.segments.width, description.ground.segments.height, description.ground.segments.depth),
             materialParameters: {
               color: new THREE.Color(0xCCCCCC),
-              repeat: new THREE.Vector2(2, 2), // Repete a textura 2 vezes na direção U e V
+              aoMapUrl: description.ground.maps.ao.url,
+              aoMapIntensity: description.ground.maps.ao.intensity,
+              displacementMapUrl: description.ground.maps.displacement.url,
+              displacementScale: description.ground.maps.displacement.scale,
+              displacementBias: description.ground.maps.displacement.bias,
+              normalMapUrl: description.ground.maps.normal.url,
+              normalMapType: normalMapTypes[description.ground.maps.normal.type],
+              normalScale: new THREE.Vector2(description.ground.maps.normal.scale.x, description.ground.maps.normal.scale.y),
+              bumpMapUrl: description.ground.maps.bump.url,
+              bumpScale: description.ground.maps.bump.scale,
+              roughnessMapUrl: description.ground.maps.roughness.url,
+              roughness: description.ground.maps.roughness.rough,
+              wrapS: wrappingModes[description.ground.wrapS],
+              wrapT: wrappingModes[description.ground.wrapT],
+              repeat: new THREE.Vector2(description.ground.repeat.u, description.ground.repeat.v),
               magFilter: magnificationFilters[description.ground.magFilter],
               minFilter: minificationFilters[description.ground.minFilter]
             },
@@ -60,18 +74,35 @@ export default class Maze extends THREE.Group {
           });
           this.add(ground);
 
-          // Criar uma parede
+          // Create a wall
           const wall = new Wall({
             groundHeight: description.ground.size.height,
             segments: new THREE.Vector2(description.wall.segments.width, description.wall.segments.height),
             materialParameters: {
               color: new THREE.Color(0xCCCCCC),
-              mapUrl: 'ground.jpg',
+              mapUrl: description.wall.maps.color.url,
+              aoMapUrl: description.wall.maps.ao.url,
               aoMapIntensity: description.wall.maps.ao.intensity,
               displacementMapUrl: description.wall.maps.displacement.url,
+              displacementScale: description.wall.maps.displacement.scale,
+              displacementBias: description.wall.maps.displacement.bias,
+              normalMapUrl: description.wall.maps.normal.url,
+              normalMapType: normalMapTypes[description.wall.maps.normal.type],
+              normalScale: new THREE.Vector2(description.wall.maps.normal.scale.x, description.wall.maps.normal.scale.y),
+              bumpMapUrl: description.wall.maps.bump.url,
+              bumpScale: description.wall.maps.bump.scale,
+              roughnessMapUrl: description.wall.maps.roughness.url,
+              roughness: description.wall.maps.roughness.rough,
+              wrapS: wrappingModes[description.wall.wrapS],
+              wrapT: wrappingModes[description.wall.wrapT],
+              repeat: new THREE.Vector2(description.wall.repeat.u, description.wall.repeat.v),
+              magFilter: magnificationFilters[description.wall.magFilter],
+              minFilter: minificationFilters[description.wall.minFilter]
             },
             secondaryColor: new THREE.Color(parseInt(0xCCCCCC, 16))
           });
+
+
 
 
 
