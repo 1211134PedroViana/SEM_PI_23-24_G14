@@ -140,11 +140,16 @@ export default class Maze extends THREE.Group {
             }
 
             // Create Elevator of the floor and add it to the scene
+            this.elevators = [];
             const elevator = new Elevator({
                 elevator: description.floorElevator.location,
                 halfSize: this.halfSize,
             });
+
+            this.elevatorPosition = description.floorElevator.location;
+
             this.elevator = elevator;
+            this.elevators.push(elevator);
             this.add(elevator);
 
             // Create Rooms of the floor and add it to the scene
@@ -406,7 +411,6 @@ export default class Maze extends THREE.Group {
                 this.wallAndCornerCollision(indices, [1, 1], 0, obb, "southeast corner (WE-oriented wall)") || // Collision with southeast corner (WE-oriented wall)
                 this.wallAndCornerCollision(indices, [1, 1], 1, obb, "southeast corner (NS-oriented wall)") || // Collision with southeast corner (NS-oriented wall)
                 this.wallAndCornerCollision(indices, [0, 1], 0, obb, "northeast corner (WE-oriented wall)") || // Collision with northeast corner (WE-oriented wall)
-
                 indices[0] > 0 && (
                     this.wallAndCornerCollision(indices, [-1, 1], 1, obb, "northeast corner (NS-oriented wall)") || // Collision with northeast corner (NS-oriented wall)
                     this.wallAndCornerCollision(indices, [-1, 0], 1, obb, "northwest corner (NS-oriented wall)") // Collision with northwest corner (NS-oriented wall)
@@ -435,25 +439,61 @@ export default class Maze extends THREE.Group {
         return false;
     }
 
-  elevatorCollision(position, halfSize) {
-    const elevatorCell = this.cartesianToCell(position);
+    elevatorCollision(position, halfSize) {
+        const indices = this.cartesianToCell(position);
+        if (
+            this.elevatorCollision4(indices, [0, 0], 0, position, { x: 0.0, z: -0.475 }, halfSize, 'north elevator') ||
+            this.elevatorCollision4(indices, [0, 0], 1, position, { x: -0.475, z: 0.0 }, halfSize, 'west elevator')
+        ) {
+            return true;
+        }
+        return false;
+    }
 
-    const elevatorCollisionArea = {
-      minX: this.elevator.positionX - this.elevator.halfSize.width,
-      maxX: this.elevator.positionX + this.elevator.halfSize.width,
-      minZ: this.elevator.positionY - this.elevator.halfSize.depth,
-      maxZ: this.elevator.positionY + this.elevator.halfSize.depth,
-    };
+    elevatorCollisionCl(position, halfSize) {
 
-    const insideCollisionArea =
-      position.x + halfSize < elevatorCollisionArea.maxX &&
-      position.x - halfSize > elevatorCollisionArea.minX &&
-      position.z + halfSize < elevatorCollisionArea.maxZ &&
-      position.z - halfSize > elevatorCollisionArea.minZ;
+        const indices = this.cartesianToCell(position);
+        if (indices[1] == this.elevatorPosition.positionX && indices[0]  == this.elevatorPosition.positionY) {
+            return true
+        }
+        return false;
+    }
 
-    return insideCollisionArea;
-  }
+    elevatorCollisionC(position, radius) {
+        for (let i = 0; i < this.elevators.length; i++) {
+            const elevator = this.elevators[i];
 
+            // Ajuste os valores conforme necessário com base na geometria do elevador
+            const elevatorPosition = new THREE.Vector3(
+                elevator.position.x,
+                elevator.position.y,
+                elevator.position.z
+            );
+
+            if (
+                Math.abs(position.x - elevatorPosition.x) < radius &&
+                Math.abs(position.z - elevatorPosition.z) < radius
+            ) {
+                console.log('Collision with elevator.');
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    elevatorCollisionH(indices, offsets, orientation, position, delta, radius, name) {
+        const row = indices[0] + offsets[0];
+        const column = indices[1] + offsets[1];
+
+        if (this.map[row][column] === 6 || this.map[row][column] === 7 || this.map[row][column] === 8 || this.map[row][column] === 9) {
+            this.elevatorfloors = this.elevatorfloors;
+            return true;
+        }
+        return false;
+    }
+
+    // ... outros métodos da classe ...
 
   doorColli(indices, offsets, orientation, position, delta, radius, name) {
         const row = indices[0] + offsets[0];

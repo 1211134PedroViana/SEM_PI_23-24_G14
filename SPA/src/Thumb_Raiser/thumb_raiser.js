@@ -1571,14 +1571,20 @@ export default class ThumbRaiser {
                     if (this.maze.collision(this.collisionDetectionParameters.method, position, this.collisionDetectionParameters.method != "obb-aabb" ? this.player.radius : this.player.halfSize, directionRad - this.player.defaultDirection)) {
                         this.audio.play(this.audio.deathClips, false);
                         this.animations.fadeToAction("Death", 0.2);
-                    }else if (
-                        this.maze.doorCollision(
-                            position,
-                            this.collisionDetectionParameters.method != 'obb-aabb'
-                                ? this.player.radius
-                                : this.player.halfSize
-                        )
-                    ){}
+                    } else if (this.maze.doorCollision(
+                        position,
+                        this.collisionDetectionParameters.method !== 'obb-aabb'
+                            ? this.player.radius
+                            : this.player.halfSize
+                    )) {
+                    } else if (this.maze.elevatorCollisionCl(
+                        position,
+                        this.collisionDetectionParameters.method !== 'obb-aabb'
+                            ? this.player.radius
+                            : this.player.halfSize
+                    )) {
+                        this.audio.play(this.audio.danceClips, false);
+                    }
                     else if (this.player.keyStates.jump) {
                         this.audio.play(this.audio.jumpClips, true);
                         this.animations.fadeToAction("Jump", 0.2);
