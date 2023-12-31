@@ -41,6 +41,17 @@ namespace Mpt.Domain.SurveillanceTasks
             task.PhoneNumber, task.Status, task.UserId);
         }
 
+        public async Task<SurveillanceTaskDTO> GetByCodeAsync(string code)
+        {
+            var task = await this._repo.GetTaskByCode(code);
+            
+            if(task == null)
+                return null;
+
+            return new SurveillanceTaskDTO(task.Id.AsGuid(), task.Code, task.BuildingId, task.FloorId, task.StartPlace, task.EndPlace, 
+                task.PhoneNumber, task.Status, task.UserId);
+        }
+
         public async Task<SurveillanceTaskDTO> AddAsync(CreateSurveillanceTaskDTO dto)
         {
             await checkUserIdAsync(dto.UserId);

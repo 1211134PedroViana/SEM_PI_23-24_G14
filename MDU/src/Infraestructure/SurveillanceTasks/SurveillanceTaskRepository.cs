@@ -28,5 +28,9 @@ namespace Mpt.Infrastructure.SurveillanceTasks
             return await _objs.Where(task => task.UserId == userId).ToListAsync();
         }
 
+        public async Task<SurveillanceTask> GetTaskByCode(string code)
+        {
+            return await _objs.Where(task => task.Code == code).FirstOrDefaultAsync();
+        }
     }
 }

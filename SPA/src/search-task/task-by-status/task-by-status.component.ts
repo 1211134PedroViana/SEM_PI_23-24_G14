@@ -86,6 +86,7 @@ export class TaskByStatusComponent {
                   floor = response;
 
                   const surveillanceTask = {
+                    code: this.survTasks[i].code,
                     buildingId: building.name,
                     floorId: floor.floorNumber,
                     startPlace: this.survTasks[i].startPlace,
@@ -135,6 +136,7 @@ export class TaskByStatusComponent {
           user = response;
 
           const pickupAndDeliveryTask = ({
+            code: this.pickupTasks[i].code,
             pickupPlace: this.pickupTasks[i].pickupPlace,
             deliveryPlace: this.pickupTasks[i].deliveryPlace,
             pickupPersonName: this.pickupTasks[i].pickupPersonName,

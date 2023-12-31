@@ -7,6 +7,7 @@ namespace Mpt.Domain.SurveillanceTasks
     {
         Task<List<SurveillanceTaskDTO>> GetAllAsync();
         Task<SurveillanceTaskDTO> GetByIdAsync(SurveillanceTaskId id);
+        Task<SurveillanceTaskDTO> GetByCodeAsync(string code);
         Task<SurveillanceTaskDTO> AddAsync(CreateSurveillanceTaskDTO dto);
         Task<SurveillanceTaskDTO> DeleteAsync(SurveillanceTaskId id);
         Task<List<SurveillanceTaskDTO>> GetByStatusAsync(string status);
