@@ -1,5 +1,5 @@
 export default interface Task {
-    taskId: string;
+    code: string;
     startPlace: string;
     endPlace: string;
 }

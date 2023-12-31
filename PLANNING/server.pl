@@ -50,7 +50,9 @@ find_path_handler(Request) :-
 :- http_handler('/tasksPath', best_tasks_path, []).
 
 best_tasks_path(Request) :-
-    http_read_json_dict(Request, JSON),
+    cors_enable(Request, [ methods([get]), origin('http://localhost:4200') ]),
+    memberchk(search([data=Data]), Request), % Extract 'data' parameter from the URL
+    atom_json_dict(Data, JSON, []), % Parse JSON data into a Prolog dict
     maplist(json_to_task, JSON, TaskList),
     gera_permutacoes(TaskList, MelhorSequencia),
     debug('api', 'Melhor Sequencia: ~w', [MelhorSequencia]),
@@ -60,7 +62,7 @@ best_tasks_path(Request) :-
 
 json_to_task(JSON, Task) :-
     Task = task{
-        taskId: JSON.get('taskId'),
+        code: JSON.get('code'),
         startPlace: JSON.get('startPlace'),
         endPlace: JSON.get('endPlace')
     }.

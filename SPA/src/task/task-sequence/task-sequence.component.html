@@ -1,1 +1,23 @@
-<p>task-sequence works!</p>
+<h3 class="title">Approved Tasks Best Sequence</h3>
+<div *ngIf="isListVisible" class="tables">
+    <table class="table table-striped table-dark table-hover"> 
+      <thead>
+        <tr>
+          <th class="header" scope="col">#</th>
+          <th class="header" scope="col">Code</th>
+          <th class="header" scope="col">Type</th>
+          <th class="header" scope="col">Start</th>
+          <th class="header" scope="col">End</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of sequenceTasks; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ task.code }}</td>
+          <td>{{ task.type }}</td>
+          <td>{{ task.startPlace }}</td>
+          <td>{{ task.endPlace }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>

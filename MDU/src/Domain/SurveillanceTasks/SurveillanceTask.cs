@@ -36,7 +36,7 @@ namespace Mpt.Domain.SurveillanceTasks
             this.StartPlace = startPlace;
             this.EndPlace = endPlace;
             this.PhoneNumber = phoneNumber;
-            this.Status = TasksStatus.Pending;
+            this.Status = TasksStatus.Approved;
             this.UserId = userId;
           
         }

@@ -408,7 +408,7 @@ gera_tarefas(Tasks, TaskIds) :-
 
 gera_tarefas([], TaskIds, TaskIds).
 gera_tarefas([Task | Rest], Acc, TaskIds) :-
-    Task = task{taskId: TaskId, startPlace: StartPlace, endPlace: EndPlace},
+    Task = task{code: TaskId, startPlace: StartPlace, endPlace: EndPlace},
 	term_string(ParsedStart, StartPlace, []),
 	term_string(ParsedEnd, EndPlace, []),
     assertz(tarefa(TaskId, ParsedStart, ParsedEnd)),

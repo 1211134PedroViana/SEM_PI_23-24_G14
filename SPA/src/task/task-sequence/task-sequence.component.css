@@ -1,0 +1,19 @@
+.table {
+    width: 75%;
+    margin: auto;
+    margin-top: 2%;
+    font-family: 'Playpen Sans', cursive;
+    font-size: 12px;
+}
+
+.title {
+    text-align: center;
+    font-family: 'Playpen Sans', cursive;
+    color: #fff;
+    margin-top: 2%;
+    font-size: 25px;
+}
+
+tr:hover {
+    cursor: pointer;
+}

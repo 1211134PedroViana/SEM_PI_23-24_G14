@@ -1,6 +1,6 @@
 import {Component, Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, BehaviorSubject  } from 'rxjs';
+import { Observable, BehaviorSubject, of   } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import SurveillanceTask from './surveillanceTask';
 import PickupAndDeliveryTask from './pickupAndDeliveryTask';
@@ -36,7 +36,7 @@ export class TaskService {
   private approvePickupAndDeliveryTaskURrl = 'api/PickupAndDeliveryTasks/approvePickupAndDeliveryTask/';
   private denyPickupAndDeliveryTaskURrl = 'api/PickupAndDeliveryTasks/denyPickupAndDeliveryTask/';
 
-  private getTasksSequenceUrl = 'tasksPath';
+  private getTasksSequenceUrl = 'tasksPath/';
   private getPickupTaskByCodeUrl = 'api/PickupAndDeliveryTasks/getByCode/';
   private getSurvTaskByCodeUrl = 'api/SurveillanceTasks/getByCode/';
 
@@ -151,21 +151,23 @@ export class TaskService {
     );
   }
 
-  getTasksSequence(tasks: Task[]): Observable<Tasks> {
+  getTasksSequence(tasks: string): Observable<Tasks> {
     const httpOptions = { withCredentials: true };
-
-    return this.http.post<Tasks>(this.configService.planUrl + this.getTasksSequenceUrl, tasks, httpOptions)
+    let url = `http://localhost:5000/tasksPath?data=${tasks}`;
+    return this.http.get<Tasks>(url)
       .pipe(
       //catchError(this.handleError('addBuilding', building))
     );
   }
 
-  getByCodePickupAndDelivery(code: string): Observable<PickupAndDeliveryTask> {
+  getByCodePickupAndDelivery(code: string): Observable<PickupAndDeliveryTask | null> {
     const httpOptions = { withCredentials: true };
 
     return this.http.get<PickupAndDeliveryTask>(this.configService.mduUrl + this.getPickupTaskByCodeUrl + code, httpOptions)
       .pipe(
-      //catchError(this.handleError('addBuilding', building))
+        catchError(error => {
+          return of(null);
+        })
     );
   }
 

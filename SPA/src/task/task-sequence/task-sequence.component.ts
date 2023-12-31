@@ -13,6 +13,7 @@ export class TaskSequenceComponent {
 
   approvedTasks: Task[] = [];
   sequenceTasks: TaskSequence[] = [];
+  isListVisible: boolean = false;
 
   constructor(private taskService: TaskService) { }
 
@@ -20,7 +21,7 @@ export class TaskSequenceComponent {
     this.taskService.getByStatusSurveillanceTask("Approved").subscribe((survTasks) => {
       for(let i = 0; i < survTasks.length; i++) {
         let task = ({
-          taskId: survTasks[i].buildingId,
+          code: survTasks[i].code,
           startPlace: survTasks[i].startPlace,
           endPlace: survTasks[i].endPlace
         }) as Task;
@@ -30,14 +31,16 @@ export class TaskSequenceComponent {
       this.taskService.getByStatusPickupAndDelivery("Approved").subscribe((pickupTasks) => {
         for(let i = 0; i < pickupTasks.length; i++) {
           let task = ({
-            taskId: pickupTasks[i].userId,
+            code: pickupTasks[i].code,
             startPlace: pickupTasks[i].pickupPlace,
             endPlace: pickupTasks[i].deliveryPlace
           }) as Task;
           this.approvedTasks.push(task);
         }
+
+        console.log("tasks:" + JSON.stringify(this.approvedTasks));
         
-        this.taskService.getTasksSequence(this.approvedTasks).subscribe((tasks) => {
+        this.taskService.getTasksSequence(JSON.stringify(this.approvedTasks)).subscribe((tasks) => {
           for(let i = 0; i < tasks.sequence.length; i++) {
             this.taskService.getByCodePickupAndDelivery(tasks.sequence[i]).subscribe((task) => {
               if(task === null) {
@@ -65,5 +68,6 @@ export class TaskSequenceComponent {
         });
       });
     });
+    this.isListVisible = true;
   }
 }
