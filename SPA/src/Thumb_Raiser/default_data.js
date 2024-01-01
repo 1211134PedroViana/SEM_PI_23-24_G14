@@ -51,7 +51,7 @@ export const playerData = {
   credits: "Model and related code snippets created by <a href='https://sketchfab.com/3d-models/grandpa-83d8d29ae74e4eb89775c9c0c7bc5e45",
     scale: new THREE.Vector3(0.1, 0.1, 0.1),
     eyeHeight: 0.3, // fraction of character height
-    walkingSpeed: 2,
+    walkingSpeed: 0.75,
     defaultDirection: 0.0, // Expressed in degrees
     turningSpeed: 75.0, // Expressed in degrees / second
     runningFactor: 2.0, // Affects walking speed and turning speed
