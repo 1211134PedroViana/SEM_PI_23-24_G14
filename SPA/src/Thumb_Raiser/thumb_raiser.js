@@ -16,7 +16,23 @@
 import * as THREE from "three";
 import Stats from "three/addons/libs/stats.module.js";
 import Orientation from "./orientation.js";
-import { generalData, audioData, cubeTextureData, mazeData, playerData, ambientLightData, directionalLightData, spotLightData, flashLightData, shadowsData, fogData, collisionDetectionData, cameraData, pathData } from "./default_data.js";
+import {
+    generalData,
+    audioData,
+    cubeTextureData,
+    mazeData,
+    playerData,
+    ambientLightData,
+    directionalLightData,
+    spotLightData,
+    flashLightData,
+    shadowsData,
+    fogData,
+    collisionDetectionData,
+    cameraData,
+    pathData,
+    elevatorData
+} from "./default_data.js";
 import { merge } from "./merge.js";
 import Audio from "./audio.js";
 import CubeTexture from "./cubetexture.js";
@@ -27,7 +43,9 @@ import { AmbientLight, DirectionalLight, SpotLight, FlashLight } from "./lights.
 import Fog from "./fog.js";
 import Camera from "./camera.js";
 import UserInterface from "./user_interface.js";
-import Elevator from './elevator'; // Substitua pelo caminho real do seu arquivo Elevator
+import Elevator from './elevator';
+import {SelectFloorComponent} from "../floor/floor-selection/floor-selection.component";
+import Animations_elevator from "./animations_elevator"; // Substitua pelo caminho real do seu arquivo Elevator
 
 /*
  * generalParameters = {
@@ -389,6 +407,11 @@ export default class ThumbRaiser {
         this.automaticPathingParameters = merge({}, pathData, automaticPathingParameters);
         // Set the game state
         this.gameRunning = false;
+        /*this.elevatorParameters = merge({}, elevatorData, elevatorParameters);
+        this.elevator = new Elevator(this.elevatorParameters);
+        this.animations_elevator = new Animations_elevator(this.elevator.object, this.elevator.animations_elevator);
+
+         */
 
         // Create the audio listener, the audio sources and load the sound clips
         this.audio = new Audio(this.audioParameters);
@@ -495,6 +518,8 @@ export default class ThumbRaiser {
         this.statistics.checkBox.checked = false;
         this.help = { checkBox: document.getElementById("help") };
         this.help.checkBox.checked = false;
+        this.elevatorUI = document.getElementById("elevator-panel");
+        this.elevatorUI.style.visibility = "hidden";
 
         // Create an ordered list containing the cameras whose viewports are currently visible
         // There must always be at least one visible viewport
@@ -1179,7 +1204,7 @@ export default class ThumbRaiser {
     aux = [];
     async update() {
         if (!this.gameRunning) {
-            if (this.audio.loaded() && this.maze.loaded && this.player.loaded) { // If all resources have been loaded
+            if (this.audio.loaded() && this.maze.loaded && this.player.loaded && !this.inElevator) { // If all resources have been loaded
                 // Add positional audio sources to objects
                 const types = [this.audio.introductionClips, this.audio.idleClips, this.audio.jumpClips, this.audio.deathClips, this.audio.danceClips, this.audio.endClips];
                 types.forEach(type => {
@@ -1583,7 +1608,9 @@ export default class ThumbRaiser {
                             ? this.player.radius
                             : this.player.halfSize
                     )) {
-                        this.audio.play(this.audio.danceClips, false);
+                        this.elevatorSequence();
+                        //this.maze.getPopupContent();
+                        //this.audio.play(this.audio.danceClips, false);
                     }
                     else if (this.player.keyStates.jump) {
                         this.audio.play(this.audio.jumpClips, true);
@@ -1860,5 +1887,13 @@ export default class ThumbRaiser {
                 this.maze.exitLocation[i].coordinates.z);
             this.elevators[i].object.rotation.y = (this.maze.exitLocation[i].orientation);
         }
+    }
+
+    inElevator = false;
+    elevatorSequence(){
+      this.animations.fadeToAction("ThumbsUp", 0.2);
+      this.elevatorUI.style.visibility = "visible";
+      this.inElevator = true;
+      this.gameRunning = false;
     }
 }

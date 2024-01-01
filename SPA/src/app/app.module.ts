@@ -102,6 +102,8 @@ import { CreateSystemUserCopyComponent } from 'src/systemUserCopy/create-systemU
 import { CreateSystemUserCopyFormComponent } from 'src/systemUserCopy/create-systemUserCopy-form/create-systemUserCopy-form.component';
 import { TaskSequenceComponent } from '../task/task-sequence/task-sequence.component';
 import { ListSystemUserCopyComponent } from 'src/systemUserCopy/list-systemUserCopy/list-systemUserCopy.component';
+import {SelectFloorComponent} from "../floor/floor-selection/floor-selection.component";
+import {FloorListDialogComponent} from "../floor/floor-selection/floor-listDialog.component";
 
 @NgModule({
   declarations: [
@@ -197,7 +199,9 @@ import { ListSystemUserCopyComponent } from 'src/systemUserCopy/list-systemUserC
     RemoveSystemUserFormComponent,
     CreateSystemUserCopyComponent,
     CreateSystemUserCopyFormComponent,
-    TaskSequenceComponent
+    TaskSequenceComponent,
+    SelectFloorComponent,
+    FloorListDialogComponent
   ],
   imports: [
     BrowserModule,

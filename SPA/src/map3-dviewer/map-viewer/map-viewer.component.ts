@@ -318,7 +318,7 @@ export class MapViewerComponent implements OnInit {
       this.buildings = buildings;
       this.createFloorViewer("assets/mazes/default_floor.json");
     });
-    
+
   }
 
   onBuildingChange() {
@@ -341,5 +341,29 @@ export class MapViewerComponent implements OnInit {
         });
     }
   }
+
+  /*travelToFloorFromElevator(floor: string) {
+    const destinyFloorCode = this.getDestinyFloorCodeFromFloor(floor);
+
+    if (this.currentFloorCode) {
+      console.log("travel to floor called with floor: " + destinyFloorCode);
+
+      const floorNumber = destinyFloorCode.slice(-1);
+      const buildingCode = destinyFloorCode.slice(0, -1);
+      const fromElevatorId = buildingCode + "E";
+      this.thumbRaiser.inElevator = false;
+      this.elevatorSelectedFloor = null;
+      this.thumbRaiser.elevatorUI.style.visibility = "hidden";
+      this.visualizeFloor(floorNumber, buildingCode, fromElevatorId);
+    }
+  }
+
+
+
+  getDestinyFloorCodeFromFloor(floor: string){
+    this.floorService.getFloorById()
+  }
+
+   */
 
 }

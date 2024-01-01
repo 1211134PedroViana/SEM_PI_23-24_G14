@@ -30,6 +30,7 @@ export default class Maze extends THREE.Group {
         merge(this, parameters);
         this.loaded = false;
 
+
         this.onLoad = function (description) {
             const normalMapTypes = [THREE.TangentSpaceNormalMap, THREE.ObjectSpaceNormalMap];
             const wrappingModes = [THREE.ClampToEdgeWrapping, THREE.RepeatWrapping, THREE.MirroredRepeatWrapping];
@@ -450,10 +451,13 @@ export default class Maze extends THREE.Group {
         return false;
     }
 
+    collisionC = false;
+
     elevatorCollisionCl(position, halfSize) {
 
         const indices = this.cartesianToCell(position);
         if (indices[1] == this.elevatorPosition.positionX && indices[0]  == this.elevatorPosition.positionY) {
+            this.collisionC = true;
             return true
         }
         return false;
@@ -664,6 +668,24 @@ export default class Maze extends THREE.Group {
             && exit.cells[0] == cell[0] && exit.cells[1] == cell[1]+1 && exit.orientation == Math.PI);
         //return all elevators in front of the cell
         return [southElevator,westElevator,northElevator,eastElevator].filter(elevator => elevator != null);
+    }
+
+    getPopupContent() {
+        // Selecione o elemento do popup pelo ID (ou qualquer outra forma que seja apropriada)
+        var popupElement = document.getElementById("popup");
+
+
+        // Verifique se o elemento do popup existe
+        if (popupElement) {
+            // Use o innerHTML para obter o conteúdo HTML do popup
+            var popupContent = popupElement.innerHTML;
+
+            // Retorne o conteúdo HTML
+            return popupContent;
+        } else {
+            // Caso o elemento do popup não seja encontrado
+            return "Popup não encontrado.";
+        }
     }
 
 }

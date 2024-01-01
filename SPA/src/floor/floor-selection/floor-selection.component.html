@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção de Prédio e Andar</title>
+    <!-- Adicione aqui links para CSS ou outros recursos, se necessário -->
+    <style>
+        /* Estilo para o popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        /* Estilo para o conteúdo do popup */
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<!-- Botão para abrir o popup -->
+<button onclick="openPopup()">Abrir Popup</button>
+
+<!-- Popup -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <!-- Conteúdo do popup aqui -->
+        <div id="building_floor">
+            <div class="dropdown">
+                <label for="building">Building:</label>
+                <select class="form-select" id="building" [(ngModel)]="selectedBuilding" (change)="onBuildingChange()">
+                    <option *ngFor="let building of buildings" [value]="building.id">{{ building.code }}</option>
+                </select>
+            </div>
+
+            <div *ngIf="selectedBuilding" class="dropdown">
+                <label for="floor">Floor:</label>
+                <select class="form-select" id="floor" [(ngModel)]="selectedFloor" (change)="onFloorChange()">
+                    <option *ngFor="let floor of floors" [value]="floor.id">{{ floor.floorNumber }}</option>
+                </select>
+            </div>
+        </div>
+        <!-- Fim do conteúdo do popup -->
+        <button onclick="closePopup()">Fechar Popup</button>
+    </div>
+</div>
+
+<!-- Adicione aqui os scripts JavaScript ou referências a arquivos JS, se necessário -->
+<script>
+    function openPopup() {
+        document.getElementById("popup").style.display = "block";
+    }
+
+    function closePopup() {
+        document.getElementById("popup").style.display = "none";
+    }
+</script>
+</body>
+</html>

@@ -22,18 +22,47 @@
     }
 
     #building_floor {
-        display: flex;
-        flex-direction: row;
-        position: absolute;
-        left:30%;
-        width: 230px;
-        padding: 5px;
-        font-size: 12px;
-        background-color: rgb(197, 197, 197, 0);
-        color: #fff;
-        border-radius: 6px;
-        border: 1px solid black;
-    } 
+      display: flex;
+      flex-direction: row;
+      position: absolute;
+      left: 30%;
+      top: 15%; /* Ajustei a posição vertical para 5% do topo */
+      width: 300px; /* Aumentei a largura para 300px */
+      padding: 10px; /* Aumentei o espaço interno para melhor legibilidade */
+      background-color: #cccccc; /* Alterei a cor de fundo para um cinza claro */
+      color: #333; /* Alterei a cor do texto para um cinza escuro */
+      border-radius: 10px; /* Aumentei o raio da borda para dar um visual mais arredondado */
+      border: 1px solid #ddd; /* Adicionei uma borda mais suave */
+      font-family: Arial, sans-serif; /* Mantive a fonte para melhor legibilidade */
+      font-size: 14px; /* Mantive o tamanho da fonte */
+    }
+
+    #elevator-panel {
+        margin-top: 20px; /* Adicionei uma margem superior para separar do elemento acima */
+        padding: 20px; /* Aumentei o espaço interno para expandir a caixa */
+        background-color: #252525; /* Alterei a cor de fundo para um cinza claro */
+        border-radius: 10px; /* Aumentei o raio da borda para dar um visual mais arredondado */
+        border: 1px solid #ddd; /* Adicionei uma borda mais suave */
+        overflow: auto; /* Adicionei uma barra de rolagem caso o conteúdo seja muito longo */
+    }
+
+    #elevator-panel h3 {
+        font-size: 18px; /* Aumentei o tamanho do título */
+        margin-bottom: 10px; /* Adicionei uma margem inferior para espaçamento */
+    }
+
+    #elevator-panel label {
+        font-size: 14px; /* Mantive o tamanho da fonte das etiquetas */
+    }
+
+    #elevator-ui {
+        margin-top: 10px; /* Adicionei uma margem superior para espaçamento */
+    }
+    #floor1 {
+        height: 50px; /* Aumentei a altura da caixa para 150 pixels (ou ajuste conforme necessário) */
+    }
+
+
 
     .dropdown {
         margin-bottom: 10px; /* Add some margin between dropdowns */
@@ -138,6 +167,57 @@
     .checkbox-red {
         accent-color: red;
     }
+
+    #elevator-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      font-family: Arial, sans-serif;
+    }
+
+    .elevator h3 {
+      font-size: 1.5em;
+      margin: 0 0 10px;
+      color: #333;
+    }
+
+    .elevator label {
+      font-size: 1.2em;
+      color: #666;
+    }
+
+    .elevator select.form-select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+      margin-top: 5px;
+      background-color: #fff;
+      color: #333;
+    }
+
+    .elevator button[type="button"] {
+      background-color: #007bff;
+      color: #fff;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .elevator button[type="button"]:hover {
+      background-color: #0056b3;
+    }
+
 
 
 </style>
@@ -450,13 +530,33 @@
                 <option *ngFor="let building of buildings" [value]="building.id">{{ building.code }}</option>
               </select>
             </div>
-          
+
             <div *ngIf="selectedBuilding" class="dropdown">
               <label for="floor">Floor:</label>
               <select class="form-select" id="floor" [(ngModel)]="selectedFloor" (change)="onFloorChange()">
                 <option *ngFor="let floor of floors" [value]="floor.id">{{ floor.floorNumber }}</option>
               </select>
             </div>
+          <div id="elevator-panel">
+            <table class="elevator">
+              <tr>
+                <td>
+                  <h3>The Robot is inside the elevator!</h3>
+                  <label>You can choose the floor that the robot will travel to.</label>
+                  <br><br>
+                  <label>Choose the destiny floor: </label>
+                  <br>
+                  <div id="elevator-ui">
+                    <select class="form-select" id="floor1" [(ngModel)]="selectedFloor" (change)="onFloorChange()">
+                      <option *ngFor="let floor of floors" [value]="floor.id">{{ floor.floorNumber }}</option>
+                    </select>
+                  </div>
+                  <br>
+                </td>
+              </tr>
+            </table>
+          </div>
+
         </div>
     </div>
 </div>

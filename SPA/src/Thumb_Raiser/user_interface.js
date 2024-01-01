@@ -258,40 +258,4 @@ export default class UserInterface extends GUI {
     document.body.appendChild(floorSelectionRect);
   }
 
-  changeFloor(floorNumber, currentBuilding/*, overlay*/, playerPosition) {
-
-    console.log("CHANGE FLOORS - CURRENT BUILDING");
-    console.log(currentBuilding);
-
-    //document.body.removeChild(overlay); // Remover a sobreposição ao clicar em um botão de piso
-
-    switch (currentBuilding) {
-      case 'A':
-        console.log("BUILDING A");
-        console.log(floorNumber);
-        this.handleFloors(floorNumber, this.floorParametersA, playerPosition);
-        break;
-      case 'B':
-        console.log("BUILDING B");
-        console.log(floorNumber);
-        this.handleFloors(floorNumber, this.floorParametersB, playerPosition);
-        break;
-      case 'C':
-        console.log("BUILDING C");
-        console.log(floorNumber);
-        this.handleFloors(floorNumber, this.floorParametersC, playerPosition);
-        break;
-      case 'D':
-        console.log("BUILDING D");
-        console.log(floorNumber);
-        this.handleFloors(floorNumber, this.floorParametersD, playerPosition);
-        break;
-      default:
-        console.error('Edifício não suportado:', currentBuilding);
-        break;
-    }
-
-    alert('Piso ' + floorNumber + ' selecionado do edifício ' + currentBuilding);
-
-  }
 }
