@@ -451,7 +451,7 @@ export default class Maze extends THREE.Group {
         return false;
     }
 
-    collisionC = false;
+    inElevator = false;
 
     elevatorCollisionCl(position, halfSize) {
 
@@ -462,42 +462,6 @@ export default class Maze extends THREE.Group {
         }
         return false;
     }
-
-    elevatorCollisionC(position, radius) {
-        for (let i = 0; i < this.elevators.length; i++) {
-            const elevator = this.elevators[i];
-
-            // Ajuste os valores conforme necessário com base na geometria do elevador
-            const elevatorPosition = new THREE.Vector3(
-                elevator.position.x,
-                elevator.position.y,
-                elevator.position.z
-            );
-
-            if (
-                Math.abs(position.x - elevatorPosition.x) < radius &&
-                Math.abs(position.z - elevatorPosition.z) < radius
-            ) {
-                console.log('Collision with elevator.');
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    elevatorCollisionH(indices, offsets, orientation, position, delta, radius, name) {
-        const row = indices[0] + offsets[0];
-        const column = indices[1] + offsets[1];
-
-        if (this.map[row][column] === 6 || this.map[row][column] === 7 || this.map[row][column] === 8 || this.map[row][column] === 9) {
-            this.elevatorfloors = this.elevatorfloors;
-            return true;
-        }
-        return false;
-    }
-
-    // ... outros métodos da classe ...
 
   doorColli(indices, offsets, orientation, position, delta, radius, name) {
         const row = indices[0] + offsets[0];
@@ -668,24 +632,6 @@ export default class Maze extends THREE.Group {
             && exit.cells[0] == cell[0] && exit.cells[1] == cell[1]+1 && exit.orientation == Math.PI);
         //return all elevators in front of the cell
         return [southElevator,westElevator,northElevator,eastElevator].filter(elevator => elevator != null);
-    }
-
-    getPopupContent() {
-        // Selecione o elemento do popup pelo ID (ou qualquer outra forma que seja apropriada)
-        var popupElement = document.getElementById("popup");
-
-
-        // Verifique se o elemento do popup existe
-        if (popupElement) {
-            // Use o innerHTML para obter o conteúdo HTML do popup
-            var popupContent = popupElement.innerHTML;
-
-            // Retorne o conteúdo HTML
-            return popupContent;
-        } else {
-            // Caso o elemento do popup não seja encontrado
-            return "Popup não encontrado.";
-        }
     }
 
 }

@@ -162,6 +162,19 @@ let PassageService = class PassageService {
             return Result_1.Result.fail(error.message);
         }
     }
+    async getPassageByDescription(description) {
+        try {
+            const passage = await this.passageRepo.findByDescription(description);
+            if (passage === null) {
+                return Result_1.Result.fail("Elevator not found with description:" + description);
+            }
+            const passageDTO = PassageMap_1.PassageMap.toDTO(passage);
+            return Result_1.Result.ok(passageDTO);
+        }
+        catch (error) {
+            return Result_1.Result.fail(error.message);
+        }
+    }
 };
 PassageService = __decorate([
     (0, typedi_1.Service)(),

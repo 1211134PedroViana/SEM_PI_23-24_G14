@@ -35,11 +35,11 @@ export class ApproveTaskComponent {
   }
 
   onTaskClick(task: SurveillanceTask | PickupAndDeliveryTask) {
-    // Alterar o status da tarefa para "Denied"
+    // Alterar o status da tarefa para "Approved"
     task.status = 'Approved';
 
     // Exibir mensagem de sucesso
-    alert(`Status da tarefa alterado para "Denied" com sucesso: ${task.status}`);
+    alert(`Status da tarefa alterado para "Approved" com sucesso: ${task.status}`);
   }
 
   onSubmit() {

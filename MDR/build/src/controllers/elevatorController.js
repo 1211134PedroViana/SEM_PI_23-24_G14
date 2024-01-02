@@ -87,6 +87,20 @@ let ElevatorController = class ElevatorController {
             return next(e);
         }
     }
+    async getElevatorByDescription(req, res, next) {
+        try {
+            let description = req.params.description;
+            const elevatorOrError = await this.elevatorServiceInstance.getElevatorByDescription(description);
+            if (elevatorOrError.isFailure) {
+                return res.status(404).send(elevatorOrError.errorValue());
+            }
+            const elevator = elevatorOrError.getValue();
+            return res.json(elevator).status(200);
+        }
+        catch (e) {
+            return next(e);
+        }
+    }
 };
 ElevatorController = __decorate([
     (0, typedi_1.Service)(),

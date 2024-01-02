@@ -143,6 +143,19 @@ let ElevatorService = class ElevatorService {
             return Result_1.Result.fail(error.message);
         }
     }
+    async getElevatorByDescription(description) {
+        try {
+            const elevator = await this.elevatorRepo.findByDescription(description);
+            if (elevator === null) {
+                return Result_1.Result.fail("Elevator not found with description:" + description);
+            }
+            const elevatorDTO = ElevatorMap_1.ElevatorMap.toDTO(elevator);
+            return Result_1.Result.ok(elevatorDTO);
+        }
+        catch (error) {
+            return Result_1.Result.fail(error.message);
+        }
+    }
 };
 ElevatorService = __decorate([
     (0, typedi_1.Service)(),

@@ -99,7 +99,7 @@ let ElevatorRepo = class ElevatorRepo {
         }
     }
     async findByBuildingId(buildingId) {
-        const query = { domainId: buildingId };
+        const query = { buildingId: buildingId };
         const elevatorRecord = await this.elevatorSchema.findOne(query);
         if (elevatorRecord != null) {
             return ElevatorMap_1.ElevatorMap.toDomain(elevatorRecord);
@@ -107,6 +107,15 @@ let ElevatorRepo = class ElevatorRepo {
         else {
             return null;
         }
+    }
+    async findByDescription(description) {
+        const query = { description: description };
+        const elevatorRecord = await this.elevatorSchema.findOne(query);
+        if (elevatorRecord != null) {
+            return ElevatorMap_1.ElevatorMap.toDomain(elevatorRecord);
+        }
+        else
+            return null;
     }
 };
 ElevatorRepo = __decorate([

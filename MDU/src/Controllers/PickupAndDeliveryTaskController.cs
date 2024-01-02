@@ -106,15 +106,15 @@ namespace Mpt.Controllers
         }
 
         // Patch: api/PickUpAndDeliveryTasks/approvePickupAndDeliveryTask/PickUpAndDeliveryTask
-        [HttpPatch]
+        [HttpPatch("approve/{id}")]
         public async Task<ActionResult<PickupAndDeliveryTaskDTO>> Approve(Guid id, PickupAndDeliveryTaskDTO dto) {
-            /*if (id != dto.Id) {
+            if (id != dto.Id) {
                 return BadRequest();
-            }*/
+            }
 
             try {
                 
-                dto = await _service.approveTask(/*id,*/ dto);
+                dto = await _service.approveTask(dto);
                 //dto = null;
 
                 if (dto == null) {
@@ -129,16 +129,16 @@ namespace Mpt.Controllers
         }   
 
         // Patch: api/PickUpAndDeliveryTasks/denyPickupAndDeliveryTask/PickUpAndDeliveyTask
-        [HttpPatch]
+        [HttpPatch("deny/{id}")]
         public async Task<ActionResult<PickupAndDeliveryTaskDTO>> Refused(Guid id, PickupAndDeliveryTaskDTO dto) {
-            /*if (id != dto.Id) {
+            if (id != dto.Id) {
                 return BadRequest();
             }
-            */
+            
 
             try {
                 
-                dto = await _service.refuseTask(/*id,*/ dto);
+                dto = await _service.refuseTask(dto);
                 //dto = null;
 
                 if (dto == null) {

@@ -1,13 +1,13 @@
-import { AfterViewInit, OnInit, Component, ElementRef, Input, ViewChild, OnDestroy } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import ThumbRaiser from 'src/Thumb_Raiser/thumb_raiser';
 import Orientation from 'src/Thumb_Raiser/orientation';
 import * as THREE from "three";
+import {Vector3} from "three";
 import Building from 'src/buildingService/building';
 import Floor from 'src/floorService/floor';
-import { BuildingService } from 'src/buildingService/building.service';
-import { FloorService } from 'src/floorService/floor-service';
-import { FormsModule } from '@angular/forms';
-import { FloorMapService } from 'src/floorMapService/floorMap-service';
+import {BuildingService} from 'src/buildingService/building.service';
+import {FloorService} from 'src/floorService/floor-service';
+import {FloorMapService} from 'src/floorMapService/floorMap-service';
 import FloorMap from 'src/floorMapService/floorMap';
 
 
@@ -341,6 +341,32 @@ export class MapViewerComponent implements OnInit {
         });
     }
   }
+
+    createCharacterOnFloorChange() {
+            const positionX = 10; // Substitua pelo valor desejado
+            const positionY = 20; // Substitua pelo valor desejado
+
+            this.floorViewer.initialPosition = new Vector3(positionX, positionY, 0);
+    }
+
+    onFloorChange2() {
+        this.isDefault = false;
+        if (this.floorViewer != undefined) {
+            this.floorMapService.getFloorMap(this.selectedFloor).subscribe((floorMap: FloorMap) => {
+                this.cleanup();
+                this.createFloorViewer(floorMap.fileUrl);
+                this.createCharacterOnFloorChange()
+                this.render(this.floorViewer)
+            });
+        } else {
+            this.floorMapService.getFloorMap(this.selectedFloor).subscribe((floorMap: FloorMap) => {
+                this.createFloorViewer(floorMap.fileUrl);
+                this.createCharacterOnFloorChange();
+                this.render(this.floorViewer)
+            });
+        }
+    }
+
 
   /*travelToFloorFromElevator(floor: string) {
     const destinyFloorCode = this.getDestinyFloorCodeFromFloor(floor);

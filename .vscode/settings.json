@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/cb2e1514-e832-45c4-9de5-5903aac9b511/resourceGroups/robdronego-MDR/providers/Microsoft.Web/sites/robdronego-MDR",
+    "appService.deploySubpath": "MDR"
+}
