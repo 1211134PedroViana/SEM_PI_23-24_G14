@@ -55,6 +55,16 @@ jobs:
           source: SPA/dist/spa/
           target: /var/www/html
 
+      - name: SSH into node server and start
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: vsgate-ssh.dei.isep.ipp.pt
+          port: 11307
+          username: root
+          password: pJodbFI8EI5ZWNQmjemM
+          script: |
+            cd MDR | npm run start
+
       - name: SSH into server and restart web server
         uses: appleboy/ssh-action@v1.0.0
         with:
