@@ -293,9 +293,9 @@
     },
     "player": {
         "initialPosition": [
-            1.0,
-            4.0
+            6.0,
+            21.0
         ],
-        "initialDirection": 0.0
+        "initialDirection": 180.0
     }
 }
