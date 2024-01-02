@@ -1,0 +1,28 @@
+@startuml
+
+activate SPA
+SPA -> GestaoInfoAPI: patch(api/systemUser)
+activate GestaoInfoAPI
+GestaoInfoAPI -> SystemUserController : patch
+activate SystemUserController
+SystemUserController -> SystemUserService : updateSystemUser()
+activate SystemUserService
+SystemUserService -> SystemUser : update
+
+SystemUserService -> SystemUserRepo : save(systemUser)
+activate SystemUserRepo
+SystemUserRepo -> SystemUserService : systemUser
+deactivate SystemUserRepo
+
+SystemUserService -> SystemUserMap : toDTO(systemUser)
+activate SystemUserMap
+SystemUserMap -> SystemUserService : systemUserDTO
+deactivate SystemUserMap
+
+SystemUserService -> SystemUserController : systemUserDTO()
+
+SystemUserController -> GestaoInfoAPI : status code 201
+
+GestaoInfoAPI -> SPA : Sucess
+
+@enduml

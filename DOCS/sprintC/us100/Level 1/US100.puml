@@ -1,0 +1,16 @@
+@startuml
+
+activate User
+User -> UI : Asks to update the systemUser data
+activate UI
+
+UI --> User : requests data (email, password, roleId, phoneNumber, contribuinte)
+deactivate UI
+
+User -> UI : inserts the requested data
+activate UI
+
+UI --> User : show confirmation and the updated data
+deactivate UI
+
+@enduml

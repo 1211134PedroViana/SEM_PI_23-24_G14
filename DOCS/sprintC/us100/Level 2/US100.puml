@@ -1,0 +1,25 @@
+@startuml
+
+autonumber
+
+activate User
+
+User -> SPA : Asks to update a systemUser
+activate SPA
+SPA -> User : requests data to update the systemUser
+deactivate SPA
+User -> SPA : inserts the requested data
+activate SPA
+
+SPA -> SystemUser : PATCH/ systemUser(email, password, roleId, phoneNumber, contribuinte)
+activate SystemUser
+SystemUser --> SPA : status code
+deactivate SystemUser
+
+alt successfull case
+    SPA -> User: systemUser updated successfully
+else failure
+    SPA -> User: systemUser not updated
+end
+
+@enduml
