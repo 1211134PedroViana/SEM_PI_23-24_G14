@@ -32,13 +32,13 @@ public class SurveillanceTaskControllerTest
         _survController = new SurveillanceTasksController(_survServiceMock.Object);
 
         expectedTasks = new List<SurveillanceTaskDTO> {
-            new SurveillanceTaskDTO(Guid.NewGuid(), "BLD A","21321312", "sala(k1)", 
+            new SurveillanceTaskDTO(Guid.NewGuid(),"ABCD", "BLD A","21321312", "sala(k1)", 
             "sala(r2)", "915368000", TasksStatus.Pending, new SystemUserId(Guid.NewGuid())),
 
-            new SurveillanceTaskDTO(Guid.NewGuid(), "BLD B", "21321312", "sala(b202)", 
+            new SurveillanceTaskDTO(Guid.NewGuid(), "A4CD", "BLD B", "21321312", "sala(b202)", 
             "sala(b103)", "915368000", TasksStatus.Approved, new SystemUserId(Guid.NewGuid())),
 
-            new SurveillanceTaskDTO(Guid.NewGuid(), "BLD C", "21321312", "sala(c204)", 
+            new SurveillanceTaskDTO(Guid.NewGuid(), "45CD", "BLD C", "21321312", "sala(c204)", 
             "sala(c301)", "915368000", TasksStatus.Refused, new SystemUserId(Guid.NewGuid()))
         };
     }
