@@ -16,8 +16,8 @@ const route = Router();
 export default( app: Router) => {
     app.use('/loadMap', route);
 
-    route.use(isAuth);
-    route.use(attachCurrentUser);
+    //route.use(isAuth);
+    //route.use(attachCurrentUser);
 
     const ctrl = Container.get(config.controllers.floorMapperz.name) as IFloorMapperzController;
 
@@ -42,7 +42,7 @@ export default( app: Router) => {
 
     //API GET request - get Floor Map
     route.get('/:floorId', 
-    authorizeRole(config.permissions.floorMapperz.get),
+    //authorizeRole(config.permissions.floorMapperz.get),
     (req, res, next) => ctrl.getFloorMap(req, res, next));
 
 }

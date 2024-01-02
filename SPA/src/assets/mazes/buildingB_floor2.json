@@ -1,4 +1,5 @@
 {
+    "floorId":"b22e3265-8c7b-47d6-acc9-5b0a54db1936",
     "maze": {
         "size": { "width": 22, "depth": 10 },
         "map": [
@@ -89,7 +90,7 @@
         }
     ],
     "floorElevator": {
-        "elevatorId": "6548df025c1f0f0111c718e1",
+        "elevatorId": "25650340-0612-4705-917e-f24ffeecd0cc",
         "location": {
             "positionX": 21,
             "positionY": 7,
@@ -98,26 +99,26 @@
     },
     "passage": [
         {
-            "passageId": "6547ccee1ce30663f62d7204",
+            "passageId": "d9677c0f-2c2c-4a02-94fe-bc325f35ad6a",
             "location": {
-                "positionX": 0,
-                "positionY": 5,
+                "positionX": 1,
+                "positionY": 4,
                 "direction": "west"
             }
         },
         {
-            "passageId": "6547ccee1ce30663f62d7204",
+            "passageId": "4fe7e579-063a-40cd-8c62-2ff55734a0d1",
             "location": {
-                "positionX": 20,
+                "positionX": 21,
                 "positionY": 10,
                 "direction": "north"
             }
         },
         {
-            "passageId": "6547ccee1ce30663f62d7204",
+            "passageId": "7226b798-73e3-47ff-8d67-2ed54f1fac36",
             "location": {
                 "positionX": 22,
-                "positionY": 8,
+                "positionY": 9,
                 "direction": "west"
             }
         }

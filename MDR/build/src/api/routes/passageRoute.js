@@ -55,5 +55,6 @@ exports.default = (app) => {
         }),
     }), (req, res, next) => ctrl.updatePassage(req, res, next));
     route.get('/passagesFromFloor/:floorId', (0, authorizeRole_1.default)(config_1.default.permissions.passage.get), (req, res, next) => ctrl.getPassagesByFloor(req, res, next));
+    route.get('/passageFromDescription/:description', (0, authorizeRole_1.default)(config_1.default.permissions.passage.get), (req, res, next) => ctrl.getPassageByDescription(req, res, next));
 };
 //# sourceMappingURL=passageRoute.js.map

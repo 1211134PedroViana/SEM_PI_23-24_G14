@@ -6,16 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
 const typedi_1 = require("typedi");
-const isAuth_1 = __importDefault(require("../middlewares/isAuth"));
-const attachCurrentUser_1 = __importDefault(require("../middlewares/attachCurrentUser"));
-const authorizeRole_1 = __importDefault(require("../middlewares/authorizeRole"));
 const config_1 = __importDefault(require("../../../config"));
 const path = require('path');
 const route = (0, express_1.Router)();
 exports.default = (app) => {
     app.use('/loadMap', route);
-    route.use(isAuth_1.default);
-    route.use(attachCurrentUser_1.default);
+    //route.use(isAuth);
+    //route.use(attachCurrentUser);
     const ctrl = typedi_1.Container.get(config_1.default.controllers.floorMapperz.name);
     const projectRoot = path.join(__dirname, '..', '..', '..', '..');
     const MAZES_DESTINATION = path.join(projectRoot, 'SPA', 'src', 'assets', 'mazes');
@@ -31,6 +28,8 @@ exports.default = (app) => {
     //API PATCH request - create a new FloorMap of a existing Floor
     route.patch('', upload.single('file'), (req, res, next) => ctrl.loadFloorMap(req, res, next));
     //API GET request - get Floor Map
-    route.get('/:floorId', (0, authorizeRole_1.default)(config_1.default.permissions.floorMapperz.get), (req, res, next) => ctrl.getFloorMap(req, res, next));
+    route.get('/:floorId', 
+    //authorizeRole(config.permissions.floorMapperz.get),
+    (req, res, next) => ctrl.getFloorMap(req, res, next));
 };
 //# sourceMappingURL=floorMapperzRoute.js.map

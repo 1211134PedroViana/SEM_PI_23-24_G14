@@ -62,5 +62,6 @@ exports.default = (app) => {
         }),
     }), (req, res, next) => ctrl.listAllFloorsServedByElevator(req, res, next));
     route.get('/elevatorFromBuilding/:buildingId', (0, authorizeRole_1.default)(config_1.default.permissions.elevator.get), (req, res, next) => ctrl.getElevatorByBuilding(req, res, next));
+    route.get('/elevatorFromDescription/:description', (0, authorizeRole_1.default)(config_1.default.permissions.elevator.get), (req, res, next) => ctrl.getElevatorByDescription(req, res, next));
 };
 //# sourceMappingURL=elevatorRoute.js.map
