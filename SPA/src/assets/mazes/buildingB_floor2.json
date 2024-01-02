@@ -19,7 +19,7 @@
     },
     "room": [
         {
-            "roomId": "6548deaf5c1f0f0111c718d8",
+            "roomId": "c9fb1c4e-d085-4d64-b2f9-0f320c41297c",
             "dimension": {
                 "pos1": 0,
                 "pos2": 0,
@@ -33,7 +33,7 @@
             }
         },
         {
-            "roomId": "6548ded25c1f0f0111c718dc",
+            "roomId": "b363dc22-31e9-4a3f-b0b2-202d0ef81d54",
             "dimension": {
                 "pos1": 6,
                 "pos2": 2,
@@ -47,7 +47,7 @@
             }
         },
         {
-            "roomId": "6548ded25c1f0f0111c718dc",
+            "roomId": "8a92f25c-7692-4152-a837-18c24c114ddc",
             "dimension": {
                 "pos1": 6,
                 "pos2": 2,
@@ -61,7 +61,7 @@
             }
         },
         {
-            "roomId": "6548ded25c1f0f0111c718dc",
+            "roomId": "0b824880-a64c-408b-bc79-001f99050264",
             "dimension": {
                 "pos1": 6,
                 "pos2": 2,
@@ -75,7 +75,7 @@
             }
         },
         {
-            "roomId": "6548ded25c1f0f0111c718dc",
+            "roomId": "b90cab85-5bb4-4b53-aa01-6ab6bfe99562",
             "dimension": {
                 "pos1": 6,
                 "pos2": 2,
@@ -94,7 +94,7 @@
         "location": {
             "positionX": 21,
             "positionY": 7,
-            "direction": "west"
+            "direction": "north"
         }
     },
     "passage": [
