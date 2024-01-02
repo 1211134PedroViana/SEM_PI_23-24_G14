@@ -1,11 +1,22 @@
-US120.puml@startuml
-'https://plantuml.com/sequence-diagram
+@startuml
 
 autonumber
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+activate User
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+User -> SPA : Asks to remove the systemUser and his data
+activate SPA
+
+SPA -> SystemUser : DELETE/ systemUser(email, password, roleId, phoneNumber, contribuinte)
+activate SystemUser
+SystemUser --> SPA : status code
+deactivate SystemUser
+
+alt successfull case
+    SPA -> User: systemUser removed successfully
+else failure
+    SPA -> User: systemUser not removed
+end
+
+
 @enduml

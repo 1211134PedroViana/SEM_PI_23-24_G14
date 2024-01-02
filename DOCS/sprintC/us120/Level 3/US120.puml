@@ -1,11 +1,18 @@
 @startuml
-'https://plantuml.com/sequence-diagram
 
-autonumber
+activate SPA
+SPA -> GestaoInfoAPI : (api/systemUser)
+activate GestaoInfoAPI
+GestaoInfoAPI -> SystemUserController : delete
+activate SystemUserController
+SystemUserController -> SystemUserService : removeSystemUser()
+activate SystemUserService
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+SystemUserService -> SystemUser : remove
+SystemUserService -> SystemUserRepo : remove(systemUser)
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+SystemUserController -> GestaoInfoAPI : status code 201
+
+GestaoInfoAPI -> SPA : Success
+
 @enduml

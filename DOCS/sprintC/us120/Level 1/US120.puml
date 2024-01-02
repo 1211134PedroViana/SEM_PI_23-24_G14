@@ -1,11 +1,10 @@
 @startuml
-'https://plantuml.com/sequence-diagram
 
-autonumber
+activate User
+User -> UI : Asks to remove the systemUser
+activate UI
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+UI --> User : informs operation success
+deactivate UI
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
 @enduml
