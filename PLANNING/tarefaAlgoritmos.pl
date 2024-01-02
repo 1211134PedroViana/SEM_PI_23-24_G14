@@ -10,10 +10,10 @@
 :-dynamic transita/3.
 
 
-%tarefa(t1, sala(k1), sala(apn)).
-%tarefa(t2, sala(beng), sala(k2)).
-%tarefa(t3, sala(r1), sala(r2)).
-%tarefa(t4, sala(k2), sala(r1)).
+tarefa(t1, sala(k1), sala(apn)).
+tarefa(t2, sala(beng), sala(k2)).
+tarefa(t3, sala(r1), sala(r2)).
+tarefa(t4, sala(k2), sala(r1)).
 
 
 

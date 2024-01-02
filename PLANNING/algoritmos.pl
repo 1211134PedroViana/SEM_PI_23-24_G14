@@ -207,7 +207,8 @@ encontra_caminho(elev(_, ElevDestino), pass(PassOrigem, PassDestino), Cam, Custo
 encontra_caminho(pass(PassOrigem, PassDestino), elev(ElevOrigem, _), Cam, Custo) :-
     coordenadas(PassOrigem, PassDestino, _, _, PassPosX, PassPosY),
     coordenadas(ElevOrigem, ElevPosX, ElevPosY),
-    aStar(cel(PassPosX,PassPosY), cel(ElevPosX,ElevPosY), Cam, Custo, PassDestino).
+    aStar(cel(PassPosX,PassPosY), cel(ElevPosX,ElevPosY), Cam, NCusto, PassDestino),
+    Custo is NCusto + 15.
     %dfs(PassDestino, cel(PassPosX,PassPosY), cel(ElevPosX,ElevPosY), Cam),
     %write_piso(PassDestino, pass(PassOrigem, PassDestino), elev(ElevOrigem), Cam).
 
@@ -215,7 +216,8 @@ encontra_caminho(pass(PassOrigem, PassDestino), elev(ElevOrigem, _), Cam, Custo)
 encontra_caminho(pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino), Cam, Custo) :-
     coordenadas(PassOrigem, PassDestino, _, _, PassPosX, PassPosY),
     coordenadas(Pass2Origem, Pass2Destino, Pass2PosX, Pass2PosY, _,_),
-    aStar(cel(PassPosX,PassPosY), cel(Pass2PosX,Pass2PosY), Cam, Custo, PassDestino).
+    aStar(cel(PassPosX,PassPosY), cel(Pass2PosX,Pass2PosY), Cam, NCusto, PassDestino),
+    Custo is NCusto + 5.
     %dfs(PassDestino, cel(PassPosX,PassPosY), cel(Pass2PosX,Pass2PosY), Cam),
     %write_piso(PassDestino, pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino), Cam).
 
@@ -223,7 +225,8 @@ encontra_caminho(pass(PassOrigem, PassDestino), pass(Pass2Origem, Pass2Destino),
 encontra_caminho(sala(SalaOrig), elev(Piso, _), Cam, Custo) :-
     coordenadas(SalaOrig, Piso, SalaCol, SalaLin),
     coordenadas(Piso, ElevCol, ElevLin),   
-    aStar(cel(SalaCol,SalaLin), cel(ElevCol,ElevLin), Cam, Custo, Piso).
+    aStar(cel(SalaCol,SalaLin), cel(ElevCol,ElevLin), Cam, NCusto, Piso),
+    Custo is NCusto + 15.
     %dfs(Piso, cel(SalaCol,SalaLin), cel(ElevCol,ElevLin), Cam),
     %write_piso(Piso, sala(SalaOrig), elev(Piso), Cam).
 
@@ -239,7 +242,8 @@ encontra_caminho(elev(_, Piso), sala(SalaOrig), Cam, Custo) :-
 encontra_caminho(sala(SalaOrig), pass(PassOrigem, PassDestino), Cam, Custo) :-
     coordenadas(SalaOrig, PassOrigem, SalaCol, SalaLin),
     coordenadas(PassOrigem, PassDestino, PassCol, PassLin, _, _),  
-    aStar(cel(SalaCol,SalaLin), cel(PassCol,PassLin), Cam, Custo, PassOrigem).
+    aStar(cel(SalaCol,SalaLin), cel(PassCol,PassLin), Cam, NCusto, PassOrigem),
+    Custo is NCusto + 5.
     %dfs(PassOrigem, cel(SalaCol,SalaLin), cel(PassCol,PassLin), Cam),
     %write_piso(PassOrigem, sala(SalaOrig), pass(PassOrigem, PassDestino), Cam).
 
@@ -264,7 +268,8 @@ encontra_caminho(sala(SalaOrig), sala(SalaDest), Cam, Custo) :-
 encontra_caminho(sala(SalaOrig), elev(Piso), Cam, Custo) :-
     coordenadas(SalaOrig, Piso, SalaCol, SalaLin),
     coordenadas(Piso, ElevCol, ElevLin), 
-    aStar(cel(SalaCol,SalaLin), cel(ElevCol,ElevLin), Cam, Custo, Piso).  
+    aStar(cel(SalaCol,SalaLin), cel(ElevCol,ElevLin), Cam, NCusto, Piso),
+    Custo is NCusto + 15. 
     %dfs(Piso, cel(SalaCol,SalaLin), cel(ElevCol,ElevLin), Cam).
     %write_piso(Piso, sala(SalaOrig), elev(Piso), Cam).
 
@@ -272,7 +277,8 @@ encontra_caminho(sala(SalaOrig), elev(Piso), Cam, Custo) :-
 encontra_caminho(pass(PassOrigem, PassDestino), elev(Piso), Cam, Custo) :-
     coordenadas(PassOrigem, PassDestino, _, _, PassCol, PassLin),
     coordenadas(Piso, ElevCol, ElevLin), 
-    aStar(cel(PassCol,PassLin), cel(ElevCol,ElevLin), Cam, Custo, Piso). 
+    aStar(cel(PassCol,PassLin), cel(ElevCol,ElevLin), Cam, NCusto, Piso),
+    Custo is NCusto + 15.
     %dfs(Piso, cel(PassCol,PassLin), cel(ElevCol,ElevLin), Cam),
     %write_piso(Piso, pass(PassOrigem, PassDestino), elev(Piso), Cam).
 
@@ -288,7 +294,8 @@ encontra_caminho(elev(Piso), sala(SalaDest), Cam, Custo) :-
 encontra_caminho(elev(Piso), pass(PassOrigem, PassDestino), Cam, Custo) :-
     coordenadas(PassOrigem, PassDestino, PassCol, PassLin, _, _),
     coordenadas(Piso, ElevCol, ElevLin), 
-    aStar(cel(ElevCol,ElevLin), cel(PassCol,PassLin), Cam, Custo, Piso).
+    aStar(cel(ElevCol,ElevLin), cel(PassCol,PassLin), Cam, NCusto, Piso),
+    Custo is NCusto + 5.
     %dfs(Piso, cel(ElevCol,ElevLin), cel(PassCol,PassLin), Cam),
     %write_piso(Piso, elev(Piso), pass(PassOrigem, PassDestino), Cam).
     
