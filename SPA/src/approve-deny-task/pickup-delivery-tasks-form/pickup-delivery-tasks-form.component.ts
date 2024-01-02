@@ -29,7 +29,7 @@ export class ApproveDenyPickupDeliveryTaskFormComponent {
 
   onSubmit() {
     if (this.selectedStatus === 'Approved') {
-      this.taskService.approvePickupAndDeliveryTask(this.selectedTask)
+      this.taskService.approvePickupAndDeliveryTask(this.selectedTask.id, this.selectedTask)
         .pipe(
           tap((response) => {
             console.log('Pick Up and Delivery task approved sucessfully!', response);

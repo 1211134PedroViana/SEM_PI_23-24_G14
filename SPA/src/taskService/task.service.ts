@@ -46,7 +46,7 @@ export class TaskService {
   approveSurveillanceTask(surveillanceTask: SurveillanceTask): Observable<SurveillanceTask> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<SurveillanceTask>(this.configService.mduUrl + this.approveSurveillanceTaskURrl, surveillanceTask, httpOptions)
+    return this.http.patch<SurveillanceTask>(this.configService.mduUrl + this.approveSurveillanceTaskURrl, surveillanceTask, httpOptions)
       .pipe(
         //catchError(this.handleError('approSurveillanceTask', surveillanceTask ))
       )
@@ -55,25 +55,28 @@ export class TaskService {
   denySurveillanceTask(surveillanceTask: SurveillanceTask): Observable<SurveillanceTask> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<SurveillanceTask>(this.configService.mduUrl + this.denySurveillanceTaskURrl, surveillanceTask, httpOptions)
+    return this.http.patch<SurveillanceTask>(this.configService.mduUrl + this.denySurveillanceTaskURrl, surveillanceTask, httpOptions)
       .pipe(
         //catchError(this.handleError('approSurveillanceTask', surveillanceTask ))
       )
   }
 
-  approvePickupAndDeliveryTask(pickupAndDeliveryTask: PickupAndDeliveryTask): Observable<PickupAndDeliveryTask> {
+  approvePickupAndDeliveryTask(id: string, pickupAndDeliveryTask: PickupAndDeliveryTask): Observable<PickupAndDeliveryTask> {
     const httpOptions = { withCredentials: true };
-
-    return this.http.post<PickupAndDeliveryTask>(this.configService.mduUrl + this.approvePickupAndDeliveryTaskURrl, pickupAndDeliveryTask, httpOptions)
-      .pipe(
-        //catchError(this.handleError('approSurveillanceTask', surveillanceTask ))
-      )
+  
+    return this.http.patch<PickupAndDeliveryTask>(
+      `${this.configService.mduUrl}api/PickUpAndDeliveryTasks/approve/${id}`,
+      pickupAndDeliveryTask,
+      httpOptions
+    ).pipe(
+      // catchError(this.handleError('approvePickupAndDeliveryTask', pickupAndDeliveryTask))
+    );
   }
-
+  
   denyPickupAndDeliveryTask(pickupAndDeliveryTask: PickupAndDeliveryTask): Observable<PickupAndDeliveryTask> {
     const httpOptions = { withCredentials: true };
 
-    return this.http.post<PickupAndDeliveryTask>(this.configService.mduUrl + this.denyPickupAndDeliveryTaskURrl, pickupAndDeliveryTask, httpOptions)
+    return this.http.patch<PickupAndDeliveryTask>(this.configService.mduUrl + this.denyPickupAndDeliveryTaskURrl, pickupAndDeliveryTask, httpOptions)
       .pipe(
         //catchError(this.handleError('approSurveillanceTask', surveillanceTask ))
       )
