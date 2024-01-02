@@ -87,6 +87,20 @@ let PassageController = class PassageController {
             return next(e);
         }
     }
+    async getPassageByDescription(req, res, next) {
+        try {
+            let description = req.params.description;
+            const passagesOrError = await this.passageServiceInstance.getPassageByDescription(description);
+            if (passagesOrError.isFailure) {
+                return res.status(404).send(passagesOrError.errorValue());
+            }
+            const passage = passagesOrError.getValue();
+            return res.json(passage).status(200);
+        }
+        catch (e) {
+            return next(e);
+        }
+    }
 };
 PassageController = __decorate([
     (0, typedi_1.Service)(),

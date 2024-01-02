@@ -75,9 +75,8 @@
   "devDependencies": {
     "@types/agenda": "^4.1.0",
     "@types/express": "^4.16.0",
-    "@types/jest": "^23.3.14",
     "@types/lodash": "^4.14.118",
-    "@types/mocha": "^10.0.3",
+    "@types/mocha": "^10.0.6",
     "@types/mongoose": "^5.3.17",
     "@types/node": "^16.11.12",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
@@ -85,7 +84,6 @@
     "eslint": "^8.0.0",
     "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-prettier": "^3.0.1",
-    "jest": "^29.7.0",
     "mocha": "^10.2.0",
     "prettier": "^1.17.0",
     "ts-jest": "^29.1.1",

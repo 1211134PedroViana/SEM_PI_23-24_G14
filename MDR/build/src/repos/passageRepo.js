@@ -93,6 +93,15 @@ let PassageRepo = class PassageRepo {
             return null;
         }
     }
+    async findByDescription(description) {
+        const query = { description: description };
+        const passageRecord = await this.passageSchema.findOne(query);
+        if (passageRecord != null) {
+            return PassageMap_1.PassageMap.toDomain(passageRecord);
+        }
+        else
+            return null;
+    }
 };
 PassageRepo = __decorate([
     (0, typedi_1.Service)(),

@@ -189,27 +189,27 @@ exports.default = {
     permissions: {
         building: {
             post: [roles.ADMIN, roles.CAMPUS_MANAGER],
-            get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.TASK_MANAGER],
+            get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.TASK_MANAGER, roles.USER],
             put: [roles.ADMIN, roles.CAMPUS_MANAGER]
         },
         floor: {
             post: [roles.ADMIN, roles.CAMPUS_MANAGER],
-            get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.TASK_MANAGER],
+            get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.TASK_MANAGER, roles.USER],
             put: [roles.ADMIN, roles.CAMPUS_MANAGER]
         },
         passage: {
             post: [roles.ADMIN, roles.CAMPUS_MANAGER],
-            get: [roles.ADMIN, roles.CAMPUS_MANAGER],
+            get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.USER, roles.TASK_MANAGER],
             put: [roles.ADMIN, roles.CAMPUS_MANAGER]
         },
         room: {
             post: [roles.ADMIN, roles.CAMPUS_MANAGER],
-            get: [roles.ADMIN, roles.CAMPUS_MANAGER],
+            get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.USER, roles.TASK_MANAGER],
             put: [roles.ADMIN, roles.CAMPUS_MANAGER]
         },
         elevator: {
             post: [roles.ADMIN, roles.CAMPUS_MANAGER],
-            get: [roles.ADMIN, roles.CAMPUS_MANAGER],
+            get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.USER, roles.TASK_MANAGER],
             put: [roles.ADMIN, roles.CAMPUS_MANAGER]
         },
         robot: {
@@ -224,7 +224,7 @@ exports.default = {
         },
         floorMapperz: {
             post: [roles.ADMIN, roles.CAMPUS_MANAGER],
-            get: [roles.ADMIN, roles.CAMPUS_MANAGER],
+            get: [roles.ADMIN, roles.CAMPUS_MANAGER, roles.TASK_MANAGER],
             put: [roles.ADMIN, roles.CAMPUS_MANAGER]
         }
     }
