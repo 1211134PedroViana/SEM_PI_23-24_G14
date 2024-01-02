@@ -1890,12 +1890,13 @@ export default class ThumbRaiser {
         }
     }
 
+    inElevator = false;
+
     elevatorAnimation(){
         this.animations.fadeToAction("ThumbsUp", 0.2);
         this.inElevator = true;
     }
 
-    inElevator = false;
     elevatorSequence(){
       if(this.inElevator) {
           this.elevatorUI.style.visibility = "visible";

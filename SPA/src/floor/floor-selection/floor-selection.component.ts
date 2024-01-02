@@ -64,7 +64,7 @@ export class SelectFloorComponent implements OnInit {
   }
 
     onSubmit() {
-        if (this.mazeService.collisionC) {
+        if (this.mazeService.inElevator) {
 
             this.openFloorListDialog();
 
@@ -79,7 +79,7 @@ export class SelectFloorComponent implements OnInit {
     }
 
     checkForCollision() {
-        if (this.mazeService.collisionC) {
+        if (this.mazeService.inElevator) {
             this.openFloorListDialog();
         }
     }

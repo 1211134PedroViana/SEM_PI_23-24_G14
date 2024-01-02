@@ -548,7 +548,7 @@
                   <label>Choose the destiny floor: </label>
                   <br>
                   <div id="elevator-ui">
-                    <select class="form-select" id="floor1" [(ngModel)]="selectedFloor" (change)="onFloorChange()">
+                    <select class="form-select" id="floor1" [(ngModel)]="selectedFloor" (change)="onFloorChange2()">
                       <option *ngFor="let floor of floors" [value]="floor.id">{{ floor.floorNumber }}</option>
                     </select>
                   </div>
