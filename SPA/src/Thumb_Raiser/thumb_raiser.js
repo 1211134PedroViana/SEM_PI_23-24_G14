@@ -1608,9 +1608,10 @@ export default class ThumbRaiser {
                             ? this.player.radius
                             : this.player.halfSize
                     )) {
-                        this.elevatorSequence();
-                        //this.maze.getPopupContent();
-                        //this.audio.play(this.audio.danceClips, false);
+                        this.elevatorAnimation()
+                        setTimeout(() => {
+                            this.elevatorSequence();
+                        }, 1000);
                     }
                     else if (this.player.keyStates.jump) {
                         this.audio.play(this.audio.jumpClips, true);
@@ -1889,11 +1890,16 @@ export default class ThumbRaiser {
         }
     }
 
+    elevatorAnimation(){
+        this.animations.fadeToAction("ThumbsUp", 0.2);
+        this.inElevator = true;
+    }
+
     inElevator = false;
     elevatorSequence(){
-      this.animations.fadeToAction("ThumbsUp", 0.2);
-      this.elevatorUI.style.visibility = "visible";
-      this.inElevator = true;
-      this.gameRunning = false;
+      if(this.inElevator) {
+          this.elevatorUI.style.visibility = "visible";
+          this.gameRunning = false;
+      }
     }
 }
