@@ -1,0 +1,23 @@
+@startuml
+
+activate SPA
+SPA -> GestaoInfoAPI : post(api/systemUserCopy)
+activate GestaoInfoAPI
+GestaoInfoAPI -> SystemUserCopyController : post
+activate SystemUserCopyController
+SystemUserCopyController -> SystemUserCopyService : createSystemUserCopy()
+activate SystemUserCopyService
+SystemUserCopyService -> SystemUserCopy : create
+SystemUserCopyService -> SystemUserCopyRepo : save(systemUserCopy)
+activate SystemUserCopyRepo
+SystemUserCopyRepo -> SystemUserCopyService : systemUserCopy
+deactivate SystemUserCopyRepo
+SystemUserCopyService -> SystemUserCopyMap : toDTO(systemUserCopy)
+activate SystemUserCopyMap
+SystemUserCopyMap -> SystemUserCopyService : systemUserCopyDTO
+deactivate SystemUserCopyMap
+SystemUserCopyService -> SystemUserCopyController : systemUserCopyDTO()
+SystemUserCopyController -> GestaoInfoAPI : status code 201
+GestaoInfoAPI -> SPA : Success
+
+@enduml

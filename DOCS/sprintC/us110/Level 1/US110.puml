@@ -1,0 +1,13 @@
+@startuml
+
+activate User
+User -> UI : asks to create a systemUser data copy
+activate UI
+UI -> System : requests data(date, hour, email, roleId, phoneNumber, contribuinte)
+activate System
+System --> UI : creates the copy
+deactivate System
+UI --> User : shows confirmation and shows the data copy
+deactivate UI
+
+@enduml

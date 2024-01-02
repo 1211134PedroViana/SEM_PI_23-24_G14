@@ -1,0 +1,22 @@
+@startuml
+
+autonumber
+
+activate User
+
+User -> SPA : Asks to create a systemUser data copy
+activate SPA
+SPA -> SPA : requests data to the copy
+
+SPA -> SystemUserCopy : POST/ systemUserCopy(date, hour, email, roleId, phoneNumber, contribuinte)
+activate SystemUserCopy
+SystemUserCopy -> SPA : status code
+deactivate SystemUserCopy
+
+alt successfull case
+    SPA -> User: systemUser copy created successfully
+else failure
+    SPA -> User: systemUser copy not created
+end
+
+@enduml
