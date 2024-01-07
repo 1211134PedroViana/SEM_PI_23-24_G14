@@ -25,7 +25,7 @@ export default ({ app }: { app: express.Application }) => {
   // Enable Cross Origin Resource Sharing to all origins by default
   app.use(
     cors({
-      origin: 'http://localhost:4200',
+      origin: 'http://10.9.23.239',
       credentials: true,
     })
   );
