@@ -130,8 +130,8 @@ namespace Mpt.Controllers
             {
                 HttpOnly = true,
                 Expires = DateTime.UtcNow.AddDays(7),
-                SameSite = SameSiteMode.None,
-                Secure = true,
+                SameSite = SameSiteMode.Lax,
+                Secure = false,
                 Path = "/",
             };
 
