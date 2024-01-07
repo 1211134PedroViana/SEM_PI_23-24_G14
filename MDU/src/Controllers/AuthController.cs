@@ -131,16 +131,18 @@ namespace Mpt.Controllers
                 HttpOnly = true,
                 Expires = DateTime.UtcNow.AddDays(7),
                 SameSite = SameSiteMode.None,
-                Secure = false,
+                Secure = true,
                 Path = "/",
             };
 
+            /*
             if (this._env.IsDevelopment())
             {
                 cookieOptions.Secure = false;
                 cookieOptions.SameSite = SameSiteMode.Lax;
                 cookieOptions.Domain = "localhost";
             }
+            */
 
             Response.Cookies.Append(cName, token, cookieOptions);
         }
