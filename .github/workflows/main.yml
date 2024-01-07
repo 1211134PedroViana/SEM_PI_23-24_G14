@@ -8,7 +8,7 @@ on:
       - main  # Replace with your branch name
 
 jobs:
-  deploy-vm1:
+  deploy-MDR:
     runs-on: ubuntu-latest  # Use the latest Ubuntu image
 
     steps:
@@ -44,12 +44,12 @@ jobs:
           password: pJodbFI8EI5ZWNQmjemM
           script: |
             cd MDR 
-            npm run start
+            npm run start &
             
-  deploy-vm2:
+  deploy-SPA:
     runs-on: ubuntu-latest  # Use the latest Ubuntu image
 
-    needs: deploy-vm1
+    needs: deploy-MDR
 
     steps:
       - name: Checkout code
