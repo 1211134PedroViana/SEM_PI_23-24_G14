@@ -576,6 +576,19 @@ export default class Maze extends THREE.Group {
         const deltaZ = Math.abs(actual.z - destiny.z);
 
         // Check if the robot is within the specified offset from the center of the cell
+        return Math.abs(deltaX) < (0.5 - offset) * this.scale.x && Math.abs(deltaZ) < (0.5 - offset) * this.scale.z;
+
+    };
+
+    foundCell2(actual, destiny) {
+        // Define an offset to determine the proximity to the center of the cell
+        const offset = 0.45; // You can adjust this value based on your requirements
+
+        // Calculate the distance from the center of the cell
+        const deltaX = Math.abs(destiny.x - actual.x);
+        const deltaZ = Math.abs(destiny.z - actual.z);
+
+        // Check if the robot is within the specified offset from the center of the cell
         return deltaX < (0.5 - offset) * this.scale.x && deltaZ < (0.5 - offset) * this.scale.z;
     };
 

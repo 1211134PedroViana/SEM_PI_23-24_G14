@@ -1257,7 +1257,7 @@ export default class ThumbRaiser {
                 // Set the player's position and direction
                 if(this.generalParameters.isAutomaticPathing) {
                     let initialCell = [];
-                    initialCell.push(this.automaticPathingParameters.location[0].positionY - 0.2)
+                    initialCell.push(this.automaticPathingParameters.location[0].positionY)
                     initialCell.push(this.automaticPathingParameters.location[0].positionX)
                     let coords = this.maze.cellToCartesian(initialCell);
                     this.player.position.set(coords.x, coords.y, coords.z);
