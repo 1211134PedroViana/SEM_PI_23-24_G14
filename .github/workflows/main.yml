@@ -44,7 +44,6 @@ jobs:
           password: pJodbFI8EI5ZWNQmjemM
           script: |
             cd MDR 
-            ^C
             npm run start &
             
   deploy-SPA:
