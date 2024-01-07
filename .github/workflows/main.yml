@@ -25,16 +25,6 @@ jobs:
           cd MDR/src
           npm install
 
-      - name: Install Angular dependencies
-        run: |
-          cd SPA/src
-          npm install
-
-      - name: Build Angular application
-        run: |
-          cd SPA/src
-          npm run build
-
       - name: Copy files to node server
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -45,16 +35,6 @@ jobs:
           source: MDR/
           target: /root/
 
-      - name: Copy files to server
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: vsgate-ssh.dei.isep.ipp.pt
-          port: 11093
-          username: root
-          password: 123Lmaopass.
-          source: SPA/dist/spa/
-          target: /var/www/html
-
       - name: SSH into node server and start
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -64,16 +44,6 @@ jobs:
           password: pJodbFI8EI5ZWNQmjemM
           script: |
             cd MDR | npm run start
-
-      - name: SSH into server and restart web server
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: vsgate-ssh.dei.isep.ipp.pt
-          port: 11093
-          username: root
-          password: 123Lmaopass.
-          script: |
-            sudo systemctl restart apache2 
             
   deploy-vm2:
     runs-on: ubuntu-latest  # Use the latest Ubuntu image
