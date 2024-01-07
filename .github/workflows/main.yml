@@ -44,7 +44,7 @@ jobs:
           password: pJodbFI8EI5ZWNQmjemM
           script: |
             cd MDR 
-            nohup npm run start &
+            nohup npm run start </dev/null & disown
             
   deploy-SPA:
     runs-on: ubuntu-latest  # Use the latest Ubuntu image
