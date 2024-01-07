@@ -10,12 +10,14 @@
 :-dynamic transita/3.
 
 
-tarefa(t1, sala(k1), sala(apn)).
-tarefa(t2, sala(beng), sala(k2)).
-tarefa(t3, sala(r1), sala(r2)).
-tarefa(t4, sala(k2), sala(r1)).
-
-
+%tarefa(t1, sala(k1), sala(apn)).
+%tarefa(t2, sala(a203), sala(k2)).
+%tarefa(t3, sala(r1), sala(r2)).
+%tarefa(t4, sala(a202), sala(a207)).
+%tarefa(t5, sala(a205), sala(r1)).
+%tarefa(t6, sala(a201), sala(a209)).
+%tarefa(t7, sala(beng), sala(204)).
+%tarefa(t8, sala(208), sala(k1)).
 
 % gera dinamicamente todas as transicoes entre tarefas de uma só vez
 gera_transicoes :-
@@ -36,7 +38,7 @@ assert_transicoes([(IdOrigem, IdDestino, Eval) | Resto]) :-
 %% ALGORITMO GENÉTICO
 
 % tarefas(NTarefas).
-tarefas(4).
+tarefas(6).
 
 % parameteriza��o
 inicializa:-write('Numero de novas Geracoes: '),read(NG), 			(retract(geracoes(_));true), asserta(geracoes(NG)),

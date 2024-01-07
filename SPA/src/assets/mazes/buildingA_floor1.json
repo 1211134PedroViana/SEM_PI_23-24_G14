@@ -1,5 +1,5 @@
 {
-    "floorId": "219a9eb4-c2a7-49ff-ac36-828c0ad09684",
+    "floorId": "7c77aa86-00ff-4990-8a87-b52cabbd85b7",
     "maze": {
         "size": {
             "width": 22,
@@ -25,7 +25,7 @@
     },
     "room": [
         {
-            "roomId": "e7d0582f-ec35-463c-be8e-5ebdf9ed60eb",
+            "roomId": "5f307de9-2487-4c2d-96ff-fd204dd316b6",
             "dimension": {
                 "pos1": 0,
                 "pos2": 0,
@@ -36,6 +36,34 @@
                 "positionX": 10,
                 "positionY": 5,
                 "direction": "west"
+            }
+        },
+        {
+            "roomId": "4a5348e7-480e-49e6-8940-6e7f2faadac0",
+            "dimension": {
+                "pos1": 6,
+                "pos2": 2,
+                "pos3": 0,
+                "pos4": 0
+            },
+            "location": {
+                "positionX": 19,
+                "positionY": 2,
+                "direction": "north"
+            }
+        },
+        {
+            "roomId": "dc3631b6-9e82-4cbb-8a42-893b1219b0a5",
+            "dimension": {
+                "pos1": 6,
+                "pos2": 2,
+                "pos3": 0,
+                "pos4": 0
+            },
+            "location": {
+                "positionX": 12,
+                "positionY": 8,
+                "direction": "north"
             }
         },
         {
@@ -67,34 +95,6 @@
             }
         },
         {
-            "roomId": "cff7a5ea-ae60-491d-b9bb-ff460dab22e8",
-            "dimension": {
-                "pos1": 6,
-                "pos2": 2,
-                "pos3": 0,
-                "pos4": 0
-            },
-            "location": {
-                "positionX": 19,
-                "positionY": 2,
-                "direction": "north"
-            }
-        },
-        {
-            "roomId": "1bd2cef6-2fbc-4b66-a0b8-bfb9438758e7",
-            "dimension": {
-                "pos1": 6,
-                "pos2": 2,
-                "pos3": 0,
-                "pos4": 0
-            },
-            "location": {
-                "positionX": 12,
-                "positionY": 8,
-                "direction": "north"
-            }
-        },
-        {
             "roomId": "ca547801-5f44-45b1-b9a6-8bfc97f264a0",
             "dimension": {
                 "pos1": 6,
@@ -111,7 +111,7 @@
     ],
     "passage": [],
     "floorElevator": {
-        "elevatorId": "e03a4759-1bbf-4d33-a8de-26ef3759f736",
+        "elevatorId": "689141c8-0e87-4f6c-874a-89d793fe98fa",
         "location": {
             "positionX": 21,
             "positionY": 0,

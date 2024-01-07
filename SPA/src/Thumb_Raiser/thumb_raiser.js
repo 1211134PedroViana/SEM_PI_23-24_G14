@@ -519,7 +519,7 @@ export default class ThumbRaiser {
         this.help = { checkBox: document.getElementById("help") };
         this.help.checkBox.checked = false;
         this.elevatorUI = document.getElementById("elevator-panel");
-        this.elevatorUI.style.visibility = "hidden";
+        //this.elevatorUI.style.visibility = "hidden";
 
         // Create an ordered list containing the cameras whose viewports are currently visible
         // There must always be at least one visible viewport
