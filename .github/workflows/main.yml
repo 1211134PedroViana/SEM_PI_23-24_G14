@@ -43,7 +43,8 @@ jobs:
           username: root
           password: pJodbFI8EI5ZWNQmjemM
           script: |
-            cd MDR | npm run start
+            cd MDR 
+            npm run start
             
   deploy-vm2:
     runs-on: ubuntu-latest  # Use the latest Ubuntu image
