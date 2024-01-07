@@ -44,8 +44,7 @@ jobs:
           password: pJodbFI8EI5ZWNQmjemM
           script: |
             cd MDR 
-            npm install -g pm2
-            pm2 start npm --name robdronego -- start
+            pm2 start npm --name robdronego -- run start
             
   deploy-SPA:
     runs-on: ubuntu-latest  # Use the latest Ubuntu image
